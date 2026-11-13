@@ -1,0 +1,18 @@
+{
+  "slug": "granth_samajik_10_2026",
+  "board": "GRANTH-AI નમૂના બોર્ડ (ડેમો)",
+  "board_en": "GRANTH-AI Sample Board (demo - NOT GSEB)",
+  "medium": "ગુજરાતી",
+  "standard": 10,
+  "subject": "સામાજિક વિજ્ઞાન",
+  "subject_en": "Social Science",
+  "title": "ગ્રંથ સામાજિક વિજ્ઞાન નમૂના પાઠમાળા",
+  "edition_label": "2026 (પ્રથમ આવૃત્તિ)",
+  "academic_year": "2026-27",
+  "language": "gu",
+  "source_name": "GRANTH-AI Original Sample Material",
+  "source_url": "https://github.com/dhundhwana-arch/GRANTH-AI/tree/main/data/sample/granth_samajik_10_2026",
+  "license": "CC BY 4.0",
+  "permission_status": "AUTHORIZED",
+  "permission_note": "Original text written for the GRANTH-AI project as demonstration material. It is NOT a GSSTB/NCERT textbook and is not copied from one."
+}
