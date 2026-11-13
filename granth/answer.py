@@ -29,6 +29,7 @@ REASONS = {
     "no_authorized_textbook_in_scope": "પસંદ કરેલી શ્રેણીમાં કોઈ અધિકૃત અને મંજૂર થયેલું પાઠ્યપુસ્તક ઉપલબ્ધ નથી.",
     "no_content_terms": "પ્રશ્નમાં શોધી શકાય તેવો કોઈ મુખ્ય શબ્દ મળ્યો નથી.",
     "no_evidence": "પ્રશ્નના મુખ્ય શબ્દો પસંદ કરેલા પાઠ્યપુસ્તકમાં મળ્યા નથી.",
+    "premise_not_supported": "પ્રશ્નમાં માની લીધેલી વાત પસંદ કરેલા પાઠ્યપુસ્તકના કોઈ એક વાક્યમાં મળતી નથી, તેથી 'શા માટે' નો ઉત્તર આપી શકાતો નથી.",
     "low_coverage": "પ્રશ્નના કેટલાક મુખ્ય શબ્દો પસંદ કરેલા પાઠ્યપુસ્તકમાં મળ્યા નથી, તેથી ઉત્તર આપી શકાતો નથી.",
     "definition_not_found": "પસંદ કરેલા પાઠ્યપુસ્તકમાં આ શબ્દની વ્યાખ્યા મળી નથી.",
     "difference_not_supported": "પસંદ કરેલા પાઠ્યપુસ્તકમાં આ બે બાબતોની સરખામણી માટે પૂરતો આધાર મળ્યો નથી.",
@@ -186,6 +187,9 @@ def detect_mode(question: str) -> str:
     return "short"
 
 
+_PREMISE_Q = re.compile(r"શા\s*માટે|(?<!\S)કેમ(?!\S)|કારણ")
+
+
 def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapter_id) -> dict:
     """Returns {'parts': [...], 'note': str|None, 'length_supported': bool|None} or {'abstain': reason}."""
     results = res["results"]
@@ -250,6 +254,13 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
     # one_line / short / detailed / points
     if not units:
         return {"abstain": "low_coverage"}
+    if _PREMISE_Q.search(question):
+        # A "why / for what reason" question asserts a premise. A lexical engine cannot judge whether the
+        # textbook agrees with it, so it answers only when ONE textbook sentence carries every question term;
+        # otherwise it would be stitching sentences around a statement the textbook may never make.
+        need = {t["term"] or "?" + t["query"] for t in res["terms"]}
+        if not any(need <= set(g.content_terms(u["text"])) for u in units if u["kind"] == "sentence"):
+            return {"abstain": "premise_not_supported"}
     best = max(u["score"] for u in units)
     target = 1 if mode == "one_line" else (MARKS_TARGET.get(marks) if marks else MODE_TARGET[mode])
     floor = {"one_line": 1.0, "short": 0.5, "points": 0.34, "detailed": 0.34}[mode] * best

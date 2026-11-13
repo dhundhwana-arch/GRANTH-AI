@@ -281,8 +281,14 @@ def ingest_pdf(con, pdf_path: Path, meta: dict, ocr: OcrAdapter | None = None, f
                min_confidence: float = 0.6) -> dict:
     """Full PDF route. Editions ingested from PDFs start as review_status='pending' (admin must approve)."""
     pdf_path = Path(pdf_path)
-    edition_id = register_edition(con, meta)
     sha = sha256_file(pdf_path) if pdf_path.is_file() else None
+    if sha and not force:
+        dup = _is_duplicate(con, None, sha, force)       # same file already ingested (under any slug)?
+        if dup:
+            jid = _start_job(con, None, pdf_path, sha, "pdf")
+            _finish_job(con, jid, "duplicate", {"duplicate_of": dup["slug"]})
+            return {"job_id": jid, "edition_id": dup["id"], "status": "duplicate", "duplicate_of": dup["slug"]}
+    edition_id = register_edition(con, meta)
     jid = _start_job(con, edition_id, pdf_path, sha, "pdf")
     try:
         _require_authorized(con, edition_id)

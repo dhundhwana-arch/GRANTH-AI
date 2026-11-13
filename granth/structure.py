@@ -128,7 +128,8 @@ def structure_pages(pages: list[tuple[int, str]]) -> Structure:
                 cur_sec = None
                 continue
             m = SECTION_RE.match(line)
-            if m and not para and not line.endswith((".", "।")) and (cur_ch is None or m.group(1).split(".")[0] == str(cur_ch.number)):
+            # (a heading may directly follow prose when OCR drops blank lines, so we do not require an empty buffer)
+            if m and len(line) <= 70 and not line.endswith((".", "।", ",", ":")) and (cur_ch is None or m.group(1).split(".")[0] == str(cur_ch.number)):
                 flush()
                 cur_sec = Section(m.group(1), m.group(2).strip(), page_no)
                 if cur_ch:

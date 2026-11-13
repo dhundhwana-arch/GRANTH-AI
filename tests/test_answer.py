@@ -120,3 +120,15 @@ def test_audit_trail_and_history(con, ids):
     h = answer.history(con, "s1")
     assert [x["status"] for x in h] == ["abstained", "answered"] and h[1]["input_method"] == "voice"
     assert answer.history(con, "someone-else") == []
+
+
+def test_false_premise_why_question_abstains(con, ids):
+    """The sample book says plants take in carbon dioxide; a 'why do they absorb oxygen' premise must not be answered."""
+    r = answer.ask(con, "પ્રકાશસંશ્લેષણમાં વનસ્પતિ ઑક્સિજન શોષે છે તે શા માટે?", {"edition_id": ids["sci"]})
+    assert r["status"] == "abstained"
+    assert r["reason"] == "premise_not_supported"
+    assert not r.get("citations")
+    # a 'because of what' question whose terms all sit in one textbook sentence is still answered
+    ok = answer.ask(con, "પર્ણનો રંગ લીલો શા કારણે દેખાય છે?", {"edition_id": ids["sci"]})
+    assert ok["status"] == "answered"
+    assert "હરિતદ્રવ્યને કારણે પર્ણનો રંગ લીલો દેખાય છે." in ok["answer"]["text"]

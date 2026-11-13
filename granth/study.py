@@ -192,11 +192,13 @@ def practice_questions(con, chapter_id: int, limit: int = 20) -> dict | None:
                            "section_title": d["section_title"]})
     for f in rev["formulas"]:
         body = re.sub(r"^સૂત્ર\s*[:\-]\s*", "", f["text"])
-        if "=" in body:
-            lhs, rhs = body.split("=", 1)
-            qs.append({"type": "formula", "question": f"પાઠ્યપુસ્તકમાં આપેલું સૂત્ર પૂર્ણ કરો: {lhs.strip()} = ________",
-                       "answer": f["text"], "page_number": f["page_number"], "chunk_id": f["chunk_id"],
-                       "section_title": f["section_title"]})
+        for sep, word in (("=", "સૂત્ર"), ("→", "સમીકરણ")):
+            if sep in body:
+                lhs = body.split(sep, 1)[0].strip()
+                qs.append({"type": "formula", "question": f"પાઠ્યપુસ્તકમાં આપેલું {word} પૂર્ણ કરો: {lhs} {sep} ________",
+                           "answer": f["text"], "page_number": f["page_number"], "chunk_id": f["chunk_id"],
+                           "section_title": f["section_title"]})
+                break
     for s in rev["sections"]:
         qs.append({"type": "short_note", "question": f"ટૂંકનોંધ લખો: {s['title'].rstrip('?')}", "answer": None,
                    "page_number": s["page_start"], "chunk_id": None, "section_title": f"{s['number']} {s['title']}",

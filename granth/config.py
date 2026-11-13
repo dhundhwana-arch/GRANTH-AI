@@ -37,7 +37,7 @@ def get_int(name: str, default: int) -> int:
 
 
 def db_path() -> Path:
-    return Path(get("GRANTH_DB_PATH", str(ROOT / "var" / "granth.sqlite3")))
+    return Path(get("GRANTH_DB_PATH") or str(ROOT / "var" / "granth.sqlite3"))   # empty value = default
 
 
 def mask(secret: str) -> str:
