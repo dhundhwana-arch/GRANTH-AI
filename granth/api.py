@@ -40,6 +40,10 @@ class ApiError(Exception):
         self.status, self.message = status, message
 
 
+if config.get("GRANTH_ALLOW_FRAMING") == "1":      # only for iframe-based previews; default keeps clickjacking protection
+    SECURITY_HEADERS.pop("X-Frame-Options", None)
+
+
 def _rate_ok(ip: str) -> bool:
     now = time.monotonic()
     with _hits_lock:
