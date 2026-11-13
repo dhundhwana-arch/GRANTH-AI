@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-11-13T20:54:31.071986Z",
+  "user_agent": "GRANTH-AI-discovery/0.1 (+https://github.com/dhundhwana-arch/GRANTH-AI; metadata only)",
+  "sources": [
+    {
+      "source_id": "gsstb",
+      "name": "Gujarat State Board of School Textbooks (GSSTB)",
+      "permission_status": "UNKNOWN",
+      "permission_basis": "No explicit open licence or reuse grant for software/AI use was found. Textbooks are copyright of the Board. Written permission must be obtained before any ingestion.",
+      "checked_at": "2026-11-13T20:54:31.071993Z",
+      "catalogues": [
+        {
+          "url": "https://gsstb.gujarat.gov.in/Home/gsstb/Std9to12",
+          "robots_status": "UNREACHABLE",
+          "robots_detail": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+          "fetch_status": "SKIPPED"
+        }
+      ],
+      "books": []
+    },
+    {
+      "source_id": "ncert",
+      "name": "NCERT",
+      "permission_status": "PROHIBITED",
+      "permission_basis": "NCERT copyright notice on the textbook page: use of the online books 'as a part of digital content packages or software is also strictly prohibited'; no hosting or redistribution. Not ingested. Only written permission from NCERT could change this.",
+      "checked_at": "2026-11-13T20:54:31.326172Z",
+      "catalogues": [
+        {
+          "url": "https://ncert.nic.in/textbook.php",
+          "robots_status": "UNREACHABLE",
+          "robots_detail": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+          "fetch_status": "SKIPPED"
+        }
+      ],
+      "books": []
+    },
+    {
+      "source_id": "diksha",
+      "name": "DIKSHA",
+      "permission_status": "UNKNOWN",
+      "permission_basis": "Licence is declared per content item (many items are CC-licensed, others are not). Each item's licence field must be read and recorded before use; nothing is assumed.",
+      "checked_at": "2026-11-13T20:54:31.581986Z",
+      "catalogues": [
+        {
+          "url": "https://diksha.gov.in/",
+          "robots_status": "UNREACHABLE",
+          "robots_detail": "URLError: <urlopen error TLS/SSL connection has been closed (EOF) (_ssl.c:992)>",
+          "fetch_status": "SKIPPED"
+        }
+      ],
+      "books": []
+    }
+  ]
+}
