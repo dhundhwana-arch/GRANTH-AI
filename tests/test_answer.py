@@ -132,3 +132,15 @@ def test_false_premise_why_question_abstains(con, ids):
     ok = answer.ask(con, "પર્ણનો રંગ લીલો શા કારણે દેખાય છે?", {"edition_id": ids["sci"]})
     assert ok["status"] == "answered"
     assert "હરિતદ્રવ્યને કારણે પર્ણનો રંગ લીલો દેખાય છે." in ok["answer"]["text"]
+
+
+def test_term_containing_tafavat_is_not_a_difference_question(con, ids):
+    r = answer.ask(con, "5 ઓહ્મ અવરોધ અને 2 ઍમ્પિયર વિદ્યુતપ્રવાહ હોય તો વિદ્યુતસ્થિતિમાનનો તફાવત કેટલો થાય?", {"edition_id": ids["sci"]})
+    assert r["status"] == "answered"
+    assert "10 વોલ્ટ" in r["answer"]["text"]
+    assert answer.detect_mode("જારક શ્વસન અને અજારક શ્વસન વચ્ચેનો તફાવત લખો.") == "difference"
+
+
+def test_premise_that_textbook_statement_is_wrong_abstains(con, ids):
+    r = answer.ask(con, "ઓહ્મનો નિયમ ખોટો છે તેનું કારણ સમજાવો.", {"edition_id": ids["sci"]})
+    assert r["status"] == "abstained"

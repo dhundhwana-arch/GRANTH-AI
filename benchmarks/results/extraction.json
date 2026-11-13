@@ -1,0 +1,31 @@
+{
+  "executed_at": "2026-11-13T21:17:38Z",
+  "engine_version": "extractive-1.0",
+  "corpus": "bundled CC BY 4.0 sample books (data/sample)",
+  "editions": [
+    {
+      "edition": "granth_samajik_10_2026",
+      "pages": 2,
+      "max_page_cer": 0.0,
+      "mean_page_cer": 0.0,
+      "chapters": 2,
+      "text_chunks": 11
+    },
+    {
+      "edition": "granth_vigyan_10_2026",
+      "pages": 10,
+      "max_page_cer": 0.0,
+      "mean_page_cer": 0.0,
+      "chapters": 5,
+      "text_chunks": 64
+    },
+    {
+      "edition": "granth_vigyan_10_2027",
+      "pages": 2,
+      "max_page_cer": 0.0,
+      "mean_page_cer": 0.0,
+      "chapters": 1,
+      "text_chunks": 15
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "executed_at": "2026-11-13T21:17:10Z",
+  "engine_version": "extractive-1.0",
+  "corpus": "bundled CC BY 4.0 sample books (data/sample)",
+  "ran": true,
+  "engine": "tesseract.js 7 (guj+eng), 200 dpi",
+  "material": "printed, computer-rendered sample PDF (NOT scanned, NOT handwritten)",
+  "pages": 10,
+  "seconds": 15.6,
+  "mean_cer": 0.0649,
+  "max_cer": 0.1283,
+  "min_cer": 0.0226,
+  "per_page": [
+    {
+      "page": 1,
+      "cer": 0.1215,
+      "engine_confidence": 0.85
+    },
+    {
+      "page": 2,
+      "cer": 0.0326,
+      "engine_confidence": 0.88
+    },
+    {
+      "page": 3,
+      "cer": 0.0843,
+      "engine_confidence": 0.92
+    },
+    {
+      "page": 4,
+      "cer": 0.0226,
+      "engine_confidence": 0.91
+    },
+    {
+      "page": 5,
+      "cer": 0.0334,
+      "engine_confidence": 0.91
+    },
+    {
+      "page": 6,
+      "cer": 0.0384,
+      "engine_confidence": 0.86
+    },
+    {
+      "page": 7,
+      "cer": 0.0426,
+      "engine_confidence": 0.88
+    },
+    {
+      "page": 8,
+      "cer": 0.1089,
+      "engine_confidence": 0.87
+    },
+    {
+      "page": 9,
+      "cer": 0.1283,
+      "engine_confidence": 0.87
+    },
+    {
+      "page": 10,
+      "cer": 0.0362,
+      "engine_confidence": 0.9
+    }
+  ]
+}

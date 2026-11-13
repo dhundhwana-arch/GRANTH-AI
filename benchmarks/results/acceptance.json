@@ -1,0 +1,56 @@
+{
+  "executed_at": "2026-11-13T21:17:38Z",
+  "engine_version": "extractive-1.0",
+  "corpus": "bundled CC BY 4.0 sample books (data/sample)",
+  "student_A": {
+    "question": "પ્રકાશસંશ્લેષણ એટલે શું?",
+    "status": "answered",
+    "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે.",
+    "cited_pages": [
+      1
+    ],
+    "chapter": "સજીવોમાં પોષણ",
+    "verified": true,
+    "cache_hit": false,
+    "external_api_calls": 0,
+    "ms": 10.72,
+    "pass": true
+  },
+  "student_B": {
+    "question": "પ્રકાશસંશ્લેષણ એટલે શું?",
+    "status": "answered",
+    "cache_hit": true,
+    "same_answer": true,
+    "external_api_calls": 0,
+    "ms": 0.46,
+    "pass": true
+  },
+  "student_C": {
+    "question": "જ્વાળામુખી કેવી રીતે ફાટે છે?",
+    "status": "abstained",
+    "message": "આ પસંદ કરેલા પાઠ્યપુસ્તકમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી.",
+    "citations": 0,
+    "pass": true
+  },
+  "apis_disconnected": {
+    "question": "ઓહ્મનો નિયમ લખો",
+    "status": "answered",
+    "cited_pages": [
+      7,
+      8
+    ],
+    "external_api_calls": 0,
+    "pass": true
+  },
+  "usage": {
+    "external_api_calls": 0,
+    "cache": {
+      "entries": 1,
+      "hits": 1,
+      "misses": 2,
+      "hit_rate": 0.3333
+    },
+    "local_retrievals": 3
+  },
+  "all_pass": true
+}

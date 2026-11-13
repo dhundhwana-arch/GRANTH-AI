@@ -37,7 +37,8 @@ REASONS = {
     "verification_failed": "ઉત્તર પાઠ્યપુસ્તકના પુરાવા સાથે ચકાસી શકાયો નથી, તેથી બતાવ્યો નથી.",
 }
 _DEF_INTENT = re.compile(r"(એટલે\s+શુ|કોને\s+કહે|વ્યાખ્યા|શું?\s+છે\s*\??$)")
-_DIFF_INTENT = re.compile(r"(તફાવત|ભેદ)")
+# "difference" intent needs a compare cue; a bare "તફાવત" is also part of the term "વિદ્યુતસ્થિતિમાનનો તફાવત"
+_DIFF_INTENT = re.compile(r"(વચ્ચે\S*\s+(?:\S+\s+)?(?:તફાવત|ભેદ)|(?:તફાવત|ભેદ)\s+(?:લખો|આપો|જણાવો|સમજાવો|દર્શાવો|સ્પષ્ટ|કયો|શો|શું))")
 _FORMULA_INTENT = re.compile(r"(સૂત્ર|સમીકરણ)")
 _DIFF_PARSE = re.compile(r"^(.*?)\s+અને\s+(.*?)\s+(?:વચ્ચે\S*|ન[ોા]\s+(?:તફાવત|ભેદ)|તફાવત|ભેદ)")
 _EV_FIELDS = ("id", "edition_id", "chapter_id", "section_id", "page_number", "chunk_index", "kind", "text", "text_sha256",
@@ -187,6 +188,7 @@ def detect_mode(question: str) -> str:
     return "short"
 
 
+_CLAIM_WORDS = ("ખોટ", "નથી", "સાચ", "ક્યારેય", "હંમેશ")
 _PREMISE_Q = re.compile(r"શા\s*માટે|(?<!\S)કેમ(?!\S)|કારણ")
 
 
@@ -259,7 +261,10 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
         # textbook agrees with it, so it answers only when ONE textbook sentence carries every question term;
         # otherwise it would be stitching sentences around a statement the textbook may never make.
         need = {t["term"] or "?" + t["query"] for t in res["terms"]}
-        if not any(need <= set(g.content_terms(u["text"])) for u in units if u["kind"] == "sentence"):
+        # judgement / negation words are stop-words for retrieval but they carry the premise ("... is wrong, why?")
+        claims = [w for w in _CLAIM_WORDS if w in question]
+        if not any(need <= set(g.content_terms(u["text"])) and all(w in u["text"] for w in claims)
+                   for u in units if u["kind"] == "sentence"):
             return {"abstain": "premise_not_supported"}
     best = max(u["score"] for u in units)
     target = 1 if mode == "one_line" else (MARKS_TARGET.get(marks) if marks else MODE_TARGET[mode])
