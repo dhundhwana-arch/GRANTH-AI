@@ -1,0 +1,12 @@
+{
+  "name": "GRANTH-AI · ગ્રંથ-એઆઈ",
+  "short_name": "GRANTH-AI",
+  "description": "ગુજરાતી માધ્યમના વિદ્યાર્થીઓ માટે પાઠ્યપુસ્તક-આધારિત પ્રશ્નોત્તર",
+  "lang": "gu",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff8ef",
+  "theme_color": "#7a2e0e",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
