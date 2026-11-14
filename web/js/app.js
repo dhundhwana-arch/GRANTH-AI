@@ -189,6 +189,7 @@ function explanationHtml(ex, idp = '') {
     <p class="muted">${esc(ex.label_gu)}</p>
     ${ex.lines.length ? `<ol class="exlines">${ex.lines.map((l) => `<li>${esc(l.text)} ${pg(l.evidence[0])}</li>`).join('')}</ol>` : ''}
     ${ex.everyday_words.length ? `<p class="muted">${esc(ex.everyday_label_gu)}</p>` : ''}
+    ${(ex.english_terms || []).length ? `<p class="muted english-note">${esc(ex.english_label_gu)}</p>` : ''}
     ${ex.terms.length ? `<h4>${esc(ex.terms_label_gu)}</h4><ul class="clean exterms">${ex.terms.map((t) => `<li><strong>${esc(t.term)}</strong> — “${esc(t.meaning)}” ${pg(t)}</li>`).join('')}</ul>` : ''}
     ${ex.examples.length ? `<h4>${esc(ex.examples_label_gu)}</h4>${ex.examples.map((e) => `<blockquote>${esc(e.text)} ${pg(e)}</blockquote>`).join('')}` : ''}
   </details>`;

@@ -186,7 +186,8 @@ def test_explanation_is_separate_traceable_and_adds_no_fact(con, ids):
 
 def test_explanation_definition_question_form_and_fallback(con, ids):
     ex = ask(con, ids, "અંતર્ગોળ અરીસો એટલે શું?")["structured"]["explanation"]
-    assert ex["lines"][0]["text"] == "‘અંતર્ગોળ અરીસો’ એ એક નામ (પારિભાષિક શબ્દ) છે."
+    # Phase 5 adds the English term in round brackets; without the brackets the line is unchanged
+    assert explain._GLOSS.sub("", ex["lines"][0]["text"]) == "‘અંતર્ગોળ અરીસો’ એ એક નામ (પારિભાષિક શબ્દ) છે."
     assert ex["lines"][1]["text"].startswith("કોને ‘અંતર્ગોળ અરીસો’ કહે છે? — જે ગોળીય અરીસાની")
     # tampering is detected: an added fact or a dropped word fails verification
     src = CONCAVE_DEF

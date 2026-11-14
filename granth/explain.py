@@ -26,7 +26,7 @@ from . import gujarati as g, study
 ROOT = Path(__file__).resolve().parent.parent
 LABEL = "સરળ સમજૂતી — GRANTH-AI એ ઉપરના અવતરણ પરથી નિયમો વડે બનાવી છે; આ પુસ્તકનું અવતરણ નથી"
 FALLBACK = "આ ઉત્તર માટે સલામત સરળ સમજૂતી બનાવી શકાઈ નથી. ઉપર આપેલું પુસ્તકનું મૂળ લખાણ જ વાંચો."
-_GLOSS = re.compile(r"\s*\[રોજિંદો શબ્દ: [^\]]*\]")
+_GLOSS = re.compile(r"\s*\[રોજિંદો શબ્દ: [^\]]*\]|\s*\((?:[a-z][a-z' -]*)\)(?=[\s.,;:?]|$)")
 _T_NAME = "‘{t}’ એ એક નામ (પારિભાષિક શબ્દ) છે."
 _T_WHO = "કોને ‘{t}’ કહે છે? — {d}."
 _T_FIRST = "પહેલાં આ વાત સમજો: {c}."
@@ -51,6 +51,24 @@ def _plain() -> dict:
         if len(st) == 1:
             out[st[0]] = (k, v)
     return out
+
+
+@lru_cache(maxsize=1)
+def _english() -> tuple[dict, dict]:
+    """(one-word stems, two-word stem pairs) -> English term, from GRANTH-AI's own word list (not textbook text)."""
+    raw = json.loads((ROOT / "data" / "glossary" / "en_gu_terms.json").read_text(encoding="utf-8")).get("english_display", {})
+    one, two = {}, {}
+    for gu, en in raw.items():
+        st = [x for w in gu.split() for x in g.content_terms(w)[:1]]
+        if len(gu.split()) == 1 and len(st) == 1:
+            one[st[0]] = (gu, en)
+        elif len(gu.split()) == 2 and len(st) == 2:
+            two[tuple(st)] = (gu, en)
+    return one, two
+
+
+def _digits(text: str) -> list:
+    return sorted(re.findall(r"[0-9૦-૯]+(?:\.[0-9૦-૯]+)?", text))
 
 
 def _restate(sentence: str) -> list[dict] | None:
@@ -95,6 +113,35 @@ def _gloss(text: str, used: set) -> tuple[str, list]:
     return " ".join(out), added
 
 
+def _english_gloss(text: str, used: set) -> tuple[str, list]:
+    """Put the English term in round brackets after a Gujarati technical word: "હરિતદ્રવ્યની (chlorophyll)"."""
+    one, two = _english()
+    toks, out, added, low = text.split(" "), [], [], text.lower()
+    stems = []
+    for tok in toks:
+        st = g.content_terms(tok.strip("‘’'\".,;:?()—")) if not tok.startswith("[") else []
+        stems.append(st[0] if len(st) == 1 else None)
+    i = 0
+    while i < len(toks):
+        hit, span = None, 1
+        if i + 1 < len(toks) and (stems[i], stems[i + 1]) in two:
+            hit, span = two[(stems[i], stems[i + 1])], 2
+        elif stems[i] in one and not (i and (stems[i - 1], stems[i]) in two):
+            hit = one[stems[i]]
+        out.extend(toks[i:i + span])
+        i += span
+        if not hit or hit[1] in used or hit[1].lower() in low:
+            continue
+        used.add(hit[1])
+        tail = ""
+        while out[-1] and out[-1][-1] in ".,;:?":
+            tail = out[-1][-1] + tail
+            out[-1] = out[-1][:-1]
+        out[-1] = f"{out[-1]} ({hit[1]}){tail}"
+        added.append({"word": hit[0], "english": hit[1], "source_type": "word_list"})
+    return " ".join(out), added
+
+
 def verify(lines: list[dict], part_text: str) -> bool:
     if not lines:
         return True
@@ -102,18 +149,22 @@ def verify(lines: list[dict], part_text: str) -> bool:
         return False
     orig = set(g.content_terms(part_text))
     built = set(g.content_terms(" ".join(_GLOSS.sub("", ln["text"]) for ln in lines)))
+    if _digits(part_text) != _digits(" ".join(_GLOSS.sub("", ln["text"]) for ln in lines)):
+        return False                                    # numbers, units and formula values must survive unchanged
     return orig <= built and (built - orig) <= _template_terms()
 
 
 def build(con, payload: dict) -> dict:
     parts = payload["answer"]["parts"]
     out = {"available": False, "label_gu": LABEL, "method": "rule-based (no AI model, no external API)", "lines": [], "terms": [],
-           "everyday_words": [], "examples": [], "fallback_gu": FALLBACK,
+           "everyday_words": [], "english_terms": [], "examples": [], "fallback_gu": FALLBACK,
            "everyday_label_gu": "ચોરસ કૌંસમાંના રોજિંદા શબ્દો GRANTH-AI ની શબ્દસૂચિમાંથી છે; તે પુસ્તકનું લખાણ નથી.",
+           "english_label_gu": "ગોળ કૌંસમાંના અંગ્રેજી શબ્દો GRANTH-AI ની શબ્દસૂચિમાંથી છે; તે પુસ્તકનું લખાણ નથી.",
            "terms_label_gu": "અઘરા શબ્દોનો અર્થ — પુસ્તકના પોતાના શબ્દોમાં", "examples_label_gu": "પુસ્તકમાં આપેલું ઉદાહરણ"}
     if payload["answer"].get("generated") or payload.get("mode") in ("steps", "formula"):
         return out
     used: set = set()
+    used_en: set = set()
     changed = False
     for p in parts:
         if p["kind"] != "sentence":
@@ -130,6 +181,12 @@ def build(con, payload: dict) -> dict:
             ln["text"], added = _gloss(ln["text"], used)
             out["everyday_words"] += added
             changed = changed or bool(added)
+            before = ln["text"]
+            ln["text"], added_en = _english_gloss(ln["text"], used_en)
+            if added_en and _GLOSS.sub("", ln["text"]) != _GLOSS.sub("", before):
+                ln["text"], added_en = before, []         # the bracket must be removable without changing the line
+            out["english_terms"] += added_en
+            changed = changed or bool(added_en)
             ln["evidence"] = ev
             out["lines"].append(ln)
     if not changed:

@@ -386,6 +386,19 @@ def _select(con, an: dict, res: dict, edition_ids, chapter_id, target: int, clai
         units = out
     lead = found[0]
     gaps = []
+    # "તે માપવા માટે વોલ્ટમીટર વપરાય છે." cannot be read alone: show the sentence it refers back to (same paragraph,
+    # word for word) and never label the pair "Verified" - which sentence "તે" points at is not checked by a rule.
+    out = []
+    for u in units:
+        if u["kind"] == "sentence" and u["row"]["kind"] == "paragraph" and u.get("pos") and u["text"].startswith(_ANAPHORA) \
+                and not re.search(r"કહે(?:વાય|વામાં આવે)?\s+છે\.?$", u["text"]) \
+                and g.split_sentences(u["row"]["text"])[u["pos"] - 1] not in " ".join(x["text"] for x in units + out):
+            prev = g.split_sentences(u["row"]["text"])[u["pos"] - 1]
+            out.append({"text": prev, "row": u["row"], "pos": u["pos"] - 1, "kind": "sentence", "lead": None})
+            if not any("પાછલા વાક્ય" in x for x in gaps):
+                gaps.append("બતાવેલું વાક્ય ‘તે / આ’ થી શરૂ થાય છે અને પાછલા વાક્યનો ઉલ્લેખ કરે છે; તેથી પાછલું વાક્ય પણ બતાવ્યું છે. ‘તે’ કઈ બાબત માટે છે તે જાતે ચકાસો.")
+        out.append(u)
+    units = out
     related = list(dict.fromkeys(x for f in found for x in f[2]["related"]))
     if related:
         gaps.append("પ્રશ્નનો આ શબ્દ બતાવેલા વાક્યમાં નથી; તેને મળતો શબ્દ છે: " + ", ".join(related) + ". બંને એક જ બાબત છે કે નહીં તે જાતે ચકાસો.")

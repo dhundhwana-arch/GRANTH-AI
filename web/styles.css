@@ -83,3 +83,9 @@ details.explain h4 { margin: .7rem 0 .2rem; font-size: 1rem; }
 ol.exlines { margin: .4rem 0 .4rem 1.2rem; padding: 0; line-height: 1.8; }
 .edres ul li { margin: .25rem 0; }
 button.danger { border-color: #b3261e; color: #b3261e; background: #fff; }
+
+/* Phase 5: asked word -> book word, "did you mean", and premise check */
+.term-matches { margin: .4rem 0; }
+.did-you-mean { margin: .5rem 0; padding: .5rem .7rem; border-left: 4px solid #b98900; background: #fffaf0; border-radius: 6px; }
+.premise { margin: .6rem 0; padding: .6rem .8rem; border: 1px solid #c9ced6; border-left: 4px solid #8a5a00; border-radius: 8px; background: #fbfbf7; }
+.premise blockquote { margin: .4rem 0; }
