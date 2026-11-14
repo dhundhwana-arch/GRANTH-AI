@@ -10,7 +10,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const ABSTAIN = 'આ પસંદ કરેલા પાઠ્યપુસ્તકમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી.';
 const TIMEOUT_MS = 15000;
 const MODES = [['auto', 'આપમેળે'], ['one_line', 'એક વાક્યમાં ઉત્તર'], ['definition', 'વ્યાખ્યા'], ['short', 'ટૂંકો ઉત્તર'],
-  ['detailed', 'વિગતવાર ઉત્તર'], ['points', 'મુદ્દાસર ઉત્તર'], ['difference', 'બે બાબતો વચ્ચેનો તફાવત'], ['formula', 'સૂત્ર આધારિત ઉત્તર']];
+  ['detailed', 'વિગતવાર ઉત્તર'], ['points', 'મુદ્દાસર ઉત્તર'], ['difference', 'બે બાબતો વચ્ચેનો તફાવત'], ['formula', 'સૂત્ર આધારિત ઉત્તર'], ['steps', 'પગલાંવાર ઉદાહરણ (ગણિત/દાખલો)']];
 const FEEDBACK = [['incorrect_answer', 'ઉત્તર ખોટો છે'], ['incorrect_page', 'પૃષ્ઠ ક્રમાંક ખોટો છે'], ['missing_content', 'પાઠ્યપુસ્તકનું લખાણ ખૂટે છે'], ['ocr_error', 'ગુજરાતી અક્ષરોમાં ભૂલ (OCR)']];
 
 // ---------------------------------------------------------------- state
@@ -58,6 +58,9 @@ async function loadCatalog() {
 }
 
 function currentEdition() {
+  if (sel.personal && sel.edition_id) {
+    return { personal: true, book: { title: sel.personal, standard: '—', subject: 'મારી નોંધ', medium: '—', board: 'મારી ખાનગી નોંધ – ફક્ત તમને જ દેખાય છે, પાઠ્યપુસ્તક નથી' }, edition: { edition_label: 'ખાનગી', edition_id: sel.edition_id } };
+  }
   if (!catalog || !sel.edition_id) return null;
   for (const b of catalog.textbooks) for (const e of b.editions) if (e.edition_id === sel.edition_id) return { book: b, edition: e };
   return null;
@@ -110,42 +113,97 @@ function citationHtml(c) {
     <dt>વિષય</dt><dd>${esc(c.subject)}</dd><dt>પુસ્તક</dt><dd>${esc(c.book_title)} (${esc(c.edition)})</dd>
     <dt>પ્રકરણ</dt><dd>${esc(c.chapter_number)}: ${esc(c.chapter_title)}</dd>
     ${c.section_title ? `<dt>વિભાગ</dt><dd>${esc(c.section_title)}</dd>` : ''}
-    <dt>પૃષ્ઠ</dt><dd><a href="#/page/${c.edition_id}/${c.page_number}" class="pagelink">${esc(c.page_number)}</a></dd></dl>`;
+    <dt>પૃષ્ઠ</dt><dd><a href="#/page/${c.edition_id}/${c.page_number}" class="pagelink btn small">પૃષ્ઠ ${esc(c.page_number)} ખોલો →</a></dd></dl>`;
 }
 
 function evidenceHtml(evidence, parts) {
   const quotes = (parts || []).map((p) => p.text);
   return evidence.map((e) => `<blockquote data-chunk="${e.chunk_id}">${highlight(e.text, quotes)}
-    <br><span class="muted">પૃષ્ઠ ${esc(e.page_number)} · ${esc(e.section_title || e.chapter_title || '')} · નિષ્કર્ષણ વિશ્વાસ ${Math.round((e.extraction_confidence || 0) * 100)}%
+    <br><span class="muted">પૃષ્ઠ ${esc(e.page_number)} · ${esc(e.section_title || e.chapter_title || '')}
     · <a href="#/page/${e.edition_id}/${e.page_number}">આખું પૃષ્ઠ જુઓ</a></span></blockquote>`).join('');
+}
+
+const TRUST_CLASS = { verified: 'ok', partial: 'warn', insufficient: 'bad' };
+function trustHtml(st) {
+  const t = st && st.trust;
+  if (!t) return '';
+  return `<h3>વિશ્વસનીયતા સ્થિતિ</h3><p class="trust" data-trust="${esc(t.status)}"><span class="badge big ${TRUST_CLASS[t.status] || 'warn'}">${esc(t.label_gu)}</span> <span class="muted">${esc(t.label_en)}</span></p>
+    ${t.reasons && t.reasons.length ? `<ul class="reasons">${t.reasons.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}`;
+}
+const partsText = (parts) => parts.map((p) => p.text).join(p0(parts));
+function p0(parts) { return parts.some((p) => p.kind !== 'sentence') ? '\n' : ' '; }
+
+function answeredBody(r, idp = '') {
+  const st = r.structured;
+  const gen = r.answer.generated;
+  if (!st) return `<div class="text" id="${idp}answer-text">${renderText(r.answer.text)}</div>`;      // answers saved by an older version
+  const steps = r.mode === 'steps';
+  const simple = gen || steps ? r.answer.text : partsText(st.simple_answer);
+  const points = gen || steps ? [] : st.key_points;
+  return `<div id="${idp}answer-text">
+      <h3>${steps ? 'પગલાંવાર ઉકેલ' : 'સરળ જવાબ'}</h3>
+      <p class="kind"><span class="badge ${gen ? 'warn' : st.answer_source_type === 'quotation' ? 'ok' : 'warn'}">${esc(st.answer_source_label)}</span></p>
+      <div class="text simple">${renderText(simple)}</div>
+      ${points.length ? `<h3>મુખ્ય મુદ્દા</h3><ul class="points">${points.map((p) => `<li>${renderText(p.text)}</li>`).join('')}</ul>` : ''}
+    </div>
+    ${st.word_help && st.word_help.length ? `<div class="help"><h3>અઘરા શબ્દો <span class="muted">(${esc(st.word_help_label)})</span></h3><ul class="clean">${st.word_help.map((w) => `<li><strong>${esc(w.word)}</strong> — ${esc(w.meaning)}</li>`).join('')}</ul></div>` : ''}
+    ${st.english_terms && st.english_terms.length ? `<p class="enterms"><span class="muted">${esc(st.english_terms_label)}:</span> ${st.english_terms.map((t) => `${esc(t.gu)} (${esc(t.en)})`).join(', ')}</p>` : ''}
+    ${(st.notes || []).map((n) => `<div class="note">${esc(n)}</div>`).join('')}`;
+}
+
+function supplementaryHtml(sp) {
+  if (!sp) return '';
+  const head = `<h2>પૂરક સ્રોતમાંથી <span class="badge warn">પાઠ્યપુસ્તકનો ભાગ નથી</span></h2>
+    <p class="note">${esc(sp.notice_gu)}</p>
+    <p class="muted">સ્રોત: <strong>${esc(sp.source.title)}</strong> · લાઇસન્સ: ${esc(sp.source.license || '—')}<br>${esc(sp.source.attribution || '')}</p>`;
+  if (sp.status !== 'answered') {
+    return `<section class="card supp" id="supplementary" data-status="${esc(sp.status)}">${head}<p><strong>પસંદ કરેલા પૂરક સ્રોતમાં પણ આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી.</strong></p>${sp.reason_gu ? `<p class="muted">${esc(sp.reason_gu)}</p>` : ''}</section>`;
+  }
+  return `<section class="card supp" id="supplementary" data-status="answered">${head}
+    ${answeredBody(sp, 'supp-')}
+    <h3>પૂરક સ્રોતનો આધાર</h3>${sp.citations.map(citationHtml).join('<hr>')}
+    ${trustHtml(sp.structured)}
+    <details><summary>પૂરક સ્રોતનું મૂળ લખાણ જુઓ</summary>${evidenceHtml(sp.evidence, sp.answer.parts)}</details></section>`;
+}
+
+function translationHtml(r) {
+  const t = r.query_translation;
+  if (!t) return '';
+  return `<div class="note" id="translation-note">${esc(t.note_gu)}<br><span class="muted">શોધ માટેનો પ્રશ્ન: ${esc(t.working_question)}${t.unmapped && t.unmapped.length ? ` · સૂચિમાં ન મળેલા અંગ્રેજી શબ્દો: ${t.unmapped.map(esc).join(', ')}` : ''}</span></div>`;
 }
 
 function resultHtml(r, opts = {}) {
   const banner = opts.offlineSaved ? `<div class="note">ઑફલાઇન: આ ઉપકરણ પર સંગ્રહિત, અગાઉ ચકાસાયેલો ઉત્તર (${esc(opts.offlineSaved.slice(0, 10))}).</div>` : '';
+  const qline = `<h3>પ્રશ્ન</h3><p class="qtext">${esc((r.structured && r.structured.question) || r.question || '')}</p>`;
+  const save = r.answer_id && !opts.noSave ? `<button type="button" class="small savea" data-a="${r.answer_id}">⭐ ઉત્તર સાચવો</button>` : '';
   if (r.status === 'answered') {
     const cacheBadge = r.cache && r.cache.hit ? '<span class="badge ok">સંગ્રહિત ચકાસાયેલો ઉત્તર (cache)</span>' : '';
-    const gen = r.answer.generated ? '<span class="badge warn">AI દ્વારા શબ્દરચના – પુરાવા સાથે ચકાસેલી</span>' : '<span class="badge ok">પાઠ્યપુસ્તકના શબ્દોમાં</span>';
     return `${banner}<section class="card answer" id="answer" data-status="answered">
-      <h2>ઉત્તર <span class="muted">(${esc(r.mode_label || '')}${r.marks ? `, ${r.marks} ગુણ` : ''})</span></h2>
-      <div class="text" id="answer-text">${renderText(r.answer.text)}</div>
+      <h2>ઉત્તર <span class="muted">(${esc(r.mode_label || '')}${r.marks ? `, ${r.marks} ગુણ` : ''})</span> ${cacheBadge}</h2>
+      ${qline}${translationHtml(r)}
+      ${answeredBody(r)}
       ${r.note ? `<div class="note" id="answer-note">${esc(r.note)}</div>` : ''}
       ${r.edition_note ? `<div class="note">${esc(r.edition_note)}</div>` : ''}
-      <p><span class="badge ok">✔ પુરાવા સાથે ચકાસેલું</span>${gen}${cacheBadge}</p>
-      <div class="row"><button type="button" id="speak" class="small">🔊 ઉત્તર સાંભળો</button><span id="speak-msg" class="muted"></span></div>
-      <h3>સ્રોત</h3>${r.citations.map(citationHtml).join('<hr>')}
-      <h3>પુરાવો (પાઠ્યપુસ્તકનું લખાણ)</h3><div id="evidence">${evidenceHtml(r.evidence, r.answer.parts)}</div>
-      ${feedbackHtml(r)}</section>`;
+      <h3>પુસ્તકનો આધાર</h3>${r.citations.map(citationHtml).join('<hr>')}
+      ${trustHtml(r.structured)}
+      <div class="row"><button type="button" id="speak" class="small">🔊 ઉત્તર સાંભળો</button>${save}<span id="speak-msg" class="muted"></span></div>
+      <details class="ev" open><summary>પુરાવો: પાઠ્યપુસ્તકનું મૂળ લખાણ</summary><div id="evidence">${evidenceHtml(r.evidence, r.answer.parts)}</div></details>
+      ${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
   }
   if (r.status === 'edition_conflict') {
-    return `${banner}<section class="card conflict" id="answer" data-status="edition_conflict"><h2>આવૃત્તિઓમાં તફાવત</h2><p>${esc(r.message)}</p>
+    return `${banner}<section class="card conflict" id="answer" data-status="edition_conflict"><h2>આવૃત્તિઓમાં તફાવત</h2>${qline}<p>${esc(r.message)}</p>
       ${r.editions.map((e) => `<div class="card"><h3>આવૃત્તિ: ${esc(e.edition)}</h3><div class="text">${renderText(e.answer.text)}</div>
-        ${e.citations.map(citationHtml).join('')}${evidenceHtml(e.evidence, e.answer.parts)}</div>`).join('')}${feedbackHtml(r)}</section>`;
+        ${e.citations.map(citationHtml).join('')}${evidenceHtml(e.evidence, e.answer.parts)}</div>`).join('')}${trustHtml(r.structured)}<div class="row">${save}</div>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
   }
+  const sugg = r.suggestions && r.suggestions.length ? `<h3>કયો મુદ્દો?</h3><div class="chips">${r.suggestions.map((x) =>
+    `<button type="button" class="chip sugg" data-ch="${x.chapter_id}" data-no="${esc(x.chapter_number)}" data-title="${esc(x.chapter_title)}" data-sec="${esc(x.section_title.replace(/^[\d.]+\s*/, ''))}">${esc(x.section_title)} <span class="muted">(પૃ. ${esc(x.page_number)})</span></button>`).join('')}</div>` : '';
   return `${banner}<section class="card abstain" id="answer" data-status="abstained" role="status"><h2>ઉત્તર આપી શકાતો નથી</h2>
+    ${qline}${translationHtml(r)}
     <p id="abstain-msg"><strong>${esc(r.message || ABSTAIN)}</strong></p>
     ${r.reason_gu ? `<p class="muted">${esc(r.reason_gu)}</p>` : ''}
     ${r.unmatched_terms && r.unmatched_terms.length ? `<p class="muted">પુસ્તકમાં ન મળેલા શબ્દો: ${r.unmatched_terms.map(esc).join(', ')}</p>` : ''}
-    <p class="muted">GRANTH-AI પાઠ્યપુસ્તક બહારની માહિતી પરથી ઉત્તર બનાવતું નથી. જોડણી તપાસો, બીજું પ્રકરણ કે પુસ્તક પસંદ કરો.</p>${feedbackHtml(r)}</section>`;
+    ${sugg}${trustHtml(r.structured)}
+    <p class="muted">GRANTH-AI પાઠ્યપુસ્તક બહારની માહિતી પરથી ઉત્તર બનાવતું નથી. જોડણી તપાસો, બીજું પ્રકરણ કે પુસ્તક પસંદ કરો${r.supplementary ? '' : ', અથવા પ્રશ્ન નીચે “પૂરક સ્રોત” પસંદ કરીને ફરી પૂછો'}.</p>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
 }
 
 function feedbackHtml(r) {
@@ -162,6 +220,16 @@ function bindResult(root, r) {
     $('#speak-msg', root).textContent = out.spoken ? '' : (out.reason === 'no-gujarati-voice'
       ? 'આ ઉપકરણમાં ગુજરાતી અવાજ ઉપલબ્ધ નથી.' : 'આ બ્રાઉઝરમાં વાંચી સંભળાવવાની સુવિધા નથી.');
   };
+  for (const b of $$('.savea', root)) b.onclick = async () => {
+    try { await api('/api/saved-answers', { method: 'POST', body: { answer_id: +b.dataset.a, session_id: session() } }); b.textContent = '✔ સાચવ્યો'; b.disabled = true; }
+    catch (e) { b.textContent = e.message; }
+  };
+  for (const b of $$('.sugg', root)) b.onclick = () => {
+    const q = $('#question');
+    if (!q) return;
+    q.value = `${b.dataset.sec} સમજાવો`;
+    $('#askform').requestSubmit();
+  };
   for (const b of $$('.fbk', root)) b.onclick = async () => {
     const msg = b.closest('.fb').querySelector('.fb-msg');
     try {
@@ -177,7 +245,8 @@ async function askQuestion(question, extra, out) {
   out.innerHTML = loading('પાઠ્યપુસ્તકમાં શોધી રહ્યું છે…');
   try {
     const r = await api('/api/ask', { method: 'POST', body: { question, edition_id: scope.edition_id, chapter_id: scope.chapter_id,
-      mode: scope.mode, marks: scope.marks, session_id: session(), input_method: extra.input_method || 'typed' } });
+      mode: scope.mode, marks: scope.marks, session_id: session(), input_method: extra.input_method || 'typed',
+      supplementary_edition_id: extra.supplementary || null } });
     out.innerHTML = resultHtml(r);
     bindResult(out, r);
     db().then((d) => d.saveAnswer(question, scope, r)).catch(() => {});
@@ -210,7 +279,7 @@ views.home = async () => {
   await loadCatalog().catch(() => {});
   const about = await api('/api/about').catch(() => null);
   view.innerHTML = `<h1>GRANTH-AI માં સ્વાગત છે</h1>
-    <p>તમારું પાઠ્યપુસ્તક પસંદ કરો અને ગુજરાતીમાં પ્રશ્ન પૂછો. ઉત્તર <strong>માત્ર પસંદ કરેલા પાઠ્યપુસ્તકના લખાણમાંથી</strong>, પ્રકરણ અને પૃષ્ઠ ક્રમાંક સાથે મળશે.</p>
+    <p>તમારું પાઠ્યપુસ્તક પસંદ કરો અને ગુજરાતીમાં કે English માં પ્રશ્ન પૂછો. ઉત્તર <strong>માત્ર પસંદ કરેલા પાઠ્યપુસ્તકના લખાણમાંથી</strong>, પ્રકરણ અને પૃષ્ઠ ક્રમાંક સાથે મળશે.</p>
     ${selectionSummary()}
     <form id="quick" class="card"><label for="q">ઝડપી પ્રશ્ન</label>
       <textarea id="q" lang="gu" placeholder="દા.ત. પ્રકાશસંશ્લેષણ શું છે?" maxlength="500"></textarea>
@@ -222,6 +291,8 @@ views.home = async () => {
       <a class="tile" href="#/dictionary"><b>📖 શબ્દકોશ</b>પાઠ્યપુસ્તકના અઘરા શબ્દો</a>
       <a class="tile" href="#/library"><b>⬇️ ઑફલાઇન પુસ્તકાલય</b>ઇન્ટરનેટ વિના વાંચો</a>
       <a class="tile" href="#/history"><b>🕘 ઇતિહાસ</b>અગાઉ પૂછેલા પ્રશ્નો</a>
+      <a class="tile" href="#/saved"><b>⭐ સાચવેલા ઉત્તરો</b>ફરી વાંચવા માટે</a>
+      <a class="tile" href="#/notes"><b>🗒️ મારી નોંધ</b>તમારી પોતાની ખાનગી અભ્યાસ સામગ્રી</a>
     </div>
     ${about ? `<div class="note" id="sample-notice">${esc(about.sample_notice.gu)}</div>` : ''}`;
   $('#quick').onsubmit = (ev) => {
@@ -236,7 +307,7 @@ views.home = async () => {
 views.select = async () => {
   view.innerHTML = loading();
   try { await loadCatalog(); } catch (e) { view.innerHTML = errorCard(e.message); return; }
-  const books = catalog.textbooks;
+  const books = catalog.textbooks.filter((b) => (b.role || 'textbook') === 'textbook');
   const uniq = (arr) => [...new Set(arr)];
   const step = (title, key, options, label = (x) => x) => `<h2>${title}</h2><div class="chips" data-step="${key}">${options.map((o) =>
     `<button type="button" class="chip ${String(sel[key]) === String(o) ? 'on' : ''}" data-key="${key}" data-val="${esc(o)}">${esc(label(o))}</button>`).join('') || '<span class="muted">—</span>'}</div>`;
@@ -244,7 +315,8 @@ views.select = async () => {
   const f2 = f1.filter((b) => !sel.medium || b.medium === sel.medium);
   const f3 = f2.filter((b) => !sel.standard || b.standard === +sel.standard);
   const f4 = f3.filter((b) => !sel.subject || b.subject === sel.subject);
-  let html = `<h1>પાઠ્યપુસ્તક પસંદ કરો</h1>${selectionSummary()}`;
+  let html = `<h1>પાઠ્યપુસ્તક પસંદ કરો</h1>${selectionSummary()}
+    <p class="muted">અહીં ફક્ત તે જ બોર્ડ, ધોરણ અને વિષય દેખાય છે જેનો સ્રોત ચકાસીને ઉમેરાયો છે. <a href="#/notes">મારી પોતાની નોંધ ઉમેરો →</a></p>`;
   html += step('1. બોર્ડ', 'board', uniq(books.map((b) => b.board)));
   if (sel.board) html += step('2. માધ્યમ', 'medium', uniq(f1.map((b) => b.medium)));
   if (sel.medium) html += step('3. ધોરણ', 'standard', uniq(f2.map((b) => b.standard)).sort((a, b) => a - b), (s) => `ધોરણ ${s}`);
@@ -264,13 +336,14 @@ views.select = async () => {
   const order = ['board', 'medium', 'standard', 'subject'];
   for (const b of $$('.chip[data-key]')) b.onclick = () => {
     const k = b.dataset.key;
+    delete sel.personal;
     sel[k] = k === 'standard' ? +b.dataset.val : b.dataset.val;
     for (const later of order.slice(order.indexOf(k) + 1)) delete sel[later];
     delete sel.edition_id; delete sel.textbook_id; delete sel.chapter_id; delete sel.chapter_title; delete sel.chapter_number;
     saveSel(); views.select();
   };
   for (const b of $$('.chip.ed')) b.onclick = () => {
-    sel.edition_id = +b.dataset.ed; sel.textbook_id = +b.dataset.book;
+    sel.edition_id = +b.dataset.ed; sel.textbook_id = +b.dataset.book; delete sel.personal;
     delete sel.chapter_id; delete sel.chapter_title; delete sel.chapter_number;
     saveSel(); views.select();
   };
@@ -295,10 +368,17 @@ function needBook() {
   return true;
 }
 
+function supplementaryOptions() {
+  if (!catalog || sel.personal) return [];
+  const out = [];
+  for (const b of catalog.textbooks) if (b.role === 'supplementary') for (const e of b.editions) if (e.available) out.push({ id: e.edition_id, title: b.title, license: e.license });
+  return out;
+}
+
 function questionForm({ withModes = true, examTitle = '' } = {}) {
   return `<form id="askform" class="card" autocomplete="off">
-    <label for="question">${examTitle || 'તમારો પ્રશ્ન (ગુજરાતીમાં)'}</label>
-    <textarea id="question" lang="gu" maxlength="500" placeholder="દા.ત. પ્રકાશસંશ્લેષણ શું છે?" required></textarea>
+    <label for="question">${examTitle || 'તમારો પ્રશ્ન (ગુજરાતીમાં કે English માં)'}</label>
+    <textarea id="question" class="bigq" lang="gu" maxlength="500" rows="4" placeholder="દા.ત. પ્રકાશસંશ્લેષણ એટલે શું?  /  What is photosynthesis?" required></textarea>
     <div class="row">
       <button type="button" id="mic" aria-pressed="false">🎤 બોલીને પૂછો</button>
       <label class="btn" for="camera" style="margin:0;font-weight:400">📷 કૅમેરા</label>
@@ -310,7 +390,9 @@ function questionForm({ withModes = true, examTitle = '' } = {}) {
     <div id="imgpanel" hidden></div>
     ${withModes ? `<div class="two"><div><label for="mode">ઉત્તરનો પ્રકાર</label><select id="mode">${MODES.map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
       <div><label for="marks">ગુણ</label><select id="marks"><option value="">—</option>${[1, 2, 3, 4, 5].map((m) => `<option value="${m}">${m} ગુણ</option>`).join('')}</select></div></div>` : ''}
-    <div class="row" style="margin-top:10px"><button class="primary" type="submit" id="submit">પાઠ્યપુસ્તકમાંથી ઉત્તર મેળવો</button></div>
+    ${supplementaryOptions().length ? `<div><label for="supp">પૂરક સ્રોત (વૈકલ્પિક)</label><select id="supp"><option value="">ન વાપરો – માત્ર પસંદ કરેલું પાઠ્યપુસ્તક</option>${supplementaryOptions().map((o) => `<option value="${o.id}">${esc(o.title)} (${esc(o.license || '')})</option>`).join('')}</select>
+      <p class="muted">પૂરક સ્રોત પસંદ કરશો તો તેની માહિતી પાઠ્યપુસ્તકના ઉત્તરથી અલગ, નીચે જુદા વિભાગમાં બતાવાશે. તે ક્યારેય પાઠ્યપુસ્તકના ઉત્તરમાં ભેળવાતી નથી.</p></div>` : ''}
+    <div class="row" style="margin-top:10px"><button class="primary" type="submit" id="submit">${sel.personal ? 'મારી નોંધમાંથી ઉત્તર મેળવો' : 'પાઠ્યપુસ્તકમાંથી ઉત્તર મેળવો'}</button></div>
   </form><div id="result" aria-live="polite"></div>`;
 }
 
@@ -379,7 +461,7 @@ function bindQuestionForm() {
     const text = q.value.trim();
     if (!text) return;
     $('#submit').disabled = true;
-    await askQuestion(text, { mode: $('#mode') ? $('#mode').value : 'auto', marks: $('#marks') && $('#marks').value ? +$('#marks').value : null, input_method: method }, $('#result'));
+    await askQuestion(text, { mode: $('#mode') ? $('#mode').value : 'auto', marks: $('#marks') && $('#marks').value ? +$('#marks').value : null, input_method: method, supplementary: $('#supp') && $('#supp').value ? +$('#supp').value : null }, $('#result'));
     $('#submit').disabled = false;
   };
   return { setQuestion: (t) => { q.value = t; } };
@@ -607,7 +689,7 @@ views.read = async (edition, pageNo) => {
 views.page = async (edition, pageNo) => {
   view.innerHTML = loading();
   try {
-    const p = await api(`/api/editions/${+edition}/pages/${+pageNo}`);
+    const p = await api(`/api/editions/${+edition}/pages/${+pageNo}?session=${encodeURIComponent(session())}`);
     const n = p.page.page_number;
     view.innerHTML = `<h1>પૃષ્ઠ સંદર્ભ</h1>
       <dl class="src"><dt>પુસ્તક</dt><dd>${esc(p.edition.title)} (${esc(p.edition.edition_label)})</dd><dt>બોર્ડ</dt><dd>${esc(p.edition.board)}</dd>
@@ -623,7 +705,7 @@ views.page = async (edition, pageNo) => {
 };
 
 views.history = async () => {
-  view.innerHTML = `<h1>પ્રશ્ન ઇતિહાસ</h1><div id="hist">${loading()}</div>`;
+  view.innerHTML = `<h1>પ્રશ્ન ઇતિહાસ</h1><p class="row"><a class="btn small" href="#/saved" id="to-saved">⭐ સાચવેલા ઉત્તરો</a></p><div id="hist">${loading()}</div>`;
   try {
     const { history } = await api(`/api/history?session=${encodeURIComponent(session())}`);
     const label = { answered: ['ok', 'ઉત્તર મળ્યો'], abstained: ['warn', 'આધાર મળ્યો નથી'], edition_conflict: ['bad', 'આવૃત્તિ તફાવત'] };
@@ -634,18 +716,66 @@ views.history = async () => {
   } catch (e) { $('#hist').innerHTML = errorCard(e.message); }
 };
 
+views.saved = async () => {
+  view.innerHTML = `<h1>સાચવેલા ઉત્તરો</h1><p class="row"><a class="btn small" href="#/history">🕘 પ્રશ્ન ઇતિહાસ</a></p><div id="savedlist">${loading()}</div>`;
+  try {
+    const { saved } = await api(`/api/saved-answers?session=${encodeURIComponent(session())}`);
+    $('#savedlist').innerHTML = saved.length ? saved.map((x, i) => `<details class="card hist"><summary>⭐ ${esc(x.result.question || '')}</summary>
+      <div class="row"><button type="button" class="small unsave" data-a="${x.answer_id}">કાઢી નાખો</button><span class="muted">${esc(x.saved_at.slice(0, 10))}</span></div><div class="hres" data-i="${i}"></div></details>`).join('')
+      : '<p class="muted" id="no-saved">હજી કોઈ ઉત્તર સાચવ્યો નથી. ઉત્તર નીચે “⭐ ઉત્તર સાચવો” દબાવો.</p>';
+    for (const el of $$('.hres')) { const r = saved[+el.dataset.i].result; el.innerHTML = resultHtml(r, { noSave: true }); bindResult(el, r); }
+    for (const b of $$('.unsave')) b.onclick = async () => { await api(`/api/saved-answers/${b.dataset.a}?session=${encodeURIComponent(session())}`, { method: 'DELETE' }); views.saved(); };
+  } catch (e) { $('#savedlist').innerHTML = errorCard(e.message); }
+};
+
+views.notes = async () => {
+  view.innerHTML = `<h1>મારી નોંધ (ખાનગી અભ્યાસ સામગ્રી)</h1>
+    <div class="note"><strong>ગોપનીયતા અને અધિકાર:</strong> અહીં ઉમેરેલું લખાણ ફક્ત તમારા આ ઉપકરણના સત્રને જ દેખાય છે. તે જાહેર પુસ્તકાલયમાં, બીજા વિદ્યાર્થીઓના ઉત્તરોમાં કે સહિયારા cache માં ક્યારેય જતું નથી અને તમે ગમે ત્યારે કાઢી શકો છો.
+      ફક્ત તમારી પોતાની નોંધ અથવા જેના ઉપયોગનો તમને અધિકાર છે તેવું લખાણ ઉમેરો. આખાં કૉપિરાઇટવાળાં પાઠ્યપુસ્તકો અહીં ચોંટાડશો નહીં.</div>
+    <form id="noteform" class="card"><label for="ntitle">નોંધનું નામ</label><input type="text" id="ntitle" maxlength="80" placeholder="દા.ત. વિજ્ઞાન – મારી વર્ગનોંધ">
+      <label for="ntext">નોંધનું લખાણ (ફકરા વચ્ચે ખાલી લીટી રાખો)</label><textarea id="ntext" class="bigq" rows="8" maxlength="60000" required></textarea>
+      <label class="check"><input type="checkbox" id="nrights" required> આ મારી પોતાની નોંધ છે અથવા તેનો અભ્યાસ માટે ઉપયોગ કરવાનો મને અધિકાર છે.</label>
+      <div class="row"><button class="primary" type="submit">નોંધ ઉમેરો</button><span id="nmsg" class="muted" role="status"></span></div></form>
+    <h2>ઉમેરેલી નોંધ</h2><div id="notelist">${loading()}</div>`;
+  const list = async () => {
+    try {
+      const { notes } = await api(`/api/personal-notes?session=${encodeURIComponent(session())}`);
+      if (!$('#notelist')) return;            // the student has already left this screen
+      $('#notelist').innerHTML = notes.length ? notes.map((n) => `<div class="card"><strong>${esc(n.title)}</strong> <span class="muted">· ${n.page_count} ભાગ</span>
+        <div class="row"><button type="button" class="small primary usenote" data-ed="${n.edition_id}" data-title="${esc(n.title)}">આ નોંધમાંથી પ્રશ્ન પૂછો</button><button type="button" class="small delnote" data-ed="${n.edition_id}">કાયમ માટે કાઢી નાખો</button></div></div>`).join('')
+        : '<p class="muted" id="no-notes">હજી કોઈ નોંધ ઉમેરી નથી.</p>';
+      for (const b of $$('.usenote')) b.onclick = () => {
+        sel = { edition_id: +b.dataset.ed, personal: b.dataset.title }; saveSel(); location.hash = '#/ask';
+      };
+      for (const b of $$('.delnote')) b.onclick = async () => {
+        await api(`/api/personal-notes/${b.dataset.ed}?session=${encodeURIComponent(session())}`, { method: 'DELETE' });
+        if (sel.edition_id === +b.dataset.ed) { sel = {}; saveSel(); }
+        list();
+      };
+    } catch (e) { if ($('#notelist')) $('#notelist').innerHTML = errorCard(e.message); }
+  };
+  $('#noteform').onsubmit = async (ev) => {
+    ev.preventDefault();
+    try {
+      await api('/api/personal-notes', { method: 'POST', body: { session_id: session(), title: $('#ntitle').value, text: $('#ntext').value, rights_confirmed: $('#nrights').checked } });
+      $('#nmsg').textContent = 'નોંધ ઉમેરાઈ.'; $('#ntext').value = ''; $('#nrights').checked = false; list();
+    } catch (e) { $('#nmsg').textContent = e.message; }
+  };
+  await list();
+};
+
 views.about = async () => {
   view.innerHTML = loading();
   const [a, st, pv, src] = await Promise.all([api('/api/about').catch(() => null), api('/api/stats').catch(() => null), api('/api/providers').catch(() => null), api('/api/sources').catch(() => null)]);
   view.innerHTML = `<h1>GRANTH-AI વિશે</h1>
     <section class="card" id="credits"><h2>શ્રેય (Credits)</h2>
-      <p><strong>વિચાર આપનાર (Idea Contributor):</strong> ભાવેશભાઈ સોલંકી — BHAVESHBHAI SOLANKI</p>
-      <p><strong>સ્થાપક અને વિકાસકર્તા (Founder &amp; Developer):</strong> દિવ્યેશ બાંભણિયા — DIVYESH BAMBHANIYA</p>
-      <p>ભાવેશભાઈ સોલંકીએ આપેલા શૈક્ષણિક વિચાર પરથી પ્રેરિત અને દિવ્યેશ બાંભણિયા દ્વારા વિકસિત પહેલ. અમારું ધ્યેય ગુજરાતી માધ્યમના વિદ્યાર્થીઓ સુધી પાઠ્યપુસ્તક-આધારિત ચકાસાયેલું જ્ઞાન પહોંચાડવાનું છે.</p>
-      <p class="muted">An initiative conceptualized from an educational idea shared by Bhaveshbhai Solanki and developed and engineered by Divyesh Bambhaniya. Our mission is to make verified textbook-based knowledge accessible to Gujarati-medium students.</p></section>
+      <p><strong>IDEA CONTRIBUTOR: BHAVESHBHAI SOLANKI</strong></p>
+      <p><strong>FOUNDER &amp; PROJECT DEVELOPER: DIVYESH BAMBHANIYA</strong></p>
+      <p>${esc(a ? a.credits.description_gu : '')}</p>
+      <p class="muted">${esc(a ? a.credits.description_en : '')}</p></section>
     <section class="card"><h2>નીતિ</h2><p>${esc(a ? a.policy.gu : '')}</p><p class="note">${esc(a ? a.sample_notice.gu : '')}</p>
       <p class="muted">સંસ્કરણ ${esc(a ? a.version : '')} · ઉત્તર એન્જિન ${esc(a ? a.engine_version : '')}</p></section>
-    ${src ? `<section class="card"><h2>સ્રોત અને પરવાનગી</h2><ul class="clean">${src.sources.map((s) => `<li><strong>${esc(s.name)}</strong> — પરવાનગી: <span class="badge ${s.permission_status === 'APPROVED' ? 'ok' : s.permission_status === 'DENIED' ? 'bad' : 'warn'}">${esc(s.permission_status)}</span><br><span class="muted">${esc(s.permission_notes || '')}</span></li>`).join('')}</ul></section>` : ''}
+    ${src ? `<section class="card"><h2>સ્રોત અને પરવાનગી</h2><ul class="clean">${src.sources.filter((s) => s.kind !== 'personal').map((s) => `<li><strong>${esc(s.name)}</strong> — પરવાનગી: <span class="badge ${s.permission_status === 'APPROVED' ? 'ok' : s.permission_status === 'DENIED' ? 'bad' : 'warn'}">${esc(s.permission_status)}</span><br><span class="muted">${esc(s.permission_notes || '')}</span></li>`).join('')}</ul></section>` : ''}
     ${st ? `<section class="card" id="stats"><h2>ખર્ચ અને વપરાશ</h2><dl class="src"><dt>બાહ્ય AI API કૉલ</dt><dd>${st.external_api_calls}</dd><dt>સ્થાનિક શોધ</dt><dd>${st.local_retrievals}</dd>
       <dt>Cache hit / miss</dt><dd>${st.cache.hits} / ${st.cache.misses}${st.cache.hit_rate != null ? ` (${Math.round(st.cache.hit_rate * 100)}%)` : ''}</dd>
       <dt>સરેરાશ સમય</dt><dd>${st.latency_ms.avg ?? '—'} ms</dd><dt>ડેટાબેઝ</dt><dd>${fmtBytes(st.storage.database_bytes)}</dd></dl></section>` : ''}

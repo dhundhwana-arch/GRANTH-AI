@@ -21,6 +21,7 @@ const server = spawn(PY, ['-m', 'granth', 'serve', '--host', '127.0.0.1', '--por
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 for (let i = 0; i < 50; i++) { try { if ((await fetch(BASE + '/api/health')).ok) break; } catch (_) { /* not up yet */ } await sleep(200); }
 
+const REFUSAL = 'આ પસંદ કરેલા પાઠ્યપુસ્તકમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી.';
 const results = [];
 const pageErrors = [];
 let browser;
@@ -81,7 +82,7 @@ try {
   await step('home page: Gujarati UI, permanent credits in footer, sample notice', async () => {
     const body = await text('body');
     assert((await page.$eval('html', (h) => h.lang)) === 'gu', 'html lang is not gu');
-    assert(body.includes('BHAVESHBHAI SOLANKI') && body.includes('DIVYESH BAMBHANIYA'), 'credits missing on home page');
+    assert(body.includes('IDEA CONTRIBUTOR: BHAVESHBHAI SOLANKI') && body.includes('FOUNDER & PROJECT DEVELOPER: DIVYESH BAMBHANIYA'), 'credits missing on home page');
     assert(await page.$('#sample-notice'), 'sample notice missing');
   });
 
@@ -105,7 +106,7 @@ try {
     assert(first.status === 'answered', 'not answered: ' + first.text.slice(0, 120));
     assert(first.text.includes('પ્રકાશસંશ્લેષણ કહે છે'), 'definition sentence missing');
     const pageNo = await text('#result .pagelink');
-    assert(pageNo.trim() === '1', 'expected page 1 citation, got ' + pageNo);
+    assert(/પૃષ્ઠ 1 /.test(pageNo), 'expected page 1 citation, got ' + pageNo);
     assert(await page.$('#evidence blockquote mark, #evidence blockquote'), 'evidence missing');
     assert(!first.text.includes('cache'), 'first answer should not be a cache hit');
     return { page: pageNo.trim() };
@@ -274,15 +275,105 @@ try {
   await step('About page shows permanent credits, policy, sources and zero external API calls', async () => {
     await go('#/about');
     const c = await text('#credits');
-    assert(c.includes('BHAVESHBHAI SOLANKI') && c.includes('DIVYESH BAMBHANIYA') && c.includes('Bhaveshbhai Solanki') && c.includes('Divyesh Bambhaniya'), 'credits incomplete');
+    assert(c.includes('IDEA CONTRIBUTOR: BHAVESHBHAI SOLANKI') && c.includes('FOUNDER & PROJECT DEVELOPER: DIVYESH BAMBHANIYA') && c.includes('educational information platform'), 'credits incomplete');
     assert((await text('#stats')).includes('બાહ્ય AI API કૉલ'), 'stats missing');
+  });
+
+  await step('answer format: પ્રશ્ન / સરળ જવાબ / પુસ્તકનો આધાર / વિશ્વસનીયતા સ્થિતિ, quotation label, no percentage', async () => {
+    await go('#/ask');
+    const a = await ask('ઓહ્મનો નિયમ લખો', { mode: 'short' });
+    assert(a.status === 'answered', 'not answered');
+    for (const h of ['પ્રશ્ન', 'સરળ જવાબ', 'મુખ્ય મુદ્દા', 'પુસ્તકનો આધાર', 'વિશ્વસનીયતા સ્થિતિ']) assert(a.text.includes(h), 'section missing: ' + h);
+    assert(a.text.includes('સીધું અવતરણ'), 'quotation label missing');
+    const trust = await page.$eval('#result #answer .trust', (e) => e.dataset.trust);
+    assert(trust === 'verified', 'trust status ' + trust);
+    assert(!/\d\s*%/.test(a.text), 'a percentage is shown in the answer card');
+    return { trust };
+  });
+
+  await step('English question is answered from the Gujarati source with a visible mapping note', async () => {
+    const a = await ask('What is photosynthesis?', { mode: 'auto' });
+    assert(a.status === 'answered' && a.text.includes('પ્રકાશસંશ્લેષણ કહે છે'), 'English question not answered: ' + a.text.slice(0, 150));
+    assert(await page.$('#translation-note'), 'mapping note missing');
+    assert(a.text.includes('photosynthesis'), 'English term not shown');
+  });
+
+  await step('ambiguous one-word question is refused with topic suggestions', async () => {
+    const a = await ask('નિયમ');
+    assert(a.status === 'abstained', 'ambiguous question was answered');
+    const n = await page.$$eval('#result .sugg', (els) => els.length);
+    assert(n >= 3, 'suggestions missing');
+    return { suggestions: n };
+  });
+
+  await step('supplementary source: off by default; when selected it is shown in a separate, labelled block', async () => {
+    const off = await ask('ન્યૂટનનો ત્રીજો નિયમ સમજાવો');
+    assert(off.status === 'abstained' && off.text.includes(REFUSAL), 'textbook-only refusal missing');
+    assert(!(await page.$('#supplementary')), 'supplementary block shown without being selected');
+    const val = await page.$eval('#supp', (el) => el.options[1].value);
+    await page.select('#supp', val);
+    const on = await ask('ન્યૂટનનો ત્રીજો નિયમ સમજાવો');
+    assert(on.status === 'abstained' && on.text.includes(REFUSAL), 'textbook card must still refuse');
+    assert(!on.text.includes('પ્રતિક્રિયા'), 'supplementary text leaked into the textbook card');
+    const sup = await page.$eval('#supplementary', (el) => ({ status: el.dataset.status, text: el.innerText }));
+    assert(sup.status === 'answered' && sup.text.includes('પ્રતિક્રિયા બળ'), 'supplementary answer missing');
+    assert(sup.text.includes('પાઠ્યપુસ્તકનો ભાગ નથી') && sup.text.includes('CC BY 4.0'), 'supplementary label / licence missing');
+    await page.select('#supp', '');
+  });
+
+  await step('worked example is shown step by step, copied from the book', async () => {
+    const a = await ask('ઓહ્મના નિયમનું ઉદાહરણ પગલાંવાર સમજાવો');
+    assert(a.status === 'answered' && a.text.includes('પગલું 1') && a.text.includes('પગલું 2') && a.text.includes('10 વોલ્ટ'), 'steps missing: ' + a.text.slice(0, 200));
+  });
+
+  await step('saved answers: save from the answer card, listed under સાચવેલા ઉત્તરો, removable', async () => {
+    await ask('પરાવર્તન એટલે શું?');
+    await page.click('#result .savea');
+    await page.waitForFunction(() => document.querySelector('#result .savea').disabled, { timeout: 5000 });
+    await go('#/saved');
+    await page.waitForSelector('#savedlist details, #no-saved');
+    const n = await page.$$eval('#savedlist > details', (els) => els.length);
+    assert(n === 1, 'saved answer not listed');
+    await page.click('#savedlist > details > summary');
+    await page.click('#savedlist .unsave');
+    await page.waitForSelector('#no-saved', { timeout: 5000 });
+  });
+
+  await step('personal notes: rights confirmation required, private answer labelled as own notes, delete works', async () => {
+    const keep = await page.evaluate(() => localStorage.getItem('granth.sel'));
+    await go('#/notes');
+    await page.waitForSelector('#no-notes');
+    await page.$eval('#ntitle', (el) => { el.value = 'મારી વર્ગનોંધ'; });
+    await page.$eval('#ntext', (el) => { el.value = 'ચુંબકની આસપાસ જે વિસ્તારમાં તેની અસર અનુભવાય છે તે વિસ્તારને ચુંબકીય ક્ષેત્ર કહે છે.\n\nચુંબકને બે ધ્રુવ હોય છે: ઉત્તર ધ્રુવ અને દક્ષિણ ધ્રુવ.'; });
+    const refused = await page.evaluate(async () => {
+      const s = JSON.parse(localStorage.getItem('granth.session'));
+      const r = await fetch('/api/personal-notes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ session_id: s, title: 'x', text: 'ચુંબકને બે ધ્રુવ હોય છે: ઉત્તર ધ્રુવ અને દક્ષિણ ધ્રુવ.', rights_confirmed: false }) });
+      return r.status;
+    });
+    assert(refused === 400, 'notes accepted without rights confirmation');
+    await page.click('#nrights');
+    await page.click('#noteform button[type=submit]');
+    await page.waitForSelector('.usenote', { timeout: 5000 });
+    await page.click('.usenote');
+    await page.waitForSelector('#askform');
+    const a = await ask('ચુંબકીય ક્ષેત્ર એટલે શું?');
+    assert(a.status === 'answered' && a.text.includes('ચુંબકીય ક્ષેત્ર કહે છે') && a.text.includes('તમારી પોતાની નોંધમાંથી'), 'personal answer wrong: ' + a.text.slice(0, 200));
+    const cat = await (await fetch(`${BASE}/api/catalog`)).text();
+    assert(!cat.includes('મારી વર્ગનોંધ'), 'personal notes leaked into the public catalogue');
+    await go('#/notes');
+    await page.waitForSelector('.delnote');
+    await page.click('.delnote');
+    await page.waitForSelector('#no-notes', { timeout: 5000 });
+    await page.evaluate((v) => localStorage.setItem('granth.sel', v), keep);
+    await page.reload();
+    await page.waitForFunction(() => document.querySelector('#view').dataset.ready);
   });
 
   await step('mobile responsiveness: no horizontal overflow at 360px and 390px; touch targets ≥ 40px', async () => {
     const out = {};
     for (const width of [360, 390]) {
       await page.setViewport({ width, height: 740, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
-      for (const h of ['#/', '#/select', '#/ask', '#/chapters', '#/exam', '#/dictionary', '#/library', '#/history', '#/about']) {
+      for (const h of ['#/', '#/select', '#/ask', '#/chapters', '#/exam', '#/dictionary', '#/library', '#/history', '#/saved', '#/notes', '#/about']) {
         await go(h);
         const m = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, iw: window.innerWidth,
           small: [...document.querySelectorAll('button, a.btn, .tabs a, select, input[type=search]')].filter((e) => e.offsetParent && e.getBoundingClientRect().height < 40).map((e) => e.innerText || e.id).slice(0, 5) }));

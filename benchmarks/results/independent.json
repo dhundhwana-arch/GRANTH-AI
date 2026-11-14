@@ -1,0 +1,1408 @@
+{
+  "suite": "independent test set (questions not written from the demo books' wording)",
+  "engine_version": "extractive-1.1",
+  "total": 92,
+  "passed": 83,
+  "failed": 9,
+  "by_category": {
+    "gujarati": {
+      "passed": 11,
+      "total": 14
+    },
+    "english": {
+      "passed": 9,
+      "total": 11
+    },
+    "mixed": {
+      "passed": 5,
+      "total": 6
+    },
+    "maths_formula": {
+      "passed": 10,
+      "total": 10
+    },
+    "out_of_textbook": {
+      "passed": 8,
+      "total": 8
+    },
+    "incorrect_or_ambiguous": {
+      "passed": 7,
+      "total": 7
+    },
+    "ocr_or_spelling_errors": {
+      "passed": 4,
+      "total": 6
+    },
+    "conflicting_editions": {
+      "passed": 3,
+      "total": 4
+    },
+    "missing_pages": {
+      "passed": 3,
+      "total": 3
+    },
+    "unsupported_scope": {
+      "passed": 5,
+      "total": 5
+    },
+    "supplementary_mode": {
+      "passed": 5,
+      "total": 5
+    },
+    "cache": {
+      "passed": 6,
+      "total": 6
+    },
+    "personal_material": {
+      "passed": 5,
+      "total": 5
+    },
+    "offline": {
+      "passed": 2,
+      "total": 2
+    }
+  },
+  "wrong_answers_instead_of_refusal": [],
+  "failures": [
+    {
+      "id": "GU03",
+      "category": "gujarati",
+      "test": "પાંદડાં લીલાં કેમ દેખાય છે?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "GU04",
+      "category": "gujarati",
+      "test": "માણસ શ્વાસ કયા અંગથી લે છે?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "GU11",
+      "category": "gujarati",
+      "test": "વરસાદનું પાણી કેવી રીતે સાચવી શકાય?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "EN08",
+      "category": "english",
+      "test": "How do plants make their food?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "EN09",
+      "category": "english",
+      "test": "Why do we need lungs?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "MX04",
+      "category": "mixed",
+      "test": "concave mirror નું focal length એટલે શું?",
+      "passed": false,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          5
+        ],
+        "trust": "partial",
+        "answer": "જે ગોળીય અરીસાની પરાવર્તક સપાટી અંદરની તરફ વળેલી હોય તેને અંતર્ગોળ અરીસો કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "OC05",
+      "category": "ocr_or_spelling_errors",
+      "test": "ઓમનો નિયમ લખો.",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OC06",
+      "category": "ocr_or_spelling_errors",
+      "test": "પરાવતન એટલે શું?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "CE01b",
+      "category": "conflicting_editions",
+      "test": "same paraphrase: ideally the conflict itself is detected",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage"
+      },
+      "note": ""
+    }
+  ],
+  "results": [
+    {
+      "id": "GU01",
+      "category": "gujarati",
+      "test": "પ્રકાશસંશ્લેષણની વ્યાખ્યા આપો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "verified",
+        "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "GU02",
+      "category": "gujarati",
+      "test": "છોડ પોતાનો ખોરાક કેવી રીતે બનાવે છે?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1,
+          2
+        ],
+        "trust": "partial",
+        "answer": "જે સજીવો પોતાનો ખોરાક જાતે બનાવે છે તેમને સ્વયંપોષી કહે છે. જે સજીવો ખોરાક માટે અન્ય સજીવો પર આધાર રાખે છે તેમને પરપોષી કહે છે. લીલી વનસ્પતિ પોતાનો ખોરાક જાતે બ"
+      },
+      "note": ""
+    },
+    {
+      "id": "GU03",
+      "category": "gujarati",
+      "test": "પાંદડાં લીલાં કેમ દેખાય છે?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "GU04",
+      "category": "gujarati",
+      "test": "માણસ શ્વાસ કયા અંગથી લે છે?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "GU05",
+      "category": "gujarati",
+      "test": "પરાવર્તનના નિયમો લખો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          5
+        ],
+        "trust": "verified",
+        "answer": "પરાવર્તનના બે નિયમો છે. પહેલો નિયમ: આપાતકોણ અને પરાવર્તનકોણ હંમેશાં સમાન હોય છે. બીજો નિયમ: આપાતકિરણ, પરાવર્તિત કિરણ અને આપાતબિંદુએ દોરેલો લંબ એક જ સમતલમાં હોય "
+      },
+      "note": ""
+    },
+    {
+      "id": "GU06",
+      "category": "gujarati",
+      "test": "મોટવણી એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          6
+        ],
+        "trust": "verified",
+        "answer": "પ્રતિબિંબની ઊંચાઈ અને વસ્તુની ઊંચાઈના ગુણોત્તરને મોટવણી કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "GU07",
+      "category": "gujarati",
+      "test": "અવરોધનો એકમ કયો છે?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          7,
+          8
+        ],
+        "trust": "verified",
+        "answer": "વાહકના જે ગુણધર્મને કારણે તે વિદ્યુતપ્રવાહના વહનનો વિરોધ કરે છે તેને અવરોધ કહે છે. અવરોધનો એકમ ઓહ્મ છે.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | "
+      },
+      "note": ""
+    },
+    {
+      "id": "GU08",
+      "category": "gujarati",
+      "test": "તટસ્થીકરણ પ્રક્રિયા સમજાવો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1,
+          10
+        ],
+        "trust": "verified",
+        "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. લીલી વનસ્પતિ સૂર્યપ્રકાશ "
+      },
+      "note": ""
+    },
+    {
+      "id": "GU09",
+      "category": "gujarati",
+      "test": "ઍસિડ અને બેઇઝ ભેગા થાય તો શું બને?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          4,
+          9,
+          10
+        ],
+        "trust": "partial",
+        "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. જે પદાર્થ ઍસિડ અને બેઇઝમાં જુદો જુદો રંગ બતાવે તેને સૂચક કહે છે. સખત ક"
+      },
+      "note": ""
+    },
+    {
+      "id": "GU10",
+      "category": "gujarati",
+      "test": "જળચક્ર સમજાવો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "verified",
+        "answer": "પૃથ્વી પર પાણી સતત એક સ્વરૂપમાંથી બીજા સ્વરૂપમાં ફરતું રહે છે તે ક્રિયાને જળચક્ર કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "GU11",
+      "category": "gujarati",
+      "test": "વરસાદનું પાણી કેવી રીતે સાચવી શકાય?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "GU12",
+      "category": "gujarati",
+      "test": "ભૂગર્ભજળ એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "verified",
+        "answer": "જમીનની અંદર રહેલા પાણીને ભૂગર્ભજળ કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "GU13",
+      "category": "gujarati",
+      "test": "નકશામાં દિશાઓ કેવી રીતે દર્શાવાય છે?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          2
+        ],
+        "trust": "verified",
+        "answer": "પૃથ્વીની સપાટીના કોઈ ભાગને સપાટ કાગળ પર નાના માપમાં દર્શાવતા ચિત્રને નકશો કહે છે. નકશાના ત્રણ મુખ્ય અંગો છે: દિશા, પ્રમાણમાપ અને રૂઢ સંજ્ઞાઓ. નકશામાં સામાન્ય રી"
+      },
+      "note": ""
+    },
+    {
+      "id": "GU14",
+      "category": "gujarati",
+      "test": "જારક શ્વસન અને અજારક શ્વસન વચ્ચેનો ભેદ સ્પષ્ટ કરો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          3
+        ],
+        "trust": "partial",
+        "answer": "કોષ્ટક 2.1: જારક શ્વસન અને અજારક શ્વસન વચ્ચેનો તફાવત\n| મુદ્દો | જારક શ્વસન | અજારક શ્વસન |\n| ઑક્સિજન | જરૂરી છે | જરૂરી નથી |\n| ગ્લુકોઝનું દહન | સંપૂર્ણ | અપૂર્"
+      },
+      "note": ""
+    },
+    {
+      "id": "EN01",
+      "category": "english",
+      "test": "What is photosynthesis?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "verified",
+        "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "EN02",
+      "category": "english",
+      "test": "Define chlorophyll.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          2
+        ],
+        "trust": "verified",
+        "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "EN03",
+      "category": "english",
+      "test": "What is the difference between aerobic respiration and anaerobic respiration?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          3
+        ],
+        "trust": "verified",
+        "answer": "કોષ્ટક 2.1: જારક શ્વસન અને અજારક શ્વસન વચ્ચેનો તફાવત\n| મુદ્દો | જારક શ્વસન | અજારક શ્વસન |\n| ઑક્સિજન | જરૂરી છે | જરૂરી નથી |\n| ગ્લુકોઝનું દહન | સંપૂર્ણ | અપૂર્"
+      },
+      "note": ""
+    },
+    {
+      "id": "EN04",
+      "category": "english",
+      "test": "State Ohm's law.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          7,
+          8
+        ],
+        "trust": "verified",
+        "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nઉદાહરણ: એક વાહકનો અવર"
+      },
+      "note": ""
+    },
+    {
+      "id": "EN05",
+      "category": "english",
+      "test": "What is reflection of light?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          5
+        ],
+        "trust": "verified",
+        "answer": "પ્રકાશનું કિરણ કોઈ ચળકતી સપાટી પર અથડાઈને તે જ માધ્યમમાં પાછું ફરે છે તે ઘટનાને પ્રકાશનું પરાવર્તન કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "EN06",
+      "category": "english",
+      "test": "What is neutralization?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          10
+        ],
+        "trust": "verified",
+        "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "EN07",
+      "category": "english",
+      "test": "What is the water cycle?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "verified",
+        "answer": "પૃથ્વી પર પાણી સતત એક સ્વરૂપમાંથી બીજા સ્વરૂપમાં ફરતું રહે છે તે ક્રિયાને જળચક્ર કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "EN08",
+      "category": "english",
+      "test": "How do plants make their food?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "EN09",
+      "category": "english",
+      "test": "Why do we need lungs?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "EN10",
+      "category": "english",
+      "test": "Who invented the telephone?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "EN11",
+      "category": "english",
+      "test": "What is the capital of France?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "MX01",
+      "category": "mixed",
+      "test": "stomata એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          2
+        ],
+        "trust": "verified",
+        "answer": "પર્ણની સપાટી પર આવેલાં સૂક્ષ્મ છિદ્રોને પર્ણરંધ્ર કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "MX02",
+      "category": "mixed",
+      "test": "Ohm's law સમજાવો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          7,
+          8
+        ],
+        "trust": "verified",
+        "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nઉદાહરણ: એક વાહકનો અવર"
+      },
+      "note": ""
+    },
+    {
+      "id": "MX03",
+      "category": "mixed",
+      "test": "pH scale શું દર્શાવે છે?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          9
+        ],
+        "trust": "verified",
+        "answer": "દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે. pH માપક્રમ 0 થી 14 સુધીનો હોય છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "MX04",
+      "category": "mixed",
+      "test": "concave mirror નું focal length એટલે શું?",
+      "passed": false,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          5
+        ],
+        "trust": "partial",
+        "answer": "જે ગોળીય અરીસાની પરાવર્તક સપાટી અંદરની તરફ વળેલી હોય તેને અંતર્ગોળ અરીસો કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "MX05",
+      "category": "mixed",
+      "test": "mitosis અને meiosis વચ્ચેનો તફાવત લખો.",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "MX06",
+      "category": "mixed",
+      "test": "gravity એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "MA01",
+      "category": "maths_formula",
+      "test": "અરીસાનું સૂત્ર લખો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          6
+        ],
+        "trust": "verified",
+        "answer": "ગોળીય અરીસાના ધ્રુવથી મુખ્ય કેન્દ્ર સુધીના અંતરને કેન્દ્રલંબાઈ કહે છે.\nસૂત્ર: 1/f = 1/v + 1/u"
+      },
+      "note": ""
+    },
+    {
+      "id": "MA02",
+      "category": "maths_formula",
+      "test": "Write the mirror formula.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          6
+        ],
+        "trust": "verified",
+        "answer": "ગોળીય અરીસાના ધ્રુવથી મુખ્ય કેન્દ્ર સુધીના અંતરને કેન્દ્રલંબાઈ કહે છે.\nસૂત્ર: 1/f = 1/v + 1/u"
+      },
+      "note": ""
+    },
+    {
+      "id": "MA03",
+      "category": "maths_formula",
+      "test": "વિદ્યુતપાવરનું સૂત્ર આપો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          8
+        ],
+        "trust": "verified",
+        "answer": "વિદ્યુતઊર્જા વપરાવાના દરને વિદ્યુતપાવર કહે છે.\nસૂત્ર: P = V × I"
+      },
+      "note": ""
+    },
+    {
+      "id": "MA04",
+      "category": "maths_formula",
+      "test": "V = I × R કયો નિયમ છે?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          7
+        ],
+        "trust": "verified",
+        "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R"
+      },
+      "note": ""
+    },
+    {
+      "id": "MA05",
+      "category": "maths_formula",
+      "test": "R = 2f શું દર્શાવે છે?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          6
+        ],
+        "trust": "partial",
+        "answer": "વક્રતાત્રિજ્યા કેન્દ્રલંબાઈ કરતાં બમણી હોય છે, તેથી આ અરીસાની વક્રતાત્રિજ્યા 20 cm થાય.\nસૂત્ર: R = 2f"
+      },
+      "note": ""
+    },
+    {
+      "id": "MA06",
+      "category": "maths_formula",
+      "test": "ઓહ્મના નિયમનો દાખલો ગણી બતાવો.",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          8
+        ],
+        "trust": "verified",
+        "answer": "પગલું 1: ઉદાહરણ: એક વાહકનો અવરોધ 5 ઓહ્મ છે અને તેમાંથી 2 ઍમ્પિયર વિદ્યુતપ્રવાહ વહે છે.\nપગલું 2: ઓહ્મના નિયમ મુજબ તેના બે છેડા વચ્ચેનો વિદ્યુતસ્થિતિમાનનો તફાવત 1"
+      },
+      "note": ""
+    },
+    {
+      "id": "MA07",
+      "category": "maths_formula",
+      "test": "5 ઓહ્મ અવરોધમાંથી 3 ઍમ્પિયર પ્રવાહ વહે તો વોલ્ટેજ કેટલું થાય?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": "the book has no example with these numbers; the engine does not calculate, so showing the book's 2-ampere example as the answer would be wrong"
+    },
+    {
+      "id": "MA08",
+      "category": "maths_formula",
+      "test": "E = mc² સમજાવો.",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "MA09",
+      "category": "maths_formula",
+      "test": "પાયથાગોરસનો પ્રમેય લખો.",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "MA10",
+      "category": "maths_formula",
+      "test": "What is quadratic equation?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OT01",
+      "category": "out_of_textbook",
+      "test": "ન્યૂટનનો ત્રીજો નિયમ સમજાવો.",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OT02",
+      "category": "out_of_textbook",
+      "test": "ભારતનું બંધારણ ક્યારે અમલમાં આવ્યું?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OT03",
+      "category": "out_of_textbook",
+      "test": "ગુરુત્વાકર્ષણ એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OT04",
+      "category": "out_of_textbook",
+      "test": "DNA નું પૂરું નામ શું છે?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OT05",
+      "category": "out_of_textbook",
+      "test": "મહાત્મા ગાંધીનો જન્મ ક્યારે થયો હતો?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OT06",
+      "category": "out_of_textbook",
+      "test": "ગુજરાતની રાજધાની કઈ છે?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OT07",
+      "category": "out_of_textbook",
+      "test": "પાણીનું ઉત્કલનબિંદુ કેટલું છે?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OT08",
+      "category": "out_of_textbook",
+      "test": "હૃદય કેવી રીતે કામ કરે છે?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "IA01",
+      "category": "incorrect_or_ambiguous",
+      "test": "ઓહ્મના નિયમ મુજબ વિદ્યુતપ્રવાહ અવરોધના સમપ્રમાણમાં કેમ હોય છે?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "premise_not_supported",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": "false premise"
+    },
+    {
+      "id": "IA02",
+      "category": "incorrect_or_ambiguous",
+      "test": "પ્રકાશસંશ્લેષણમાં ઑક્સિજન શા માટે વપરાય છે?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "premise_not_supported",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": "false premise"
+    },
+    {
+      "id": "IA03",
+      "category": "incorrect_or_ambiguous",
+      "test": "નિયમ",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "ambiguous_question",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": "ambiguous"
+    },
+    {
+      "id": "IA04",
+      "category": "incorrect_or_ambiguous",
+      "test": "તે શું છે?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_content_terms",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "IA05",
+      "category": "incorrect_or_ambiguous",
+      "test": "asdf qwer zxcv",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "IA06",
+      "category": "incorrect_or_ambiguous",
+      "test": "pH 7 કરતાં વધુ હોય તે દ્રાવણ ઍસિડિક કેમ હોય છે?",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "premise_not_supported",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": "false premise"
+    },
+    {
+      "id": "IA07",
+      "category": "incorrect_or_ambiguous",
+      "test": "પાણી",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "ambiguous_question",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": "ambiguous"
+    },
+    {
+      "id": "OC01",
+      "category": "ocr_or_spelling_errors",
+      "test": "પ્રકાશસંશ્લેષન એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "verified",
+        "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "OC02",
+      "category": "ocr_or_spelling_errors",
+      "test": "હરિતદ્રવય એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          2
+        ],
+        "trust": "verified",
+        "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "OC03",
+      "category": "ocr_or_spelling_errors",
+      "test": "તટસ્થિકરણ એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          10
+        ],
+        "trust": "verified",
+        "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "OC04",
+      "category": "ocr_or_spelling_errors",
+      "test": "જળચક્ઠ એટલે શું?",
+      "passed": true,
+      "got": {
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "verified",
+        "answer": "પૃથ્વી પર પાણી સતત એક સ્વરૂપમાંથી બીજા સ્વરૂપમાં ફરતું રહે છે તે ક્રિયાને જળચક્ર કહે છે."
+      },
+      "note": ""
+    },
+    {
+      "id": "OC05",
+      "category": "ocr_or_spelling_errors",
+      "test": "ઓમનો નિયમ લખો.",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "OC06",
+      "category": "ocr_or_spelling_errors",
+      "test": "પરાવતન એટલે શું?",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "no_evidence",
+        "pages": [],
+        "trust": "insufficient",
+        "answer": ""
+      },
+      "note": ""
+    },
+    {
+      "id": "CE01",
+      "category": "conflicting_editions",
+      "test": "paraphrased voltage question over both editions → must not merge 220 and 230",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage"
+      },
+      "note": "pass = conflict shown or refusal; a single merged answer would be a failure"
+    },
+    {
+      "id": "CE01b",
+      "category": "conflicting_editions",
+      "test": "same paraphrase: ideally the conflict itself is detected",
+      "passed": false,
+      "got": {
+        "status": "abstained",
+        "reason": "low_coverage"
+      },
+      "note": ""
+    },
+    {
+      "id": "CE02",
+      "category": "conflicting_editions",
+      "test": "voltage question over both editions → edition_conflict with both values shown separately",
+      "passed": true,
+      "got": {
+        "status": "edition_conflict"
+      },
+      "note": ""
+    },
+    {
+      "id": "CE03",
+      "category": "conflicting_editions",
+      "test": "2027 edition alone → 230 only",
+      "passed": true,
+      "got": {
+        "status": "answered"
+      },
+      "note": ""
+    },
+    {
+      "id": "MP01",
+      "category": "missing_pages",
+      "test": "page 99 of a 10-page book → 404",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "MP02",
+      "category": "missing_pages",
+      "test": "page of an unknown edition → 404",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "MP03",
+      "category": "missing_pages",
+      "test": "every cited page can be opened",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "US01",
+      "category": "unsupported_scope",
+      "test": "subject ગણિત (no source added) → refusal, reason no_authorized_textbook_in_scope",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_authorized_textbook_in_scope"
+      },
+      "note": ""
+    },
+    {
+      "id": "US02",
+      "category": "unsupported_scope",
+      "test": "board GSEB (no approved source) → refusal, reason no_authorized_textbook_in_scope",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_authorized_textbook_in_scope"
+      },
+      "note": ""
+    },
+    {
+      "id": "US03",
+      "category": "unsupported_scope",
+      "test": "board NCERT (permission denied) → refusal, reason no_authorized_textbook_in_scope",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_authorized_textbook_in_scope"
+      },
+      "note": ""
+    },
+    {
+      "id": "US04",
+      "category": "unsupported_scope",
+      "test": "standard 12 (no source added) → refusal, reason no_authorized_textbook_in_scope",
+      "passed": true,
+      "got": {
+        "status": "abstained",
+        "reason": "no_authorized_textbook_in_scope"
+      },
+      "note": ""
+    },
+    {
+      "id": "US05",
+      "category": "unsupported_scope",
+      "test": "Hindi question → refusal (no Hindi source)",
+      "passed": true,
+      "got": {
+        "reason": "language_not_supported"
+      },
+      "note": ""
+    },
+    {
+      "id": "SU01",
+      "category": "supplementary_mode",
+      "test": "not selected → no supplementary block at all",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "SU02",
+      "category": "supplementary_mode",
+      "test": "selected → textbook part still refuses, supplementary answers separately with its own label",
+      "passed": true,
+      "got": {
+        "sup_status": "answered"
+      },
+      "note": ""
+    },
+    {
+      "id": "SU03",
+      "category": "supplementary_mode",
+      "test": "English maths definition via supplementary source",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "SU04",
+      "category": "supplementary_mode",
+      "test": "step-by-step worked example from the supplementary source",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "SU05",
+      "category": "supplementary_mode",
+      "test": "a supplementary source can never be chosen as the textbook",
+      "passed": true,
+      "got": {
+        "reason": "no_authorized_textbook_in_scope"
+      },
+      "note": ""
+    },
+    {
+      "id": "CA01",
+      "category": "cache",
+      "test": "identical question + scope → second student served from cache with identical text and sources",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "CA02",
+      "category": "cache",
+      "test": "same question, different book → not served from the other book's cache",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "CA03",
+      "category": "cache",
+      "test": "same question, different answer type → separate cache entry",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "CA04",
+      "category": "cache",
+      "test": "re-ingesting the book (corpus version change) invalidates the cached answer",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "CA05",
+      "category": "cache",
+      "test": "engine version is part of the cache key",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "CA06",
+      "category": "cache",
+      "test": "an answer cached while a supplementary source was selected does not carry supplementary text to a textbook-only request",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "PM01",
+      "category": "personal_material",
+      "test": "owner gets an answer from own notes, labelled personal, never cached",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "PM02",
+      "category": "personal_material",
+      "test": "another student cannot use the notes, even with the id; notes are not in any wider scope",
+      "passed": true,
+      "got": {
+        "other": "no_authorized_textbook_in_scope",
+        "all": "abstained"
+      },
+      "note": ""
+    },
+    {
+      "id": "PM03",
+      "category": "personal_material",
+      "test": "notes are absent from the public catalogue and offline packages",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "PM04",
+      "category": "personal_material",
+      "test": "notes without the rights confirmation are refused",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "PM05",
+      "category": "personal_material",
+      "test": "delete erases the text and stored answers that quoted it",
+      "passed": true,
+      "got": {
+        "left": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "OF01",
+      "category": "offline",
+      "test": "offline package of an approved book carries all pages",
+      "passed": true,
+      "got": {},
+      "note": ""
+    },
+    {
+      "id": "OF02",
+      "category": "offline",
+      "test": "a book that is not approved cannot be downloaded",
+      "passed": true,
+      "got": {},
+      "note": ""
+    }
+  ],
+  "not_covered_here": "offline behaviour in a real browser and phone-size layout are covered by tests/e2e/run_e2e.mjs (emulated viewport, not a physical phone)"
+}

@@ -59,5 +59,19 @@ table.tb tr:first-child td{font-weight:700;background:#fbf3e8}
 .foot p{margin:4px 0}
 ul.clean{list-style:none;padding:0;margin:0}ul.clean li{padding:8px 0;border-bottom:1px solid var(--line)}
 details summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+textarea.bigq{min-height:120px;font-size:1.12rem;line-height:1.6}
+.qtext{font-weight:700;margin:.2em 0 .6em}
+.answer .simple{font-size:1.12rem;background:#f3faf5;border-radius:10px;padding:10px 12px;white-space:normal}
+.answer .simple p,.supp .simple p{margin:.3em 0}
+ul.points{padding-left:1.2em;margin:.3em 0}ul.points li{margin:.35em 0}ul.points p{margin:0}
+ul.reasons{margin:.2em 0;padding-left:1.2em;font-size:.93rem;color:var(--muted)}
+.badge.big{font-size:.95rem;padding:3px 12px;font-weight:700}
+.kind{margin:.2em 0}.enterms{font-size:.93rem}
+.supp{border-left:5px solid #5b4bb5;background:#f6f4ff}
+.supp .simple{background:#fff;font-size:1.08rem;border-radius:10px;padding:10px 12px}
+label.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;min-height:44px}
+label.check input{width:24px;height:24px;flex:0 0 auto;margin-top:4px}
+.credit{letter-spacing:.02em}
+table.tb{display:block;overflow-x:auto}
 @media (max-width:520px){body{font-size:16px}.two{grid-template-columns:1fr}.brand small{display:none}main{padding:10px 8px 24px}}
 @media (prefers-reduced-motion:reduce){.spinner{animation:none}}

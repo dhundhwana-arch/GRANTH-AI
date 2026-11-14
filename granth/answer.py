@@ -706,8 +706,8 @@ def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks
                                           "reason_gu", "message", "note", "mode", "mode_label", "unmatched_terms")}}
     payload["language"] = language["language"]
     payload["query_translation"] = ({"working_question": question, "terms": translation["mapped"], "unmapped": translation["unmapped"],
-                                     "note_gu": "અંગ્રેજી શબ્દોને શોધ માટે ગુજરાતી પારિભાષિક શબ્દોમાં ફેરવ્યા છે. ઉત્તર ગુજરાતી પાઠ્યપુસ્તકના લખાણમાંથી છે.",
-                                     "note_en": "English terms were mapped to Gujarati terms for searching. The answer is the text of the Gujarati-medium source."}
+                                     "note_gu": "અંગ્રેજી શબ્દોને શોધ માટે ગુજરાતી પારિભાષિક શબ્દોમાં ફેરવ્યા છે. શોધ અને ઉત્તર ગુજરાતી સ્રોતના લખાણમાંથી જ થાય છે.",
+                                     "note_en": "English terms were mapped to Gujarati terms for searching. Search and answer use only the text of the Gujarati-medium source."}
                                     if translation else None)
     payload["question"] = original_question
     payload["normalized_question"] = norm

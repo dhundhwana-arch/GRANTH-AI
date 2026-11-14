@@ -1,6 +1,6 @@
 // GRANTH-AI service worker: app shell works without a connection. API calls are never cached here
 // (verified answers and downloaded books live in IndexedDB, managed by the page).
-const VERSION = 'granth-shell-v1';
+const VERSION = 'granth-shell-v2';
 const SHELL = ['/', '/index.html', '/styles.css', '/manifest.webmanifest', '/icon.svg', '/js/app.js', '/js/textnorm.mjs',
   '/js/offline-store.mjs', '/js/voice.mjs', '/js/imageprep.mjs', '/fonts/NotoSansGujarati-400.ttf', '/fonts/NotoSansGujarati-700.ttf'];
 
