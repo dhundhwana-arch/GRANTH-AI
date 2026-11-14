@@ -1,0 +1,1311 @@
+{
+ "suite": "GRANTH-AI phase 5 FROZEN test set",
+ "written": "2026-11-13",
+ "about": "Written AFTER engine extractive-1.4 was frozen (commit d4f81cf) and committed BEFORE its first run. Run once with benchmarks/run_phase5.py. Questions were written from the book text without asking the engine.",
+ "limitations": "All questions are written by the developer of the engine (not by a teacher or student). The corpus is the self-written 14-page demo (synthetic, not a real GSEB textbook), and about 470 earlier development questions already cover the same ~45 facts, so new questions are new wordings of already-seen facts. The edition-conflict items use two self-written demo editions (synthetic fixtures). This is not independent human validation.",
+ "books": {
+  "sci": "granth_vigyan_10_2026",
+  "sci27": "granth_vigyan_10_2027",
+  "soc": "granth_samajik_10_2026",
+  "both": [
+   "granth_vigyan_10_2026",
+   "granth_vigyan_10_2027"
+  ]
+ },
+ "expect_values": {
+  "answered": "must answer; lead citation page in 'pages'; every 'must' string in the answer; no 'must_not' string; at most 'max_sentences' sentences when given",
+  "abstained": "must refuse",
+  "edition_conflict": "must show both editions separately, each with its own value and page",
+  "either": "refusal OK; if answered it must satisfy pages/must/must_not"
+ },
+ "overlap_with_earlier_sets": [
+  "Who invented the telephone?"
+ ],
+ "questions": [
+  {
+   "id": "P001",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન હાજર ન હોય તેવા શ્વસનનું નામ શું છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ]
+  },
+  {
+   "id": "P002",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન સિવાય થતું શ્વસન કયું છે?",
+   "expect": "answered",
+   "pages": [
+    3,
+    4
+   ],
+   "must": [
+    "અજારક"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ]
+  },
+  {
+   "id": "P003",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજનના અભાવમાં થતા શ્વસનને કયું નામ અપાયું છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ]
+  },
+  {
+   "id": "P004",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન મળે ત્યારે થતા શ્વસનને શું કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "જારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ગેરહાજરીમાં"
+   ]
+  },
+  {
+   "id": "P005",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is respiration called when oxygen is not available?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ]
+  },
+  {
+   "id": "P006",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "Which respiration does not need oxygen?",
+   "expect": "answered",
+   "pages": [
+    3,
+    4
+   ],
+   "must": [
+    "અજારક"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં થતા"
+   ]
+  },
+  {
+   "id": "P007",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "Name the respiration that takes place when oxygen is present.",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "જારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ગેરહાજરીમાં"
+   ]
+  },
+  {
+   "id": "P008",
+   "cat": "negation",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "oxygen વગર થતા respiration ને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ]
+  },
+  {
+   "id": "P009",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્ય વગર પ્રકાશસંશ્લેષણ કેવી રીતે થાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P010",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પાણી ન હોય ત્યારે વનસ્પતિ ખોરાક કેવી રીતે બનાવે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P011",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમિટર વગર વિદ્યુતપ્રવાહ કેવી રીતે માપી શકાય?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P012",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "How does neutralisation happen without a base?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P013",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કાર્બન ડાયૉક્સાઇડની ગેરહાજરીમાં થતા શ્વસનને શું કહે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P014",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કયા સજીવો પોતાનો ખોરાક જાતે બનાવતા નથી?",
+   "expect": "either",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પરપોષી"
+   ],
+   "must_not": [
+    "લીલી વનસ્પતિ સ્વયંપોષી"
+   ]
+  },
+  {
+   "id": "P020",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વૉટમીટરને પરિપથમાં કઈ રીતે જોડવામાં આવે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P021",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઓહ્મમીટરને પરિપથમાં કેવી રીતે જોડવામાં આવે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P022",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ગૅલ્વેનોમીટર શા માટે વપરાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P023",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતકણ એટલે શું?",
+   "expect": "either",
+   "pages": [
+    2
+   ],
+   "must": [
+    "હરિતદ્રવ્ય કહે છે"
+   ]
+  },
+  {
+   "id": "P024",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પર્ણદ્રવ્ય કોને કહે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P025",
+   "cat": "unknown_term",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is a thermometer used for?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P026",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પેરિસ્કોપ એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P027",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "નાઇટ્રિક ઍસિડ શેમાં હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P028",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વીદ્યુતપાવરનો એકમ કયો છે?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વૉટ છે"
+   ]
+  },
+  {
+   "id": "P029",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બહીર્ગોળ અરીસો કોને કહે છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બહિર્ગોળ અરીસો કહે છે"
+   ],
+   "must_not": [
+    "અંદરની તરફ"
+   ]
+  },
+  {
+   "id": "P030",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તટસ્થિકરણની પ્રક્રિયામાં કઈ ઊર્જા મુક્ત થાય છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ઉષ્મા મુક્ત"
+   ]
+  },
+  {
+   "id": "P031",
+   "cat": "unknown_term",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is an amiter used for?",
+   "expect": "either",
+   "pages": [
+    7,
+    8
+   ],
+   "must": [
+    "ઍમિટર"
+   ]
+  },
+  {
+   "id": "P032",
+   "cat": "unknown_term",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "ammeter ને circuit માં કઈ રીતે જોડવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "શ્રેણીમાં"
+   ],
+   "must_not": [
+    "સમાંતર જોડવામાં"
+   ]
+  },
+  {
+   "id": "P033",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વાયુકોષ્ટ એટલે શું?",
+   "expect": "either",
+   "pages": [
+    4
+   ],
+   "must": [
+    "વાયુકોષ્ઠ"
+   ]
+  },
+  {
+   "id": "P040",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વોલ્ટમીટર વિદ્યુતપ્રવાહ શા માટે માપે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P041",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમિટરને પરિપથમાં સમાંતર શા માટે જોડવામાં આવે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P042",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બહિર્ગોળ અરીસો દાંતના ડૉક્ટર શા માટે વાપરે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P043",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "લીંબુના રસમાં લૅક્ટિક ઍસિડ કેમ હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P044",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફૂગ સ્વયંપોષી કેમ છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P045",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જારક શ્વસનમાં ઓછી ઊર્જા શા માટે મળે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P046",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હળદર કૃત્રિમ સૂચક શા માટે ગણાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P047",
+   "cat": "false_premise",
+   "lang": "en",
+   "book": "sci",
+   "q": "Why is a voltmeter connected in series?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P048",
+   "cat": "false_premise",
+   "lang": "en",
+   "book": "sci",
+   "q": "Why does curd contain citric acid?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P049",
+   "cat": "false_premise",
+   "lang": "en",
+   "book": "sci",
+   "q": "Why is the pH of a neutral solution 9?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P050",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપાવરનો એકમ ઓહ્મ કેમ છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P051",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કીડીના ડંખ પર ચૂનો શા માટે લગાવવામાં આવે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P052",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વાહનોમાં પાછળનું દૃશ્ય જોવા કયો અરીસો વપરાય છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બહિર્ગોળ અરીસો વપરાય"
+   ],
+   "must_not": [
+    "દાંતના"
+   ]
+  },
+  {
+   "id": "P053",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કીડીના ડંખની અસર ઘટાડવા શું લગાવવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ખાવાનો સોડા"
+   ]
+  },
+  {
+   "id": "P060",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "યીસ્ટમાં અજારક શ્વસન વડે શું બને છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "આલ્કોહૉલ"
+   ],
+   "group": "yeast"
+  },
+  {
+   "id": "P061",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "યીસ્ટમાં અજારક શ્વસનને કારણે કયા પદાર્થો બને છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "આલ્કોહૉલ"
+   ],
+   "group": "yeast"
+  },
+  {
+   "id": "P062",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "યીસ્ટમાં અજારક શ્વસન થાય ત્યારે શું ઉત્પન્ન થાય છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "આલ્કોહૉલ"
+   ],
+   "group": "yeast"
+  },
+  {
+   "id": "P063",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કાર્બન ડાયૉક્સાઇડ પર્ણમાં શેના દ્વારા પ્રવેશે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર દ્વારા પર્ણમાં પ્રવેશે"
+   ],
+   "group": "co2"
+  },
+  {
+   "id": "P064",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કાર્બન ડાયૉક્સાઇડ પર્ણમાં કઈ રીતે દાખલ થાય છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર દ્વારા પર્ણમાં પ્રવેશે"
+   ],
+   "group": "co2"
+  },
+  {
+   "id": "P065",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પર્ણમાં કાર્બન ડાયૉક્સાઇડ ક્યાંથી પ્રવેશે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર દ્વારા પર્ણમાં પ્રવેશે"
+   ],
+   "group": "co2"
+  },
+  {
+   "id": "P066",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ગ્લુકોઝ વનસ્પતિમાં શેના રૂપમાં સંગ્રહ પામે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્ટાર્ચ"
+   ],
+   "group": "starch"
+  },
+  {
+   "id": "P067",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વનસ્પતિમાં ગ્લુકોઝનો સંગ્રહ શેના રૂપમાં થાય છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્ટાર્ચ"
+   ],
+   "group": "starch"
+  },
+  {
+   "id": "P068",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બનેલો ગ્લુકોઝ વનસ્પતિમાં કેવી રીતે સંગ્રહાય છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્ટાર્ચ"
+   ],
+   "group": "starch"
+  },
+  {
+   "id": "P069",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "મનુષ્યમાં શ્વસનનું મુખ્ય અંગ કયું છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "ફેફસાં છે"
+   ],
+   "group": "lungs"
+  },
+  {
+   "id": "P070",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "માણસ કયા અંગથી શ્વસન કરે છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "ફેફસાં છે"
+   ],
+   "group": "lungs"
+  },
+  {
+   "id": "P071",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "મનુષ્યના શ્વસન માટે મુખ્ય અંગ જણાવો.",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "ફેફસાં છે"
+   ],
+   "group": "lungs"
+  },
+  {
+   "id": "P072",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જમીન વધુ ઍસિડિક હોય ત્યારે તેમાં શું ઉમેરવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ચૂનો"
+   ],
+   "must_not": [
+    "સેન્દ્રિય ખાતર"
+   ],
+   "group": "soil"
+  },
+  {
+   "id": "P073",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વધુ ઍસિડિક જમીનમાં શું નાખવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ચૂનો"
+   ],
+   "must_not": [
+    "સેન્દ્રિય ખાતર"
+   ],
+   "group": "soil"
+  },
+  {
+   "id": "P074",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍસિડિક જમીન સુધારવા શું ઉમેરાય છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ચૂનો"
+   ],
+   "must_not": [
+    "સેન્દ્રિય ખાતર"
+   ],
+   "group": "soil"
+  },
+  {
+   "id": "P075",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપાવર સમજાવો.",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વિદ્યુતપાવર કહે છે"
+   ],
+   "group": "power"
+  },
+  {
+   "id": "P076",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપાવરની વ્યાખ્યા આપો.",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વિદ્યુતપાવર કહે છે"
+   ],
+   "group": "power"
+  },
+  {
+   "id": "P077",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપાવર કોને કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વિદ્યુતપાવર કહે છે"
+   ],
+   "group": "power"
+  },
+  {
+   "id": "P078",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપાવર વર્ણવો.",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વિદ્યુતપાવર કહે છે"
+   ],
+   "group": "power"
+  },
+  {
+   "id": "P079",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સ્નાયુઓમાં દુખાવો શાને લીધે થાય છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડના ભરાવાથી"
+   ],
+   "group": "pain"
+  },
+  {
+   "id": "P080",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સ્નાયુઓમાં દુખાવો શા માટે થાય છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડના ભરાવાથી"
+   ],
+   "group": "pain"
+  },
+  {
+   "id": "P081",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સ્નાયુઓ કેમ દુખે છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડના ભરાવાથી"
+   ],
+   "group": "pain"
+  },
+  {
+   "id": "P082",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્ય કયું કામ કરે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "સૂર્યપ્રકાશની ઊર્જાનું શોષણ"
+   ],
+   "group": "chl"
+  },
+  {
+   "id": "P083",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્યનું કામ જણાવો.",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "સૂર્યપ્રકાશની ઊર્જાનું શોષણ"
+   ],
+   "group": "chl"
+  },
+  {
+   "id": "P084",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ભૂગર્ભજળનો વધુ પડતો ઉપયોગ કરવાથી શું થાય છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્તર નીચું જાય છે"
+   ],
+   "group": "gw"
+  },
+  {
+   "id": "P085",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ભૂગર્ભજળ વધારે વાપરવાથી શું પરિણામ આવે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્તર નીચું જાય છે"
+   ],
+   "group": "gw"
+  },
+  {
+   "id": "P090",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What do green plants make from carbon dioxide and water?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "ગ્લુકોઝ"
+   ]
+  },
+  {
+   "id": "P091",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Where does air enter the body?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "નાક દ્વારા"
+   ]
+  },
+  {
+   "id": "P092",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "In which unit is electric power measured?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વૉટ છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "P093",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Which acid is found in an ant sting?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ફૉર્મિક ઍસિડ"
+   ]
+  },
+  {
+   "id": "P094",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is added to the soil when it is too basic?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "સેન્દ્રિય ખાતર"
+   ],
+   "must_not": [
+    "ચૂનો ઉમેરવામાં"
+   ]
+  },
+  {
+   "id": "P095",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Define magnification.",
+   "expect": "answered",
+   "pages": [
+    6
+   ],
+   "must": [
+    "મોટવણી કહે છે"
+   ]
+  },
+  {
+   "id": "P096",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "How many laws of reflection are there?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બે નિયમો"
+   ]
+  },
+  {
+   "id": "P097",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Is pure water acidic or neutral?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "શુદ્ધ પાણી તટસ્થ"
+   ]
+  },
+  {
+   "id": "P098",
+   "cat": "english",
+   "lang": "en",
+   "book": "soc",
+   "q": "What is groundwater?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "ભૂગર્ભજળ કહે છે"
+   ]
+  },
+  {
+   "id": "P099",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Who invented the telephone?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P100",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "yeast માં anaerobic respiration થી શું બને છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "આલ્કોહૉલ"
+   ]
+  },
+  {
+   "id": "P101",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "concave mirror કોણ વાપરે છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "દાંતના ડૉક્ટર"
+   ],
+   "must_not": [
+    "વાહનોમાં"
+   ]
+  },
+  {
+   "id": "P102",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "neutral solution નું pH કેટલું હોય છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "7"
+   ]
+  },
+  {
+   "id": "P103",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "resistance કયા unit માં મપાય છે?",
+   "expect": "answered",
+   "pages": [
+    7,
+    8
+   ],
+   "must": [
+    "ઓહ્મ"
+   ]
+  },
+  {
+   "id": "P104",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "glucose કયા form માં store થાય છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્ટાર્ચ"
+   ]
+  },
+  {
+   "id": "P105",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "transistor એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P110",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલા વોલ્ટ ગણ્યું છે?",
+   "expect": "edition_conflict",
+   "synthetic_fixture": true
+  },
+  {
+   "id": "P111",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશનું વોલ્ટેજ કેટલું લીધું છે?",
+   "expect": "edition_conflict",
+   "synthetic_fixture": true
+  },
+  {
+   "id": "P112",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "કેટલું છે ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ?",
+   "expect": "edition_conflict",
+   "synthetic_fixture": true
+  },
+  {
+   "id": "P113",
+   "cat": "edition_conflict",
+   "lang": "en",
+   "book": "both",
+   "q": "What voltage is taken for the household supply in the examples?",
+   "expect": "edition_conflict",
+   "synthetic_fixture": true
+  },
+  {
+   "id": "P114",
+   "cat": "edition_conflict",
+   "lang": "mixed",
+   "book": "both",
+   "q": "household વિદ્યુતપુરવઠાનું voltage કેટલા volt છે?",
+   "expect": "edition_conflict",
+   "synthetic_fixture": true
+  },
+  {
+   "id": "P115",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "વિદ્યુતપાવર કયા એકમમાં મપાય છે?",
+   "expect": "answered",
+   "pages": [
+    8,
+    2
+   ],
+   "must": [
+    "વૉટ"
+   ],
+   "synthetic_fixture": true
+  },
+  {
+   "id": "P120",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ચુંબકીય ક્ષેત્ર એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P121",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "મૂત્રપિંડનું કાર્ય શું છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P122",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતબલ્બની શોધ કોણે કરી?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P123",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રકાશનું વિભાજન એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P124",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફેફસાંનું વજન કેટલું હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P125",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ગુજરાતનું સૌથી મોટું શહેર કયું છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P126",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "pH માપક્રમની શોધ કયા વર્ષમાં થઈ?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P127",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍન્ટાસિડની કિંમત કેટલી હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "P130",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વાયુકોષ્ઠમાં ઑક્સિજન શેમાં ભળે છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "રુધિરમાં ભળે"
+   ]
+  },
+  {
+   "id": "P131",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરાવર્તનનો બીજો નિયમ જણાવો.",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "એક જ સમતલમાં"
+   ]
+  },
+  {
+   "id": "P132",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "નકશાનાં મુખ્ય અંગો કેટલાં છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ત્રણ મુખ્ય અંગો"
+   ]
+  },
+  {
+   "id": "P133",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "નૈઋત્ય ખૂણો કઈ બે દિશાઓની વચ્ચે આવે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "દક્ષિણ અને પશ્ચિમ"
+   ]
+  }
+ ],
+ "engine_commit": "d4f81cfb24dc7d5f8d9ec5c2b0372e01ab82bbf3",
+ "engine_version": "extractive-1.4"
+}
