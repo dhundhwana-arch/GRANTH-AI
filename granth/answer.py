@@ -183,7 +183,8 @@ def requested_concept(con, question: str, edition_ids) -> dict:
     def res(words):
         return [t["term"] or t["query"] for t in idx.resolve_terms(words, edition_ids)] if words else []
     mods, head = res(an["mod_words"]), res(an["head_words"])
-    return {"asked": mods + head, "head": head, "mods": mods, "head_facet": an["head_facet"], "head_words": an["head_words"],
+    return {"asked": mods + head, "head": head, "mods": mods, "head_facet": an["head_facet"], "facet": an["facet"],
+            "head_words": an["head_words"],
             "phrase": phrase}
 
 
@@ -321,7 +322,10 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
                     break
                 formulas.append(f)
             if formulas:
-                lead = max((u for u in units if u["row"]["id"] == r["id"]), key=lambda u: u["score"], default=None)
+                c = requested_concept(con, question, edition_ids)
+                named = _find_definition([r], c["asked"], c["mods"]) if c["asked"] else None
+                lead = named if named and named["match"]["kind"] == "exact" else \
+                    max((u for u in units if u["row"]["id"] == r["id"]), key=lambda u: u["score"], default=None)
                 parts = [_part(u) for u in _with_antecedents([lead])] if lead else []
                 parts += [{"text": f["text"], "kind": "formula", "chunk_id": f["id"], "page_number": f["page_number"]}
                           for f in formulas]
@@ -344,6 +348,23 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
             return {"abstain": "aspect_not_found"}
     if not units:
         return {"abstain": "low_coverage"}
+    asked_all = {t["term"] for t in res["terms"] if t["term"]}
+
+    def only_defines_subject(u):
+        # "X ક્યાં વપરાય છે?" is not answered by the sentence that defines X: that sentence covers the subject of the
+        # question and nothing of what is asked about it.
+        if u["kind"] != "sentence":
+            return False
+        st = set(g.content_terms(u["text"]))
+        for term in study.find_definitions(u["text"]):
+            d = set(concepts.analyse(term)["terms"])
+            if d and d < asked_all and not ((asked_all - d) & st):
+                return True
+        return False
+    kept = [u for u in units if not only_defines_subject(u)]
+    if not kept:
+        return {"abstain": "aspect_not_found"}
+    units = kept
     if _PREMISE_Q.search(question):
         # A "why / for what reason" question asserts a premise. A lexical engine cannot judge whether the
         # textbook agrees with it, so it answers only when ONE textbook sentence carries every question term;
@@ -644,6 +665,11 @@ def _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id):
             res["concept"] = concept
         elif concept["head_facet"]:
             res["facet"] = {"name": concept["head_facet"], "mods": concept["mods"]}
+        elif concept["facet"] == "application":
+            # "X ક્યાં વપરાય છે?" - only a sentence that speaks of the USE of exactly that X can answer
+            others = [t["term"] for t in res["terms"] if t["term"] and t["term"] not in concepts.all_facet_stems()]
+            if others:
+                res["facet"] = {"name": "application", "mods": others}
     ok, reason = check_sufficiency(res)
     if not ok:
         return {"abstain": reason}, res, eff_mode

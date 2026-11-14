@@ -210,3 +210,23 @@ def test_examples_in_explanation_are_only_printed_examples(con, ids):
     ex = r["structured"]["explanation"]
     corpus = (ROOT / "data/sample/granth_vigyan_10_2026/content.txt").read_text(encoding="utf-8")
     assert all(e["text"] in corpus and e["source_type"] == "textbook_example" for e in ex["examples"])
+
+
+# ---------------------------------------------------------------- found by the held-out benchmark (first run)
+def test_use_question_is_not_answered_by_the_definition_of_the_subject(con, ids):
+    r = ask(con, ids, "અંતર્ગોળ અરીસો ક્યાં વપરાય છે?")
+    assert r["status"] == "answered" and "દાંતના ડૉક્ટર" in text(r)
+    assert CONCAVE_DEF not in text(r) and "વાહનોમાં" not in text(r)
+    r = ask(con, ids, "વિદ્યુતપ્રવાહ માપવા માટે કયું સાધન વપરાય છે?")
+    assert "ઍમિટર" in text(r)
+
+
+def test_named_formula_question_leads_with_the_sentence_that_names_it(con, ids):
+    r = ask(con, ids, "અરીસાનું સૂત્ર એટલે શું?")
+    assert "અરીસાનું સૂત્ર કહે છે" in text(r) and "1/f = 1/v + 1/u" in text(r)
+    assert FOCAL_DEF not in text(r)
+
+
+def test_bare_topic_in_several_chapters_asks_which_one(con, ids):
+    r = ask(con, ids, "કાર્બન ડાયૉક્સાઇડ")
+    assert r["status"] == "abstained" and r["reason"] == "ambiguous_question" and r["suggestions"]

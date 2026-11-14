@@ -65,6 +65,10 @@ def _generic() -> frozenset:
     return frozenset(g.content_terms(words)) | frozenset(_FACET_STEMS)
 
 
+def all_facet_stems() -> frozenset:
+    return frozenset(_FACET_STEMS)
+
+
 def facet_stems(name: str) -> set:
     return {st for st, n in _FACET_STEMS.items() if n == name}
 

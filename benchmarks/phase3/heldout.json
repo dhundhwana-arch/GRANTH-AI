@@ -1,0 +1,534 @@
+{
+ "suite": "GRANTH-AI Phase 3 HELD-OUT set",
+ "written": "2026-11-13",
+ "about": "Written after the engine was frozen at the commit named in docs/BENCHMARK_REPORT.md and run exactly once. No engine, glossary or gold change was made after seeing these results. Same demo books; developer-written.",
+ "limitations": [
+  "The demo corpus is tiny: 10 + 2 + 2 pages. Many questions therefore probe the same ~45 facts from different angles (wording, language, spelling, aspect).",
+  "Questions were written by the developer, not by teachers or students, and were not collected from real use.",
+  "Only one fact differs between the two editions (220 / 230 volt), so edition-conflict detection is measured on one fact asked four ways.",
+  "'either' = both an honest refusal and the stated answer are acceptable; a different answer is wrong."
+ ],
+ "books": {
+  "sci": "granth_vigyan_10_2026",
+  "sci27": "granth_vigyan_10_2027",
+  "soc": "granth_samajik_10_2026",
+  "both": [
+   "granth_vigyan_10_2026",
+   "granth_vigyan_10_2027"
+  ]
+ },
+ "expect_values": {
+  "answered": "must answer; lead citation page in 'pages'; every 'must' string in the answer; no 'must_not' string",
+  "abstained": "must refuse",
+  "edition_conflict": "must show both editions separately (220 in 2026 only, 230 in 2027 only)",
+  "either": "refusal OK; if answered it must satisfy pages/must/must_not"
+ },
+ "gold_corrections": [],
+ "questions": [
+  {
+   "id": "H01",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "લીલી વનસ્પતિ ગ્લુકોઝ શેમાંથી બનાવે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી"
+   ]
+  },
+  {
+   "id": "H02",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બનેલો ગ્લુકોઝ કયા રૂપમાં સંગ્રહ પામે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્ટાર્ચ"
+   ]
+  },
+  {
+   "id": "H03",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કાર્બન ડાયૉક્સાઇડ પર્ણમાં કેવી રીતે પ્રવેશે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર દ્વારા"
+   ]
+  },
+  {
+   "id": "H04",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફૂગ સ્વયંપોષી છે કે પરપોષી?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ફૂગ પરપોષી છે"
+   ]
+  },
+  {
+   "id": "H05",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્વસન ક્યાં થાય છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "દરેક સજીવ કોષમાં"
+   ]
+  },
+  {
+   "id": "H06",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હવા ફેફસાં સુધી કેવી રીતે પહોંચે છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "શ્વાસનળી"
+   ]
+  },
+  {
+   "id": "H07",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "આપાતકિરણ કોને કહે છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "આપાતકિરણ"
+   ]
+  },
+  {
+   "id": "H08",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વક્રતાત્રિજ્યા અને કેન્દ્રલંબાઈ વચ્ચે શો સંબંધ છે?",
+   "expect": "answered",
+   "pages": [
+    6
+   ],
+   "must": [
+    "બમણી"
+   ]
+  },
+  {
+   "id": "H09",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અરીસાનું સૂત્ર એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    6
+   ],
+   "must": [
+    "અરીસાનું સૂત્ર કહે છે"
+   ]
+  },
+  {
+   "id": "H10",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમ્પિયર શેનો એકમ છે?",
+   "expect": "answered",
+   "pages": [
+    7,
+    8
+   ],
+   "must": [
+    "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર"
+   ]
+  },
+  {
+   "id": "H11",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સમાંતર જોડાણમાં કુલ અવરોધ કેટલો હોય છે?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "સૌથી નાના અવરોધ કરતાં પણ ઓછો"
+   ]
+  },
+  {
+   "id": "H12",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "દહીંમાં કયો ઍસિડ હોય છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "લૅક્ટિક"
+   ]
+  },
+  {
+   "id": "H13",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફિનોલ્ફ્થેલીન કેવો સૂચક છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "કૃત્રિમ"
+   ]
+  },
+  {
+   "id": "H14",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "pH માપક્રમ કેટલાથી કેટલા સુધીનો હોય છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "0 થી 14"
+   ]
+  },
+  {
+   "id": "H15",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સોડિયમ ક્લોરાઇડને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "સામાન્ય મીઠું"
+   ]
+  },
+  {
+   "id": "H16",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍન્ટાસિડ ક્યારે લેવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ઍસિડિટી"
+   ]
+  },
+  {
+   "id": "H17",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is transpiration?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "બાષ્પોત્સર્જન કહે છે"
+   ]
+  },
+  {
+   "id": "H18",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is the unit of electric power?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વૉટ"
+   ],
+   "must_not": [
+    "દરને વિદ્યુતપાવર કહે છે"
+   ]
+  },
+  {
+   "id": "H19",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is a convex mirror?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બહિર્ગોળ અરીસો કહે છે"
+   ],
+   "must_not": [
+    "અંતર્ગોળ અરીસો કહે છે"
+   ]
+  },
+  {
+   "id": "H20",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "acid અને base વચ્ચે પ્રક્રિયા થાય તેને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "તટસ્થીકરણ"
+   ]
+  },
+  {
+   "id": "H21",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સ્વયંપોશી કોને કહે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "સ્વયંપોષી કહે છે"
+   ]
+  },
+  {
+   "id": "H22",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બાષ્પોત્સરજન એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "બાષ્પોત્સર્જન કહે છે"
+   ]
+  },
+  {
+   "id": "H23",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ખૂણાની દિશા કોને કહે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ખૂણાની દિશા કહે છે"
+   ]
+  },
+  {
+   "id": "H24",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "છત-જળસંચય એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "છત-જળસંચય કહે છે"
+   ]
+  },
+  {
+   "id": "H25",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "soc",
+   "q": "દરિયાનું પાણી વરાળ કેવી રીતે બને છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સૂર્યની ગરમીથી"
+   ]
+  },
+  {
+   "id": "H26",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ઈશાન ખૂણો કઈ બે દિશાઓ વચ્ચે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ઉત્તર અને પૂર્વ"
+   ]
+  },
+  {
+   "id": "H27",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જારક અને અજારક શ્વસન વચ્ચેનો તફાવત લખો.",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "જારક શ્વસન",
+    "અજારક શ્વસન"
+   ]
+  },
+  {
+   "id": "H28",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અંતર્ગોળ અરીસો ક્યાં વપરાય છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "દાંતના ડૉક્ટર"
+   ],
+   "must_not": [
+    "વાહનોમાં"
+   ]
+  },
+  {
+   "id": "H29",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પર્ણરંધ્રનું કાર્ય શું છે?",
+   "expect": "either",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર દ્વારા"
+   ]
+  },
+  {
+   "id": "H30",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલા વોલ્ટ ગણ્યું છે?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "H31",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બહિર્ગોળ લેન્સ એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "H32",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપ્રવાહની શોધ કોણે કરી?",
+   "expect": "abstained"
+  },
+  {
+   "id": "H33",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અંતર્ગોળ અરીસાના પ્રકાર જણાવો.",
+   "expect": "abstained"
+  },
+  {
+   "id": "H34",
+   "cat": "refusal",
+   "lang": "gu",
+   "book": "sci",
+   "q": "10 ઓહ્મ અવરોધમાંથી 4 ઍમ્પિયર પ્રવાહ વહે તો વોલ્ટેજ કેટલું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "H35",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍસિડનો એકમ કયો છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "H36",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "soc",
+   "q": "નકશાની શોધ કોણે કરી?",
+   "expect": "abstained"
+  },
+  {
+   "id": "H37",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રકાશનું વક્રીભવન એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "H38",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "મોટવણીનો એકમ કયો છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "H39",
+   "cat": "unsupported",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is the speed of light?",
+   "expect": "abstained"
+  },
+  {
+   "id": "H40",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અજારક શ્વસનની કેન્દ્રલંબાઈ એટલે શું?",
+   "expect": "abstained"
+  }
+ ]
+}

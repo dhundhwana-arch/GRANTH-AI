@@ -1,7 +1,7 @@
 """Phase 3 benchmark runner. Reads benchmarks/phase3/questions.json (gold; never read by the engine) and writes
 benchmarks/results/phase3.json with every wrong answer and every wrong refusal listed.
 
-Usage:  python benchmarks/run_phase3.py [--out FILE] [--engine-root DIR]
+Usage:  python benchmarks/run_phase3.py [--questions FILE] [--out FILE] [--engine-root DIR]
         --engine-root runs the SAME questions against another checkout of the engine (used for the "before" numbers).
 """
 from __future__ import annotations
@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parent.parent
 ap = argparse.ArgumentParser()
 ap.add_argument("--out", default=str(ROOT / "benchmarks" / "results" / "phase3.json"))
 ap.add_argument("--engine-root", default=str(ROOT))
+ap.add_argument("--questions", default=str(ROOT / "benchmarks" / "phase3" / "questions.json"))
 args = ap.parse_args()
 sys.path.insert(0, args.engine_root)
 
@@ -62,7 +63,7 @@ def judge(q: dict, r: dict, ed: dict) -> dict:
 
 
 def main() -> int:
-    spec = json.loads((ROOT / "benchmarks" / "phase3" / "questions.json").read_text(encoding="utf-8"))
+    spec = json.loads(Path(args.questions).read_text(encoding="utf-8"))
     con = db.connect(Path(tempfile.mkdtemp()) / "p3.sqlite3")
     seed_samples(con)
     ed = {r["slug"]: r["id"] for r in con.execute("SELECT slug, id FROM textbook_editions")}
