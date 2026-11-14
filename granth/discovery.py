@@ -3,7 +3,7 @@
 For every portal the pipeline (1) reads robots.txt and obeys it, (2) fetches the public catalogue page,
 (3) extracts candidate textbook PDF links with standard / subject / medium guesses, and (4) records them in the
 registry with a PERMISSION STATUS. It never downloads a PDF: download + ingestion is a separate step that
-`granth.ingest` refuses unless the edition is AUTHORIZED.
+`granth.ingest` refuses unless the edition is APPROVED.
 
 No authentication, paywall, robots rule or access control is bypassed; on any doubt the entry is recorded
 as UNKNOWN / UNREACHABLE and nothing is fetched.
@@ -33,7 +33,7 @@ SOURCES = [
      "permission_basis": "No explicit open licence or reuse grant for software/AI use was found. Textbooks are "
                          "copyright of the Board. Written permission must be obtained before any ingestion."},
     {"id": "ncert", "name": "NCERT", "catalogue_urls": ["https://ncert.nic.in/textbook.php"],
-     "permission_status": "PROHIBITED",
+     "permission_status": "RESTRICTED",
      "permission_basis": "NCERT copyright notice on the textbook page: use of the online books 'as a part of digital "
                          "content packages or software is also strictly prohibited'; no hosting or redistribution. "
                          "Not ingested. Only written permission from NCERT could change this."},

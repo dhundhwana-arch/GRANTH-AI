@@ -121,7 +121,7 @@ def _vocab_row(r) -> dict:
 
 _VOCAB_SQL = ("SELECT v.*, c.number AS chapter_number, c.title AS chapter_title, e.edition_label AS edition, t.title AS book_title"
               " FROM vocabulary v LEFT JOIN chapters c ON c.id=v.chapter_id JOIN textbook_editions e ON e.id=v.edition_id"
-              " JOIN textbooks t ON t.id=e.textbook_id WHERE e.permission_status='AUTHORIZED' AND e.review_status='approved' ")
+              " JOIN textbooks t ON t.id=e.textbook_id WHERE e.permission_status='APPROVED' AND e.review_status='approved' ")
 
 
 def chapter_vocabulary(con, chapter_id: int) -> list[dict]:
@@ -145,7 +145,7 @@ def _chapter(con, chapter_id):
     return con.execute(
         "SELECT c.*, e.edition_label AS edition, e.id AS edition_id, t.title AS book_title, t.board, t.medium, t.standard,"
         " s.name_gu AS subject FROM chapters c JOIN textbook_editions e ON e.id=c.edition_id JOIN textbooks t ON t.id=e.textbook_id"
-        " JOIN subjects s ON s.id=t.subject_id WHERE c.id=? AND e.permission_status='AUTHORIZED' AND e.review_status='approved'",
+        " JOIN subjects s ON s.id=t.subject_id WHERE c.id=? AND e.permission_status='APPROVED' AND e.review_status='approved'",
         (chapter_id,)).fetchone()
 
 

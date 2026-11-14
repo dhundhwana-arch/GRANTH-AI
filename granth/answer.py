@@ -5,7 +5,7 @@ Pipeline:  question -> Gujarati normalization -> scope (board/medium/standard/su
            -> [optional constrained generation, discarded unless verified] -> citation/quote verification
            -> cache store (verified answers only) -> audit records.
 
-Invariant: every sentence shown as an answer is a verbatim substring of a stored chunk of an AUTHORIZED,
+Invariant: every sentence shown as an answer is a verbatim substring of a stored chunk of an APPROVED,
 approved edition inside the selected scope - or the system abstains.
 """
 from __future__ import annotations
@@ -55,7 +55,7 @@ def resolve_scope(con, scope: dict) -> list[dict]:
     """Editions the question may be answered from. Never includes unauthorized or unapproved editions."""
     sql = ("SELECT e.id, e.textbook_id, e.edition_label, e.corpus_version, e.academic_year, t.title, t.board, t.medium,"
            " t.standard, s.name_gu AS subject FROM textbook_editions e JOIN textbooks t ON t.id=e.textbook_id"
-           " JOIN subjects s ON s.id=t.subject_id WHERE e.permission_status='AUTHORIZED' AND e.review_status='approved'"
+           " JOIN subjects s ON s.id=t.subject_id WHERE e.permission_status='APPROVED' AND e.review_status='approved'"
            " AND e.ingested_at IS NOT NULL")
     args: list = []
     if scope.get("chapter_id"):
@@ -324,7 +324,7 @@ def verify_extractive(con, parts: list[dict], citations: list[dict], edition_ids
                           " JOIN textbook_editions e ON e.id=c.edition_id WHERE c.id=?", (p["chunk_id"],)).fetchone()
         ok = bool(row) and " ".join(p["text"].split()) in " ".join(row["text"].split()) \
             and row["page_number"] == p["page_number"] and row["edition_id"] in eds \
-            and row["ep"] == "AUTHORIZED" and row["er"] == "approved"
+            and row["ep"] == "APPROVED" and row["er"] == "approved"
         ok_parts += ok
         checks.append({"chunk_id": p["chunk_id"], "verbatim_and_in_scope": bool(ok)})
     cit_ok = True

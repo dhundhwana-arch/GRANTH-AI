@@ -44,7 +44,7 @@ export class Store {
   /** Write a downloaded package, then read it back. Throws (and removes partial data) if verification fails. */
   async saveBook(pkg) {
     if (!pkg || pkg.format !== PACKAGE_FORMAT) throw new OfflineError('bad-package', 'unknown package format');
-    if (!pkg.edition || pkg.edition.permission_status !== 'AUTHORIZED') {
+    if (!pkg.edition || pkg.edition.permission_status !== 'APPROVED') {
       throw new OfflineError('not-authorized', 'only authorized textbooks can be stored offline');
     }
     if (!Array.isArray(pkg.pages) || !pkg.pages.length) throw new OfflineError('bad-package', 'package has no pages');

@@ -1,6 +1,6 @@
 """Hybrid textbook retrieval: BM25 keyword search + character n-gram similarity, scoped by edition/chapter.
 
-Only chunks of editions that are AUTHORIZED *and* admin-approved are ever indexed.
+Only chunks of editions that are APPROVED *and* admin-approved are ever indexed.
 The "semantic" leg is a character-trigram TF-IDF cosine (robust to Gujarati inflection and spelling
 variation). It is NOT a neural embedding; see docs/RAG_ENGINE_REPORT.md for why and for the upgrade hook.
 """
@@ -117,7 +117,7 @@ def get_index(con) -> Index:
             return hit[1]
     rows = con.execute(
         "SELECT c.* FROM text_chunks c JOIN textbook_editions e ON e.id=c.edition_id "
-        "WHERE e.permission_status='AUTHORIZED' AND e.review_status='approved' AND c.kind IN (%s) ORDER BY c.id"
+        "WHERE e.permission_status='APPROVED' AND e.review_status='approved' AND c.kind IN (%s) ORDER BY c.id"
         % ",".join("?" * len(RETRIEVAL_KINDS)), RETRIEVAL_KINDS).fetchall()
     idx = Index(rows)
     with _lock:

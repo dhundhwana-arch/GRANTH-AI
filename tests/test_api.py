@@ -85,7 +85,7 @@ def test_offline_package_only_for_authorized_editions(server):
     call, ed = server
     e = ed["granth_vigyan_10_2026"]
     st, pkg, _ = call("GET", f"/api/editions/{e}/package")
-    assert st == 200 and pkg["format"] == "granth-offline-package/1" and len(pkg["pages"]) == 10 and pkg["edition"]["permission_status"] == "AUTHORIZED"
+    assert st == 200 and pkg["format"] == "granth-offline-package/1" and len(pkg["pages"]) == 10 and pkg["edition"]["permission_status"] == "APPROVED"
     assert call("POST", f"/api/admin/editions/{e}/review", {"decision": "rejected"}, {"X-Admin-Token": "test-admin-token"})[0] == 200
     assert call("GET", f"/api/editions/{e}/package")[0] == 404
     assert call("GET", f"/api/editions/{e}/pages/1")[0] == 404

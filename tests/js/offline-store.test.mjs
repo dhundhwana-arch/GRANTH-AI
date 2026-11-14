@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { IDBFactory } from 'fake-indexeddb';
 import { openStore, downloadBook, OfflineError, Store, PACKAGE_FORMAT } from '../../web/js/offline-store.mjs';
 
-const pkg = (id = 7, status = 'AUTHORIZED') => ({
+const pkg = (id = 7, status = 'APPROVED') => ({
   format: PACKAGE_FORMAT,
   edition: { id, title: 'નમૂના પુસ્તક', standard: 10, subject: 'વિજ્ઞાન', edition_label: '2026', permission_status: status },
   chapters: [{ id: 1, number: 1, title: 'પોષણ', page_start: 1, page_end: 2 }, { id: 2, number: 2, title: 'શ્વસન', page_start: 3, page_end: 3 }],

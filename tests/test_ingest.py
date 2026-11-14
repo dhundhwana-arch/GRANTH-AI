@@ -92,7 +92,33 @@ def test_reingestion_bumps_corpus_version_and_invalidates_cache(con, ids):
 
 
 def test_migrations_are_portable_sql():
-    raw = (ROOT / "granth" / "migrations" / "001_initial.sql").read_text(encoding="utf-8")
-    sql = "\n".join(line.split("--")[0] for line in raw.splitlines()).upper()
-    for sqlite_only in ("AUTOINCREMENT", "VIRTUAL TABLE", "WITHOUT ROWID", "PRAGMA"):
-        assert sqlite_only not in sql
+    for f in sorted((ROOT / "granth" / "migrations").glob("*.sql")):
+        raw = f.read_text(encoding="utf-8")
+        sql = "\n".join(line.split("--")[0] for line in raw.splitlines()).upper()
+        for sqlite_only in ("AUTOINCREMENT", "VIRTUAL TABLE", "WITHOUT ROWID", "PRAGMA"):
+            assert sqlite_only not in sql, (f.name, sqlite_only)
+
+
+def test_migration_002_upgrades_an_existing_database(tmp_path):
+    """A database created by the first release (AUTHORIZED / PROHIBITED vocabulary) is upgraded without data loss."""
+    import sqlite3
+    from granth import db
+    p = tmp_path / "old.sqlite3"
+    c = sqlite3.connect(p)
+    c.executescript((ROOT / "granth" / "migrations" / "001_initial.sql").read_text(encoding="utf-8"))
+    c.execute("CREATE TABLE schema_migrations (name TEXT PRIMARY KEY, applied_at TEXT NOT NULL)")
+    c.execute("INSERT INTO schema_migrations VALUES ('001_initial.sql', 'x')")
+    c.execute("INSERT INTO textbook_sources(id, name, base_url, kind) VALUES (1, 's', 'u', 'k')")
+    c.execute("INSERT INTO source_permissions(source_id, status) VALUES (1, 'PROHIBITED')")
+    c.execute("INSERT INTO subjects(id, name_gu) VALUES (1, 'વિજ્ઞાન')")
+    c.execute("INSERT INTO textbooks(id, source_id, board, medium, standard, subject_id, title, language) VALUES (1,1,'b','m',10,1,'t','gu')")
+    c.execute("INSERT INTO textbook_editions(id, textbook_id, slug, edition_label, source_url, permission_status, review_status, page_count)"
+              " VALUES (5, 1, 'old', '2026', 'u', 'AUTHORIZED', 'approved', 3)")
+    c.commit(); c.close()
+    con = db.connect(p)
+    ed = con.execute("SELECT * FROM textbook_editions WHERE id=5").fetchone()
+    assert (ed["permission_status"], ed["review_status"], ed["page_count"], ed["role"]) == ("APPROVED", "approved", 3, "textbook")
+    assert con.execute("SELECT status FROM source_permissions").fetchone()[0] == "DENIED"
+    assert con.execute("PRAGMA foreign_keys").fetchone()[0] == 1
+    assert con.execute("PRAGMA foreign_key_check").fetchall() == []
+    con.close()

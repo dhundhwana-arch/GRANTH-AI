@@ -22,11 +22,12 @@ def connect(path: str | Path | None = None) -> sqlite3.Connection:
         Path(p).parent.mkdir(parents=True, exist_ok=True)
     con = sqlite3.connect(p, timeout=15, check_same_thread=False)
     con.row_factory = sqlite3.Row
-    con.execute("PRAGMA foreign_keys = ON")
     if p != ":memory:":
         con.execute("PRAGMA journal_mode = WAL")
         con.execute("PRAGMA synchronous = NORMAL")
+    con.execute("PRAGMA foreign_keys = OFF")     # table rebuilds inside migrations need enforcement off
     migrate(con)
+    con.execute("PRAGMA foreign_keys = ON")
     return con
 
 

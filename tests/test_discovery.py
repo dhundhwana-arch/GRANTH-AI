@@ -38,7 +38,7 @@ def test_discovered_books_inherit_permission_and_are_never_downloaded(tmp_path):
 
 def test_official_sources_have_conservative_permission_status():
     st = {s["id"]: s["permission_status"] for s in discovery.SOURCES}
-    assert st == {"gsstb": "UNKNOWN", "ncert": "PROHIBITED", "diksha": "UNKNOWN"}
+    assert st == {"gsstb": "UNKNOWN", "ncert": "RESTRICTED", "diksha": "UNKNOWN"}
 
 
 def test_unreachable_or_disallowed_robots_means_no_fetch(monkeypatch):

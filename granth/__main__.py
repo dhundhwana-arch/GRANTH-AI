@@ -39,7 +39,7 @@ def main(argv=None) -> int:
     s.add_argument("--mode", default="auto", choices=answer.MODES)
     s.add_argument("--marks", type=int)
     sub.add_parser("discover", help="run the official-source discovery pipeline (metadata only)")
-    s = sub.add_parser("ingest-pdf", help="ingest an AUTHORIZED PDF described by a book.json")
+    s = sub.add_parser("ingest-pdf", help="ingest an APPROVED PDF described by a book.json")
     s.add_argument("pdf")
     s.add_argument("meta", help="path to book.json")
     s.add_argument("--force", action="store_true")

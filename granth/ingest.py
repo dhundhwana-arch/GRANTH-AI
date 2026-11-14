@@ -14,7 +14,7 @@ OCR_DPI = 200
 
 
 class IngestionRefused(Exception):
-    """Raised when content may not be ingested (permission not AUTHORIZED, failed integrity ...)."""
+    """Raised when content may not be ingested (permission not APPROVED, failed integrity ...)."""
 
 
 def sha256_file(path: Path) -> str:
@@ -78,9 +78,9 @@ def _require_authorized(con, edition_id):
     ed = _edition_row(con, edition_id)
     if ed is None:
         raise IngestionRefused("unknown edition")
-    if ed["permission_status"] != "AUTHORIZED":
+    if ed["permission_status"] != "APPROVED":
         raise IngestionRefused(
-            f"permission status is {ed['permission_status']} - content is not ingested until reuse permission is AUTHORIZED")
+            f"permission status is {ed['permission_status']} - content is not ingested until reuse permission is APPROVED")
     return ed
 
 

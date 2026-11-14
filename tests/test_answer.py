@@ -15,7 +15,7 @@ def test_example_question_is_answered_with_page_citation(con, ids):
     c = r["citations"][0]
     assert (c["page_number"], c["chapter_number"], c["chapter_title"], c["standard"], c["subject"]) == (1, 1, "સજીવોમાં પોષણ", 10, "વિજ્ઞાન")
     assert r["verification"]["verified"] and r["external_api_calls"] == 0
-    assert r["evidence"][0]["text"] and r["evidence"][0]["permission_status"] == "AUTHORIZED"
+    assert r["evidence"][0]["text"] and r["evidence"][0]["permission_status"] == "APPROVED"
 
 
 def test_absent_question_abstains_with_exact_message(con, ids):

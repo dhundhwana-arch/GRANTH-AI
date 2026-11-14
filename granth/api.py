@@ -70,7 +70,7 @@ def catalog(con) -> dict:
     books: dict = {}
     for r in rows:
         d = dict(r)
-        d["available"] = bool(d["permission_status"] == "AUTHORIZED" and d["review_status"] == "approved" and d["ingested_at"])
+        d["available"] = bool(d["permission_status"] == "APPROVED" and d["review_status"] == "approved" and d["ingested_at"])
         b = books.setdefault(d["textbook_id"], {k: d[k] for k in ("textbook_id", "title", "board", "medium", "standard",
                                                                     "subject", "subject_en")} | {"editions": []})
         b["editions"].append({k: d[k] for k in ("edition_id", "slug", "edition_label", "academic_year", "permission_status",
@@ -86,7 +86,7 @@ def _approved_edition(con, edition_id: int):
     row = con.execute(
         "SELECT e.*, t.title, t.board, t.medium, t.standard, s.name_gu AS subject FROM textbook_editions e"
         " JOIN textbooks t ON t.id=e.textbook_id JOIN subjects s ON s.id=t.subject_id WHERE e.id=?"
-        " AND e.permission_status='AUTHORIZED' AND e.review_status='approved' AND e.ingested_at IS NOT NULL",
+        " AND e.permission_status='APPROVED' AND e.review_status='approved' AND e.ingested_at IS NOT NULL",
         (edition_id,)).fetchone()
     if row is None:
         raise ApiError(404, "edition not available (unknown, not authorized or not approved)")
@@ -357,7 +357,7 @@ def r_admin_review(h, qs, eid):
     ed = h.con.execute("SELECT * FROM textbook_editions WHERE id=?", (_int(eid),)).fetchone()
     if ed is None:
         raise ApiError(404, "edition not found")
-    if b["decision"] == "approved" and ed["permission_status"] != "AUTHORIZED":
+    if b["decision"] == "approved" and ed["permission_status"] != "APPROVED":
         raise ApiError(409, "cannot approve: permission status is " + ed["permission_status"])
     h.con.execute("UPDATE textbook_editions SET review_status=?, reviewed_by=?, reviewed_at=? WHERE id=?",
                   (b["decision"], str(b.get("reviewer") or "admin")[:80], db.now(), ed["id"]))
