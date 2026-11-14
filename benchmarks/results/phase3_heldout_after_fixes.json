@@ -42,7 +42,7 @@
   },
   "false_verified_rate": {
    "value": 0.0,
-   "of": 23,
+   "of": 21,
    "count": 0,
    "meaning": "answers labelled 'Verified against source' that were wrong"
   },
@@ -51,8 +51,8 @@
    "of": 1
   },
   "trust_labels_on_answers": {
-   "verified": 23,
-   "partial": 3
+   "verified": 21,
+   "partial": 5
   }
  },
  "by_category": {
@@ -287,7 +287,7 @@
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
-   "trust": "verified",
+   "trust": "partial",
    "mode": "short",
    "pages": [
     2
@@ -685,7 +685,7 @@
    "pages": [
     2
    ],
-   "answer": "કોષ્ટક 2.1: ખૂણાની દિશાઓ\n| ખૂણો | કઈ બે દિશાઓ વચ્ચે |\n| ઈશાન | ઉત્તર અને પૂર્વ |\n| અગ્નિ | દક્ષિણ અને પૂર્વ |\n| નૈઋત્ય | દક્ષિણ અને પશ્ચિમ |\n| વાયવ્ય | ઉત્તર અને પશ્ચિમ |\nઈશાન, અગ્નિ, નૈઋત્ય અને વાયવ્ય ખૂણાની દિશાઓ છે."
+   "answer": "કોષ્ટક 2.1: ખૂણાની દિશાઓ\n| ખૂણો | કઈ બે દિશાઓ વચ્ચે |\n| ઈશાન | ઉત્તર અને પૂર્વ |\n| અગ્નિ | દક્ષિણ અને પૂર્વ |\n| નૈઋત્ય | દક્ષિણ અને પશ્ચિમ |\n| વાયવ્ય | ઉત્તર અને પશ્ચિમ |\nમુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચ"
   },
   {
    "id": "H27",
@@ -716,7 +716,7 @@
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
-   "trust": "verified",
+   "trust": "partial",
    "mode": "short",
    "pages": [
     5

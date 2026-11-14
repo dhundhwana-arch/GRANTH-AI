@@ -132,12 +132,19 @@ def _units(results: list[dict], res: dict) -> list[dict]:
     """Candidate answer units: sentences of prose chunks, whole tables / formulas / figures."""
     total = sum(res["weights"].values()) or 1.0
     matched = {t["term"] for t in res["terms"] if t["term"]}
+    order = [t["term"] for t in res["terms"]]
+    pairs = [(x, y) for x, y in zip(order, order[1:]) if x and y]
     units = []
     for rank, row in enumerate(results):
         if row["kind"] == "paragraph":
             for pos, s in enumerate(g.split_sentences(row["text"])):
-                st = set(g.content_terms(s))
+                seq = g.content_terms(s)
+                st = set(seq)
                 score = sum(res["weights"][t] for t in matched if t in st) / total
+                if pairs:
+                    # words the student wrote side by side ("ચૂનાનું પાણી") should also stand side by side in the source
+                    adj = set(zip(seq, seq[1:]))
+                    score += 0.25 * sum(1 for pr in pairs if pr in adj) / len(pairs)
                 units.append({"text": s, "row": row, "rank": rank, "pos": pos, "score": score, "kind": "sentence"})
         else:
             # tables, formulas, figures and worked examples are never split
@@ -533,6 +540,13 @@ def _structure(con, payload: dict, question: str, res: dict | None, source_type:
             # the student's own word is not in the source: an assumed word found the passage, so this is never "Verified"
             reasons.append("પ્રશ્નના આ શબ્દો પુસ્તકમાં નથી; નજીકનો / સમાન અર્થનો શબ્દ ધારીને શોધ્યું છે: " + ", ".join(dict.fromkeys(weak))
                            + ". તમારો પ્રશ્ન આ જ બાબતનો છે કે નહીં તે જાતે ચકાસો.")
+        if mode in ("short", "one_line", "detailed", "points"):
+            # "Verified" needs ONE passage that carries every word of the question. Sentences that each match only
+            # part of the question may be relevant, but nothing proves that together they answer it.
+            need = {t["term"] for t in res["terms"] if t["term"]}
+            if need and not any(need <= set(g.content_terms(p["text"])) for p in parts):
+                reasons.append("પ્રશ્નના બધા મુખ્ય શબ્દો પુસ્તકના કોઈ એક વાક્યમાં સાથે મળ્યા નથી; જુદાં જુદાં વાક્યો બતાવ્યાં છે. "
+                               "તે તમારા પ્રશ્નનો ઉત્તર છે કે નહીં તે પુરાવો વાંચીને ચકાસો.")
     reasons.extend(payload.get("support_gaps") or [])
     if payload.get("length_supported") is False:
         reasons.append("માગેલા ગુણ જેટલા મુદ્દા પાઠ્યપુસ્તકમાં મળ્યા નથી.")

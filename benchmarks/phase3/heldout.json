@@ -1,7 +1,7 @@
 {
  "suite": "GRANTH-AI Phase 3 HELD-OUT set",
  "written": "2026-11-13",
- "about": "Written after the engine was frozen at the commit named in docs/BENCHMARK_REPORT.md and run exactly once. No engine, glossary or gold change was made after seeing these results. Same demo books; developer-written.",
+ "about": "Held-out set 1. Written after the engine was frozen at commit d54b0ea and run exactly once (benchmarks/results/phase3_heldout.json: 36/40, two wrong answers, both labelled Verified). Those two bugs were then fixed, so later runs of this file (phase3_heldout_after_fixes.json) are no longer held-out. No gold was edited. Same demo books; developer-written.",
  "limitations": [
   "The demo corpus is tiny: 10 + 2 + 2 pages. Many questions therefore probe the same ~45 facts from different angles (wording, language, spelling, aspect).",
   "Questions were written by the developer, not by teachers or students, and were not collected from real use.",

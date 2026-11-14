@@ -1,5 +1,5 @@
 {
-  "executed_at": "2026-11-14T03:01:06Z",
+  "executed_at": "2026-11-14T03:10:43Z",
   "engine_version": "extractive-1.2",
   "corpus": "bundled CC BY 4.0 sample books (data/sample)",
   "student_A": {
@@ -13,7 +13,7 @@
     "verified": true,
     "cache_hit": false,
     "external_api_calls": 0,
-    "ms": 13.89,
+    "ms": 12.23,
     "pass": true
   },
   "student_B": {
@@ -22,7 +22,7 @@
     "cache_hit": true,
     "same_answer": true,
     "external_api_calls": 0,
-    "ms": 0.69,
+    "ms": 0.64,
     "pass": true
   },
   "student_C": {
@@ -36,8 +36,7 @@
     "question": "ઓહ્મનો નિયમ લખો",
     "status": "answered",
     "cited_pages": [
-      7,
-      8
+      7
     ],
     "external_api_calls": 0,
     "pass": true

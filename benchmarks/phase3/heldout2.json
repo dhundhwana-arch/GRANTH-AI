@@ -1,0 +1,475 @@
+{
+ "suite": "GRANTH-AI Phase 3 HELD-OUT set 2",
+ "written": "2026-11-13",
+ "about": "Held-out set 2. Written after the two bugs found by set 1 were fixed and the engine was frozen at commit b9b2075; run exactly once (benchmarks/results/phase3_heldout2.json: 32/35, one wrong answer labelled Verified). Afterwards the 'Verified' rule was tightened; phase3_heldout2_after_fixes.json is therefore not a held-out result. No gold was edited.",
+ "limitations": [
+  "The demo corpus is tiny: 10 + 2 + 2 pages. Many questions therefore probe the same ~45 facts from different angles (wording, language, spelling, aspect).",
+  "Questions were written by the developer, not by teachers or students, and were not collected from real use.",
+  "Only one fact differs between the two editions (220 / 230 volt), so edition-conflict detection is measured on one fact asked four ways.",
+  "'either' = both an honest refusal and the stated answer are acceptable; a different answer is wrong."
+ ],
+ "books": {
+  "sci": "granth_vigyan_10_2026",
+  "sci27": "granth_vigyan_10_2027",
+  "soc": "granth_samajik_10_2026",
+  "both": [
+   "granth_vigyan_10_2026",
+   "granth_vigyan_10_2027"
+  ]
+ },
+ "expect_values": {
+  "answered": "must answer; lead citation page in 'pages'; every 'must' string in the answer; no 'must_not' string",
+  "abstained": "must refuse",
+  "edition_conflict": "must show both editions separately (220 in 2026 only, 230 in 2027 only)",
+  "either": "refusal OK; if answered it must satisfy pages/must/must_not"
+ },
+ "gold_corrections": [],
+ "questions": [
+  {
+   "id": "G01",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રકાશસંશ્લેષણમાં કયો વાયુ મુક્ત થાય છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "ઑક્સિજન"
+   ]
+  },
+  {
+   "id": "G02",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્ય શેનું શોષણ કરે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "સૂર્યપ્રકાશની ઊર્જા"
+   ]
+  },
+  {
+   "id": "G03",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રાણીઓ સ્વયંપોષી છે કે પરપોષી?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પરપોષી છે"
+   ]
+  },
+  {
+   "id": "G04",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જારક શ્વસનમાં શું મળે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "વધુ ઊર્જા"
+   ]
+  },
+  {
+   "id": "G05",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વાયુકોષ્ઠમાં શું થાય છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "ઑક્સિજન રુધિરમાં ભળે છે"
+   ]
+  },
+  {
+   "id": "G06",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરાવર્તિત કિરણ કોને કહે છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "પરાવર્તિત કિરણ"
+   ]
+  },
+  {
+   "id": "G07",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરાવર્તનનો પહેલો નિયમ કયો છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "આપાતકોણ અને પરાવર્તનકોણ"
+   ]
+  },
+  {
+   "id": "G08",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વોલ્ટમીટર શું માપવા વપરાય છે?",
+   "expect": "answered",
+   "pages": [
+    7,
+    8
+   ],
+   "must": [
+    "વોલ્ટમીટર"
+   ]
+  },
+  {
+   "id": "G09",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્રેણી જોડાણમાં કુલ અવરોધ કેટલો હોય છે?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "સરવાળા"
+   ]
+  },
+  {
+   "id": "G10",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અવરોધ માપવાનું સાધન કયું છે?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "ઓહ્મમીટર"
+   ]
+  },
+  {
+   "id": "G11",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ચૂનાનું પાણી ઍસિડિક છે કે બેઇઝિક?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "બેઇઝિક"
+   ]
+  },
+  {
+   "id": "G12",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તટસ્થ દ્રાવણનું pH મૂલ્ય કેટલું હોય છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "7"
+   ]
+  },
+  {
+   "id": "G13",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તટસ્થીકરણની પ્રક્રિયામાં શું મુક્ત થાય છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ઉષ્મા"
+   ]
+  },
+  {
+   "id": "G14",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કીડીના ડંખમાં કયો ઍસિડ હોય છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ફૉર્મિક"
+   ]
+  },
+  {
+   "id": "G15",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What are stomata?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર કહે છે"
+   ]
+  },
+  {
+   "id": "G16",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Define electric current.",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "વિદ્યુતપ્રવાહ કહે છે"
+   ]
+  },
+  {
+   "id": "G17",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is the unit of potential difference?",
+   "expect": "answered",
+   "pages": [
+    7,
+    8
+   ],
+   "must": [
+    "વોલ્ટ"
+   ]
+  },
+  {
+   "id": "G18",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "indicator એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "સૂચક કહે છે"
+   ]
+  },
+  {
+   "id": "G19",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "ammeter ને circuit માં કેવી રીતે જોડાય છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "શ્રેણીમાં"
+   ],
+   "must_not": [
+    "સમાંતર જોડવામાં"
+   ]
+  },
+  {
+   "id": "G20",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અંતરગોળ અરીસો એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "અંતર્ગોળ અરીસો કહે છે"
+   ]
+  },
+  {
+   "id": "G21",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિધ્યુતપ્રવાહ એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "વિદ્યુતપ્રવાહ કહે છે"
+   ]
+  },
+  {
+   "id": "G22",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "જળસંચયની રીતો કઈ છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "ખેત-તલાવડી"
+   ]
+  },
+  {
+   "id": "G23",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "નકશાના મુખ્ય અંગો કયા છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "દિશા, પ્રમાણમાપ"
+   ]
+  },
+  {
+   "id": "G24",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ભૂગર્ભજળ વધારે વાપરવાથી શું થાય?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્તર નીચું"
+   ]
+  },
+  {
+   "id": "G25",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "ઓહ્મનો નિયમ કોને કહે છે?",
+   "expect": "answered",
+   "pages": [
+    1,
+    7
+   ],
+   "must": [
+    "ઓહ્મનો નિયમ કહે છે"
+   ]
+  },
+  {
+   "id": "G26",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમિટર એટલે શું?",
+   "expect": "either",
+   "pages": [
+    7,
+    8
+   ],
+   "must": [
+    "ઍમિટર"
+   ],
+   "must_not": [
+    "દરને વિદ્યુતપ્રવાહ કહે છે"
+   ]
+  },
+  {
+   "id": "G27",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સમતલ અરીસો એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "G28",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપ્રવાહના પ્રકાર કયા છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "G29",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરપોષીનું સૂત્ર લખો.",
+   "expect": "abstained"
+  },
+  {
+   "id": "G30",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્યનો એકમ કયો છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "G31",
+   "cat": "refusal",
+   "lang": "gu",
+   "book": "sci",
+   "q": "2 ઓહ્મ અને 3 ઓહ્મ અવરોધ શ્રેણીમાં જોડતાં કુલ અવરોધ કેટલો થાય?",
+   "expect": "abstained"
+  },
+  {
+   "id": "G32",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "soc",
+   "q": "જળચક્રની શોધ કોણે કરી?",
+   "expect": "abstained"
+  },
+  {
+   "id": "G33",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પૃથ્વી સૂર્યની આસપાસ કેમ ફરે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "G34",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરાવર્તનનો ત્રીજો નિયમ કયો છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "G35",
+   "cat": "refusal",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બેઇઝ સ્વાદે ખાટા કેમ હોય છે?",
+   "expect": "abstained"
+  }
+ ]
+}

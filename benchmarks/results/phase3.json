@@ -36,13 +36,13 @@
   },
   "citation_correctness": {
    "lead_citation": 0.9922,
-   "all_citations_within_gold_pages": 0.9302,
+   "all_citations_within_gold_pages": 0.969,
    "of": 129,
    "meaning": "over answers shown for answerable questions"
   },
   "false_verified_rate": {
    "value": 0.0,
-   "of": 93,
+   "of": 91,
    "count": 0,
    "meaning": "answers labelled 'Verified against source' that were wrong"
   },
@@ -51,8 +51,8 @@
    "of": 4
   },
   "trust_labels_on_answers": {
-   "verified": 93,
-   "partial": 36
+   "verified": 91,
+   "partial": 38
   }
  },
  "by_category": {
@@ -835,10 +835,9 @@
    "trust": "verified",
    "mode": "short",
    "pages": [
-    2,
     2
    ],
-   "answer": "મુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ. બે મુખ્ય દિશાઓની વચ્ચેની દિશાને ખૂણાની દિશા કહે છે. નકશાના ત્રણ મુખ્ય અંગો છે: દિશા, પ્રમાણમાપ અને રૂઢ સંજ્ઞાઓ."
+   "answer": "મુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ. નકશામાં સામાન્ય રીતે ઉપરની બાજુ ઉત્તર દિશા હોય છે. બે મુખ્ય દિશાઓની વચ્ચેની દિશાને ખૂણાની દિશા કહે છે."
   },
   {
    "id": "D29",
@@ -1154,7 +1153,7 @@
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
-   "trust": "verified",
+   "trust": "partial",
    "mode": "short",
    "pages": [
     9
@@ -1347,17 +1346,16 @@
    "q": "State Ohm's law.",
    "expect": "answered",
    "lead_citation_ok": true,
-   "all_citations_ok": false,
+   "all_citations_ok": true,
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
    "trust": "verified",
    "mode": "short",
    "pages": [
-    7,
-    8
+    7
    ],
-   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું"
+   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R"
   },
   {
    "id": "E05",
@@ -1636,17 +1634,16 @@
    "q": "Ohm's law સમજાવો.",
    "expect": "answered",
    "lead_citation_ok": true,
-   "all_citations_ok": false,
+   "all_citations_ok": true,
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
    "trust": "verified",
    "mode": "short",
    "pages": [
-    7,
-    8
+    7
    ],
-   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું"
+   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R"
   },
   {
    "id": "M03",
@@ -1853,17 +1850,16 @@
    "q": "ઓમનો નિયમ લખો.",
    "expect": "answered",
    "lead_citation_ok": true,
-   "all_citations_ok": false,
+   "all_citations_ok": true,
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
    "trust": "partial",
    "mode": "short",
    "pages": [
-    7,
-    8
+    7
    ],
-   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું"
+   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R"
   },
   {
    "id": "S02",
@@ -2106,17 +2102,16 @@
    "q": "ઓહમનો નિયમ",
    "expect": "answered",
    "lead_citation_ok": true,
-   "all_citations_ok": false,
+   "all_citations_ok": true,
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
    "trust": "verified",
    "mode": "short",
    "pages": [
-    7,
-    8
+    7
    ],
-   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું"
+   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R"
   },
   {
    "id": "S16",
@@ -2537,7 +2532,7 @@
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
-   "trust": "verified",
+   "trust": "partial",
    "mode": "short",
    "pages": [
     5
@@ -2948,17 +2943,16 @@
    "q": "ઓહ્મનો નિયમ લખો.",
    "expect": "answered",
    "lead_citation_ok": true,
-   "all_citations_ok": false,
+   "all_citations_ok": true,
    "outcome": "correct_answer",
    "status": "answered",
    "reason": null,
    "trust": "verified",
    "mode": "short",
    "pages": [
-    1,
-    2
+    1
    ],
-   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું"
+   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R"
   },
   {
    "id": "V08",

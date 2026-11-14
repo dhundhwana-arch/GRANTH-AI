@@ -1,7 +1,7 @@
 {
  "suite": "GRANTH-AI Phase 3 independent benchmark",
  "written": "2026-11-13",
- "about": "Questions and expected results for the self-authored DEMO books only (not GSEB, not NCERT). Written by the developer from the book text BEFORE the Phase 3 engine was run on them; the gold was not edited afterwards to make results pass (any correction is listed in 'gold_corrections'). Stored separately from the engine; the engine never reads this file.",
+ "about": "Development set. Questions and expected results for the self-authored DEMO books only (not GSEB, not NCERT), written by the developer from the book text. About 45 of the 186 questions (the reported bug, its variants and the failures of the earlier 62-question set) had already been tried on the Phase 3 engine before this file was written; the rest were first run after being written (results of that first run: benchmarks/results/phase3_first_run.json). The engine, glossary and synonym list were then tuned while looking at this set, so its final score is NOT a held-out score. Unseen-question evidence is in heldout.json and heldout2.json. No expected result was edited to make a question pass ('gold_corrections' is empty). Stored separately from the engine; the engine never reads this file.",
  "limitations": [
   "The demo corpus is tiny: 10 + 2 + 2 pages. Many questions therefore probe the same ~45 facts from different angles (wording, language, spelling, aspect).",
   "Questions were written by the developer, not by teachers or students, and were not collected from real use.",

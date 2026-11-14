@@ -1,0 +1,856 @@
+{
+ "suite": "GRANTH-AI Phase 3 HELD-OUT set 2",
+ "engine_version": "extractive-1.2",
+ "questions": 35,
+ "overall": {
+  "n": 35,
+  "pass": 32,
+  "correct_answer": 22,
+  "wrong_answer": 1,
+  "correct_refusal": 10,
+  "incorrect_refusal": 2,
+  "conflict_detected": 0,
+  "conflict_missed": 0
+ },
+ "metrics": {
+  "correct_answer_rate": {
+   "value": 0.88,
+   "of": 25,
+   "meaning": "questions the book can answer that got the right passage + right page"
+  },
+  "wrong_answer_rate": {
+   "value": 0.0286,
+   "of": 35,
+   "count": 1,
+   "meaning": "any shown answer that is wrong: wrong passage, wrong page, or an answer where refusal was required"
+  },
+  "correct_refusal_rate": {
+   "value": 1.0,
+   "of": 9,
+   "meaning": "questions the book cannot answer that were refused"
+  },
+  "incorrect_refusal_rate": {
+   "value": 0.08,
+   "of": 25,
+   "meaning": "answerable questions that were refused"
+  },
+  "citation_correctness": {
+   "lead_citation": 0.9565,
+   "all_citations_within_gold_pages": 0.8696,
+   "of": 23,
+   "meaning": "over answers shown for answerable questions"
+  },
+  "false_verified_rate": {
+   "value": 0.0,
+   "of": 17,
+   "count": 0,
+   "meaning": "answers labelled 'Verified against source' that were wrong"
+  },
+  "edition_conflict_detection": {
+   "value": null,
+   "of": 0
+  },
+  "trust_labels_on_answers": {
+   "verified": 17,
+   "partial": 6
+  }
+ },
+ "by_category": {
+  "direct": {
+   "n": 16,
+   "pass": 14,
+   "correct_answer": 14,
+   "wrong_answer": 1,
+   "correct_refusal": 0,
+   "incorrect_refusal": 1,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "english": {
+   "n": 3,
+   "pass": 3,
+   "correct_answer": 3,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "mixed": {
+   "n": 2,
+   "pass": 2,
+   "correct_answer": 2,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "misspelling": {
+   "n": 2,
+   "pass": 2,
+   "correct_answer": 2,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "paraphrase": {
+   "n": 1,
+   "pass": 0,
+   "correct_answer": 0,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 1,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "edition_conflict": {
+   "n": 1,
+   "pass": 1,
+   "correct_answer": 1,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "concept_distinction": {
+   "n": 6,
+   "pass": 6,
+   "correct_answer": 0,
+   "wrong_answer": 0,
+   "correct_refusal": 6,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "refusal": {
+   "n": 2,
+   "pass": 2,
+   "correct_answer": 0,
+   "wrong_answer": 0,
+   "correct_refusal": 2,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "unsupported": {
+   "n": 2,
+   "pass": 2,
+   "correct_answer": 0,
+   "wrong_answer": 0,
+   "correct_refusal": 2,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  }
+ },
+ "by_language": {
+  "gu": {
+   "n": 30,
+   "pass": 27,
+   "correct_answer": 17,
+   "wrong_answer": 1,
+   "correct_refusal": 10,
+   "incorrect_refusal": 2,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "en": {
+   "n": 3,
+   "pass": 3,
+   "correct_answer": 3,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "mixed": {
+   "n": 2,
+   "pass": 2,
+   "correct_answer": 2,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  }
+ },
+ "failures": [
+  {
+   "id": "G02",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "હરિતદ્રવ્ય શેનું શોષણ કરે છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G11",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "ચૂનાનું પાણી ઍસિડિક છે કે બેઇઝિક?",
+   "expect": "answered",
+   "lead_citation_ok": false,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    10,
+    9,
+    9
+   ],
+   "answer": "જમીન વધુ ઍસિડિક હોય ત્યારે તેમાં ચૂનો ઉમેરવામાં આવે છે. સાબુનું દ્રાવણ અને ચૂનાનું પાણી બેઇઝિક હોય છે. દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે."
+  },
+  {
+   "id": "G24",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "ભૂગર્ભજળ વધારે વાપરવાથી શું થાય?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  }
+ ],
+ "limitations": [
+  "The demo corpus is tiny: 10 + 2 + 2 pages. Many questions therefore probe the same ~45 facts from different angles (wording, language, spelling, aspect).",
+  "Questions were written by the developer, not by teachers or students, and were not collected from real use.",
+  "Only one fact differs between the two editions (220 / 230 volt), so edition-conflict detection is measured on one fact asked four ways.",
+  "'either' = both an honest refusal and the stated answer are acceptable; a different answer is wrong."
+ ],
+ "gold_corrections": [],
+ "results": [
+  {
+   "id": "G01",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "પ્રકાશસંશ્લેષણમાં કયો વાયુ મુક્ત થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે. આ પ્રક્રિયામાં ઑક્સિજન વાયુ મુક્ત થાય છે. પ્રકાશસંશ્લેષણ મુખ્યત્વે વનસ્પતિનાં પર્ણ"
+  },
+  {
+   "id": "G02",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "હરિતદ્રવ્ય શેનું શોષણ કરે છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G03",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "પ્રાણીઓ સ્વયંપોષી છે કે પરપોષી?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "લીલી વનસ્પતિ સ્વયંપોષી છે. પ્રાણીઓ અને ફૂગ પરપોષી છે."
+  },
+  {
+   "id": "G04",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "જારક શ્વસનમાં શું મળે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે. ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે. અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે."
+  },
+  {
+   "id": "G05",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વાયુકોષ્ઠમાં શું થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "ફેફસાંમાં આવેલી ફુગ્ગા જેવી સૂક્ષ્મ રચનાઓને વાયુકોષ્ઠ કહે છે. વાયુકોષ્ઠમાં ઑક્સિજન રુધિરમાં ભળે છે અને કાર્બન ડાયૉક્સાઇડ રુધિરમાંથી બહાર નીકળે છે."
+  },
+  {
+   "id": "G06",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "પરાવર્તિત કિરણ કોને કહે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    5
+   ],
+   "answer": "સપાટી પર પડતા કિરણને આપાતકિરણ અને પાછા ફરતા કિરણને પરાવર્તિત કિરણ કહે છે."
+  },
+  {
+   "id": "G07",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "પરાવર્તનનો પહેલો નિયમ કયો છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "પરાવર્તનના બે નિયમો છે. પહેલો નિયમ: આપાતકોણ અને પરાવર્તનકોણ હંમેશાં સમાન હોય છે. બીજો નિયમ: આપાતકિરણ, પરાવર્તિત કિરણ અને આપાતબિંદુએ દોરેલો લંબ એક જ સમતલમાં હોય છે."
+  },
+  {
+   "id": "G08",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વોલ્ટમીટર શું માપવા વપરાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે. તે માપવા માટે વોલ્ટમીટર વપરાય છે."
+  },
+  {
+   "id": "G09",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "શ્રેણી જોડાણમાં કુલ અવરોધ કેટલો હોય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "શ્રેણી જોડાણમાં કુલ અવરોધ બધા અવરોધોના સરવાળા જેટલો હોય છે. સમાંતર જોડાણમાં કુલ અવરોધ સૌથી નાના અવરોધ કરતાં પણ ઓછો હોય છે."
+  },
+  {
+   "id": "G10",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "અવરોધ માપવાનું સાધન કયું છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "કોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |"
+  },
+  {
+   "id": "G11",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "ચૂનાનું પાણી ઍસિડિક છે કે બેઇઝિક?",
+   "expect": "answered",
+   "lead_citation_ok": false,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    10,
+    9,
+    9
+   ],
+   "answer": "જમીન વધુ ઍસિડિક હોય ત્યારે તેમાં ચૂનો ઉમેરવામાં આવે છે. સાબુનું દ્રાવણ અને ચૂનાનું પાણી બેઇઝિક હોય છે. દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે."
+  },
+  {
+   "id": "G12",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "તટસ્થ દ્રાવણનું pH મૂલ્ય કેટલું હોય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.\nકોષ્ટક 5.1: pH મૂલ્ય અને દ્રાવણનો પ્રકાર\n| pH મૂલ્ય | દ્રાવણનો પ્રકાર |\n| 7 કરતાં ઓછું | ઍસિડિક |\n| 7 | તટસ્થ "
+  },
+  {
+   "id": "G13",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "તટસ્થીકરણની પ્રક્રિયામાં શું મુક્ત થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10,
+    3
+   ],
+   "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. ખોરાકનું દહન થઈને ઊર્જા મુક્ત થવાની પ્રક્રિયાને શ્વસન કહે છે."
+  },
+  {
+   "id": "G14",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "કીડીના ડંખમાં કયો ઍસિડ હોય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે. કીડીના ડંખમાં ફૉર્મિક ઍસિડ હોય છે; તેની અસર ઘટાડવા ખાવાનો સોડા લગાવવામાં આવે છે."
+  },
+  {
+   "id": "G15",
+   "cat": "english",
+   "lang": "en",
+   "q": "What are stomata?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણની સપાટી પર આવેલાં સૂક્ષ્મ છિદ્રોને પર્ણરંધ્ર કહે છે."
+  },
+  {
+   "id": "G16",
+   "cat": "english",
+   "lang": "en",
+   "q": "Define electric current.",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    7
+   ],
+   "answer": "વાહકમાં વિદ્યુતભારના વહનના દરને વિદ્યુતપ્રવાહ કહે છે."
+  },
+  {
+   "id": "G17",
+   "cat": "english",
+   "lang": "en",
+   "q": "What is the unit of potential difference?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7,
+    8
+   ],
+   "answer": "એકમ વિદ્યુતભારને એક બિંદુથી બીજા બિંદુ સુધી લઈ જવા માટે કરવા પડતા કાર્યને તે બે બિંદુઓ વચ્ચેનો વિદ્યુતસ્થિતિમાનનો તફાવત કહે છે. વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એ"
+  },
+  {
+   "id": "G18",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "indicator એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    9
+   ],
+   "answer": "જે પદાર્થ ઍસિડ અને બેઇઝમાં જુદો જુદો રંગ બતાવે તેને સૂચક કહે છે."
+  },
+  {
+   "id": "G19",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "ammeter ને circuit માં કેવી રીતે જોડાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7,
+    8
+   ],
+   "answer": "વિદ્યુતપ્રવાહ માપવા માટે ઍમિટર વપરાય છે. ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનન"
+  },
+  {
+   "id": "G20",
+   "cat": "misspelling",
+   "lang": "gu",
+   "q": "અંતરગોળ અરીસો એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    5
+   ],
+   "answer": "જે ગોળીય અરીસાની પરાવર્તક સપાટી અંદરની તરફ વળેલી હોય તેને અંતર્ગોળ અરીસો કહે છે."
+  },
+  {
+   "id": "G21",
+   "cat": "misspelling",
+   "lang": "gu",
+   "q": "વિધ્યુતપ્રવાહ એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "definition",
+   "pages": [
+    7
+   ],
+   "answer": "વાહકમાં વિદ્યુતભારના વહનના દરને વિદ્યુતપ્રવાહ કહે છે."
+  },
+  {
+   "id": "G22",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "જળસંચયની રીતો કઈ છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વરસાદના પાણીને વહી જતું અટકાવીને તેનો સંગ્રહ કરવાની રીતને જળસંચય કહે છે. ખેત-તલાવડી, ચેકડેમ અને બોરીબંધ જળસંચયની રીતો છે. ઘરની છત પરથી વરસાદનું પાણી ટાંકામાં ભેગું કરવાની રીતને છત-જળસંચય કહે છે."
+  },
+  {
+   "id": "G23",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "નકશાના મુખ્ય અંગો કયા છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "નકશાના ત્રણ મુખ્ય અંગો છે: દિશા, પ્રમાણમાપ અને રૂઢ સંજ્ઞાઓ."
+  },
+  {
+   "id": "G24",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "ભૂગર્ભજળ વધારે વાપરવાથી શું થાય?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G25",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "q": "ઓહ્મનો નિયમ કોને કહે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    1
+   ],
+   "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે."
+  },
+  {
+   "id": "G26",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "ઍમિટર એટલે શું?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "definition_not_found",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G27",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "સમતલ અરીસો એટલે શું?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "definition_not_found",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G28",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "વિદ્યુતપ્રવાહના પ્રકાર કયા છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G29",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "પરપોષીનું સૂત્ર લખો.",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "formula_not_found",
+   "trust": "insufficient",
+   "mode": "formula",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G30",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "હરિતદ્રવ્યનો એકમ કયો છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G31",
+   "cat": "refusal",
+   "lang": "gu",
+   "q": "2 ઓહ્મ અને 3 ઓહ્મ અવરોધ શ્રેણીમાં જોડતાં કુલ અવરોધ કેટલો થાય?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "numbers_not_in_source",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G32",
+   "cat": "unsupported",
+   "lang": "gu",
+   "q": "જળચક્રની શોધ કોણે કરી?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G33",
+   "cat": "unsupported",
+   "lang": "gu",
+   "q": "પૃથ્વી સૂર્યની આસપાસ કેમ ફરે છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G34",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "પરાવર્તનનો ત્રીજો નિયમ કયો છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "G35",
+   "cat": "refusal",
+   "lang": "gu",
+   "q": "બેઇઝ સ્વાદે ખાટા કેમ હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  }
+ ]
+}
