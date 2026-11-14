@@ -1,0 +1,932 @@
+{
+ "suite": "GRANTH-AI phase 4 FROZEN final test set",
+ "written": "2026-11-13",
+ "about": "Written AFTER the engine was frozen at commit b7bc20f and committed BEFORE its first run. It is run exactly once; the engine is not changed in response. Any later engine change makes this set development data and a new frozen set is required.",
+ "limitations": "Written by the same developer who wrote the engine and the 14-page demo corpus, with knowledge of how the engine works. Independent in time, not in authorship. Small: 70 questions over about 45 facts.",
+ "books": {
+  "sci": "granth_vigyan_10_2026",
+  "sci27": "granth_vigyan_10_2027",
+  "soc": "granth_samajik_10_2026",
+  "both": [
+   "granth_vigyan_10_2026",
+   "granth_vigyan_10_2027"
+  ]
+ },
+ "expect_values": {
+  "answered": "must answer; lead citation page in 'pages'; every 'must' string in the answer; no 'must_not' string; at most 'max_sentences' sentences when given",
+  "abstained": "must refuse",
+  "edition_conflict": "must show both editions separately",
+  "either": "refusal OK; if answered it must satisfy pages/must/must_not"
+ },
+ "gold_corrections": [],
+ "questions": [
+  {
+   "id": "Z01",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રકાશસંશ્લેષણની પ્રક્રિયામાં કયો વાયુ છૂટો પડે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "ઑક્સિજન વાયુ મુક્ત"
+   ]
+  },
+  {
+   "id": "Z02",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્ય કઈ ઊર્જાનું શોષણ કરે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "સૂર્યપ્રકાશની ઊર્જાનું શોષણ"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z03",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્વસનની ક્રિયા શરીરમાં ક્યાં થાય છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "કોષમાં થાય છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z04",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્વસન માટેનું મુખ્ય અંગ કયું છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "ફેફસાં છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z05",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "દાંતના ડૉક્ટર કયા અરીસાનો ઉપયોગ કરે છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "અંતર્ગોળ અરીસાનો ઉપયોગ"
+   ],
+   "must_not": [
+    "વાહનોમાં"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z06",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરાવર્તનના કેટલા નિયમો છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બે નિયમો"
+   ]
+  },
+  {
+   "id": "Z07",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વોલ્ટમીટર શું માપવા માટે વપરાય છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "વોલ્ટમીટર વપરાય છે"
+   ],
+   "must_not": [
+    "ઍમિટર વપરાય"
+   ]
+  },
+  {
+   "id": "Z08",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જે દ્રાવણ તટસ્થ હોય તેનું pH મૂલ્ય કેટલું?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "7 હોય છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z09",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "દહીંમાં કયો ઍસિડ રહેલો છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડ"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z10",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કીડીના ડંખની અસર ઘટાડવા શું લગાવવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ખાવાનો સોડા"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z11",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જમીન વધુ ઍસિડિક હોય ત્યારે શું ઉમેરવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ચૂનો ઉમેરવામાં"
+   ],
+   "must_not": [
+    "સેન્દ્રિય"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z12",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફિનોલ્ફ્થેલીન કયા પ્રકારનો સૂચક ગણાય છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "કૃત્રિમ સૂચક"
+   ],
+   "must_not": [
+    "કુદરતી"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z13",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અવરોધોને સમાંતર જોડીએ તો કુલ અવરોધ કેટલો થાય?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "સૌથી નાના અવરોધ કરતાં પણ ઓછો"
+   ],
+   "must_not": [
+    "સરવાળા"
+   ]
+  },
+  {
+   "id": "Z14",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપાવરની વ્યાખ્યા લખો.",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વિદ્યુતપાવર કહે છે"
+   ]
+  },
+  {
+   "id": "Z15",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બાષ્પોત્સર્જન કોને કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "બાષ્પોત્સર્જન કહે છે"
+   ]
+  },
+  {
+   "id": "Z16",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વનસ્પતિ જમીનમાંથી પાણી શેના વડે ખેંચે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "મૂળ દ્વારા"
+   ]
+  },
+  {
+   "id": "Z17",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન ન હોય ત્યારે થતા શ્વસનને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ"
+   ]
+  },
+  {
+   "id": "Z18",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ગાડીઓમાં પાછળનું જોવા કયો અરીસો રાખવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બહિર્ગોળ અરીસો વપરાય છે"
+   ],
+   "must_not": [
+    "દાંતના"
+   ]
+  },
+  {
+   "id": "Z19",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતભારના વહનના દરને શું કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "વિદ્યુતપ્રવાહ કહે છે"
+   ]
+  },
+  {
+   "id": "Z20",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પેટમાં ઍસિડિટી થાય ત્યારે કઈ દવા લેવાય છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ઍન્ટાસિડ"
+   ]
+  },
+  {
+   "id": "Z21",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "રંગ બદલીને ઍસિડ-બેઇઝ ઓળખાવતા પદાર્થને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    9,
+    10
+   ],
+   "must": [
+    "સૂચક"
+   ]
+  },
+  {
+   "id": "Z22",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તૂરા સ્વાદવાળા પદાર્થો કયા કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "બેઇઝ કહે છે"
+   ],
+   "must_not": [
+    "ઍસિડ કહે છે"
+   ]
+  },
+  {
+   "id": "Z23",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જે સજીવ બીજા પર ખોરાક માટે આધાર રાખે તે કેવા કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પરપોષી"
+   ]
+  },
+  {
+   "id": "Z24",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સ્નાયુઓ સખત કસરત પછી કેમ દુખે છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડના ભરાવાથી"
+   ]
+  },
+  {
+   "id": "Z25",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍસિડની બેઇઝ સાથે પ્રક્રિયા થતાં કયા પદાર્થો બને છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ક્ષાર અને પાણી"
+   ]
+  },
+  {
+   "id": "Z26",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "respiration એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "શ્વસન કહે છે"
+   ]
+  },
+  {
+   "id": "Z27",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "voltmeter ને circuit માં કેવી રીતે જોડવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "સમાંતર"
+   ],
+   "must_not": [
+    "શ્રેણીમાં"
+   ]
+  },
+  {
+   "id": "Z28",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "litmus કેવો indicator છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "કુદરતી સૂચકો"
+   ],
+   "must_not": [
+    "કૃત્રિમ"
+   ]
+  },
+  {
+   "id": "Z29",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "resistance નો unit કયો?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "ઓહ્મ છે"
+   ]
+  },
+  {
+   "id": "Z30",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "stomata નું કામ શું?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર દ્વારા"
+   ]
+  },
+  {
+   "id": "Z31",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Define neutralisation.",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "તટસ્થીકરણ કહે છે"
+   ]
+  },
+  {
+   "id": "Z32",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "In which unit is potential difference measured?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "વોલ્ટ છે"
+   ]
+  },
+  {
+   "id": "Z33",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Which mirror is used in vehicles?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બહિર્ગોળ અરીસો વપરાય"
+   ],
+   "must_not": [
+    "દાંતના"
+   ]
+  },
+  {
+   "id": "Z34",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Where is chlorophyll found?",
+   "expect": "answered",
+   "pages": [
+    2,
+    1
+   ],
+   "must": [
+    "પર્ણના કોષો"
+   ]
+  },
+  {
+   "id": "Z35",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is the unit of magnification?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z36",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરીતદ્રવ્ય કોને કહે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "હરિતદ્રવ્ય કહે છે"
+   ]
+  },
+  {
+   "id": "Z37",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અવરોઘનો એકમ કયો છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "ઓહ્મ છે"
+   ]
+  },
+  {
+   "id": "Z38",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "લીટમસ કેવો સૂચક છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "કુદરતી સૂચકો"
+   ]
+  },
+  {
+   "id": "Z39",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કેન્દ્રલંબાઇ એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    6
+   ],
+   "must": [
+    "કેન્દ્રલંબાઈ કહે છે"
+   ]
+  },
+  {
+   "id": "Z40",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઓહ્મમીટર શેનો એકમ છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z41",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વૉટમીટર કેવી રીતે જોડાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z42",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમ્પિયર કઈ રાશિનો એકમ છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે"
+   ],
+   "must_not": [
+    "વોલ્ટ છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z43",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જારક શ્વસનમાં ગ્લુકોઝનું કેવું દહન થાય છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "સંપૂર્ણ દહન"
+   ],
+   "must_not": [
+    "અપૂર્ણ"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z44",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વાયુકોષ્ઠનો રંગ કેવો હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z45",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અંતર્ગોળ અરીસો વાહનોમાં શા માટે વપરાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z46",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપાવર માપવાનું સાધન કયું છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z47",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફેફસાં સૂર્યપ્રકાશનું શોષણ કેવી રીતે કરે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z48",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "લિટમસપત્રનો એકમ કયો છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z49",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "યીસ્ટમાં પ્રકાશસંશ્લેષણથી શું બને છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z50",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ચૂનાનું પાણી ખાટું કેમ હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z51",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમિટરમાં કયો ઍસિડ હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z52",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હળદર કૃત્રિમ સૂચક છે કે કુદરતી?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "લિટમસ અને હળદર કુદરતી સૂચકો છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z53",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્વાસનળીમાં અજારક શ્વસન ક્યારે થાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z54",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કિડનીનું કાર્ય શું છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z55",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ચુંબકીય ક્ષેત્ર એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z56",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ચંદ્ર પર પહેલો પગ કોણે મૂક્યો?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z57",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "લેન્સનું સૂત્ર લખો.",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z58",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z59",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તે કેવી રીતે થાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z60",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "ઘરે આવતા વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલું ગણવામાં આવ્યું છે?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "Z61",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "sci27",
+   "q": "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલા વોલ્ટ ગણ્યું છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "230"
+   ],
+   "must_not": [
+    "220"
+   ]
+  },
+  {
+   "id": "Z62",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "sci27",
+   "q": "શ્વસન કોને કહે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z63",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "જળચક્ર કોને કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "જળચક્ર કહે છે"
+   ]
+  },
+  {
+   "id": "Z64",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ભૂગર્ભજળનો વધુ પડતો ઉપયોગ કરવાથી શું થાય છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્તર નીચું જાય છે"
+   ]
+  },
+  {
+   "id": "Z65",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "વાયવ્ય ખૂણો કઈ બે દિશાઓની વચ્ચે આવે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ઉત્તર અને પશ્ચિમ"
+   ]
+  },
+  {
+   "id": "Z66",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "soc",
+   "q": "છત પરનું વરસાદી પાણી ટાંકામાં ભેગું કરવાની રીતને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "છત-જળસંચય કહે છે"
+   ]
+  },
+  {
+   "id": "Z67",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "નકશાની ઉપરની બાજુએ સામાન્ય રીતે કઈ દિશા હોય?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ઉત્તર દિશા હોય છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "Z68",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ખૂણાની દિશાઓ કઈ કઈ છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ઈશાન, અગ્નિ, નૈઋત્ય અને વાયવ્ય"
+   ]
+  },
+  {
+   "id": "Z69",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ગુજરાતમાં કેટલા જિલ્લા છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "Z70",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "soc",
+   "q": "નકશાનો વરસાદ ક્યાં પડે છે?",
+   "expect": "abstained"
+  }
+ ],
+ "overlap_with_earlier_sets": [
+  "હરીતદ્રવ્ય કોને કહે છે?"
+ ]
+}
