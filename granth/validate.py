@@ -23,6 +23,8 @@ _NUMBER = re.compile(r"[0-9૦-૯]|(?<!\S)(બે|ત્રણ|ચાર|પા
 _LOC = tuple(g.fold(x) for x in ("માં", "પર", "ઉપર", "અંદર"))
 _ABL = tuple(g.fold(x) for x in ("માંથી", "થી"))
 _NOT_PLACE = frozenset(g.fold(x) for x in ("હાજરીમાં", "ગેરહાજરીમાં", "રૂપમાં", "સ્વરૂપમાં", "સમપ્રમાણમાં", "પ્રમાણમાં"))
+_WHERE_HEAD = frozenset(g.content_terms("સ્રોત સ્થાન જગ્યા"))
+_TYPE_ADJ = re.compile(r"(?<!\S)(?:કયા|કેવા|કઈ)\s+(?:પ્રકાર|જાત)(?:ન[ોીુંા]|ની)(?!\S)")
 MAX_WINDOW = 3
 
 
@@ -37,6 +39,8 @@ def _attribute(an: dict, text: str, q_stems: set, need: frozenset = frozenset(),
         return "explicit" if "અંગ" in st else None
     if it == "instrument":
         return "explicit" if ("સાધન" in st or any(t.startswith(("માપ", "મપા")) for t in st)) else None
+    if it == "means":
+        return "explicit" if ("દ્વારા" in text or "વડે" in text) else None
     if it == "range":
         return "explicit" if ("સુધી" in text and _NUMBER.search(text)) else None
     if it in ("place", "source"):
@@ -104,14 +108,23 @@ def plan(an: dict, terms: list[dict], vocab: set) -> dict:
     """Split the question's words into HARD topic words that an answering sentence must carry, SOFT words (verbs)
     that it should carry, and UNKNOWN words that the selected source does not know at all."""
     need, weak, soft, unknown = [], [], [], []
+    generic_ok = sum(1 for t in terms if t["term"] and t["term"] not in concepts._generic()) >= 1
     for t in terms:
         q, term = t["query"], t["term"]
         if any(intent_mod.is_cue(an, x) for x in ([term] if term else []) + q.split()):
             continue
         if an["intent"] == "choice" and term in an["options"]:
             continue
-        if (q in an["soft"] and t["match"] != "synonym") \
-                or (term in concepts._generic() and term not in concepts.all_facet_stems() and t["match"] == "exact"):
+        if term and term in concepts._generic() and term not in concepts.all_facet_stems() and generic_ok:
+            continue                                    # "શ્વસનની ક્રિયા", "X નામનો પદાર્થ": a filler noun beside a real topic word
+        looks_part = q in an.get("participles", ())
+        if looks_part:
+            # "વનસ્પતિ" ends like a participle but is a noun. A real participle has other verb forms in the book
+            # ("મળતી" next to "મળે"); a word the book does not know at all is treated as a verb form too.
+            root = intent_mod.verb_root(q)
+            looks_part = term is None or any(v != q and v.startswith(root) and len(v) <= len(root) + 3 for v in vocab)
+        if ((q in an["soft"] or looks_part) and t["match"] != "synonym") \
+                or (term in concepts._generic() and term not in concepts.all_facet_stems() and t["match"] == "exact" and not generic_ok):
             soft.append({"word": q, "root": intent_mod.verb_root(q)})
             continue
         if term is None:
@@ -134,7 +147,11 @@ def _check(an: dict, pl: dict, text: str, q_stems: set, claims: list) -> dict | 
             related.append(f"{t} → {how[8:]}")
     missing_soft = [x["word"] for x in pl["soft"] if not _soft_present(x["root"], st)]
     if len(pl["need"]) + len(pl["soft"]) - len(missing_soft) < min(2, len(pl["need"]) + len(pl["soft"])):
-        return None                                     # one topic word alone, with the verb missing, proves nothing
+        # one topic word alone, with the verb missing, proves nothing - unless the sentence is the book's own
+        # definition of exactly that word and the question asks where it is ("...માં આવેલા ... ને X કહે છે")
+        defined = {x for term in study.find_definitions(text) for x in g.content_terms(term)}
+        if not (an["intent"] == "place" and pl["need"] and set(pl["need"]) <= defined):
+            return None
     if any(w not in text for w in claims):
         return None
     if polarity.conflict(an.get("question", ""), text, set(pl["need"])):
@@ -185,6 +202,20 @@ def _antecedent_ok(pl: dict, prev: str, cur: str) -> bool:
 def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, claims: list | None = None) -> dict:
     """-> {'parts': [...], 'level': 'direct'|'partial', 'gaps': [...], 'analysis': {...}}  or  {'abstain': reason, ...}"""
     an = intent_mod.analyse(question)
+    out = _select(con, an, res, edition_ids, chapter_id, target, claims)
+    if "abstain" in out and an["intent"] == "types" and _TYPE_ADJ.search(an["question"]) \
+            and out["abstain"] in ("aspect_not_found", "premise_not_supported"):
+        # "X કયા પ્રકારનો Y છે?" - the book may simply say "X ... Y છે" without the word "પ્રકાર"
+        alt = _select(con, {**an, "intent": "fact", "label": intent_mod.LABELS["fact"], "wh": True}, res, edition_ids, chapter_id, target, claims)
+        if "abstain" not in alt:
+            alt["gaps"] = alt["gaps"] + ["પુસ્તક ‘પ્રકાર’ શબ્દ વાપરતું નથી; તે વસ્તુ વિશેનું સીધું વાક્ય બતાવ્યું છે."]
+            alt["level"] = "partial"
+            alt["analysis"]["level"] = "partial"
+            return alt
+    return out
+
+
+def _select(con, an: dict, res: dict, edition_ids, chapter_id, target: int, claims: list | None = None) -> dict:
     vocab = retrieval.get_index(con).scope(edition_ids)["vocab"]
     pl = plan(an, res["terms"], vocab)
     report = {"intent": an["intent"], "intent_label": an["label"], "concept_terms": pl["need"], "options": an["options"],
@@ -250,8 +281,10 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
             head = lines[0] + " " + body[0]
             hcells = [c.strip() for c in body[0].strip().strip("|").split("|")]
             attr_cols = [k for k, c in enumerate(hcells) if k > 0 and _attribute(an, c, q_stems)] if an["intent"] not in ("fact", "quantity") else []
-            if an["intent"] in ("reason", "function", "process", "example", "choice", "naming", "place", "use"):
+            if an["intent"] in ("reason", "function", "process", "example", "choice", "naming", "use", "means"):
                 continue
+            if an["intent"] in ("place", "source"):
+                attr_cols = [k for k, c in enumerate(hcells) if k > 0 and set(g.content_terms(c)) & _WHERE_HEAD]
             if an["intent"] not in ("fact", "quantity") and not attr_cols:
                 continue                                # no column of this table holds the kind of information asked for
             for ln in body[1:]:
@@ -373,6 +406,8 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
         gaps.append("ઉત્તર કોષ્ટકની એક હરોળમાં છે; આખું કોષ્ટક બતાવ્યું છે.")
     if an["intent"] == "reason" and len(pl["need"]) < 2:
         gaps.append("પ્રશ્નમાં એક જ મુખ્ય શબ્દ છે; પુસ્તકનું હેતુ / કારણ દર્શાવતું વાક્ય બતાવ્યું છે.")
+    elif an["intent"] in ("place", "source", "means", "quantity") and len(pl["need"]) < 2 and not (pl["soft"] and not ms):
+        gaps.append("પ્રશ્નમાં એક જ મુખ્ય શબ્દ છે; તે શબ્દવાળું અને પૂછેલી બાબત (" + an["label"] + ") દર્શાવતું વાક્ય બતાવ્યું છે. તે તમારા પ્રશ્નનો જ ઉત્તર છે કે નહીં તે જાતે ચકાસો.")
     level = "partial" if (gaps or pl["weak"]) else "direct"
     report.update(level=level, attribute=lead[2]["attr"], sentences=len(units))
     return {"units": units, "level": level, "gaps": gaps, "analysis": report, "n_found": len(found)}

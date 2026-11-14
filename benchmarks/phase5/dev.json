@@ -1,0 +1,1026 @@
+{
+ "suite": "GRANTH-AI phase 5 DEVELOPMENT set",
+ "written": "2026-11-13",
+ "about": "Used while building engine 1.4: tuned on freely. NOT evidence of accuracy.",
+ "limitations": "Developer-written, demo corpus only.",
+ "books": {
+  "sci": "granth_vigyan_10_2026",
+  "sci27": "granth_vigyan_10_2027",
+  "soc": "granth_samajik_10_2026",
+  "both": [
+   "granth_vigyan_10_2026",
+   "granth_vigyan_10_2027"
+  ]
+ },
+ "expect_values": {
+  "answered": "must answer; lead citation page in 'pages'; every 'must' string in the answer; no 'must_not' string; at most 'max_sentences' sentences when given",
+  "abstained": "must refuse",
+  "edition_conflict": "must show both editions separately, each with its own value and page",
+  "either": "refusal OK; if answered it must satisfy pages/must/must_not"
+ },
+ "overlap_with_earlier_sets": [
+  "ઑક્સિજન ન હોય ત્યારે થતા શ્વસનને શું કહે છે?",
+  "વૉટમીટર કેવી રીતે જોડાય છે?",
+  "અવરોઘનો એકમ કયો છે?",
+  "અંતર્ગોળ અરીસો વાહનોમાં શા માટે વપરાય છે?",
+  "Which mirror is used in vehicles?",
+  "Where is chlorophyll found?",
+  "In which unit is potential difference measured?",
+  "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલું ગણવામાં આવ્યું છે?",
+  "વિદ્યુતપ્રવાહનો એકમ કયો છે?"
+ ],
+ "questions": [
+  {
+   "id": "D001",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન ન હોય ત્યારે થતા શ્વસનને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ],
+   "group": "neg-anaerobic"
+  },
+  {
+   "id": "D002",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન વગર થતા શ્વસનને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ],
+   "group": "neg-anaerobic"
+  },
+  {
+   "id": "D003",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જે શ્વસનમાં ઑક્સિજન હાજર નથી તેને શું કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ],
+   "group": "neg-anaerobic"
+  },
+  {
+   "id": "D004",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન વિના થતું શ્વસન કયું છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ],
+   "group": "neg-anaerobic"
+  },
+  {
+   "id": "D005",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજન હોય ત્યારે થતા શ્વસનને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "જારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ગેરહાજરી"
+   ],
+   "group": "pos-aerobic"
+  },
+  {
+   "id": "D006",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઑક્સિજનની હાજરીમાં થતું શ્વસન કયું?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "જારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ગેરહાજરી"
+   ],
+   "group": "pos-aerobic"
+  },
+  {
+   "id": "D007",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is respiration without oxygen called?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ],
+   "group": "neg-anaerobic"
+  },
+  {
+   "id": "D008",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "Which respiration takes place in the absence of oxygen?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ],
+   "group": "neg-anaerobic"
+  },
+  {
+   "id": "D009",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is the respiration called when oxygen is not present?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ],
+   "group": "neg-anaerobic"
+  },
+  {
+   "id": "D010",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is respiration in the presence of oxygen called?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "જારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ગેરહાજરી"
+   ],
+   "group": "pos-aerobic"
+  },
+  {
+   "id": "D011",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સૂર્યપ્રકાશ વગર પ્રકાશસંશ્લેષણ કેવી રીતે થાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D012",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્ય ન હોય તો પર્ણનો રંગ કેવો દેખાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D013",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કયો સૂચક કુદરતી નથી?",
+   "expect": "either",
+   "pages": [
+    9
+   ],
+   "must": [
+    "કૃત્રિમ"
+   ]
+  },
+  {
+   "id": "D014",
+   "cat": "negation",
+   "lang": "en",
+   "book": "sci",
+   "q": "Which mirror is not used in vehicles?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D015",
+   "cat": "negation",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "oxygen ન હોય ત્યારે થતા respiration ને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "અજારક શ્વસન કહે છે"
+   ],
+   "must_not": [
+    "ઑક્સિજનની હાજરીમાં"
+   ],
+   "group": "neg-anaerobic"
+  },
+  {
+   "id": "D016",
+   "cat": "negation",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પાણી વગર તટસ્થીકરણ કેવી રીતે થાય?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D020",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વૉટમીટર કેવી રીતે જોડાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D021",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફોટોમીટર શું માપે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D022",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઝાયલેમનું કાર્ય શું છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D023",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અવરોઘનો એકમ કયો છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "ઓહ્મ છે"
+   ]
+  },
+  {
+   "id": "D024",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રકાશસંસ્લેષણ એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "પ્રકાશસંશ્લેષણ કહે છે"
+   ]
+  },
+  {
+   "id": "D025",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમીટર શેના માટે વપરાય છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "ઍમિટર વપરાય છે"
+   ]
+  },
+  {
+   "id": "D026",
+   "cat": "unknown_term",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is fotosynthesis?",
+   "expect": "either",
+   "pages": [
+    1
+   ],
+   "must": [
+    "પ્રકાશસંશ્લેષણ કહે છે"
+   ]
+  },
+  {
+   "id": "D027",
+   "cat": "unknown_term",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is a wattmeter?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D028",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઝાડ પોતાનો ખોરાક ક્યાં બનાવે છે?",
+   "expect": "either",
+   "pages": [
+    1
+   ],
+   "must": [
+    "પર્ણોમાં"
+   ]
+  },
+  {
+   "id": "D029",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સ્ટાર્ટ એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D030",
+   "cat": "unknown_term",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "volt meter ને કેવી રીતે જોડવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "સમાંતર"
+   ],
+   "must_not": [
+    "શ્રેણીમાં"
+   ]
+  },
+  {
+   "id": "D031",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બ્લૂટૂથનો એકમ કયો છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D032",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરાવર્તક કોણ એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D040",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અંતર્ગોળ અરીસો વાહનોમાં શા માટે વપરાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D041",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અવરોધનો એકમ વોલ્ટ કેમ છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D042",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન કેમ થાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D043",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમિટરને સમાંતર કેમ જોડવામાં આવે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D044",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ચૂનાનું પાણી ઍસિડિક કેમ હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D045",
+   "cat": "false_premise",
+   "lang": "en",
+   "book": "sci",
+   "q": "Why is a concave mirror used in vehicles?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D046",
+   "cat": "false_premise",
+   "lang": "en",
+   "book": "sci",
+   "q": "Why is the unit of resistance the volt?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D047",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફિનોલ્ફ્થેલીન કુદરતી સૂચક કેમ કહેવાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D048",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તટસ્થ દ્રાવણનું pH મૂલ્ય 9 કેમ હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "D049",
+   "cat": "false_premise",
+   "lang": "gu",
+   "book": "sci",
+   "q": "દાંતના ડૉક્ટર અંતર્ગોળ અરીસાનો ઉપયોગ કરે છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "દાંતના ડૉક્ટર"
+   ]
+  },
+  {
+   "id": "D060",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રકાશસંશ્લેષણમાં કયો વાયુ છૂટો પડે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "ઑક્સિજન વાયુ મુક્ત"
+   ],
+   "group": "o2"
+  },
+  {
+   "id": "D061",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રકાશસંશ્લેષણ દરમિયાન કયો વાયુ બહાર આવે છે?",
+   "expect": "either",
+   "pages": [
+    1
+   ],
+   "must": [
+    "ઑક્સિજન વાયુ મુક્ત"
+   ],
+   "group": "o2"
+  },
+  {
+   "id": "D062",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વનસ્પતિ પાણી ક્યાંથી મેળવે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "જમીનમાંથી"
+   ],
+   "group": "water"
+  },
+  {
+   "id": "D063",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વનસ્પતિ પાણી શેના વડે શોષે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "મૂળ દ્વારા"
+   ],
+   "group": "water"
+  },
+  {
+   "id": "D064",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વનસ્પતિ કયા અંગથી પાણી શોષે છે?",
+   "expect": "either",
+   "pages": [
+    1
+   ],
+   "must": [
+    "મૂળ દ્વારા"
+   ],
+   "group": "water"
+  },
+  {
+   "id": "D065",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્ય ક્યાં મળે છે?",
+   "expect": "answered",
+   "pages": [
+    2,
+    1
+   ],
+   "must": [
+    "પર્ણના કોષો"
+   ],
+   "group": "chl"
+  },
+  {
+   "id": "D066",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હરિતદ્રવ્ય શું કામ કરે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "શોષણ કરે છે"
+   ],
+   "group": "chl"
+  },
+  {
+   "id": "D067",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સ્નાયુઓમાં દુખાવો શેના કારણે થાય છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડના ભરાવાથી"
+   ],
+   "group": "pain"
+  },
+  {
+   "id": "D068",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સ્નાયુઓમાં દુખાવો શાથી થાય છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડના ભરાવાથી"
+   ],
+   "group": "pain"
+  },
+  {
+   "id": "D069",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વોલ્ટમીટર પરિપથમાં કઈ રીતે જોડાય છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "સમાંતર"
+   ],
+   "must_not": [
+    "શ્રેણીમાં"
+   ],
+   "group": "vm"
+  },
+  {
+   "id": "D070",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વોલ્ટમીટરને પરિપથમાં કેવી રીતે જોડીએ?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "સમાંતર"
+   ],
+   "must_not": [
+    "શ્રેણીમાં"
+   ],
+   "group": "vm"
+  },
+  {
+   "id": "D071",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "દહીંમાં કયો ઍસિડ રહેલો હોય છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડ"
+   ],
+   "group": "curd"
+  },
+  {
+   "id": "D072",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "દહીંમાં કયો ઍસિડ જોવા મળે છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડ"
+   ],
+   "group": "curd"
+  },
+  {
+   "id": "D073",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તટસ્થીકરણ વર્ણવો.",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "તટસ્થીકરણ કહે છે"
+   ],
+   "group": "neut"
+  },
+  {
+   "id": "D074",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તટસ્થીકરણની વ્યાખ્યા આપો.",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "તટસ્થીકરણ કહે છે"
+   ],
+   "group": "neut"
+  },
+  {
+   "id": "D075",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તટસ્થીકરણ સમજાવો.",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "તટસ્થીકરણ કહે છે"
+   ],
+   "group": "neut"
+  },
+  {
+   "id": "D076",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફિનોલ્ફ્થેલીન કયા પ્રકારનો સૂચક છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "કૃત્રિમ સૂચક"
+   ],
+   "group": "phph"
+  },
+  {
+   "id": "D077",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફિનોલ્ફ્થેલીન કેવો સૂચક ગણાય?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "કૃત્રિમ સૂચક"
+   ],
+   "group": "phph"
+  },
+  {
+   "id": "D078",
+   "cat": "paraphrase",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "plants પાણી ક્યાંથી મેળવે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "જમીનમાંથી"
+   ],
+   "group": "water"
+  },
+  {
+   "id": "D079",
+   "cat": "paraphrase",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "lactic acid ક્યારે બને છે?",
+   "expect": "either",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડ બને છે"
+   ]
+  },
+  {
+   "id": "D080",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્વસનની ક્રિયા ક્યાં થાય છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "કોષમાં થાય છે"
+   ],
+   "group": "resp"
+  },
+  {
+   "id": "D081",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્વસન શરીરના કયા ભાગમાં થાય છે?",
+   "expect": "either",
+   "pages": [
+    3
+   ],
+   "must": [
+    "કોષમાં થાય છે"
+   ],
+   "group": "resp"
+  },
+  {
+   "id": "D090",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Which mirror is used in vehicles?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બહિર્ગોળ અરીસો વપરાય"
+   ],
+   "must_not": [
+    "દાંતના"
+   ]
+  },
+  {
+   "id": "D091",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Where is chlorophyll found?",
+   "expect": "answered",
+   "pages": [
+    2,
+    1
+   ],
+   "must": [
+    "પર્ણના કોષો"
+   ]
+  },
+  {
+   "id": "D092",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "In which unit is potential difference measured?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "વોલ્ટ છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "D093",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Which acid is present in curd?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડ"
+   ]
+  },
+  {
+   "id": "D094",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "How is a voltmeter connected in a circuit?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "સમાંતર"
+   ],
+   "must_not": [
+    "શ્રેણીમાં"
+   ]
+  },
+  {
+   "id": "D095",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is the function of stomata?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર દ્વારા"
+   ]
+  },
+  {
+   "id": "D096",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Why do muscles pain after exercise?",
+   "expect": "either",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડ"
+   ]
+  },
+  {
+   "id": "D097",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Explain neutralisation.",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "તટસ્થીકરણ કહે છે"
+   ]
+  },
+  {
+   "id": "D100",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલું ગણવામાં આવ્યું છે?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "D101",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "ઘરે આવતા વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલું હોય છે?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "D102",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "કેટલા વોલ્ટનું વોલ્ટેજ ઘરવપરાશના વિદ્યુતપુરવઠામાં ગણ્યું છે?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "D103",
+   "cat": "edition_conflict",
+   "lang": "en",
+   "book": "both",
+   "q": "How much is the voltage of the household electric supply?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "D104",
+   "cat": "edition_conflict",
+   "lang": "mixed",
+   "book": "both",
+   "q": "household supply નું voltage કેટલું છે?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "D105",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "ઘરમાં વપરાતી વીજળી કેટલા વોલ્ટની હોય છે?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "D106",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "વિદ્યુતપ્રવાહનો એકમ કયો છે?",
+   "expect": "answered",
+   "pages": [
+    7,
+    1
+   ],
+   "must": [
+    "ઍમ્પિયર"
+   ]
+  }
+ ]
+}

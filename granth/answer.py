@@ -796,7 +796,19 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
     con.execute("INSERT INTO usage_events(ts, kind) VALUES (?,?)", (db.now(), "local_retrieval"))
 
     comp, res, eff_mode = _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id)
-    if comp.get("abstain") in _EXPANDABLE and mode in ("auto", "short", "detailed", "points", "one_line", "definition"):
+    asked_for = (comp.get("validation") or {}).get("intent")
+    if comp.get("abstain") in ("definition_not_found", "concept_not_supported") and len(res["terms"]) >= 2 \
+            and all(t["term"] for t in res["terms"]):
+        # Phase 5: "<description> એટલે શું?" / "... ને શું કહેવાય?" - the student describes, the book names.
+        # Only a sentence that DEFINES something and carries every word of the description is accepted (validator).
+        q2 = _DEF_TAIL.sub("", question).strip(" ?.:,") + " ને શું કહે છે?"
+        c2, r2, m2 = _attempt(con, q2, "short", "short", marks, edition_ids, chapter_id)
+        need2 = {t["term"] for t in r2["terms"] if t["term"]}
+        if "parts" in c2 and all(t["term"] for t in r2["terms"]) and any(
+                p["kind"] == "sentence" and need2 <= set(g.content_terms(p["text"])) for p in c2["parts"]):
+            comp, res, eff_mode = c2, r2, "short"
+    if comp.get("abstain") in _EXPANDABLE and asked_for in (None, "fact", "process", "function", "reason") \
+            and mode in ("auto", "short", "detailed", "points", "one_line", "definition"):
         alt = _concept_fallback(con, question, res, edition_ids, chapter_id)
         if alt:
             comp, eff_mode = alt, "definition"

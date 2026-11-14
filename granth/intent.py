@@ -15,10 +15,10 @@ LABELS = {
     "choice": "બેમાંથી કયું", "reverse_unit": "કઈ રાશિનો એકમ", "unit": "એકમ", "instrument": "માપવાનું સાધન",
     "organ": "અંગ", "source": "ક્યાંથી (સ્રોત)", "place": "ક્યાં (સ્થાન)", "reason": "કારણ", "quantity": "કેટલું (સંખ્યા)",
     "naming": "નામ", "use": "ઉપયોગ", "types": "પ્રકાર", "function": "કાર્ય", "process": "કેવી રીતે (પ્રક્રિયા)",
-    "example": "ઉદાહરણ", "between": "કોની વચ્ચે", "range": "ક્યાંથી ક્યાં સુધી", "relation": "સંબંધ", "fact": "હકીકત",
+    "example": "ઉદાહરણ", "between": "કોની વચ્ચે", "means": "શેના વડે (માધ્યમ)", "range": "ક્યાંથી ક્યાં સુધી", "relation": "સંબંધ", "fact": "હકીકત",
 }
 # one sentence is the whole answer for these
-SINGLE = frozenset({"choice", "reverse_unit", "unit", "instrument", "organ", "source", "place", "quantity", "naming", "between", "range"})
+SINGLE = frozenset({"choice", "reverse_unit", "unit", "instrument", "organ", "source", "place", "quantity", "naming", "between", "range", "means"})
 
 _CHOICE = re.compile(r"(\S+)\s+(?:(?:હોય\s+)?છે\s+)?કે\s+(\S+?)\s*(?:(?:હોય\s+)?છે)?\s*[?？]?\s*$")
 _RULES = [
@@ -29,6 +29,7 @@ _RULES = [
     ("naming", re.compile(r"ને\s+શું\s+કહે|(?<!\S)શું\s+કહેવાય|(?<!\S)શું\s+કહેવામાં|(?<!\S)કયા\s+નામે|નું\s+નામ\s+(?:શું|જણાવો|આપો|લખો)")),
     ("reason", re.compile(r"(?<!\S)શા\s*માટે|(?<!\S)કેમ(?!\S)|(?<!\S)કારણ|(?<!\S)શાથી|(?<!\S)શાને\s+લીધે|(?<!\S)શેને\s+લીધે")),
     ("range", re.compile(r"(?<!\S)(?:ક્યાંથી|કેટલાથી|શેનાથી)\s+(?:ક્યાં|કેટલા|શેના)\s*સુધી")),
+    ("means", re.compile(r"(?<!\S)(?:શેના|શાના|કોના)\s+(?:વડે|દ્વારા|થકી)|(?<!\S)(?:શેનાથી|શાનાથી)(?!\S)")),
     ("use", re.compile(r"(?<!\S)(?:ઉપયોગ|વપરા|વાપર)")),
     ("source", re.compile(r"(?<!\S)ક્યાંથી|(?<!\S)શેમાંથી|(?<!\S)શામાંથી|(?<!\S)કયા\s+સ્રોત|(?<!\S)સ્રોત\s+(?:કયો|શું)")),
     ("place", re.compile(r"(?<!\S)ક્યાં(?!થી)|(?<!\S)શેમાં(?!થી)|(?<!\S)શામાં(?!થી)|(?<!\S)કઈ\s+જગ્યા|(?<!\S)કયા\s+ભાગમાં|(?<!\S)કયા\s+અંગમાં")),
@@ -45,7 +46,7 @@ _CUES = {
     "reverse_unit": "એકમ રાશિ", "unit": "એકમ", "instrument": "સાધન માપવા મપાય માપ માપવાનું માપવું", "organ": "અંગ",
     "naming": "નામ", "reason": "કારણ જરૂર જરૂરી", "source": "સ્રોત", "place": "જગ્યા ભાગ સ્થાન", "quantity": "",
     "types": "પ્રકાર", "use": "ઉપયોગ ઉપયોગી વપરાય વાપરવું વપરાશ", "function": "કાર્ય કામ ભૂમિકા", "process": "રીત",
-    "example": "ઉદાહરણ દાખલો", "between": "", "range": "", "relation": "સંબંધ", "choice": "", "fact": "",
+    "example": "ઉદાહરણ દાખલો", "between": "", "means": "", "range": "", "relation": "સંબંધ", "choice": "", "fact": "",
 }
 
 
@@ -74,7 +75,7 @@ def analyse(question: str) -> dict:
     # it helps to find the sentence, but its absence alone does not disqualify a sentence (the answer is then
     # "Partially supported"). Recognised by standard Gujarati grammar only, never by a list of topic words.
     raw = [t for t in g.tokenize(q)]
-    soft = set()
+    soft, part = set(), set()
     last = len(raw) - 1
     while last >= 0 and raw[last] in g.STOPWORDS:
         last -= 1
@@ -93,13 +94,13 @@ def analyse(question: str) -> dict:
         if verb:
             soft.update(g.content_terms(t))
         elif i != last and t.endswith(_PARTICIPLE) and nxt and nxt not in g.STOPWORDS:
-            soft.update(g.content_terms(t))      # "રોકતા ગુણધર્મ": a participle, soft only if the source lacks the word
+            part.update(g.content_terms(t))      # "રોકતા ગુણધર્મ": looks like a participle; `validate.plan` decides with the book's vocabulary
     return {"question": q, "negated": sorted(polarity.negated(q)), "intent": intent, "label": LABELS[intent], "options": options, "cues": _stems(_CUES[intent]),
-            "soft": soft, "single": intent in SINGLE, "wh": bool(_WH.search(q))}
+            "soft": soft, "participles": part - soft, "single": intent in SINGLE, "wh": bool(_WH.search(q))}
 
 
 _WH = re.compile(r"(?<!\S)(?:કયા|કયો|કઈ|કયું|કયાં|કોણ|કેવ\S*|શું|શેન\S*)(?!\S)")
-_VERB_END = re.compile("(" + "|".join(g.fold(x) for x in ("ે", "ાય", "શે", "વામાં", "ી", "તી", "તો", "તું", "તા", "યું", "યો", "યા")) + ")$")
+_VERB_END = re.compile("(" + "|".join(g.fold(x) for x in ("ે", "ાય", "શે", "વામાં", "ી", "તી", "તો", "તું", "તા", "યું", "યો", "યા", "ીએ", "ેલો", "ેલી", "ેલું", "ેલા", "ેલાં", "વું")) + ")$")
 _CASE = tuple(g.fold(x) for x in ("ને", "થી", "માં", "નું", "નો", "ની", "ના", "પર"))
 _PARTICIPLE = tuple(g.fold(x) for x in ("તા", "તી", "તો", "તું", "તાં"))
 _GERUND = tuple(g.fold(x) for x in ("ીને", "વામાં", "વાથી", "વાની", "વાનું"))
@@ -123,7 +124,7 @@ def verb_root(stem: str) -> str:
 def is_cue(an: dict, stem: str) -> bool:
     if stem in an["cues"]:
         return True
-    if an["intent"] == "instrument" and stem.startswith(("માપ", "મપા")):
+    if an["intent"] in ("instrument", "unit") and stem.startswith(("માપ", "મપા")):
         return True
     if an["intent"] == "use" and stem.startswith(("વપરા", "વાપર", "ઉપયોગ")):
         return True

@@ -20,10 +20,12 @@ EN_STOP = frozenset("""a an the is are was were be been am do does did of in on 
 these those it its what which who whom whose when where why how me my we our you your i please tell give write state explain describe
 define definition meaning mean means called known between difference differentiate distinguish formula equation about
 there their they can could would should will shall has have had not no yes into out up down also any some each one two
+present found located situated much many kind sort exactly usually generally seen exist exists
 during take takes taken took place occur occurs happen happens made make makes get gets used use
 short long note answer question law?""".split())
 
 _INTENTS = [
+    ("naming", re.compile(r"\bcalled\b|\bknown\s+as\b|\bname\s+of\b|\bname\s+the\b", re.I)),
     ("difference", re.compile(r"\b(?:difference|differences|differentiate|distinguish)\s+between\s+(.+?)\s+and\s+(.+?)\s*[?.!]*$", re.I)),
     ("steps", re.compile(r"\bstep[\s-]*by[\s-]*step\b|\bworked example\b|\bsolved example\b", re.I)),
     ("formula", re.compile(r"\b(?:formula|equation)\b", re.I)),
@@ -34,6 +36,7 @@ _INTENTS = [
     ("where_from", re.compile(r"\bfrom\s+where\b|\bwhere\b.*\bfrom\s*[?.!]*$", re.I)),
     ("where", re.compile(r"\bwhere\b", re.I)),
     ("when", re.compile(r"\bwhen\b", re.I)),
+    ("which", re.compile(r"^\s*(?:in\s+|by\s+|at\s+|on\s+)?(?:which|what)\b", re.I)),
 ]
 
 
@@ -137,6 +140,6 @@ def to_gujarati_query(question: str) -> dict | None:
                 segs.append(c)
         core = " ની ".join(reversed(segs))
         tail = {"definition": " એટલે શું?", "formula": " સૂત્ર લખો", "steps": " ઉદાહરણ પગલાંવાર સમજાવો", "why": " શા માટે?",
-                "when": " ક્યારે?", "how_many": " કેટલા?", "how": " કેવી રીતે?", "where_from": " ક્યાંથી?", "where": " ક્યાં?"}.get(intent, " સમજાવો")
+                "when": " ક્યારે?", "how_many": " કેટલા?", "how": " કેવી રીતે?", "where_from": " ક્યાંથી?", "where": " ક્યાં?", "naming": " ને શું કહે છે?", "which": " કયું છે?"}.get(intent, " સમજાવો")
         query = core + tail
     return {"query": query, "mapped": mapped, "unmapped": leftover, "intent": intent, "language": "en"}
