@@ -1,13 +1,13 @@
 {
-  "executed_at": "2026-11-14T03:10:43Z",
-  "engine_version": "extractive-1.2",
+  "executed_at": "2026-11-14T03:44:46Z",
+  "engine_version": "extractive-1.3",
   "corpus": "bundled CC BY 4.0 sample books (data/sample)",
   "summary": {
     "questions": 48,
     "k": 3,
     "end_to_end_success_rate": 1.0,
     "precision_at_1": 0.9429,
-    "precision_at_3": 0.6952,
+    "precision_at_3": 0.7143,
     "recall_at_3": 0.9714,
     "mrr": 0.9571,
     "citation_correctness": 1.0,
@@ -18,9 +18,9 @@
     "false_refusal_rate": 0.0,
     "wrong_answer_instead_of_refusal": 0,
     "latency_ms": {
-      "median": 1.54,
-      "p95": 2.9,
-      "max": 33.44
+      "median": 2.02,
+      "p95": 3.54,
+      "max": 38.42
     },
     "external_api_calls": 0,
     "by_category": {
@@ -96,10 +96,9 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 2.9,
+      "latency_ms": 4.62,
       "cited_pages": [
-        7,
-        8
+        7
       ],
       "retrieved_pages": [
         7,
@@ -116,7 +115,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |",
+      "answer": "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે.",
       "success": true
     },
     {
@@ -126,7 +125,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.61,
+      "latency_ms": 2.19,
       "cited_pages": [
         4
       ],
@@ -155,7 +154,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 2.13,
+      "latency_ms": 2.02,
       "cited_pages": [
         9
       ],
@@ -174,7 +173,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.\nકોષ્ટક 5.1: pH મૂલ્ય અને દ્રાવણનો પ્રકાર\n| pH મૂલ્ય | દ્રાવણનો પ્રકાર |\n| 7 કરતાં ઓછું | ઍસિડિક |\n| 7 | તટસ્થ |\n| 7 કરતાં વધુ | બેઇઝિક |",
+      "answer": "તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.",
       "success": true
     },
     {
@@ -184,7 +183,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.79,
+      "latency_ms": 2.04,
       "cited_pages": [
         2
       ],
@@ -203,7 +202,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "મુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ. નકશામાં સામાન્ય રીતે ઉપરની બાજુ ઉત્તર દિશા હોય છે. બે મુખ્ય દિશાઓની વચ્ચેની દિશાને ખૂણાની દિશા કહે છે.",
+      "answer": "મુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ.",
       "success": true
     },
     {
@@ -213,7 +212,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.75,
+      "latency_ms": 2.14,
       "cited_pages": [
         1
       ],
@@ -242,7 +241,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.56,
+      "latency_ms": 1.52,
       "cited_pages": [
         2
       ],
@@ -271,7 +270,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.71,
+      "latency_ms": 1.61,
       "cited_pages": [
         7
       ],
@@ -300,7 +299,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.49,
+      "latency_ms": 1.52,
       "cited_pages": [
         1
       ],
@@ -327,7 +326,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.47,
+      "latency_ms": 2.82,
       "cited_pages": [
         5
       ],
@@ -356,7 +355,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.43,
+      "latency_ms": 2.02,
       "cited_pages": [
         1
       ],
@@ -375,7 +374,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "પ્રકાશસંશ્લેષણ માટે ચાર બાબતો જરૂરી છે: સૂર્યપ્રકાશ, હરિતદ્રવ્ય, કાર્બન ડાયૉક્સાઇડ અને પાણી.\nકોષ્ટક 1.1: પ્રકાશસંશ્લેષણ માટે જરૂરી ઘટકો\n| ઘટક | સ્રોત |\n| સૂર્યપ્રકાશ | સૂર્ય |\n| કાર્બન ડાયૉક્સાઇડ | હવા |\n| પાણી | જમીન |\n| હરિતદ્રવ્ય | પર્ણના કોષો |",
+      "answer": "પ્રકાશસંશ્લેષણ માટે ચાર બાબતો જરૂરી છે: સૂર્યપ્રકાશ, હરિતદ્રવ્ય, કાર્બન ડાયૉક્સાઇડ અને પાણી.",
       "success": true
     },
     {
@@ -385,7 +384,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.34,
+      "latency_ms": 1.69,
       "cited_pages": [
         4
       ],
@@ -412,7 +411,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.23,
+      "latency_ms": 1.47,
       "cited_pages": [
         2
       ],
@@ -441,7 +440,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.35,
+      "latency_ms": 1.29,
       "cited_pages": [
         7
       ],
@@ -470,7 +469,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.29,
+      "latency_ms": 2.01,
       "cited_pages": [
         6
       ],
@@ -499,7 +498,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 2.34,
+      "latency_ms": 1.99,
       "cited_pages": [
         10
       ],
@@ -528,7 +527,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.05,
+      "latency_ms": 1.3,
       "cited_pages": [
         6
       ],
@@ -557,7 +556,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.31,
+      "latency_ms": 1.87,
       "cited_pages": [
         3
       ],
@@ -586,7 +585,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 2.59,
+      "latency_ms": 3.21,
       "cited_pages": [
         5
       ],
@@ -615,19 +614,19 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.46,
+      "latency_ms": 2.36,
       "cited_pages": [
         9
       ],
       "retrieved_pages": [
         9,
         9,
-        8
+        9
       ],
       "external_api_calls": 0,
       "status_ok": true,
       "p_at_1": 1.0,
-      "p_at_k": 0.6666666666666666,
+      "p_at_k": 1.0,
       "r_at_k": 1.0,
       "rr": 1.0,
       "citation_ok": true,
@@ -644,7 +643,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.39,
+      "latency_ms": 2.75,
       "cited_pages": [
         2
       ],
@@ -663,7 +662,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "કોષ્ટક 2.1: ખૂણાની દિશાઓ\n| ખૂણો | કઈ બે દિશાઓ વચ્ચે |\n| ઈશાન | ઉત્તર અને પૂર્વ |\n| અગ્નિ | દક્ષિણ અને પૂર્વ |\n| નૈઋત્ય | દક્ષિણ અને પશ્ચિમ |\n| વાયવ્ય | ઉત્તર અને પશ્ચિમ |\nમુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ. ઈશાન, અગ્નિ, નૈઋત્ય અને વાયવ્ય ખૂણાની દિશાઓ છે.",
+      "answer": "કોષ્ટક 2.1: ખૂણાની દિશાઓ\n| ખૂણો | કઈ બે દિશાઓ વચ્ચે |\n| ઈશાન | ઉત્તર અને પૂર્વ |\n| અગ્નિ | દક્ષિણ અને પૂર્વ |\n| નૈઋત્ય | દક્ષિણ અને પશ્ચિમ |\n| વાયવ્ય | ઉત્તર અને પશ્ચિમ |",
       "success": true
     },
     {
@@ -673,7 +672,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.85,
+      "latency_ms": 3.54,
       "cited_pages": [
         8
       ],
@@ -692,7 +691,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "ઉદાહરણ: એક વાહકનો અવરોધ 5 ઓહ્મ છે અને તેમાંથી 2 ઍમ્પિયર વિદ્યુતપ્રવાહ વહે છે. ઓહ્મના નિયમ મુજબ તેના બે છેડા વચ્ચેનો વિદ્યુતસ્થિતિમાનનો તફાવત 10 વોલ્ટ થાય.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |",
+      "answer": "ઉદાહરણ: એક વાહકનો અવરોધ 5 ઓહ્મ છે અને તેમાંથી 2 ઍમ્પિયર વિદ્યુતપ્રવાહ વહે છે. ઓહ્મના નિયમ મુજબ તેના બે છેડા વચ્ચેનો વિદ્યુતસ્થિતિમાનનો તફાવત 10 વોલ્ટ થાય.",
       "success": true
     },
     {
@@ -702,7 +701,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.49,
+      "latency_ms": 2.18,
       "cited_pages": [
         6
       ],
@@ -731,7 +730,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.57,
+      "latency_ms": 1.85,
       "cited_pages": [
         9
       ],
@@ -750,7 +749,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "pH માપક્રમ 0 થી 14 સુધીનો હોય છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.\nકોષ્ટક 5.1: pH મૂલ્ય અને દ્રાવણનો પ્રકાર\n| pH મૂલ્ય | દ્રાવણનો પ્રકાર |\n| 7 કરતાં ઓછું | ઍસિડિક |\n| 7 | તટસ્થ |\n| 7 કરતાં વધુ | બેઇઝિક |",
+      "answer": "pH માપક્રમ 0 થી 14 સુધીનો હોય છે.",
       "success": true
     },
     {
@@ -760,7 +759,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.53,
+      "latency_ms": 2.82,
       "cited_pages": [
         8
       ],
@@ -789,7 +788,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.77,
+      "latency_ms": 2.07,
       "cited_pages": [
         2
       ],
@@ -818,7 +817,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.69,
+      "latency_ms": 1.87,
       "cited_pages": [
         7
       ],
@@ -847,7 +846,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.88,
+      "latency_ms": 2.17,
       "cited_pages": [
         7
       ],
@@ -876,19 +875,19 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.81,
+      "latency_ms": 2.86,
       "cited_pages": [
         9
       ],
       "retrieved_pages": [
         9,
         10,
-        4
+        9
       ],
       "external_api_calls": 0,
       "status_ok": true,
       "p_at_1": 1.0,
-      "p_at_k": 0.3333333333333333,
+      "p_at_k": 0.6666666666666666,
       "r_at_k": 1.0,
       "rr": 1.0,
       "citation_ok": true,
@@ -905,7 +904,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 33.44,
+      "latency_ms": 38.42,
       "cited_pages": [
         9
       ],
@@ -933,14 +932,14 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.45,
+      "latency_ms": 1.55,
       "cited_pages": [
         7
       ],
       "retrieved_pages": [
         7,
-        7,
-        5
+        5,
+        7
       ],
       "external_api_calls": 0,
       "status_ok": true,
@@ -962,7 +961,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.83,
+      "latency_ms": 2.17,
       "cited_pages": [
         10
       ],
@@ -981,7 +980,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "સૂત્ર: HCl + NaOH → NaCl + H2O\nઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે.",
+      "answer": "સૂત્ર: HCl + NaOH → NaCl + H2O",
       "success": true
     },
     {
@@ -991,7 +990,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.69,
+      "latency_ms": 1.75,
       "cited_pages": [
         1
       ],
@@ -1016,7 +1015,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "no_evidence",
-      "latency_ms": 0.73,
+      "latency_ms": 0.9,
       "cited_pages": [],
       "retrieved_pages": [],
       "external_api_calls": 0,
@@ -1031,7 +1030,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "low_coverage",
-      "latency_ms": 0.87,
+      "latency_ms": 1.12,
       "cited_pages": [],
       "retrieved_pages": [
         5,
@@ -1050,7 +1049,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "no_evidence",
-      "latency_ms": 2.15,
+      "latency_ms": 2.05,
       "cited_pages": [],
       "retrieved_pages": [],
       "external_api_calls": 0,
@@ -1065,7 +1064,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "no_evidence",
-      "latency_ms": 0.56,
+      "latency_ms": 0.51,
       "cited_pages": [],
       "retrieved_pages": [],
       "external_api_calls": 0,
@@ -1080,7 +1079,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "no_evidence",
-      "latency_ms": 0.51,
+      "latency_ms": 0.46,
       "cited_pages": [],
       "retrieved_pages": [],
       "external_api_calls": 0,
@@ -1095,7 +1094,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "no_evidence",
-      "latency_ms": 0.65,
+      "latency_ms": 0.67,
       "cited_pages": [],
       "retrieved_pages": [],
       "external_api_calls": 0,
@@ -1110,7 +1109,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "no_evidence",
-      "latency_ms": 0.56,
+      "latency_ms": 0.47,
       "cited_pages": [],
       "retrieved_pages": [],
       "external_api_calls": 0,
@@ -1140,7 +1139,7 @@
       "expected": "edition_conflict",
       "status": "edition_conflict",
       "reason": null,
-      "latency_ms": 2.89,
+      "latency_ms": 3.06,
       "cited_pages": [
         8,
         2
@@ -1155,7 +1154,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે.\nવિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે.",
+      "answer": "આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે.\nઆ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે.",
       "success": true
     },
     {
@@ -1165,7 +1164,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.55,
+      "latency_ms": 1.58,
       "cited_pages": [
         8
       ],
@@ -1182,7 +1181,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે.",
+      "answer": "આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે.",
       "success": true
     },
     {
@@ -1192,7 +1191,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 1.34,
+      "latency_ms": 2.59,
       "cited_pages": [
         2
       ],
@@ -1209,7 +1208,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે.",
+      "answer": "આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે.",
       "success": true
     },
     {
@@ -1219,7 +1218,7 @@
       "expected": "answered",
       "status": "answered",
       "reason": null,
-      "latency_ms": 2.8,
+      "latency_ms": 2.89,
       "cited_pages": [
         1
       ],
@@ -1238,7 +1237,7 @@
       "faithful": true,
       "evidence_coverage": 1.0,
       "content_ok": true,
-      "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R",
+      "answer": "આ નિયમને ઓહ્મનો નિયમ કહે છે.",
       "success": true
     },
     {
@@ -1248,7 +1247,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "premise_not_supported",
-      "latency_ms": 1.33,
+      "latency_ms": 3.12,
       "cited_pages": [],
       "retrieved_pages": [
         1,
@@ -1267,7 +1266,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "low_coverage",
-      "latency_ms": 3.75,
+      "latency_ms": 3.54,
       "cited_pages": [],
       "retrieved_pages": [
         8,
@@ -1285,7 +1284,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "low_coverage",
-      "latency_ms": 3.35,
+      "latency_ms": 3.63,
       "cited_pages": [],
       "retrieved_pages": [
         1
@@ -1302,7 +1301,7 @@
       "expected": "abstained",
       "status": "abstained",
       "reason": "premise_not_supported",
-      "latency_ms": 0.83,
+      "latency_ms": 1.22,
       "cited_pages": [],
       "retrieved_pages": [
         7,

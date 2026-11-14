@@ -53,7 +53,9 @@ def test_structured_answer_has_all_sections_and_no_percentage(con, ids):
     st = r["structured"]
     assert st["question"] == "ઓહ્મનો નિયમ લખો"
     assert "ઓહ્મનો નિયમ કહે છે" in " ".join(p["text"] for p in st["simple_answer"])
-    assert st["key_points"] and st["basis"] == r["citations"]
+    # Phase 4: sentences that do not themselves answer the question are no longer added as "key points"
+    assert all("ઓહ્મ" in p["text"] or p["text"].startswith("અચળ") for p in r["answer"]["parts"])
+    assert st["basis"] == r["citations"]
     assert st["trust"] == {"status": "verified", "label_gu": "સ્રોત સાથે ચકાસેલું", "label_en": "Verified against source", "reasons": []}
     assert st["answer_source_type"] == "quotation"
     assert all(p["source_type"] == "quotation" for p in r["answer"]["parts"])

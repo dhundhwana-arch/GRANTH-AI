@@ -232,9 +232,7 @@ def test_bare_topic_in_several_chapters_asks_which_one(con, ids):
     assert r["status"] == "abstained" and r["reason"] == "ambiguous_question" and r["suggestions"]
 
 
-def test_known_wrong_lead_is_never_labelled_verified(con, ids):
-    """Held-out set 2, G11: the engine still opens with the wrong passage. Until that is fixed it must not be
-    labelled 'Verified against source'. If the lead becomes correct, tighten this test."""
+def test_either_or_question_shows_only_the_sentence_that_decides_it(con, ids):
+    """Held-out set 2, G11 (wrong until Phase 4): the soil / pH sentences share the words but do not decide the question."""
     r = ask(con, ids, "ચૂનાનું પાણી ઍસિડિક છે કે બેઇઝિક?")
-    if r["status"] == "answered":
-        assert trust(r) != "verified"
+    assert text(r) == "સાબુનું દ્રાવણ અને ચૂનાનું પાણી બેઇઝિક હોય છે."

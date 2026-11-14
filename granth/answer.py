@@ -14,7 +14,7 @@ import json
 import re
 import time
 
-from . import ENGINE_VERSION, cache, concepts, db, explain, gujarati as g, lang, retrieval, study
+from . import ENGINE_VERSION, cache, concepts, db, explain, gujarati as g, intent as intent_mod, lang, retrieval, study, validate
 
 ABSTAIN_MESSAGE = "આ પસંદ કરેલા પાઠ્યપુસ્તકમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી."
 MODES = ("auto", "one_line", "definition", "short", "detailed", "points", "difference", "formula", "steps")
@@ -40,10 +40,12 @@ REASONS = {
     "concept_not_supported": "પ્રશ્નમાં જે બાબત પૂછી છે તેની વ્યાખ્યા પસંદ કરેલા પાઠ્યપુસ્તકમાં મળી નથી. સંબંધિત શબ્દોવાળાં વાક્યો મળ્યાં છે, પણ તે આ પ્રશ્નનો ઉત્તર નથી, તેથી બતાવ્યાં નથી.",
     "aspect_not_found": "પૂછેલી બાબત (જેમ કે એકમ, ઉપયોગ, પ્રકાર, કાર્ય) વિશે પસંદ કરેલા પાઠ્યપુસ્તકમાં સીધું વાક્ય મળ્યું નથી.",
     "numbers_not_in_source": "પ્રશ્નમાં આપેલી સંખ્યાઓ પાઠ્યપુસ્તકના મળેલા લખાણમાં નથી. GRANTH-AI નવી ગણતરી જાતે કરતું નથી.",
+    "evidence_not_specific": "પ્રશ્નના શબ્દો પાઠ્યપુસ્તકમાં મળે છે, પણ પૂછેલી બાબતનો સીધો ઉત્તર આપતું કોઈ વાક્ય મળ્યું નથી. ફક્ત મળતા શબ્દોવાળું લખાણ ઉત્તર તરીકે બતાવ્યું નથી.",
     "verification_failed": "ઉત્તર પાઠ્યપુસ્તકના પુરાવા સાથે ચકાસી શકાયો નથી, તેથી બતાવ્યો નથી.",
 }
 _DEF_INTENT = re.compile(r"(એટલે\s+શુ|કોને\s+કહે|વ્યાખ્યા|શું?\s+છે\s*\??$)")
 # "difference" intent needs a compare cue; a bare "તફાવત" is also part of the term "વિદ્યુતસ્થિતિમાનનો તફાવત"
+_DEF_STRICT = re.compile(r"(એટલે\s+શુ|કોને\s+કહે|વ્યાખ્યા)")
 _DIFF_INTENT = re.compile(r"(વચ્ચે\S*\s+(?:\S+\s+)?(?:તફાવત|ભેદ)|(?:તફાવત|ભેદ)\s+(?:લખો|આપો|જણાવો|સમજાવો|દર્શાવો|સ્પષ્ટ|કયો|શો|શું))")
 _FORMULA_INTENT = re.compile(r"(સૂત્ર|સમીકરણ)")
 _STEPS_INTENT = re.compile(r"(પગલાંવાર|પગલાવાર|પગલાં\s*વાર|પગથિયાં|ઉદાહરણ|દાખલો|દાખલા)")
@@ -529,7 +531,8 @@ def _structure(con, payload: dict, question: str, res: dict | None, source_type:
         ev_terms = set()
         for e in payload["evidence"]:
             ev_terms.update(g.content_terms(e["text"] + " " + (e.get("section_title") or "")))
-        missing = [t["query"] for t in res["terms"] if not t["term"] or t["term"] not in ev_terms]
+        checked = bool(payload.get("validation"))       # granth.validate already judged every question word
+        missing = [] if checked else [t["query"] for t in res["terms"] if not t["term"] or t["term"] not in ev_terms]
         if missing:
             reasons.append("પ્રશ્નના આ શબ્દો બતાવેલા આધારમાં નથી: " + ", ".join(missing))
         spell = [f"{t['query']} → {t['term']}" for t in res["terms"] if t["match"] in ("spelling", "compound") and t["query"] != t["term"]]
@@ -540,7 +543,7 @@ def _structure(con, payload: dict, question: str, res: dict | None, source_type:
             # the student's own word is not in the source: an assumed word found the passage, so this is never "Verified"
             reasons.append("પ્રશ્નના આ શબ્દો પુસ્તકમાં નથી; નજીકનો / સમાન અર્થનો શબ્દ ધારીને શોધ્યું છે: " + ", ".join(dict.fromkeys(weak))
                            + ". તમારો પ્રશ્ન આ જ બાબતનો છે કે નહીં તે જાતે ચકાસો.")
-        if mode in ("short", "one_line", "detailed", "points"):
+        if mode in ("short", "one_line", "detailed", "points") and not checked:
             # "Verified" needs ONE passage that carries every word of the question. Sentences that each match only
             # part of the question may be relevant, but nothing proves that together they answer it.
             need = {t["term"] for t in res["terms"] if t["term"]}
@@ -655,7 +658,7 @@ def _abstain(reason: str, res: dict | None = None) -> dict:
 
 
 _NUM = re.compile(r"(?<![A-Za-z0-9.])\d+(?:\.\d+)?(?![A-Za-z0-9])")
-_EXPANDABLE = ("low_coverage", "no_evidence", "definition_not_found", "concept_not_supported", "premise_not_supported")
+_EXPANDABLE = ("low_coverage", "no_evidence", "evidence_not_specific", "definition_not_found", "concept_not_supported", "premise_not_supported")
 
 
 def _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id):
@@ -663,7 +666,8 @@ def _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id):
     concept = None
     if eff_mode in ("definition", "short", "one_line", "detailed", "points"):
         concept = requested_concept(con, question, edition_ids)
-        if eff_mode == "definition" and concept["head_facet"]:
+        if eff_mode == "definition" and (concept["head_facet"] or (
+                not _DEF_STRICT.search(question) and intent_mod.analyse(question)["intent"] not in ("fact", "process", "example"))):
             eff_mode = "short"               # "અવરોધનો એકમ શું છે?" asks for a unit, not for the definition of અવરોધ
     q_for_search = question
     if eff_mode == "formula":
@@ -685,13 +689,16 @@ def _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id):
             if others:
                 res["facet"] = {"name": "application", "mods": others}
     ok, reason = check_sufficiency(res)
-    if not ok:
+    if eff_mode in ("short", "detailed", "points", "one_line"):
+        if ok and not chapter_id:
+            options = _ambiguity(res, question)
+            if options:
+                return {"abstain": "ambiguous_question", "suggestions": options}, res, eff_mode
+        comp = _validated(con, question, eff_mode, marks, res, edition_ids, chapter_id)
+    elif not ok:
         return {"abstain": reason}, res, eff_mode
-    if eff_mode in ("short", "detailed", "points", "one_line") and not chapter_id:
-        options = _ambiguity(res, question)
-        if options:
-            return {"abstain": "ambiguous_question", "suggestions": options}, res, eff_mode
-    comp = _compose(con, question, eff_mode, marks, res, edition_ids, chapter_id)
+    else:
+        comp = _compose(con, question, eff_mode, marks, res, edition_ids, chapter_id)
     if "parts" in comp and eff_mode != "steps":
         # GRANTH-AI never calculates. Every number the student wrote must be printed in the passage shown;
         # otherwise the passage is about a different sum, however similar its words are.
@@ -699,6 +706,50 @@ def _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id):
         if any(n not in shown for n in _NUM.findall(question)):
             return {"abstain": "numbers_not_in_source"}, res, eff_mode
     return comp, res, eff_mode
+
+
+def _validated(con, question, mode, marks, res, edition_ids, chapter_id) -> dict:
+    """one_line / short / detailed / points: only sentences that pass granth.validate are shown (Phase 4)."""
+    if not res["terms"]:
+        return {"abstain": "no_content_terms"}
+    if not res["results"]:
+        return {"abstain": "no_evidence"}
+    target = 1 if mode == "one_line" else (MARKS_TARGET.get(marks) if marks else MODE_TARGET[mode])
+    nums = _NUM.findall(question)
+    if nums and not any(all(n in set(_NUM.findall(g.normalize_text(r["text"]))) for n in nums) for r in res["results"]):
+        return {"abstain": "numbers_not_in_source"}      # GRANTH-AI never calculates a new sum
+    claims = [w for w in _CLAIM_WORDS if w in question] if _PREMISE_Q.search(question) else []
+    sel = validate.select(con, question, res, edition_ids, chapter_id, target, claims)
+    if "abstain" in sel:
+        why = sel["abstain"] == "evidence_not_specific" and sel["analysis"]["intent"] == "reason"
+        return {"abstain": "premise_not_supported" if why else sel["abstain"], "validation": sel["analysis"]}
+    units = sel["units"]
+    n_points = sel["n_found"]
+    if mode in ("detailed", "points") or (marks and marks >= 3):
+        # a longer answer may continue with the sentences that refer back to an accepted one ("આ પ્રક્રિયામાં ...")
+        out = []
+        for u in units:
+            out.append(u)
+            if u["kind"] != "sentence":
+                continue
+            sents = g.split_sentences(u["row"]["text"])
+            j = u["pos"] + 1
+            while j < len(sents) and sents[j].startswith(_ANAPHORA) and n_points < target \
+                    and not any(x["row"]["id"] == u["row"]["id"] and x["pos"] == j for x in units + out):
+                out.append({"text": sents[j], "row": u["row"], "pos": j, "kind": "sentence", "lead": None})
+                n_points += 1
+                j += 1
+        units = out
+    supported, note = None, None
+    if marks and mode != "one_line":
+        supported = n_points >= target
+        if not supported:
+            note = (f"{marks} ગુણના ઉત્તર માટે પાઠ્યપુસ્તકમાં પૂરતા મુદ્દા મળ્યા નથી. "
+                    f"જેટલો આધાર મળ્યો તેટલો જ ઉત્તર આપ્યો છે ({n_points} મુદ્દા); વધારાના મુદ્દા ઉમેર્યા નથી.")
+    parts = [{**_part(u), "lead": bool(u.get("lead"))} for u in units]
+    if not any(p["lead"] for p in parts):
+        parts[0]["lead"] = True
+    return {"parts": parts, "note": note, "length_supported": supported, "gaps": sel["gaps"], "validation": sel["analysis"]}
 
 
 def _concept_fallback(con, question, res, edition_ids, chapter_id) -> dict | None:
@@ -748,6 +799,12 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
         alt = _concept_fallback(con, question, res, edition_ids, chapter_id)
         if alt:
             comp, eff_mode = alt, "definition"
+    elif "parts" in comp and (comp.get("validation") or {}).get("intent") == "process" and mode in ("auto", "short"):
+        # "કેવી રીતે ...?" asks for the process. If the description names a process that the source defines, that
+        # definition is the answer; a sentence that merely repeats the question's words is not.
+        alt = _concept_fallback(con, question, res, edition_ids, chapter_id)
+        if alt:
+            comp, eff_mode = {**alt, "validation": comp.get("validation")}, "definition"
     if comp.get("abstain") in ("definition_not_found", "concept_not_supported") and scope.get("_soft_definition"):
         # English "What is ...?" may ask for a fact, not a definition ("What is the pH value of a neutral solution?").
         # Accept a factual answer only when ONE source sentence carries every word of the question.
@@ -759,7 +816,7 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
             if full:
                 comp, res, eff_mode = {**c2, "parts": full[:1]}, r2, "short"
     if "abstain" in comp:
-        out = {**_abstain(comp["abstain"], res), "mode": eff_mode}
+        out = {**_abstain(comp["abstain"], res), "mode": eff_mode, "validation": comp.get("validation")}
         if comp.get("suggestions"):
             out["suggestions"] = comp["suggestions"]
         return out
@@ -788,7 +845,7 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
                "note": comp.get("note"), "length_supported": comp.get("length_supported"), "support_gaps": comp.get("gaps") or [],
                "evidence": evidence, "citations": citations, "verification": verification,
                "retrieved": [{"chunk_id": r["id"], **r["scores"]} for r in res["results"]],
-               "query_terms": res["terms"], "engine": "extractive", "engine_version": ENGINE_VERSION,
+               "query_terms": res["terms"], "validation": comp.get("validation"), "engine": "extractive", "engine_version": ENGINE_VERSION,
                "external_api_calls": 0, "cache": {"hit": False}}
 
     # Optional constrained synthesis. Its text replaces the extractive wording only if independently verified.

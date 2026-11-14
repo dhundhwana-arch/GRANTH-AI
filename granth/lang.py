@@ -26,6 +26,10 @@ _INTENTS = [
     ("formula", re.compile(r"\b(?:formula|equation)\b", re.I)),
     ("definition", re.compile(r"^\s*(?:what\s+(?:is|are)|define|definition\s+of|what\s+do\s+you\s+mean\s+by|what\s+is\s+meant\s+by|meaning\s+of)\b", re.I)),
     ("why", re.compile(r"\bwhy\b", re.I)),
+    ("how_many", re.compile(r"\bhow\s+(?:many|much)\b", re.I)),
+    ("how", re.compile(r"^\s*how\b", re.I)),
+    ("where_from", re.compile(r"\bfrom\s+where\b|\bwhere\b.*\bfrom\s*[?.!]*$", re.I)),
+    ("where", re.compile(r"\bwhere\b", re.I)),
     ("when", re.compile(r"\bwhen\b", re.I)),
 ]
 
@@ -129,6 +133,6 @@ def to_gujarati_query(question: str) -> dict | None:
                 segs.append(c)
         core = " ની ".join(reversed(segs))
         tail = {"definition": " એટલે શું?", "formula": " સૂત્ર લખો", "steps": " ઉદાહરણ પગલાંવાર સમજાવો", "why": " શા માટે?",
-                "when": " ક્યારે?"}.get(intent, " સમજાવો")
+                "when": " ક્યારે?", "how_many": " કેટલા?", "how": " કેવી રીતે?", "where_from": " ક્યાંથી?", "where": " ક્યાં?"}.get(intent, " સમજાવો")
         query = core + tail
     return {"query": query, "mapped": mapped, "unmapped": leftover, "intent": intent, "language": "en"}
