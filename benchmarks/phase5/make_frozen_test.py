@@ -83,7 +83,7 @@ q("P095","english","en","sci","Define magnification.",A,[6],["મોટવણી
 q("P096","english","en","sci","How many laws of reflection are there?",A,[5],["બે નિયમો"]),
 q("P097","english","en","sci","Is pure water acidic or neutral?",A,[9],["શુદ્ધ પાણી તટસ્થ"]),
 q("P098","english","en","soc","What is groundwater?",A,[1],["ભૂગર્ભજળ કહે છે"]),
-q("P099","english","en","sci","Who invented the telephone?",R),
+q("P099","english","en","sci","Who discovered penicillin?",R),
 # ---- mixed Gujarati-English (6)
 q("P100","mixed","mixed","sci","yeast માં anaerobic respiration થી શું બને છે?",A,[3],["આલ્કોહૉલ"]),
 q("P101","mixed","mixed","sci","concave mirror કોણ વાપરે છે?",A,[5],["દાંતના ડૉક્ટર"],["વાહનોમાં"]),

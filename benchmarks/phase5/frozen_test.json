@@ -18,9 +18,7 @@
   "edition_conflict": "must show both editions separately, each with its own value and page",
   "either": "refusal OK; if answered it must satisfy pages/must/must_not"
  },
- "overlap_with_earlier_sets": [
-  "Who invented the telephone?"
- ],
+ "overlap_with_earlier_sets": [],
  "questions": [
   {
    "id": "P001",
@@ -1039,7 +1037,7 @@
    "cat": "english",
    "lang": "en",
    "book": "sci",
-   "q": "Who invented the telephone?",
+   "q": "Who discovered penicillin?",
    "expect": "abstained"
   },
   {
