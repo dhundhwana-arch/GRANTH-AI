@@ -109,3 +109,26 @@ def test_validator_units():
 def test_answer_reports_what_was_understood(con, ids):
     v = ask(con, ids, "ઝાડ પાણી ક્યાંથી મેળવે છે?")["validation"]
     assert v["intent"] == "source" and v["verbs"] == ["મેળવે"] and v["level"] == "partial" and v["assumed"]
+
+
+def test_admin_token_expiry_fails_closed():
+    from granth import api
+    assert not api.admin_token_expired(None) and not api.admin_token_expired("")
+    assert not api.admin_token_expired("2026-12-31", today="2026-12-31")
+    assert api.admin_token_expired("2026-12-31", today="2027-01-01")
+    assert api.admin_token_expired("next week")            # not a date: refuse rather than guess
+
+
+def test_expired_admin_token_is_refused_by_the_api(monkeypatch):
+    import pytest
+    from granth import api
+    monkeypatch.setenv("GRANTH_ADMIN_TOKEN", "Zk3v9Qm1-Lp7xT2eWs8Rb4Yc6Nd0Ha5J")
+    monkeypatch.setenv("GRANTH_ADMIN_TOKEN_EXPIRES", "2020-01-01")
+    h = api.Handler.__new__(api.Handler) if hasattr(api, "Handler") else None
+    if h is None:
+        pytest.skip("handler class name differs")
+    h.client_address = ("127.0.0.1", 1)
+    h.headers = {"X-Admin-Token": "Zk3v9Qm1-Lp7xT2eWs8Rb4Yc6Nd0Ha5J"}
+    with pytest.raises(api.ApiError) as e:
+        h._require_admin()
+    assert e.value.status == 403 and "expired" in str(e.value)

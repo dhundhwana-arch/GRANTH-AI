@@ -1,22 +1,17 @@
-# Next steps
+# Next steps (after Phase 4)
 
-In priority order.
+In order of importance.
 
-1. **Permission (blocker for all real content).** Write to the Gujarat State Board of School Textbooks for
-   permission to store, quote and offer offline the Gujarati-medium Std 9–12 books. Until then no board, standard
-   or subject is supported. NCERT is DENIED unless it grants written permission.
-2. **Finish the terms review:** read the DIKSHA content-licence clause and per-item licences; re-try the GSSTB
-   portal from a normal connection (`python -m granth discover`).
-3. **Real-device test** following `docs/MOBILE_TEST_REPORT.md`: voice, camera, offline, install.
-4. **Paraphrase understanding** — the main quality gap (5 of 9 independent failures). Options: a synonym list
-   built by teachers, or a small multilingual embedding model run locally. Keep word-for-word validation.
-5. **Fix the wrong-definition case** (MX04): when a definition question names two terms, pick the head term or
-   mark the answer Partially supported.
-6. **Spelling tolerance** for short words ("ઓમ" / "ઓહ્મ", "પરાવતન").
-7. **Edition conflict on paraphrased questions** (CE01b).
-8. **Teacher review** of the supplementary notes and of the English–Gujarati term list; a teacher-written test set.
-9. **Hindi- and English-medium text processing** (stop-words, stemming) before adding such sources.
-10. **Accounts** (so notes and saved answers survive a browser reset and are not tied to a bare session id),
-    HTTPS deployment, backups, audit log.
-11. **CI** running the four test commands on every push.
-12. OCR for formulas and tables; handwriting stays unsupported until measured.
+1. **Get one real textbook with written permission.** Everything so far is measured on a 14-page demo. Until a real book is loaded, accuracy on real material is unknown. See `SOURCE_PERMISSION_REGISTER.md` for what the letter must cover.
+2. **Run the device checklist** in `REAL_DEVICE_TEST_REPORT.md` on one Android tablet and one phone. About 30 minutes.
+3. **Have a teacher write and judge questions.** All 331 questions so far were written by the developer. A teacher's 100 questions on a real chapter would be the first truly independent test.
+4. **Fix the frozen-test failures, then write a new frozen set** (the current one is now seen):
+   * negation ("ન હોય", "નથી", "વગર") must be matched against હાજરી / ગેરહાજરી or the question refused;
+   * a spelling-guessed term must not replace a technical term when the two are different instruments or quantities – refuse instead;
+   * false-premise detection for "why is X used in Y" questions;
+   * do not refuse because of an unknown verb when the concept and attribute are both found – answer as Partial;
+   * edition-conflict check should run before the unknown-word refusal.
+5. **Evaluate a small multilingual embedding model** on a machine that can download it. Measure on the frozen-set style of test whether it reduces incorrect refusals without adding wrong answers; record size and speed on a phone-class device before adopting it.
+6. **Explanations**: 16 of 33 frozen answers had no simplified explanation. Add safe rules for unit, place and cause sentences.
+7. **Deployment**: HTTPS in front of the server, a strong admin token with an expiry date, backups of the SQLite file.
+8. Smaller: formula lookup by quantity name ("વિદ્યુતપ્રવાહનું સૂત્ર"), English question coverage.

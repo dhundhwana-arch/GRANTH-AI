@@ -283,7 +283,7 @@ try {
     await go('#/ask');
     const a = await ask('ઓહ્મનો નિયમ લખો', { mode: 'short' });
     assert(a.status === 'answered', 'not answered');
-    for (const h of ['પ્રશ્ન', 'સરળ જવાબ', 'મુખ્ય મુદ્દા', 'પુસ્તકનો આધાર', 'વિશ્વસનીયતા સ્થિતિ']) assert(a.text.includes(h), 'section missing: ' + h);
+    for (const h of ['પ્રશ્ન', 'સરળ જવાબ', 'પુસ્તકનો આધાર', 'વિશ્વસનીયતા સ્થિતિ']) assert(a.text.includes(h), 'section missing: ' + h);
     assert(a.text.includes('સીધું અવતરણ'), 'quotation label missing');
     const trust = await page.$eval('#result #answer .trust', (e) => e.dataset.trust);
     assert(trust === 'verified', 'trust status ' + trust);

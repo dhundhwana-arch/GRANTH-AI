@@ -129,10 +129,16 @@ function evidenceHtml(evidence, parts) {
 }
 
 const TRUST_CLASS = { verified: 'ok', partial: 'warn', insufficient: 'bad' };
-function trustHtml(st) {
+function checkedHtml(v) {
+  // Phase 4: tell the student WHAT was checked — the kind of question understood and the words the sentence had to contain.
+  if (!v || !v.intent_label) return '';
+  const terms = (v.concept_terms || []).join(', ');
+  return `<p class="muted small checked" data-intent="${esc(v.intent)}">પ્રશ્ન આ રીતે સમજાયો: <b>${esc(v.intent_label)}</b>${terms ? ` · ચકાસેલા શબ્દો: ${esc(terms)}` : ''}</p>`;
+}
+function trustHtml(st, v) {
   const t = st && st.trust;
   if (!t) return '';
-  return `<h3>વિશ્વસનીયતા સ્થિતિ</h3><p class="trust" data-trust="${esc(t.status)}"><span class="badge big ${TRUST_CLASS[t.status] || 'warn'}">${esc(t.label_gu)}</span> <span class="muted">${esc(t.label_en)}</span></p>
+  return checkedHtml(v) + `<h3>વિશ્વસનીયતા સ્થિતિ</h3><p class="trust" data-trust="${esc(t.status)}"><span class="badge big ${TRUST_CLASS[t.status] || 'warn'}">${esc(t.label_gu)}</span> <span class="muted">${esc(t.label_en)}</span></p>
     ${t.reasons && t.reasons.length ? `<ul class="reasons">${t.reasons.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}`;
 }
 const partsText = (parts) => parts.map((p) => p.text).join(p0(parts));
@@ -192,7 +198,7 @@ function supplementaryHtml(sp) {
   return `<section class="card supp" id="supplementary" data-status="answered">${head}
     ${answeredBody(sp, 'supp-')}
     <h3>પૂરક સ્રોતનો આધાર</h3>${sp.citations.map(citationHtml).join('<hr>')}
-    ${trustHtml(sp.structured)}
+    ${trustHtml(sp.structured, sp.validation)}
     <details><summary>પૂરક સ્રોતનું મૂળ લખાણ જુઓ</summary>${evidenceHtml(sp.evidence, sp.answer.parts)}</details></section>`;
 }
 
@@ -215,7 +221,7 @@ function resultHtml(r, opts = {}) {
       ${r.note ? `<div class="note" id="answer-note">${esc(r.note)}</div>` : ''}
       ${r.edition_note ? `<div class="note">${esc(r.edition_note)}</div>` : ''}${editionResultsHtml(r)}
       <h3>પુસ્તકનો આધાર</h3>${r.citations.map(citationHtml).join('<hr>')}
-      ${trustHtml(r.structured)}
+      ${trustHtml(r.structured, r.validation)}
       <div class="row"><button type="button" id="speak" class="small">🔊 ઉત્તર સાંભળો</button>${save}<span id="speak-msg" class="muted"></span></div>
       <details class="ev" open><summary>પુરાવો: પાઠ્યપુસ્તકનું મૂળ લખાણ</summary><div id="evidence">${evidenceHtml(r.evidence, r.answer.parts)}</div></details>
       ${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
@@ -223,7 +229,7 @@ function resultHtml(r, opts = {}) {
   if (r.status === 'edition_conflict') {
     return `${banner}<section class="card conflict" id="answer" data-status="edition_conflict"><h2>આવૃત્તિઓમાં તફાવત</h2>${qline}<p>${esc(r.message)}</p>
       ${r.editions.map((e) => `<div class="card"><h3>આવૃત્તિ: ${esc(e.edition)}</h3><div class="text">${renderText(e.answer.text)}</div>
-        ${e.citations.map(citationHtml).join('')}${evidenceHtml(e.evidence, e.answer.parts)}</div>`).join('')}${editionResultsHtml(r)}${trustHtml(r.structured)}<div class="row">${save}</div>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
+        ${e.citations.map(citationHtml).join('')}${evidenceHtml(e.evidence, e.answer.parts)}</div>`).join('')}${editionResultsHtml(r)}${trustHtml(r.structured, r.validation)}<div class="row">${save}</div>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
   }
   const sugg = r.suggestions && r.suggestions.length ? `<h3>કયો મુદ્દો?</h3><div class="chips">${r.suggestions.map((x) =>
     `<button type="button" class="chip sugg" data-ch="${x.chapter_id}" data-no="${esc(x.chapter_number)}" data-title="${esc(x.chapter_title)}" data-sec="${esc(x.section_title.replace(/^[\d.]+\s*/, ''))}">${esc(x.section_title)} <span class="muted">(પૃ. ${esc(x.page_number)})</span></button>`).join('')}</div>` : '';
@@ -233,7 +239,7 @@ function resultHtml(r, opts = {}) {
     ${r.reason_gu ? `<p class="muted">${esc(r.reason_gu)}</p>` : ''}
     ${r.unmatched_terms && r.unmatched_terms.length ? `<p class="muted">પુસ્તકમાં ન મળેલા શબ્દો: ${r.unmatched_terms.map(esc).join(', ')}</p>` : ''}
     ${r.edition_note ? `<div class="note">${esc(r.edition_note)}</div>` : ''}${editionResultsHtml(r)}
-    ${sugg}${trustHtml(r.structured)}
+    ${sugg}${trustHtml(r.structured, r.validation)}
     <p class="muted">GRANTH-AI પાઠ્યપુસ્તક બહારની માહિતી પરથી ઉત્તર બનાવતું નથી. જોડણી તપાસો, બીજું પ્રકરણ કે પુસ્તક પસંદ કરો${r.supplementary ? '' : ', અથવા પ્રશ્ન નીચે “પૂરક સ્રોત” પસંદ કરીને ફરી પૂછો'}.</p>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
 }
 

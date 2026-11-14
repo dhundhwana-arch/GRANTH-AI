@@ -228,6 +228,10 @@ class Handler(BaseHTTPRequestHandler):
             # a development / guessable token must never open the admin interface of a public deployment
             raise ApiError(403, "admin interface is disabled: GRANTH_ADMIN_TOKEN is a development or weak value "
                                 "(use at least 24 random characters)")
+        if admin_token_expired(config.get("GRANTH_ADMIN_TOKEN_EXPIRES")):
+            # rotation: an operator sets an expiry date with every new token; after it the token opens nothing
+            raise ApiError(403, "admin interface is disabled: GRANTH_ADMIN_TOKEN has expired (set a new token and a new "
+                                "GRANTH_ADMIN_TOKEN_EXPIRES date)")
         client = self.client_address[0] if self.client_address else "?"
         now = time.time()
         with _admin_lock:
@@ -336,6 +340,15 @@ def r_ask(h, qs):
 _WEAK_TOKENS = {"dev-admin-token", "e2e-admin", "admin", "changeme", "change-me", "password", "secret", "token", "test", "granth"}
 _admin_failures: dict = {}
 _admin_lock = threading.Lock()
+
+
+def admin_token_expired(expires: str | None, today: str | None = None) -> bool:
+    """GRANTH_ADMIN_TOKEN_EXPIRES=YYYY-MM-DD. Empty = no expiry. A value that is not a date counts as EXPIRED (fail closed)."""
+    if not expires:
+        return False
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", expires.strip()):
+        return True
+    return (today or time.strftime("%Y-%m-%d", time.gmtime())) > expires.strip()
 
 
 def weak_admin_token(token: str) -> bool:

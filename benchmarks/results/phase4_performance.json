@@ -1,0 +1,25 @@
+{
+ "python_import_s": 0.058,
+ "seed_4_books_s": 0.04,
+ "index_build_s": 0.018,
+ "questions": 59,
+ "ask_no_cache_ms": {
+  "median": 2.6,
+  "p95": 5.6,
+  "max": 48.7
+ },
+ "ask_cached_ms": {
+  "median": 1.5,
+  "p95": 4.9
+ },
+ "cache_hits_on_repeat": "33/59",
+ "peak_rss_mb": 28.7,
+ "large_synthetic": {
+  "chunks_before": 97,
+  "chunks_after": 9797,
+  "index_build_s": 1.1,
+  "ask_median_ms": 16.0,
+  "ask_max_ms": 22.9,
+  "peak_rss_mb": 157.1
+ }
+}

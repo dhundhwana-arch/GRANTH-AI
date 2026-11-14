@@ -95,3 +95,15 @@ key, scale testing, HTTPS deployment, CI. See `docs/NEXT_STEPS.md`.
 Test on real phones (`docs/MOBILE_TEST_REPORT.md`) and send the permission request to the Gujarat State Board of School Textbooks; meanwhile run
 `python -m granth discover` from a machine with normal internet access and commit the updated
 `data/registry/discovered.json`.
+
+## Phase 4 (2026-11-13)
+
+| Checkpoint | Commit | What |
+|---|---|---|
+| 1 | `bcbc78d` | Engine 1.3: intent classification + evidence validator; dev sets 184/186, 40/40, 35/35 |
+| 2 | `b7bc20f` | Validation set (first run 54/70, after tuning 67/70); engine frozen |
+| 3 | `da67186` | Frozen test set committed before its run |
+| 4 | `b76ae46` | Frozen run: 55/70, 4 wrong, 1 false Verified |
+| 5 | final Phase 4 commit | Admin token expiry, "how the question was understood" line in the UI, performance measurements, Phase 4 documents |
+
+Not done: real-device test, embedding evaluation, source permissions (sites unreachable), fixes for the frozen-test failures.

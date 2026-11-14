@@ -66,3 +66,20 @@ Still open:
 - Answers saved for offline use stay on the device until the user clears site data.
 - The preview server of this work session runs without an admin token, so its admin API is disabled. `GRANTH_ALLOW_WEAK_ADMIN_TOKEN=1` must never be set on a public deployment.
 - The shared answer cache and usage counters hold no session id and are not touched by "erase my data".
+
+## Phase 4 review (2026-11-13)
+
+| Item | State | Evidence |
+|---|---|---|
+| Session id | Random id created in the browser, at least 8 characters required by the API; it is an identifier, not a login. Anyone who obtains it can read that session's history. | `tests/test_security_phase3.py` |
+| Notes isolation | Personal notes are searchable only by the session that added them. | pytest (isolation test) |
+| Saved answers, history deletion | `DELETE /api/session-data` removes history, saved answers, saved words and notes for the session. Known weakness unchanged: note deletion matches with `answer_json LIKE`. | pytest + e2e step "erase all my data" |
+| Admin access | Disabled unless `GRANTH_ADMIN_TOKEN` is set; weak or well-known values refused; constant-time compare; 10 wrong tokens in 5 minutes per IP → 429. | pytest |
+| Token expiry / rotation | **New:** `GRANTH_ADMIN_TOKEN_EXPIRES=YYYY-MM-DD`; after that date, or if the value is not a date, admin access is refused. Rotation is still manual: set a new token and date, restart. No per-user tokens. | `tests/test_phase4.py` (2 tests) |
+| Cache separation | Answer cache key = question + scope + engine version; holds no session id and no personal notes. | pytest |
+| Local database | One SQLite file under `var/`, ignored by git, not encrypted. Protect it with file permissions and disk encryption on the host. | – |
+| Error logs | Request log drops query strings; stack traces are not sent to clients. | pytest |
+| Secret scan | `scripts/secret_scan.py` clean on the working tree. | run before each commit |
+| Public deployment | The live preview runs **without** an admin token, so the admin API is disabled there. No HTTPS termination in the app itself – put it behind a reverse proxy. | – |
+
+Not done: user accounts, automatic token rotation, database encryption, penetration test, review by a second person.
