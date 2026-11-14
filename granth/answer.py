@@ -14,7 +14,7 @@ import json
 import re
 import time
 
-from . import ENGINE_VERSION, cache, db, gujarati as g, lang, retrieval, study
+from . import ENGINE_VERSION, cache, concepts, db, explain, gujarati as g, lang, retrieval, study
 
 ABSTAIN_MESSAGE = "આ પસંદ કરેલા પાઠ્યપુસ્તકમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી."
 MODES = ("auto", "one_line", "definition", "short", "detailed", "points", "difference", "formula", "steps")
@@ -37,6 +37,9 @@ REASONS = {
     "example_not_found": "પસંદ કરેલા પાઠ્યપુસ્તકમાં આ મુદ્દાનું ઉકેલેલું ઉદાહરણ મળ્યું નથી. GRANTH-AI નવા દાખલાની ગણતરી જાતે કરતું નથી.",
     "ambiguous_question": "પ્રશ્ન અસ્પષ્ટ છે: આ શબ્દ પાઠ્યપુસ્તકમાં એક કરતાં વધુ પ્રકરણમાં જુદા જુદા અર્થમાં આવે છે. નીચેમાંથી મુદ્દો પસંદ કરીને પ્રશ્ન ફરી પૂછો.",
     "language_not_supported": "આ પ્રશ્નની ભાષા (હિન્દી/અન્ય) માટે હજી કોઈ સ્રોત ઉમેરાયો નથી. હાલમાં ગુજરાતી અને અંગ્રેજી પ્રશ્નો ગુજરાતી પુસ્તકમાંથી શોધાય છે.",
+    "concept_not_supported": "પ્રશ્નમાં જે બાબત પૂછી છે તેની વ્યાખ્યા પસંદ કરેલા પાઠ્યપુસ્તકમાં મળી નથી. સંબંધિત શબ્દોવાળાં વાક્યો મળ્યાં છે, પણ તે આ પ્રશ્નનો ઉત્તર નથી, તેથી બતાવ્યાં નથી.",
+    "aspect_not_found": "પૂછેલી બાબત (જેમ કે એકમ, ઉપયોગ, પ્રકાર, કાર્ય) વિશે પસંદ કરેલા પાઠ્યપુસ્તકમાં સીધું વાક્ય મળ્યું નથી.",
+    "numbers_not_in_source": "પ્રશ્નમાં આપેલી સંખ્યાઓ પાઠ્યપુસ્તકના મળેલા લખાણમાં નથી. GRANTH-AI નવી ગણતરી જાતે કરતું નથી.",
     "verification_failed": "ઉત્તર પાઠ્યપુસ્તકના પુરાવા સાથે ચકાસી શકાયો નથી, તેથી બતાવ્યો નથી.",
 }
 _DEF_INTENT = re.compile(r"(એટલે\s+શુ|કોને\s+કહે|વ્યાખ્યા|શું?\s+છે\s*\??$)")
@@ -165,25 +168,50 @@ def _part(u: dict) -> dict:
     return {"text": u["text"], "kind": u["kind"], "chunk_id": u["row"]["id"], "page_number": u["row"]["page_number"]}
 
 
-def _find_definition(results: list[dict], target_terms: set) -> dict | None:
-    best, best_j = None, 0.0
+_DEF_TAIL = re.compile(r"\s*(?:એટલે\s+શુ\S*|એટલે\s*\??$|કોને\s+કહે\S*|ન[ીોું]\s+વ્યાખ્યા|વ્યાખ્યા|ન[ોું]\s+અર્થ|શું?\s+છે\s*\??$).*$")
+
+
+def requested_concept(con, question: str, edition_ids) -> dict:
+    """Which concept does the question ask about? -> {'asked': [...], 'head': [...], 'mods': [...], 'head_facet', ...}
+    All terms are resolved against the vocabulary of the editions in scope."""
+    phrase = _DEF_TAIL.sub("", question).strip(" ?.:,")
+    if not g.content_terms(phrase):
+        phrase = _DEF_INTENT.sub(" ", question)
+    an = concepts.analyse(phrase)
+    idx = retrieval.get_index(con)
+
+    def res(words):
+        return [t["term"] or t["query"] for t in idx.resolve_terms(words, edition_ids)] if words else []
+    mods, head = res(an["mod_words"]), res(an["head_words"])
+    return {"asked": mods + head, "head": head, "mods": mods, "head_facet": an["head_facet"], "head_words": an["head_words"],
+            "phrase": phrase}
+
+
+def _find_definition(results: list[dict], asked: list, mods: list | None = None) -> dict | None:
+    """The sentence that defines the REQUESTED concept. A sentence that defines a different concept is never
+    returned, however many question words it shares (see concepts.match_definition)."""
+    best, best_key = None, None
     for rank, row in enumerate(results):
         if row["kind"] not in ("paragraph", "example"):
             continue
         for pos, s in enumerate(g.split_sentences(row["text"])):
             for term in study.find_definitions(s):
-                x = set(g.content_terms(term))
-                if not x or not (x & target_terms):
+                m = concepts.match_definition(asked, mods or [], term, s)
+                if not m:
                     continue
-                j = len(x & target_terms) / len(x | target_terms)
-                if j > best_j + 1e-9:
-                    best_j = j
-                    best = {"text": s, "row": row, "rank": rank, "pos": pos, "score": j, "kind": "sentence", "term": term}
-    return best if best and best_j >= 0.5 else None
-
-
-def _target_terms(res: dict) -> set:
-    return {t["term"] or t["query"] for t in res["terms"]}
+                if m["kind"] == "head_only":
+                    quals = [t for t in asked if t not in set(concepts.analyse(term)["terms"])]
+                    if quals and len(m["missing"]) == len(quals):
+                        continue                     # nothing in the sentence links it to what the student named
+                    level = 2 if not m["missing"] else 1
+                else:
+                    level = 4 if m["kind"] == "exact" else 3
+                key = (level, -rank, -pos)
+                if best is None or key > best_key:
+                    best_key = key
+                    best = {"text": s, "row": row, "rank": rank, "pos": pos, "score": level / 4, "kind": "sentence",
+                            "term": term, "match": m}
+    return best
 
 
 # ----------------------------------------------------------------------------- extractive composition
@@ -211,10 +239,23 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
     units = [u for u in _units(relevant, res) if u["score"] > 0]
 
     if mode == "definition":
-        d = _find_definition(results, _target_terms(res))
-        if not d:
+        c = res.get("concept") or requested_concept(con, question, edition_ids)
+        if not c["asked"]:
             return {"abstain": "definition_not_found"}
-        return {"parts": [_part(u) for u in _with_antecedents([d])], "note": None, "length_supported": None}
+        rows = list(results)
+        if c["mods"] and c["head_words"]:
+            # look for the head concept on its own too: its definition may not mention the student's qualifiers
+            have = {r["id"] for r in rows}
+            rows += [r for r in retrieval.search(con, c["head_words"], edition_ids, chapter_id, k=8)["results"] if r["id"] not in have]
+        d = _find_definition(rows, c["asked"], c["mods"])
+        if not d:
+            return {"abstain": "concept_not_supported" if c["mods"] else "definition_not_found"}
+        gaps, note = [], None
+        if d["match"]["kind"] == "head_only" and d["match"]["missing"]:
+            note = (f"પાઠ્યપુસ્તકમાં ‘{d['term']}’ ની સામાન્ય વ્યાખ્યા મળી છે, તે બતાવી છે. "
+                    f"પ્રશ્નમાં પૂછેલા ‘{' '.join(d['match']['missing'])}’ માટે અલગ વ્યાખ્યા પાઠ્યપુસ્તકમાં મળી નથી.")
+            gaps.append(f"આ ‘{d['term']}’ ની સામાન્ય વ્યાખ્યા છે; ‘{' '.join(d['match']['missing'])}’ માટેની અલગ વ્યાખ્યા પુસ્તકમાં મળી નથી.")
+        return {"parts": [_part(u) for u in _with_antecedents([d])], "note": note, "length_supported": None, "gaps": gaps}
 
     if mode == "difference":
         m = _DIFF_PARSE.search(question)
@@ -222,8 +263,9 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
             return {"abstain": "difference_not_supported"}
         a_txt, b_txt = m.group(1), m.group(2)
         idx = retrieval.get_index(con)
-        a = {t["term"] or t["query"] for t in idx.resolve_terms(a_txt)}
-        b = {t["term"] or t["query"] for t in idx.resolve_terms(b_txt)}
+        a_l = [t["term"] or t["query"] for t in idx.resolve_terms(a_txt, edition_ids)]
+        b_l = [t["term"] or t["query"] for t in idx.resolve_terms(b_txt, edition_ids)]
+        a, b = set(a_l), set(b_l)
         if not a or not b or a == b:
             return {"abstain": "difference_not_supported"}
         for r in results:
@@ -233,10 +275,10 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
                     return {"parts": [{"text": r["text"], "kind": "table", "chunk_id": r["id"], "page_number": r["page_number"]}],
                             "note": None, "length_supported": None}
         parts = []
-        for txt, terms in ((a_txt, a), (b_txt, b)):
+        for txt, terms in ((a_txt, a_l), (b_txt, b_l)):
             sub = retrieval.search(con, txt, edition_ids, chapter_id, k=8)
             d = _find_definition(sub["results"], terms)
-            if not d or set(g.content_terms(d["term"])) != terms:
+            if not d or d["match"]["kind"] != "exact":
                 return {"abstain": "difference_not_supported"}
             parts.append(_part(d))
         if parts[0]["text"] == parts[1]["text"]:
@@ -284,6 +326,18 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
         return {"abstain": "formula_not_found"}
 
     # one_line / short / detailed / points
+    fac = res.get("facet")
+    if fac:
+        # "X નો એકમ / ઉપયોગ / પ્રકાર ..." asks for one ASPECT of X. Only a passage that names both X and that aspect
+        # can answer it; the definition of X, or the same aspect of something else, cannot.
+        fst, need = concepts.facet_stems(fac["name"]), set(fac["mods"])
+
+        def fits(u):
+            st = set(g.content_terms(u["text"]))
+            return bool(st & fst) and need <= st
+        units = [u for u in units if fits(u)]
+        if not units:
+            return {"abstain": "aspect_not_found"}
     if not units:
         return {"abstain": "low_coverage"}
     if _PREMISE_Q.search(question):
@@ -300,6 +354,9 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
     target = 1 if mode == "one_line" else (MARKS_TARGET.get(marks) if marks else MODE_TARGET[mode])
     floor = {"one_line": 1.0, "short": 0.5, "points": 0.34, "detailed": 0.34}[mode] * best
     lead = max(units, key=lambda u: (u["score"], -u["rank"], -u["pos"]))
+    if lead["kind"] != "example":
+        # a worked example is about one particular sum; it must not pad a general answer
+        units = [u for u in units if u["kind"] != "example"]
     if mode != "one_line":
         # cohesion: the rest of the paragraph that holds the best sentence outranks stray sentences elsewhere
         for u in units:
@@ -324,7 +381,10 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
         if not supported:
             note = (f"{marks} ગુણના ઉત્તર માટે પાઠ્યપુસ્તકમાં પૂરતા મુદ્દા મળ્યા નથી. "
                     f"જેટલો આધાર મળ્યો તેટલો જ ઉત્તર આપ્યો છે ({n_points} મુદ્દા); વધારાના મુદ્દા ઉમેર્યા નથી.")
-    return {"parts": [{**_part(u), "lead": u is lead} for u in chosen], "note": note, "length_supported": supported}
+    gaps = []
+    if any(u["kind"] == "example" for u in chosen):
+        gaps.append("આ લખાણ પાઠ્યપુસ્તકના એક ઉકેલેલા ઉદાહરણમાંથી છે; તે ફક્ત તે દાખલા પૂરતું છે, સામાન્ય નિયમ નથી.")
+    return {"parts": [{**_part(u), "lead": u is lead} for u in chosen], "note": note, "length_supported": supported, "gaps": gaps}
 
 
 def _format(parts: list[dict], mode: str) -> str:
@@ -395,6 +455,7 @@ def verify_generated(text: str, evidence_texts: list[str]) -> dict:
 
 
 # ----------------------------------------------------------------------------- student-facing structure
+WEAK_MATCHES = ("synonym", "fuzzy", "fuzzy_context", "prefix")
 TRUST_LABELS = {"verified": "સ્રોત સાથે ચકાસેલું", "partial": "આંશિક આધાર", "insufficient": "પૂરતો આધાર નથી"}
 TRUST_LABELS_EN = {"verified": "Verified against source", "partial": "Partially supported", "insufficient": "Insufficient source evidence"}
 SOURCE_TYPE_LABELS = {"quotation": "પાઠ્યપુસ્તકના શબ્દોમાં (સીધું અવતરણ)",
@@ -439,9 +500,15 @@ def _structure(con, payload: dict, question: str, res: dict | None, source_type:
         missing = [t["query"] for t in res["terms"] if not t["term"] or t["term"] not in ev_terms]
         if missing:
             reasons.append("પ્રશ્નના આ શબ્દો બતાવેલા આધારમાં નથી: " + ", ".join(missing))
-        fuzzy = [f"{t['query']} → {t['term']}" for t in res["terms"] if t["match"] == "fuzzy"]
-        if fuzzy:
-            notes.append("જોડણી નજીકના શબ્દથી શોધ્યું: " + ", ".join(fuzzy))
+        spell = [f"{t['query']} → {t['term']}" for t in res["terms"] if t["match"] in ("spelling", "compound") and t["query"] != t["term"]]
+        if spell:
+            notes.append("જોડણીના નાના ફેરથી શોધ્યું: " + ", ".join(spell))
+        weak = [f"{t['query']} → {t.get('via') or t['term']}" for t in res["terms"] if t["match"] in WEAK_MATCHES]
+        if weak:
+            # the student's own word is not in the source: an assumed word found the passage, so this is never "Verified"
+            reasons.append("પ્રશ્નના આ શબ્દો પુસ્તકમાં નથી; નજીકનો / સમાન અર્થનો શબ્દ ધારીને શોધ્યું છે: " + ", ".join(dict.fromkeys(weak))
+                           + ". તમારો પ્રશ્ન આ જ બાબતનો છે કે નહીં તે જાતે ચકાસો.")
+    reasons.extend(payload.get("support_gaps") or [])
     if payload.get("length_supported") is False:
         reasons.append("માગેલા ગુણ જેટલા મુદ્દા પાઠ્યપુસ્તકમાં મળ્યા નથી.")
     if mode == "difference" and payload.get("note"):
@@ -540,6 +607,70 @@ def _abstain(reason: str, res: dict | None = None) -> dict:
     return out
 
 
+_NUM = re.compile(r"(?<![A-Za-z0-9.])\d+(?:\.\d+)?(?![A-Za-z0-9])")
+_EXPANDABLE = ("low_coverage", "no_evidence", "definition_not_found", "concept_not_supported", "premise_not_supported")
+
+
+def _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id):
+    """One evidence search + composition. -> (comp, res, effective mode); comp is {'abstain': reason} on refusal."""
+    concept = None
+    if eff_mode in ("definition", "short", "one_line", "detailed", "points"):
+        concept = requested_concept(con, question, edition_ids)
+        if eff_mode == "definition" and concept["head_facet"]:
+            eff_mode = "short"               # "અવરોધનો એકમ શું છે?" asks for a unit, not for the definition of અવરોધ
+    q_for_search = question
+    if eff_mode == "formula":
+        q_for_search = _FORMULA_INTENT.sub(" ", question)
+    elif eff_mode == "steps":
+        q_for_search = _STEPS_INTENT.sub(" ", question)
+    res = retrieval.search(con, q_for_search, edition_ids, chapter_id, k=8)
+    comp = _formula_lookup(con, question, res, edition_ids, chapter_id) if mode == "auto" else None
+    if comp:
+        return comp, res, "formula"
+    if concept:
+        if eff_mode == "definition":
+            res["concept"] = concept
+        elif concept["head_facet"]:
+            res["facet"] = {"name": concept["head_facet"], "mods": concept["mods"]}
+    ok, reason = check_sufficiency(res)
+    if not ok:
+        return {"abstain": reason}, res, eff_mode
+    if eff_mode in ("short", "detailed", "points", "one_line") and not chapter_id:
+        options = _ambiguity(res)
+        if options:
+            return {"abstain": "ambiguous_question", "suggestions": options}, res, eff_mode
+    comp = _compose(con, question, eff_mode, marks, res, edition_ids, chapter_id)
+    if "parts" in comp and eff_mode != "steps":
+        # GRANTH-AI never calculates. Every number the student wrote must be printed in the passage shown;
+        # otherwise the passage is about a different sum, however similar its words are.
+        shown = set(_NUM.findall(g.normalize_text(" ".join(p["text"] for p in comp["parts"]))))
+        if any(n not in shown for n in _NUM.findall(question)):
+            return {"abstain": "numbers_not_in_source"}, res, eff_mode
+    return comp, res, eff_mode
+
+
+def _concept_fallback(con, question, res, edition_ids, chapter_id) -> dict | None:
+    """The student described a topic in everyday words ("છોડ ખોરાક કેવી રીતે બનાવે છે"). If the description matches
+    a named concept AND the source defines that concept in a passage that itself carries most of the student's words,
+    show that definition - marked as an assumed match, never as Verified. Otherwise: no answer."""
+    term = concepts.concept_for(question)
+    stems = g.content_terms(term) if term else []
+    vocab = retrieval.get_index(con).scope(edition_ids)["vocab"]
+    if not stems or any(x not in vocab for x in stems):
+        return None
+    d = _find_definition(retrieval.search(con, term, edition_ids, chapter_id, k=8)["results"], stems)
+    if not d or d["match"]["kind"] != "exact":
+        return None
+    known = [t["term"] for t in res["terms"] if t["term"]]
+    here = set(g.content_terms(d["row"]["text"] + " " + (d["row"].get("section_title") or "")))
+    hits = sum(1 for t in known if t in here)
+    if hits < 2 or hits < 0.6 * len(res["terms"]):
+        return None
+    return {"parts": [_part(u) for u in _with_antecedents([d])], "length_supported": None,
+            "note": f"તમારા પ્રશ્નના વર્ણન પરથી પાઠ્યપુસ્તકનો મુદ્દો ‘{d['term']}’ ઓળખ્યો છે અને પુસ્તકમાં આપેલી તેની વ્યાખ્યા બતાવી છે.",
+            "gaps": [f"પ્રશ્ન આ શબ્દોમાં પુસ્તકમાં નથી; વર્ણન પરથી મુદ્દો ‘{d['term']}’ ધારીને શોધ્યું છે. આ તમારા પ્રશ્નનો જ મુદ્દો છે કે નહીં તે જાતે ચકાસો."]}
+
+
 def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache, router) -> dict:
     edition_ids = [e["id"] for e in editions]
     chapter_id = int(scope["chapter_id"]) if scope.get("chapter_id") else None
@@ -560,26 +691,16 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
         con.execute("INSERT INTO usage_events(ts, kind) VALUES (?,?)", (db.now(), "cache_miss"))
     con.execute("INSERT INTO usage_events(ts, kind) VALUES (?,?)", (db.now(), "local_retrieval"))
 
-    q_for_search = question
-    if eff_mode == "formula":
-        q_for_search = _FORMULA_INTENT.sub(" ", question)
-    elif eff_mode == "steps":
-        q_for_search = _STEPS_INTENT.sub(" ", question)
-    res = retrieval.search(con, q_for_search, edition_ids, chapter_id, k=8)
-    comp = _formula_lookup(con, question, res, edition_ids, chapter_id) if mode == "auto" else None
-    if comp:
-        eff_mode = "formula"
-    else:
-        ok, reason = check_sufficiency(res)
-        if not ok:
-            return {**_abstain(reason, res), "mode": eff_mode}
-        if eff_mode in ("short", "detailed", "points", "one_line") and not chapter_id:
-            options = _ambiguity(res)
-            if options:
-                return {**_abstain("ambiguous_question", res), "mode": eff_mode, "suggestions": options}
-        comp = _compose(con, question, eff_mode, marks, res, edition_ids, chapter_id)
+    comp, res, eff_mode = _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id)
+    if comp.get("abstain") in _EXPANDABLE and mode in ("auto", "short", "detailed", "points", "one_line", "definition"):
+        alt = _concept_fallback(con, question, res, edition_ids, chapter_id)
+        if alt:
+            comp, eff_mode = alt, "definition"
     if "abstain" in comp:
-        return {**_abstain(comp["abstain"], res), "mode": eff_mode}
+        out = {**_abstain(comp["abstain"], res), "mode": eff_mode}
+        if comp.get("suggestions"):
+            out["suggestions"] = comp["suggestions"]
+        return out
 
     parts = comp["parts"]
     rows = {r["id"]: r for r in res["results"]}
@@ -602,7 +723,7 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
 
     payload = {"status": "answered", "mode": eff_mode, "mode_label": MODE_LABELS[eff_mode], "marks": marks,
                "answer": {"text": _format(parts, eff_mode), "parts": parts, "generated": False},
-               "note": comp.get("note"), "length_supported": comp.get("length_supported"),
+               "note": comp.get("note"), "length_supported": comp.get("length_supported"), "support_gaps": comp.get("gaps") or [],
                "evidence": evidence, "citations": citations, "verification": verification,
                "retrieved": [{"chunk_id": r["id"], **r["scores"]} for r in res["results"]],
                "query_terms": res["terms"], "engine": "extractive", "engine_version": ENGINE_VERSION,
@@ -623,6 +744,7 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
     role = editions[0].get("role", "textbook")
     payload["structured"] = _structure(con, payload, question, res,
                                        {"supplementary": "supplementary", "personal": "personal"}.get(role, "quotation"))
+    payload["structured"]["explanation"] = explain.build(con, payload)
     if use_cache:
         cache.put(con, key, norm, key_scope, versions, payload)
     return payload
@@ -668,24 +790,35 @@ def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks
         if len(outs) == 1:
             payload = outs[0][1]
         else:
+            # every edition was searched on its own; its evidence is kept apart and never stands in for another edition
+            per = [{"edition_id": v[0]["id"], "edition": v[0]["edition_label"], "book_title": v[0]["title"], "status": o["status"],
+                    "reason": o.get("reason"), "reason_gu": o.get("reason_gu"), "answer": o.get("answer"),
+                    "evidence": o.get("evidence") or [], "citations": o.get("citations") or [], "verification": o.get("verification"),
+                    "trust": (o.get("structured") or {}).get("trust"),
+                    "explanation": (o.get("structured") or {}).get("explanation"),
+                    "message": None if o["status"] == "answered" else "આ આવૃત્તિમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી."}
+                   for v, o in outs]
             answered = [(v, o) for v, o in outs if o["status"] == "answered"]
+            missing = [x["edition"] for x in per if x["status"] != "answered"]
+            miss_txt = (" આ આવૃત્તિમાં આધાર મળ્યો નથી: " + ", ".join(missing) + ".") if missing else ""
             if not answered:
-                payload = outs[0][1]
+                payload = dict(outs[0][1])
+                payload["edition_note"] = "પસંદ કરેલી દરેક આવૃત્તિ અલગ તપાસી છે; એકેય આવૃત્તિમાં પૂરતો આધાર મળ્યો નથી."
             elif len(answered) == 1 or len({g.search_key(o["answer"]["text"]) for _, o in answered}) == 1:
                 payload = dict(answered[-1][1])
-                payload["edition_note"] = ("એક કરતાં વધુ આવૃત્તિ પસંદ થયેલી છે. આ ઉત્તર આ આવૃત્તિમાંથી છે: "
+                payload["edition_note"] = ("એક કરતાં વધુ આવૃત્તિ પસંદ થયેલી છે; દરેક અલગ તપાસી છે. આ ઉત્તર આ આવૃત્તિમાંથી છે: "
                                            + answered[-1][0][0]["edition_label"]
-                                           + (" (બીજી આવૃત્તિમાં પણ આ જ લખાણ છે)" if len(answered) > 1 else ""))
+                                           + (" (બીજી આવૃત્તિમાં પણ આ જ લખાણ છે)." if len(answered) > 1 else ".") + miss_txt)
             else:
                 payload = {"status": "edition_conflict", "mode": answered[0][1]["mode"],
-                           "message": "પાઠ્યપુસ્તકની જુદી જુદી આવૃત્તિઓમાં આ પ્રશ્નનો ઉત્તર જુદો છે. દરેક આવૃત્તિનો ઉત્તર અલગ બતાવ્યો છે.",
-                           "editions": [{"edition_id": v[0]["id"], "edition": v[0]["edition_label"], "book_title": v[0]["title"],
-                                         "answer": o["answer"], "evidence": o["evidence"], "citations": o["citations"],
-                                         "verification": o["verification"]} for v, o in answered],
+                           "message": "પાઠ્યપુસ્તકની જુદી જુદી આવૃત્તિઓમાં આ પ્રશ્નનો ઉત્તર જુદો છે. દરેક આવૃત્તિનો ઉત્તર અલગ બતાવ્યો છે." + miss_txt,
+                           "editions": [x for x in per if x["status"] == "answered"],
                            "answer": None, "evidence": [], "citations": [], "engine": "extractive",
                            "engine_version": ENGINE_VERSION, "cache": {"hit": False},
                            "external_api_calls": sum(o.get("external_api_calls", 0) for _, o in answered),
                            "verification": {"verified": all(o["verification"]["verified"] for _, o in answered)}}
+            payload["edition_results"] = per
+            payload["editions_missing_evidence"] = missing
     payload = dict(payload)
     if payload["status"] == "edition_conflict":
         payload["structured"] = {"simple_answer": [], "key_points": [], "basis": [], "word_help": [], "english_terms": [], "notes": [],

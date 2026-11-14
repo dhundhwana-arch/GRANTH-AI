@@ -1,20 +1,20 @@
 {
   "suite": "independent test set (questions not written from the demo books' wording)",
-  "engine_version": "extractive-1.1",
+  "engine_version": "extractive-1.2",
   "total": 92,
-  "passed": 83,
-  "failed": 9,
+  "passed": 91,
+  "failed": 1,
   "by_category": {
     "gujarati": {
-      "passed": 11,
+      "passed": 14,
       "total": 14
     },
     "english": {
-      "passed": 9,
+      "passed": 10,
       "total": 11
     },
     "mixed": {
-      "passed": 5,
+      "passed": 6,
       "total": 6
     },
     "maths_formula": {
@@ -30,11 +30,11 @@
       "total": 7
     },
     "ocr_or_spelling_errors": {
-      "passed": 4,
+      "passed": 6,
       "total": 6
     },
     "conflicting_editions": {
-      "passed": 3,
+      "passed": 4,
       "total": 4
     },
     "missing_pages": {
@@ -65,62 +65,6 @@
   "wrong_answers_instead_of_refusal": [],
   "failures": [
     {
-      "id": "GU03",
-      "category": "gujarati",
-      "test": "પાંદડાં લીલાં કેમ દેખાય છે?",
-      "passed": false,
-      "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
-      },
-      "note": ""
-    },
-    {
-      "id": "GU04",
-      "category": "gujarati",
-      "test": "માણસ શ્વાસ કયા અંગથી લે છે?",
-      "passed": false,
-      "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
-      },
-      "note": ""
-    },
-    {
-      "id": "GU11",
-      "category": "gujarati",
-      "test": "વરસાદનું પાણી કેવી રીતે સાચવી શકાય?",
-      "passed": false,
-      "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
-      },
-      "note": ""
-    },
-    {
-      "id": "EN08",
-      "category": "english",
-      "test": "How do plants make their food?",
-      "passed": false,
-      "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
-      },
-      "note": ""
-    },
-    {
       "id": "EN09",
       "category": "english",
       "test": "Why do we need lungs?",
@@ -131,61 +75,6 @@
         "pages": [],
         "trust": "insufficient",
         "answer": ""
-      },
-      "note": ""
-    },
-    {
-      "id": "MX04",
-      "category": "mixed",
-      "test": "concave mirror નું focal length એટલે શું?",
-      "passed": false,
-      "got": {
-        "status": "answered",
-        "reason": null,
-        "pages": [
-          5
-        ],
-        "trust": "partial",
-        "answer": "જે ગોળીય અરીસાની પરાવર્તક સપાટી અંદરની તરફ વળેલી હોય તેને અંતર્ગોળ અરીસો કહે છે."
-      },
-      "note": ""
-    },
-    {
-      "id": "OC05",
-      "category": "ocr_or_spelling_errors",
-      "test": "ઓમનો નિયમ લખો.",
-      "passed": false,
-      "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
-      },
-      "note": ""
-    },
-    {
-      "id": "OC06",
-      "category": "ocr_or_spelling_errors",
-      "test": "પરાવતન એટલે શું?",
-      "passed": false,
-      "got": {
-        "status": "abstained",
-        "reason": "no_evidence",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
-      },
-      "note": ""
-    },
-    {
-      "id": "CE01b",
-      "category": "conflicting_editions",
-      "test": "same paraphrase: ideally the conflict itself is detected",
-      "passed": false,
-      "got": {
-        "status": "abstained",
-        "reason": "low_coverage"
       },
       "note": ""
     }
@@ -220,7 +109,7 @@
           2
         ],
         "trust": "partial",
-        "answer": "જે સજીવો પોતાનો ખોરાક જાતે બનાવે છે તેમને સ્વયંપોષી કહે છે. જે સજીવો ખોરાક માટે અન્ય સજીવો પર આધાર રાખે છે તેમને પરપોષી કહે છે. લીલી વનસ્પતિ પોતાનો ખોરાક જાતે બ"
+        "answer": "જે સજીવો પોતાનો ખોરાક જાતે બનાવે છે તેમને સ્વયંપોષી કહે છે. લીલી વનસ્પતિ પોતાનો ખોરાક જાતે બનાવે છે. લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડ"
       },
       "note": ""
     },
@@ -228,13 +117,15 @@
       "id": "GU03",
       "category": "gujarati",
       "test": "પાંદડાં લીલાં કેમ દેખાય છે?",
-      "passed": false,
+      "passed": true,
       "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          2
+        ],
+        "trust": "partial",
+        "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે. હરિતદ્રવ્યને કારણે પર્ણનો રંગ લીલો દેખાય છે."
       },
       "note": ""
     },
@@ -242,13 +133,16 @@
       "id": "GU04",
       "category": "gujarati",
       "test": "માણસ શ્વાસ કયા અંગથી લે છે?",
-      "passed": false,
+      "passed": true,
       "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          3,
+          4
+        ],
+        "trust": "partial",
+        "answer": "શ્વાસ લેવો અને શ્વસન એક નથી; શ્વાસ લેવો એ માત્ર વાયુઓની આપ-લે છે. મનુષ્યમાં શ્વસન માટેનું મુખ્ય અંગ ફેફસાં છે."
       },
       "note": ""
     },
@@ -297,7 +191,7 @@
           8
         ],
         "trust": "verified",
-        "answer": "વાહકના જે ગુણધર્મને કારણે તે વિદ્યુતપ્રવાહના વહનનો વિરોધ કરે છે તેને અવરોધ કહે છે. અવરોધનો એકમ ઓહ્મ છે.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | "
+        "answer": "અવરોધનો એકમ ઓહ્મ છે.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વો"
       },
       "note": ""
     },
@@ -356,13 +250,15 @@
       "id": "GU11",
       "category": "gujarati",
       "test": "વરસાદનું પાણી કેવી રીતે સાચવી શકાય?",
-      "passed": false,
+      "passed": true,
       "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "partial",
+        "answer": "વરસાદના પાણીને વહી જતું અટકાવીને તેનો સંગ્રહ કરવાની રીતને જળસંચય કહે છે. ઘરની છત પરથી વરસાદનું પાણી ટાંકામાં ભેગું કરવાની રીતને છત-જળસંચય કહે છે."
       },
       "note": ""
     },
@@ -393,7 +289,7 @@
         "pages": [
           2
         ],
-        "trust": "verified",
+        "trust": "partial",
         "answer": "પૃથ્વીની સપાટીના કોઈ ભાગને સપાટ કાગળ પર નાના માપમાં દર્શાવતા ચિત્રને નકશો કહે છે. નકશાના ત્રણ મુખ્ય અંગો છે: દિશા, પ્રમાણમાપ અને રૂઢ સંજ્ઞાઓ. નકશામાં સામાન્ય રી"
       },
       "note": ""
@@ -475,7 +371,7 @@
           8
         ],
         "trust": "verified",
-        "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nઉદાહરણ: એક વાહકનો અવર"
+        "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R\nકોષ્"
       },
       "note": ""
     },
@@ -531,13 +427,15 @@
       "id": "EN08",
       "category": "english",
       "test": "How do plants make their food?",
-      "passed": false,
+      "passed": true,
       "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          1
+        ],
+        "trust": "verified",
+        "answer": "લીલી વનસ્પતિ પોતાનો ખોરાક જાતે બનાવે છે. લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રક"
       },
       "note": ""
     },
@@ -612,7 +510,7 @@
           8
         ],
         "trust": "verified",
-        "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nઉદાહરણ: એક વાહકનો અવર"
+        "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R\nકોષ્"
       },
       "note": ""
     },
@@ -627,7 +525,7 @@
         "pages": [
           9
         ],
-        "trust": "verified",
+        "trust": "partial",
         "answer": "દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે. pH માપક્રમ 0 થી 14 સુધીનો હોય છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે."
       },
       "note": ""
@@ -636,15 +534,15 @@
       "id": "MX04",
       "category": "mixed",
       "test": "concave mirror નું focal length એટલે શું?",
-      "passed": false,
+      "passed": true,
       "got": {
         "status": "answered",
         "reason": null,
         "pages": [
-          5
+          6
         ],
         "trust": "partial",
-        "answer": "જે ગોળીય અરીસાની પરાવર્તક સપાટી અંદરની તરફ વળેલી હોય તેને અંતર્ગોળ અરીસો કહે છે."
+        "answer": "ગોળીય અરીસાના ધ્રુવથી મુખ્ય કેન્દ્ર સુધીના અંતરને કેન્દ્રલંબાઈ કહે છે."
       },
       "note": ""
     },
@@ -779,7 +677,7 @@
       "passed": true,
       "got": {
         "status": "abstained",
-        "reason": "low_coverage",
+        "reason": "numbers_not_in_source",
         "pages": [],
         "trust": "insufficient",
         "answer": ""
@@ -1049,7 +947,7 @@
         "pages": [
           1
         ],
-        "trust": "verified",
+        "trust": "partial",
         "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે."
       },
       "note": ""
@@ -1097,7 +995,7 @@
         "pages": [
           1
         ],
-        "trust": "verified",
+        "trust": "partial",
         "answer": "પૃથ્વી પર પાણી સતત એક સ્વરૂપમાંથી બીજા સ્વરૂપમાં ફરતું રહે છે તે ક્રિયાને જળચક્ર કહે છે."
       },
       "note": ""
@@ -1106,13 +1004,16 @@
       "id": "OC05",
       "category": "ocr_or_spelling_errors",
       "test": "ઓમનો નિયમ લખો.",
-      "passed": false,
+      "passed": true,
       "got": {
-        "status": "abstained",
-        "reason": "low_coverage",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          7,
+          8
+        ],
+        "trust": "partial",
+        "answer": "અચળ તાપમાને વાહકમાંથી વહેતો વિદ્યુતપ્રવાહ તેના બે છેડા વચ્ચેના વિદ્યુતસ્થિતિમાનના તફાવતના સમપ્રમાણમાં હોય છે. આ નિયમને ઓહ્મનો નિયમ કહે છે.\nસૂત્ર: V = I × R\nકોષ્"
       },
       "note": ""
     },
@@ -1120,13 +1021,15 @@
       "id": "OC06",
       "category": "ocr_or_spelling_errors",
       "test": "પરાવતન એટલે શું?",
-      "passed": false,
+      "passed": true,
       "got": {
-        "status": "abstained",
-        "reason": "no_evidence",
-        "pages": [],
-        "trust": "insufficient",
-        "answer": ""
+        "status": "answered",
+        "reason": null,
+        "pages": [
+          5
+        ],
+        "trust": "partial",
+        "answer": "પ્રકાશનું કિરણ કોઈ ચળકતી સપાટી પર અથડાઈને તે જ માધ્યમમાં પાછું ફરે છે તે ઘટનાને પ્રકાશનું પરાવર્તન કહે છે."
       },
       "note": ""
     },
@@ -1136,8 +1039,8 @@
       "test": "paraphrased voltage question over both editions → must not merge 220 and 230",
       "passed": true,
       "got": {
-        "status": "abstained",
-        "reason": "low_coverage"
+        "status": "edition_conflict",
+        "reason": null
       },
       "note": "pass = conflict shown or refusal; a single merged answer would be a failure"
     },
@@ -1145,10 +1048,10 @@
       "id": "CE01b",
       "category": "conflicting_editions",
       "test": "same paraphrase: ideally the conflict itself is detected",
-      "passed": false,
+      "passed": true,
       "got": {
-        "status": "abstained",
-        "reason": "low_coverage"
+        "status": "edition_conflict",
+        "reason": null
       },
       "note": ""
     },

@@ -1,6 +1,6 @@
 {
-  "executed_at": "2026-11-14T02:10:14Z",
-  "engine_version": "extractive-1.1",
+  "executed_at": "2026-11-14T03:01:06Z",
+  "engine_version": "extractive-1.2",
   "corpus": "bundled CC BY 4.0 sample books (data/sample)",
   "student_A": {
     "question": "પ્રકાશસંશ્લેષણ એટલે શું?",
@@ -13,7 +13,7 @@
     "verified": true,
     "cache_hit": false,
     "external_api_calls": 0,
-    "ms": 21.79,
+    "ms": 13.89,
     "pass": true
   },
   "student_B": {
@@ -22,7 +22,7 @@
     "cache_hit": true,
     "same_answer": true,
     "external_api_calls": 0,
-    "ms": 0.76,
+    "ms": 0.69,
     "pass": true
   },
   "student_C": {

@@ -117,8 +117,17 @@ def to_gujarati_query(question: str) -> dict | None:
             leftover += lo
         query = f"{sides[0]} અને {sides[1]} વચ્ચેનો તફાવત લખો"
     else:
-        work, mapped, leftover = _map_terms(question)
-        core = _strip_english(work, leftover)
+        # English is head-first ("focal length of a concave mirror"), Gujarati head-final ("અંતર્ગોળ અરીસાની કેન્દ્રલંબાઈ"):
+        # keep that structure so the engine knows WHICH concept is asked about.
+        segs, mapped, leftover = [], [], []
+        for seg in re.split(r"(?<![A-Za-z])of(?![A-Za-z])", question, flags=re.I):
+            w, mp, lo = _map_terms(seg)
+            mapped += mp
+            leftover += lo
+            c = _strip_english(w, lo)
+            if c:
+                segs.append(c)
+        core = " ની ".join(reversed(segs))
         tail = {"definition": " એટલે શું?", "formula": " સૂત્ર લખો", "steps": " ઉદાહરણ પગલાંવાર સમજાવો", "why": " શા માટે?",
                 "when": " ક્યારે?"}.get(intent, " સમજાવો")
         query = core + tail
