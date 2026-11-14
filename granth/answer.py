@@ -14,7 +14,7 @@ import json
 import re
 import time
 
-from . import ENGINE_VERSION, cache, concepts, db, explain, gujarati as g, intent as intent_mod, lang, retrieval, study, validate
+from . import ENGINE_VERSION, cache, concepts, db, explain, gujarati as g, intent as intent_mod, lang, retrieval, study, validate, polarity
 
 ABSTAIN_MESSAGE = "આ પસંદ કરેલા પાઠ્યપુસ્તકમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી."
 MODES = ("auto", "one_line", "definition", "short", "detailed", "points", "difference", "formula", "steps")
@@ -29,6 +29,7 @@ REASONS = {
     "no_authorized_textbook_in_scope": "પસંદ કરેલી શ્રેણીમાં કોઈ અધિકૃત અને મંજૂર થયેલું પાઠ્યપુસ્તક ઉપલબ્ધ નથી.",
     "no_content_terms": "પ્રશ્નમાં શોધી શકાય તેવો કોઈ મુખ્ય શબ્દ મળ્યો નથી.",
     "no_evidence": "પ્રશ્નના મુખ્ય શબ્દો પસંદ કરેલા પાઠ્યપુસ્તકમાં મળ્યા નથી.",
+    "polarity_not_supported": "પ્રશ્નમાં ‘ન / નથી / વગર’ જેવી નકારની (અથવા હકારની) શરત છે; પસંદ કરેલા પાઠ્યપુસ્તકમાં તે જ શરતવાળું વાક્ય મળ્યું નથી.",
     "premise_not_supported": "પ્રશ્નમાં માની લીધેલી વાત પસંદ કરેલા પાઠ્યપુસ્તકના કોઈ એક વાક્યમાં મળતી નથી, તેથી 'શા માટે' નો ઉત્તર આપી શકાતો નથી.",
     "low_coverage": "પ્રશ્નના કેટલાક મુખ્ય શબ્દો પસંદ કરેલા પાઠ્યપુસ્તકમાં મળ્યા નથી, તેથી ઉત્તર આપી શકાતો નથી.",
     "definition_not_found": "પસંદ કરેલા પાઠ્યપુસ્તકમાં આ શબ્દની વ્યાખ્યા મળી નથી.",
@@ -815,8 +816,21 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
             full = [p for p in c2["parts"] if p["kind"] == "sentence" and need <= set(g.content_terms(p["text"]))]
             if full:
                 comp, res, eff_mode = {**c2, "parts": full[:1]}, r2, "short"
+    if "parts" in comp and eff_mode not in ("difference", "steps", "formula"):
+        # Phase 5 polarity gate, for EVERY answer path: the shown text must have the polarity the question asks for
+        shown = " ".join(p["text"] for p in comp["parts"] if p.get("kind", "sentence") in ("sentence", "glossary", "definition"))
+        why = polarity.conflict(question, shown or " ".join(p["text"] for p in comp["parts"]),
+                                {t["term"] for t in res["terms"] if t["term"]}) if (shown or polarity.negated(question)) else None
+        if why:
+            comp = {"abstain": "polarity_not_supported", "validation": {**(comp.get("validation") or {}), "polarity": why}}
     if "abstain" in comp:
         out = {**_abstain(comp["abstain"], res), "mode": eff_mode, "validation": comp.get("validation")}
+        pr = (comp.get("validation") or {}).get("premise") or {}
+        if pr.get("book_says"):
+            # Phase 5: the premise of the question is not in the book. Show what the book DOES say - labelled, cited,
+            # word for word - without claiming that it answers the question.
+            out["premise"] = {**pr, "label_gu": "પ્રશ્નમાં માની લીધેલી વાત આ પુસ્તકમાં મળી નથી. પુસ્તકમાં આ વિષય પર આ વાક્ય છે "
+                                                "(આ તમારા પ્રશ્નનો ઉત્તર નથી; પ્રશ્ન ફરી તપાસો):"}
         if comp.get("suggestions"):
             out["suggestions"] = comp["suggestions"]
         return out
@@ -958,6 +972,7 @@ def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks
                            "attribution": sup[0]["attribution"], "source_url": sup[0]["source_url"]},
                 **{k: sp.get(k) for k in ("status", "answer", "structured", "citations", "evidence", "verification", "reason",
                                           "reason_gu", "message", "note", "mode", "mode_label", "unmatched_terms")}}
+    payload.update(_term_report(con, question, [e["id"] for e in editions]))
     payload["language"] = language["language"]
     payload["query_translation"] = ({"working_question": question, "terms": translation["mapped"], "unmapped": translation["unmapped"],
                                      "note_gu": "અંગ્રેજી શબ્દોને શોધ માટે ગુજરાતી પારિભાષિક શબ્દોમાં ફેરવ્યા છે. શોધ અને ઉત્તર ગુજરાતી સ્રોતના લખાણમાંથી જ થાય છે.",
@@ -972,6 +987,39 @@ def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks
     payload["latency_ms"] = round((time.perf_counter() - t0) * 1000, 3)
     _persist(con, payload, session_id, input_method, mode, marks)
     return payload
+
+
+_MATCH_LABEL = {"spelling": "જોડણી સુધારી", "compound": "જોડીને વાંચ્યો", "fuzzy": "જોડણી ધારી", "fuzzy_context": "જોડણી ધારી",
+                "synonym": "સમાન અર્થનો શબ્દ", "prefix": "શબ્દનો ભાગ", "root": "શબ્દનું બીજું રૂપ"}
+
+
+def _term_report(con, question: str, edition_ids: list) -> dict:
+    """Phase 5: what happened to each word the student typed. The student's own word is always kept and shown;
+    a book word that was used instead is named, with the kind of match. Unknown words are listed, and the nearest
+    book word is offered only as a QUESTION ("did you mean?") - it is never used to answer."""
+    idx = retrieval.get_index(con)
+    asked = {}
+    for w in g.normalize_text(question).split():
+        w = w.strip("‘’'\".,;:?!()[]")
+        for st in g.content_terms(w):
+            asked.setdefault(st, w)
+
+    def show(q):
+        return " ".join(asked.get(x, x) for x in q.split())
+    matches, unknown, dym = [], [], []
+    for t in idx.resolve_terms(question, edition_ids):
+        if t["term"] is None:
+            unknown.append(show(t["query"]))
+            if t.get("near"):
+                dym.append({"asked": show(t["query"]), "book_word": idx.surface.get(t["near"], t["near"])})
+        elif t["match"] != "exact":
+            book = t.get("via") or idx.surface.get(t["term"], t["term"])
+            if g.fold(book) == g.fold(show(t["query"])):
+                continue
+            matches.append({"asked": show(t["query"]), "book_word": book, "kind": t["match"], "kind_gu": _MATCH_LABEL.get(t["match"], t["match"]),
+                            "confidence": t.get("confidence", 1.0 if t["match"] in ("spelling", "compound") else None),
+                            "normalisation": t["match"] in ("spelling", "compound")})
+    return {"term_matches": matches, "unknown_terms": unknown, "did_you_mean": dym}
 
 
 def _persist(con, payload, session_id, input_method, mode, marks):

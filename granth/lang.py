@@ -11,6 +11,8 @@ import re
 from functools import lru_cache
 from pathlib import Path
 
+from . import polarity
+
 ROOT = Path(__file__).resolve().parent.parent
 _LATIN_WORD = re.compile(r"[A-Za-z][A-Za-z'’]*")
 
@@ -100,6 +102,7 @@ def to_gujarati_query(question: str) -> dict | None:
     info = detect_language(question)
     if info["language"] not in ("en", "mixed"):
         return None
+    question, _neg = polarity.english_to_marked(question)     # "without oxygen" -> "oxygen વગર": negation survives translation
     if info["language"] == "mixed":
         work, mapped, leftover = _map_terms(question)
         if not mapped:

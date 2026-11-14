@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import re
 
-from . import concepts, gujarati as g, intent as intent_mod, retrieval, study
+from . import concepts, gujarati as g, intent as intent_mod, polarity, premise, retrieval, study
 
 _ANAPHORA = ("આ ", "તે ", "તેથી", "આમ ", "આથી", "તેમાં", "તેના", "તેની", "તેનો", "તેનું")
 _CAUSE = ("કારણ", "તેથી", "માટે", "લીધે", "જેથી", "વાથી", "આથી")
@@ -137,6 +137,8 @@ def _check(an: dict, pl: dict, text: str, q_stems: set, claims: list) -> dict | 
         return None                                     # one topic word alone, with the verb missing, proves nothing
     if any(w not in text for w in claims):
         return None
+    if polarity.conflict(an.get("question", ""), text, set(pl["need"])):
+        return None                                     # "without oxygen" is not answered by a sentence about oxygen being present
     short_fact = False
     if an["intent"] == "choice":
         got = [o for o in an["options"] if o in st]
@@ -186,7 +188,7 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
     vocab = retrieval.get_index(con).scope(edition_ids)["vocab"]
     pl = plan(an, res["terms"], vocab)
     report = {"intent": an["intent"], "intent_label": an["label"], "concept_terms": pl["need"], "options": an["options"],
-              "assumed": pl["weak"], "verbs": [x["word"] for x in pl["soft"]], "unknown_words": pl["unknown"]}
+              "assumed": pl["weak"], "verbs": [x["word"] for x in pl["soft"]], "unknown_words": pl["unknown"], "negated_terms": an.get("negated", [])}
     if pl["unknown"]:
         return {"abstain": "low_coverage", "analysis": report}
     if not pl["need"]:
@@ -198,6 +200,9 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
     extra = retrieval.search(con, " ".join(pl["need"]), edition_ids, chapter_id, k=8)["results"]
     rows += [r for r in extra if r["id"] not in have]
     pairs = [(a, b) for a, b in zip(pl["need"], pl["need"][1:])]
+    index = retrieval.get_index(con)
+    binds = premise.bindings(an["question"], pl["need"], index.bigrams)
+    report["premise"] = {**premise.assumptions(an, pl, lambda t: index.surface.get(t, t)), "status": "supported", "book_says": []}
 
     found = []                                          # (sort key, [units], info)
     for rank, row in enumerate(rows):
@@ -217,6 +222,8 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
                 if pos > 0 and s.startswith(_ANAPHORA):
                     span, text = [pos - 1, pos], sents[pos - 1] + " " + s
                 ok = _check(an, pl, s, q_stems, claims)
+                if ok and premise.sibling_break(binds, s, index.bigrams, q_stems):
+                    ok = None                           # the sentence is about a sibling concept, not the one asked
                 if ok:
                     span = [pos]
                 elif len(span) > 1 and _attribute(an, s, q_stems) and _antecedent_ok(pl, sents[pos - 1], s):
@@ -273,6 +280,8 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
             for n in range(2, MAX_WINDOW + 1):
                 for i in range(0, len(sents) - n + 1):
                     ok = _chained(sents[i:i + n], q_stems) and _check(an, pl, " ".join(sents[i:i + n]), q_stems, claims)
+                    if ok and any(premise.sibling_break(binds, x, index.bigrams, q_stems) for x in sents[i:i + n]):
+                        ok = None                       # one of the sentences speaks about a sibling concept: no premise support
                     if ok and (best is None or (n, rank) < best[0]):
                         best = ((n, rank), [{"text": sents[j], "row": row, "pos": j, "kind": "sentence"} for j in range(i, i + n)], ok)
                 if best and best[0][0] == n:
@@ -294,6 +303,10 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
                 break
     if not found:
         aspect = an["intent"] in ("unit", "reverse_unit", "use", "types", "function", "organ", "instrument")
+        says = premise.book_says(an, pl, rows, lambda s_: _attribute(an, s_, q_stems, frozenset(pl["need"])))
+        report["premise"].update(status="not_found_in_book", book_says=says)
+        if says:
+            return {"abstain": "premise_not_supported", "analysis": report}
         return {"abstain": "aspect_not_found" if aspect else "evidence_not_specific", "analysis": report}
 
     found.sort(key=lambda f: f[0])

@@ -129,6 +129,23 @@ function evidenceHtml(evidence, parts) {
 }
 
 const TRUST_CLASS = { verified: 'ok', partial: 'warn', insufficient: 'bad' };
+function termsHtml(r) {
+  // Phase 5: the student's own word is kept; any book word used instead is named. Unknown words are never replaced silently.
+  let h = '';
+  if (r.status !== 'abstained' && r.term_matches && r.term_matches.length) {
+    h += `<p class="muted small term-matches">તમારો શબ્દ → પુસ્તકનો શબ્દ: ${r.term_matches.map((m) => `‘${esc(m.asked)}’ → ‘${esc(m.book_word)}’ (${esc(m.kind_gu)})`).join(' · ')}</p>`;
+  }
+  if (r.status === 'abstained' && r.did_you_mean && r.did_you_mean.length) {
+    h += `<p class="did-you-mean">${r.did_you_mean.map((m) => `‘${esc(m.asked)}’ શબ્દ આ પુસ્તકમાં નથી. શું તમે ‘<b>${esc(m.book_word)}</b>’ કહેવા માંગો છો? તો તે શબ્દ લખીને ફરી પૂછો.`).join('<br>')}</p>`;
+  }
+  return h;
+}
+function premiseHtml(r) {
+  const p = r.premise;
+  if (!p || !p.book_says || !p.book_says.length) return '';
+  return `<div class="premise"><p><b>${esc(p.label_gu)}</b></p>${p.book_says.map((b) => `<blockquote class="evidence">${esc(b.text)}
+    <span class="cite">પૃષ્ઠ ${esc(b.page_number)} · <a href="#/page/${b.edition_id}/${b.page_number}">આખું પૃષ્ઠ જુઓ</a></span></blockquote>`).join('')}</div>`;
+}
 function checkedHtml(v) {
   // Phase 4: tell the student WHAT was checked — the kind of question understood and the words the sentence had to contain.
   if (!v || !v.intent_label) return '';
@@ -221,7 +238,7 @@ function resultHtml(r, opts = {}) {
       ${r.note ? `<div class="note" id="answer-note">${esc(r.note)}</div>` : ''}
       ${r.edition_note ? `<div class="note">${esc(r.edition_note)}</div>` : ''}${editionResultsHtml(r)}
       <h3>પુસ્તકનો આધાર</h3>${r.citations.map(citationHtml).join('<hr>')}
-      ${trustHtml(r.structured, r.validation)}
+      ${termsHtml(r)}${trustHtml(r.structured, r.validation)}
       <div class="row"><button type="button" id="speak" class="small">🔊 ઉત્તર સાંભળો</button>${save}<span id="speak-msg" class="muted"></span></div>
       <details class="ev" open><summary>પુરાવો: પાઠ્યપુસ્તકનું મૂળ લખાણ</summary><div id="evidence">${evidenceHtml(r.evidence, r.answer.parts)}</div></details>
       ${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
@@ -239,7 +256,7 @@ function resultHtml(r, opts = {}) {
     ${r.reason_gu ? `<p class="muted">${esc(r.reason_gu)}</p>` : ''}
     ${r.unmatched_terms && r.unmatched_terms.length ? `<p class="muted">પુસ્તકમાં ન મળેલા શબ્દો: ${r.unmatched_terms.map(esc).join(', ')}</p>` : ''}
     ${r.edition_note ? `<div class="note">${esc(r.edition_note)}</div>` : ''}${editionResultsHtml(r)}
-    ${sugg}${trustHtml(r.structured, r.validation)}
+    ${termsHtml(r)}${premiseHtml(r)}${sugg}${trustHtml(r.structured, r.validation)}
     <p class="muted">GRANTH-AI પાઠ્યપુસ્તક બહારની માહિતી પરથી ઉત્તર બનાવતું નથી. જોડણી તપાસો, બીજું પ્રકરણ કે પુસ્તક પસંદ કરો${r.supplementary ? '' : ', અથવા પ્રશ્ન નીચે “પૂરક સ્રોત” પસંદ કરીને ફરી પૂછો'}.</p>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
 }
 

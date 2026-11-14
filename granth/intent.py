@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import re
 
-from . import gujarati as g
+from . import gujarati as g, polarity
 
 # intent -> Gujarati label shown to the student ("you asked for ...")
 LABELS = {
@@ -94,7 +94,7 @@ def analyse(question: str) -> dict:
             soft.update(g.content_terms(t))
         elif i != last and t.endswith(_PARTICIPLE) and nxt and nxt not in g.STOPWORDS:
             soft.update(g.content_terms(t))      # "રોકતા ગુણધર્મ": a participle, soft only if the source lacks the word
-    return {"intent": intent, "label": LABELS[intent], "options": options, "cues": _stems(_CUES[intent]),
+    return {"question": q, "negated": sorted(polarity.negated(q)), "intent": intent, "label": LABELS[intent], "options": options, "cues": _stems(_CUES[intent]),
             "soft": soft, "single": intent in SINGLE, "wh": bool(_WH.search(q))}
 
 
