@@ -1,17 +1,34 @@
-# Next steps (after Phase 4)
+# Next steps (after Phase 5)
 
-In order of importance.
+GRANTH-AI is a demo. It is not ready for real students. The order below is the order of importance.
 
-1. **Get one real textbook with written permission.** Everything so far is measured on a 14-page demo. Until a real book is loaded, accuracy on real material is unknown. See `SOURCE_PERMISSION_REGISTER.md` for what the letter must cover.
-2. **Run the device checklist** in `REAL_DEVICE_TEST_REPORT.md` on one Android tablet and one phone. About 30 minutes.
-3. **Have a teacher write and judge questions.** All 331 questions so far were written by the developer. A teacher's 100 questions on a real chapter would be the first truly independent test.
-4. **Fix the frozen-test failures, then write a new frozen set** (the current one is now seen):
-   * negation ("ન હોય", "નથી", "વગર") must be matched against હાજરી / ગેરહાજરી or the question refused;
-   * a spelling-guessed term must not replace a technical term when the two are different instruments or quantities – refuse instead;
-   * false-premise detection for "why is X used in Y" questions;
-   * do not refuse because of an unknown verb when the concept and attribute are both found – answer as Partial;
-   * edition-conflict check should run before the unknown-word refusal.
-5. **Evaluate a small multilingual embedding model** on a machine that can download it. Measure on the frozen-set style of test whether it reduces incorrect refusals without adding wrong answers; record size and speed on a phone-class device before adopting it.
-6. **Explanations**: 16 of 33 frozen answers had no simplified explanation. Add safe rules for unit, place and cause sentences.
-7. **Deployment**: HTTPS in front of the server, a strong admin token with an expiry date, backups of the SQLite file.
-8. Smaller: formula lookup by quantity name ("વિદ્યુતપ્રવાહનું સૂત્ર"), English question coverage.
+## Needs a person outside the project
+
+| # | Action | Who | Material ready |
+|---|---|---|---|
+| 1 | Send the permission request to the Gujarat State Board of School Textbooks and keep the written reply | Project owner | `docs/templates/PUBLISHER_PERMISSION_REQUEST.md` |
+| 2 | Ask a Gujarati-medium teacher to write about 100 questions and review the answers | Project owner and a teacher | `docs/TEACHER_REVIEW_TEMPLATE.md`, `docs/templates/teacher_questions_template.csv` |
+| 3 | Run the 30-minute test on an Android phone and a tablet | Any tester with a device | `docs/REAL_DEVICE_TEST_REPORT.md` |
+| 4 | Try the app with a few students, with school or parent consent, and collect the form | Teacher | `docs/STUDENT_FEEDBACK_TEMPLATE.md` |
+| 5 | Have a second person review security before any public use | Reviewer | `docs/SECURITY_REPORT.md` |
+
+## Engine work (needs engine 1.5 and a new frozen set)
+
+| # | Defect | Evidence |
+|---|---|---|
+| 1 | Too many refusals from unknown everyday words (દાખલ, ઉત્પન્ન, સુધારવા, પરિણામ; English body, added, pure) | 14 of the 19 frozen refusals |
+| 2 | Premise check refuses some true questions | P006, P030, P061 |
+| 3 | Attribute not found although the sentence exists | P130, P131, Z03, Z52 |
+| 4 | Explanation gloss ignores context (અંગ shown as "organ" for parts of a map) | P132 |
+| 5 | Explanations annotate more than they simplify; lines get longer | `docs/EXPLANATION_QUALITY_REPORT.md` |
+| 6 | Edition conflict missed when the question has an unknown word | P111, P113, D105 |
+| 7 | Older open items: S17, F07, N18, N20, N28, Z20; "વિદ્યુતપ્રવાહનું સૂત્ર લખો" returns Ohm's law; a malformed either/or question is answered | regression results |
+
+The safest way to cut refusals is a larger reviewed word list, ideally built from teacher-written questions. Loosening the validator is not safe: two attempts in Phase 5 produced wrong answers and were withdrawn.
+
+## Evaluation work
+
+- Evaluate a multilingual embedding model for retrieval when weights can be obtained through an approved route. Keep it optional.
+- Build a larger permitted corpus. A 14-page demo cannot show how the engine behaves on a real book.
+- Add a browser test step for the edition-conflict display.
+- Upgrade `pip` and `setuptools` in deployment environments.

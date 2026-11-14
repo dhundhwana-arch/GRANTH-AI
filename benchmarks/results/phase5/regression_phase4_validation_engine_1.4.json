@@ -1,0 +1,2885 @@
+{
+ "suite": "GRANTH-AI phase 4 VALIDATION set",
+ "engine_version": "extractive-1.4",
+ "questions": 70,
+ "overall": {
+  "n": 70,
+  "pass": 67,
+  "correct_answer": 47,
+  "wrong_answer": 0,
+  "correct_refusal": 19,
+  "incorrect_refusal": 3,
+  "conflict_detected": 1,
+  "conflict_missed": 0
+ },
+ "counts": {
+  "total": 70,
+  "answerable": 50,
+  "unanswerable": 17,
+  "either": 2,
+  "edition_conflict": 1
+ },
+ "metrics": {
+  "correct_answers": {
+   "count": 47,
+   "of": 50
+  },
+  "wrong_answers": {
+   "count": 0,
+   "of": 70
+  },
+  "correct_refusals": {
+   "count": 17,
+   "of": 17
+  },
+  "incorrect_refusals": {
+   "count": 3,
+   "of": 51
+  },
+  "false_verified": {
+   "count": 0,
+   "of": 29
+  },
+  "citation_accuracy": {
+   "count": 47,
+   "of": 47
+  },
+  "edition_conflict": {
+   "count": 1,
+   "of": 1
+  }
+ },
+ "confusion_matrix": {
+  "rows": "expected behaviour",
+  "columns": "actual behaviour",
+  "matrix": {
+   "answered": {
+    "answered_correctly": 47,
+    "refused": 3
+   },
+   "abstained": {
+    "refused": 17
+   },
+   "either": {
+    "refused": 2
+   },
+   "edition_conflict": {
+    "showed_both_editions": 1
+   }
+  }
+ },
+ "by_category": {
+  "direct": {
+   "n": 21,
+   "pass": 21,
+   "correct_answer": 21,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "paraphrase": {
+   "n": 12,
+   "pass": 9,
+   "correct_answer": 9,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 3,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "mixed": {
+   "n": 5,
+   "pass": 5,
+   "correct_answer": 5,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "english": {
+   "n": 5,
+   "pass": 5,
+   "correct_answer": 4,
+   "wrong_answer": 0,
+   "correct_refusal": 1,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "misspelling": {
+   "n": 4,
+   "pass": 4,
+   "correct_answer": 4,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "concept_distinction": {
+   "n": 6,
+   "pass": 6,
+   "correct_answer": 2,
+   "wrong_answer": 0,
+   "correct_refusal": 4,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "adversarial": {
+   "n": 7,
+   "pass": 7,
+   "correct_answer": 0,
+   "wrong_answer": 0,
+   "correct_refusal": 7,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "unsupported": {
+   "n": 5,
+   "pass": 5,
+   "correct_answer": 0,
+   "wrong_answer": 0,
+   "correct_refusal": 5,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "ambiguous": {
+   "n": 2,
+   "pass": 2,
+   "correct_answer": 0,
+   "wrong_answer": 0,
+   "correct_refusal": 2,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "edition_conflict": {
+   "n": 3,
+   "pass": 3,
+   "correct_answer": 2,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 1,
+   "conflict_missed": 0
+  }
+ },
+ "by_language": {
+  "gu": {
+   "n": 60,
+   "pass": 57,
+   "correct_answer": 38,
+   "wrong_answer": 0,
+   "correct_refusal": 18,
+   "incorrect_refusal": 3,
+   "conflict_detected": 1,
+   "conflict_missed": 0
+  },
+  "mixed": {
+   "n": 5,
+   "pass": 5,
+   "correct_answer": 5,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "en": {
+   "n": 5,
+   "pass": 5,
+   "correct_answer": 4,
+   "wrong_answer": 0,
+   "correct_refusal": 1,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  }
+ },
+ "paraphrase_groups": {
+  "groups": 0,
+  "all_phrasings_handled": 0,
+  "detail": {}
+ },
+ "explanations_automatic": {
+  "answers_checked": 47,
+  "with_simplified_lines": 44,
+  "fallback_shown": 3,
+  "with_glossary_terms": 41,
+  "with_english_terms": 44,
+  "lines_without_new_content_words": {
+   "count": 44,
+   "of": 44
+  },
+  "lines_with_evidence_link": {
+   "count": 44,
+   "of": 44
+  },
+  "numbers_and_formulas_kept": {
+   "count": 44,
+   "of": 44
+  },
+  "note": "automatic checks only; meaning preservation and readability are NOT judged by this script"
+ },
+ "failures": [
+  {
+   "id": "N18",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "સામાન્ય મીઠાનું રાસાયણિક નામ શું છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "રાસાયણિક",
+    "નામ"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N20",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "ફૂગ પોતાનો ખોરાક જાતે બનાવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "જે સજીવો પોતાનો ખોરાક જાતે બનાવે છે તેમને સ્વયંપોષી કહે છે.",
+    "લીલી વનસ્પતિ પોતાનો ખોરાક જાતે બનાવે છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "N28",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "કીડી કરડે ત્યારે કયો ઍસિડ શરીરમાં જાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "કરડે",
+     "book_word": "ડંખ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [
+    "જાય"
+   ],
+   "did_you_mean": [],
+   "book_says": [
+    "કીડીના ડંખમાં ફૉર્મિક ઍસિડ હોય છે; તેની અસર ઘટાડવા ખાવાનો સોડા લગાવવામાં આવે છે."
+   ],
+   "explanation": null
+  }
+ ],
+ "rows": [
+  {
+   "id": "N01",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "વિદ્યુતપાવરનો એકમ જણાવો.",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે.",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 7.0,
+    "lines": [
+     "વિદ્યુતપાવરનો (electric power) એકમ વૉટ (watt) છે."
+    ],
+    "source": "વિદ્યુતપાવરનો એકમ વૉટ છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "N02",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "વૉટ શેનો એકમ છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે.",
+   "intent": "reverse_unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 7.0,
+    "lines": [
+     "વિદ્યુતપાવરનો (electric power) એકમ વૉટ (watt) છે."
+    ],
+    "source": "વિદ્યુતપાવરનો એકમ વૉટ છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "N03",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "વોલ્ટ કઈ રાશિનો એકમ છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે.",
+   "intent": "reverse_unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 5.0,
+    "avg_words_simplified_line": 8.0,
+    "lines": [
+     "વિદ્યુતસ્થિતિમાનના તફાવતનો (potential difference) એકમ વોલ્ટ (volt) છે."
+    ],
+    "source": "વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "N04",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "ઍમિટરને પરિપથમાં કઈ રીતે જોડવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "ઍમિટરને (ammeter) પરિપથમાં (circuit) હંમેશાં શ્રેણીમાં જોડવામાં આવે છે."
+    ],
+    "source": "ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "N05",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "કાર્બન ડાયૉક્સાઇડ પર્ણમાં ક્યાંથી પ્રવેશે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "કાર્બન ડાયૉક્સાઇડ પર્ણરંધ્ર દ્વારા પર્ણમાં પ્રવેશે છે.",
+   "intent": "source",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 14.0,
+    "lines": [
+     "કાર્બન ડાયૉક્સાઇડ (carbon dioxide) પર્ણરંધ્ર (stomata) દ્વારા પર્ણમાં (leaf) [રોજિંદો શબ્દ: પાંદડું] પ્રવેશે છે."
+    ],
+    "source": "કાર્બન ડાયૉક્સાઇડ પર્ણરંધ્ર દ્વારા પર્ણમાં પ્રવેશે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "N06",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "ગ્લુકોઝ વનસ્પતિમાં કયા રૂપમાં સંગ્રહ પામે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "બનેલો ગ્લુકોઝ સ્ટાર્ચના રૂપમાં વનસ્પતિમાં સંગ્રહ પામે છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 17.0,
+    "lines": [
+     "બનેલો ગ્લુકોઝ (glucose) સ્ટાર્ચના રૂપમાં વનસ્પતિમાં [રોજિંદો શબ્દ: છોડ-ઝાડ] સંગ્રહ [રોજિંદો શબ્દ: ભેગું કરી રાખવું] પામે છે."
+    ],
+    "source": "બનેલો ગ્લુકોઝ સ્ટાર્ચના રૂપમાં વનસ્પતિમાં સંગ્રહ પામે છે.",
+    "content_terms_source": 7
+   }
+  },
+  {
+   "id": "N07",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "યીસ્ટમાં અજારક શ્વસનથી શું બને છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "યીસ્ટમાં અજારક શ્વસનથી આલ્કોહૉલ અને કાર્બન ડાયૉક્સાઇડ બને છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "યીસ્ટમાં અજારક શ્વસનથી (anaerobic respiration) આલ્કોહૉલ અને કાર્બન ડાયૉક્સાઇડ (carbon dioxide) બને છે."
+    ],
+    "source": "યીસ્ટમાં અજારક શ્વસનથી આલ્કોહૉલ અને કાર્બન ડાયૉક્સાઇડ બને છે.",
+    "content_terms_source": 7
+   }
+  },
+  {
+   "id": "N08",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "હવા શરીરમાં શેના દ્વારા પ્રવેશે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "હવા નાક દ્વારા શરીરમાં પ્રવેશે છે અને શ્વાસનળી દ્વારા ફેફસાં સુધી પહોંચે છે.",
+   "intent": "means",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 13.0,
+    "avg_words_simplified_line": 15.0,
+    "lines": [
+     "હવા (air) નાક દ્વારા શરીરમાં પ્રવેશે છે અને શ્વાસનળી દ્વારા ફેફસાં (lungs) સુધી પહોંચે છે."
+    ],
+    "source": "હવા નાક દ્વારા શરીરમાં પ્રવેશે છે અને શ્વાસનળી દ્વારા ફેફસાં સુધી પહોંચે છે.",
+    "content_terms_source": 8
+   }
+  },
+  {
+   "id": "N09",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "વાયુકોષ્ઠ ક્યાં આવેલા છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "ફેફસાંમાં આવેલી ફુગ્ગા જેવી સૂક્ષ્મ રચનાઓને વાયુકોષ્ઠ કહે છે.",
+   "intent": "place",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 12.0,
+    "lines": [
+     "‘વાયુકોષ્ઠ’ (alveoli) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘વાયુકોષ્ઠ’ કહે છે? — ફેફસાંમાં (lungs) આવેલી ફુગ્ગા જેવી સૂક્ષ્મ [રોજિંદો શબ્દ: ખૂબ ઝીણું] રચનાઓને."
+    ],
+    "source": "ફેફસાંમાં આવેલી ફુગ્ગા જેવી સૂક્ષ્મ રચનાઓને વાયુકોષ્ઠ કહે છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N10",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "પરાવર્તનનો પહેલો નિયમ કયો છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "પરાવર્તનના બે નિયમો છે. પહેલો નિયમ: આપાતકોણ અને પરાવર્તનકોણ હંમેશાં સમાન હોય છે. બીજો નિયમ: આપાતકિરણ, પરાવર્તિત કિરણ અને આપાતબિંદુએ દોરેલો લંબ એક જ સમતલમાં હોય છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 12.0,
+    "lines": [
+     "પરાવર્તનના (reflection) બે નિયમો છે.",
+     "પહેલો નિયમ: આપાતકોણ અને પરાવર્તનકોણ હંમેશાં સમાન હોય છે.",
+     "બીજો નિયમ: આપાતકિરણ (incident ray), પરાવર્તિત કિરણ (reflected ray) અને આપાતબિંદુએ દોરેલો લંબ એક જ સમતલમાં [રોજિંદો શબ્દ: સપાટ ભાગ] હોય છે."
+    ],
+    "source": "પરાવર્તનના બે નિયમો છે. પહેલો નિયમ: આપાતકોણ અને પરાવર્તનકોણ હંમેશાં સમાન હોય છે. બીજો નિયમ: આપાતકિરણ, પરાવર્તિત કિરણ અને આપાતબિંદુએ દોરેલો લંબ એક જ સમતલમાં હોય છે.",
+    "content_terms_source": 14
+   }
+  },
+  {
+   "id": "N11",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "વાહનોમાં કયો અરીસો વપરાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે.",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 11.0,
+    "lines": [
+     "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો (convex mirror) વપરાય છે."
+    ],
+    "source": "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N12",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "મોટવણી એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    6
+   ],
+   "answer": "પ્રતિબિંબની ઊંચાઈ અને વસ્તુની ઊંચાઈના ગુણોત્તરને મોટવણી કહે છે.",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 12.5,
+    "lines": [
+     "‘મોટવણી’ (magnification) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘મોટવણી’ કહે છે? — પ્રતિબિંબની (image) ઊંચાઈ અને વસ્તુની ઊંચાઈના ગુણોત્તરને [રોજિંદો શબ્દ: ભાગાકારથી મળતું પ્રમાણ]."
+    ],
+    "source": "પ્રતિબિંબની ઊંચાઈ અને વસ્તુની ઊંચાઈના ગુણોત્તરને મોટવણી કહે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "N13",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "લીંબુના રસમાં કયો ઍસિડ હોય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "લીંબુના રસમાં સાઇટ્રિક ઍસિડ (acid) અને દહીંમાં લૅક્ટિક ઍસિડ (lactic acid) હોય છે."
+    ],
+    "source": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N14",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "કુદરતી સૂચકો કયા છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "લિટમસ અને હળદર કુદરતી સૂચકો છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "લિટમસ (litmus) અને હળદર કુદરતી સૂચકો (natural indicator) છે."
+    ],
+    "source": "લિટમસ અને હળદર કુદરતી સૂચકો છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "N15",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "pH માપક્રમ ક્યાંથી ક્યાં સુધીનો હોય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "pH માપક્રમ 0 થી 14 સુધીનો હોય છે.",
+   "intent": "range",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": false,
+    "has_glossary_terms": true,
+    "has_english_terms": false,
+    "fallback_shown": true,
+    "every_line_has_evidence": null,
+    "no_new_content_words": null,
+    "numbers_and_formulas_kept": null,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": null,
+    "lines": [],
+    "source": "pH માપક્રમ 0 થી 14 સુધીનો હોય છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "N16",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "ઍન્ટાસિડ શા માટે લેવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 13.0,
+    "avg_words_simplified_line": 16.0,
+    "lines": [
+     "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું (acid) તટસ્થીકરણ (neutralization) કરવા માટે ઍન્ટાસિડ (antacid) લેવામાં આવે છે."
+    ],
+    "source": "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+    "content_terms_source": 7
+   }
+  },
+  {
+   "id": "N17",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "જમીન વધુ બેઇઝિક હોય ત્યારે તેમાં શું ઉમેરવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "જમીન વધુ બેઇઝિક હોય ત્યારે તેમાં સેન્દ્રિય ખાતર ઉમેરવામાં આવે છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": false,
+    "has_glossary_terms": true,
+    "has_english_terms": false,
+    "fallback_shown": true,
+    "every_line_has_evidence": null,
+    "no_new_content_words": null,
+    "numbers_and_formulas_kept": null,
+    "avg_words_source_sentence": 11.0,
+    "avg_words_simplified_line": null,
+    "lines": [],
+    "source": "જમીન વધુ બેઇઝિક હોય ત્યારે તેમાં સેન્દ્રિય ખાતર ઉમેરવામાં આવે છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N18",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "સામાન્ય મીઠાનું રાસાયણિક નામ શું છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "રાસાયણિક",
+    "નામ"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N19",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "પાંદડાં લીલાં શાને કારણે દેખાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "હરિતદ્રવ્યને કારણે પર્ણનો રંગ લીલો દેખાય છે.",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "પાંદડાં",
+     "book_word": "પર્ણ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 12.0,
+    "lines": [
+     "હરિતદ્રવ્યને (chlorophyll) કારણે પર્ણનો (leaf) [રોજિંદો શબ્દ: પાંદડું] રંગ લીલો દેખાય છે."
+    ],
+    "source": "હરિતદ્રવ્યને કારણે પર્ણનો રંગ લીલો દેખાય છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N20",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "ફૂગ પોતાનો ખોરાક જાતે બનાવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "જે સજીવો પોતાનો ખોરાક જાતે બનાવે છે તેમને સ્વયંપોષી કહે છે.",
+    "લીલી વનસ્પતિ પોતાનો ખોરાક જાતે બનાવે છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "N21",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "શ્વસનથી મળતી શક્તિ શેમાં વપરાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "શ્વસનમાં મુક્ત થતી ઊર્જા સજીવની બધી ક્રિયાઓ માટે વપરાય છે.",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "શક્તિ",
+     "book_word": "ઊર્જા",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 17.0,
+    "lines": [
+     "શ્વસનમાં (respiration) મુક્ત થતી ઊર્જા [રોજિંદો શબ્દ: શક્તિ] સજીવની [રોજિંદો શબ્દ: જીવંત] બધી ક્રિયાઓ માટે વપરાય છે."
+    ],
+    "source": "શ્વસનમાં મુક્ત થતી ઊર્જા સજીવની બધી ક્રિયાઓ માટે વપરાય છે.",
+    "content_terms_source": 7
+   }
+  },
+  {
+   "id": "N22",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "વધારે ઊર્જા કયા શ્વસનમાં મળે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "વધારે",
+     "book_word": "વધુ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 16.0,
+    "avg_words_simplified_line": 30.0,
+    "lines": [
+     "જારક શ્વસનમાં (aerobic respiration) ગ્લુકોઝનું (glucose) સંપૂર્ણ [રોજિંદો શબ્દ: પૂરેપૂરું] દહન [રોજિંદો શબ્દ: બળવું] થાય છે અને કાર્બન ડાયૉક્સાઇડ (carbon dioxide), પાણી તથા વધુ ઊર્જા [રોજિંદો શબ્દ: શક્તિ] મળે છે."
+    ],
+    "source": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે.",
+    "content_terms_source": 11
+   }
+  },
+  {
+   "id": "N23",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "કસરત વખતે સ્નાયુમાં કયો ઍસિડ બને છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની અછત સર્જાય છે. આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન થાય છે અને લૅક્ટિક ઍસિડ બને છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 14.5,
+    "lines": [
+     "સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની (oxygen) અછત [રોજિંદો શબ્દ: ઓછું હોવું] સર્જાય છે.",
+     "આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન (anaerobic respiration) થાય છે અને લૅક્ટિક ઍસિડ (lactic acid) બને છે."
+    ],
+    "source": "સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની અછત સર્જાય છે. આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન થાય છે અને લૅક્ટિક ઍસિડ બને છે.",
+    "content_terms_source": 11
+   }
+  },
+  {
+   "id": "N24",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "ચળકતી સપાટી પરથી પ્રકાશ પાછો ફરે તેને શું કહેવાય?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "પ્રકાશનું કિરણ કોઈ ચળકતી સપાટી પર અથડાઈને તે જ માધ્યમમાં પાછું ફરે છે તે ઘટનાને પ્રકાશનું પરાવર્તન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 19.0,
+    "avg_words_simplified_line": 16.5,
+    "lines": [
+     "પહેલાં આ વાત સમજો: પ્રકાશનું કિરણ કોઈ ચળકતી સપાટી [રોજિંદો શબ્દ: ઉપરનો ભાગ] પર અથડાઈને તે જ માધ્યમમાં પાછું ફરે છે.",
+     "પુસ્તક કહે છે: તે ઘટનાને પ્રકાશનું પરાવર્તન (reflection of light) કહે છે."
+    ],
+    "source": "પ્રકાશનું કિરણ કોઈ ચળકતી સપાટી પર અથડાઈને તે જ માધ્યમમાં પાછું ફરે છે તે ઘટનાને પ્રકાશનું પરાવર્તન કહે છે.",
+    "content_terms_source": 11
+   }
+  },
+  {
+   "id": "N25",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "વીજળીનો પ્રવાહ માપવાનું સાધન કયું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વિદ્યુતપ્રવાહ માપવા માટે ઍમિટર વપરાય છે.",
+   "intent": "instrument",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "વીજળીનો",
+     "book_word": "વિદ્યુત",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    },
+    {
+     "asked": "પ્રવાહ",
+     "book_word": "વિદ્યુતપ્રવાહ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "વિદ્યુતપ્રવાહ (electric current) માપવા માટે ઍમિટર (ammeter) વપરાય છે."
+    ],
+    "source": "વિદ્યુતપ્રવાહ માપવા માટે ઍમિટર વપરાય છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "N26",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "શ્રેણી જોડાણમાં કુલ અવરોધ કેવી રીતે શોધાય?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "શ્રેણી જોડાણમાં કુલ અવરોધ બધા અવરોધોના સરવાળા જેટલો હોય છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "શોધાય"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "શ્રેણી જોડાણમાં (series combination) કુલ અવરોધ (resistance) બધા અવરોધોના સરવાળા જેટલો હોય છે."
+    ],
+    "source": "શ્રેણી જોડાણમાં કુલ અવરોધ બધા અવરોધોના સરવાળા જેટલો હોય છે.",
+    "content_terms_source": 7
+   }
+  },
+  {
+   "id": "N27",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "ખાટા સ્વાદવાળા પદાર્થોને શું કહે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "જે પદાર્થો સ્વાદે ખાટા હોય અને ભૂરા લિટમસપત્રને લાલ બનાવે તેમને ઍસિડ કહે છે.",
+   "intent": "naming",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "સ્વાદવાળા",
+     "book_word": "સ્વાદે",
+     "kind": "root",
+     "kind_gu": "શબ્દનું બીજું રૂપ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 14.0,
+    "avg_words_simplified_line": 12.0,
+    "lines": [
+     "‘ઍસિડ’ (acid) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘ઍસિડ’ કહે છે? — જે પદાર્થો સ્વાદે ખાટા હોય અને ભૂરા લિટમસપત્રને લાલ બનાવે તેમને."
+    ],
+    "source": "જે પદાર્થો સ્વાદે ખાટા હોય અને ભૂરા લિટમસપત્રને લાલ બનાવે તેમને ઍસિડ કહે છે.",
+    "content_terms_source": 8
+   }
+  },
+  {
+   "id": "N28",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "કીડી કરડે ત્યારે કયો ઍસિડ શરીરમાં જાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "કરડે",
+     "book_word": "ડંખ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [
+    "જાય"
+   ],
+   "did_you_mean": [],
+   "book_says": [
+    "કીડીના ડંખમાં ફૉર્મિક ઍસિડ હોય છે; તેની અસર ઘટાડવા ખાવાનો સોડા લગાવવામાં આવે છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "N29",
+   "cat": "mixed",
+   "lang": "mixed",
+   "group": null,
+   "q": "photosynthesis ક્યાં થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "પ્રકાશસંશ્લેષણ મુખ્યત્વે વનસ્પતિનાં પર્ણોમાં થાય છે.",
+   "intent": "place",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 14.0,
+    "lines": [
+     "પ્રકાશસંશ્લેષણ (photosynthesis) મુખ્યત્વે વનસ્પતિનાં [રોજિંદો શબ્દ: છોડ-ઝાડ] પર્ણોમાં (leaf) [રોજિંદો શબ્દ: પાંદડું] થાય છે."
+    ],
+    "source": "પ્રકાશસંશ્લેષણ મુખ્યત્વે વનસ્પતિનાં પર્ણોમાં થાય છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "N30",
+   "cat": "mixed",
+   "lang": "mixed",
+   "group": null,
+   "q": "ammeter ને circuit માં કેવી રીતે જોડાય?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "જોડાય",
+     "book_word": "જોડાણમાં",
+     "kind": "root",
+     "kind_gu": "શબ્દનું બીજું રૂપ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "ઍમિટરને (ammeter) પરિપથમાં (circuit) હંમેશાં શ્રેણીમાં જોડવામાં આવે છે."
+    ],
+    "source": "ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "N31",
+   "cat": "mixed",
+   "lang": "mixed",
+   "group": null,
+   "q": "neutral solution નું pH કેટલું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.",
+   "intent": "quantity",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "તટસ્થ (neutral) દ્રાવણનું (solution) pH મૂલ્ય 7 હોય છે."
+    ],
+    "source": "તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "N32",
+   "cat": "mixed",
+   "lang": "mixed",
+   "group": null,
+   "q": "convex mirror નો use શું છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે.",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 11.0,
+    "lines": [
+     "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો (convex mirror) વપરાય છે."
+    ],
+    "source": "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N33",
+   "cat": "mixed",
+   "lang": "mixed",
+   "group": null,
+   "q": "aerobic respiration માં glucose નું શું થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 16.0,
+    "avg_words_simplified_line": 30.0,
+    "lines": [
+     "જારક શ્વસનમાં (aerobic respiration) ગ્લુકોઝનું (glucose) સંપૂર્ણ [રોજિંદો શબ્દ: પૂરેપૂરું] દહન [રોજિંદો શબ્દ: બળવું] થાય છે અને કાર્બન ડાયૉક્સાઇડ (carbon dioxide), પાણી તથા વધુ ઊર્જા [રોજિંદો શબ્દ: શક્તિ] મળે છે."
+    ],
+    "source": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે.",
+    "content_terms_source": 11
+   }
+  },
+  {
+   "id": "N34",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "Which gas is released during photosynthesis?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે. આ પ્રક્રિયામાં ઑક્સિજન વાયુ મુક્ત થાય છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 12.5,
+    "avg_words_simplified_line": 15.3,
+    "lines": [
+     "પહેલાં આ વાત સમજો: લીલી વનસ્પતિ [રોજિંદો શબ્દ: છોડ-ઝાડ] સૂર્યપ્રકાશ (sunlight) અને હરિતદ્રવ્યની (chlorophyll) હાજરીમાં [રોજિંદો શબ્દ: હોવું તે] કાર્બન ડાયૉક્સાઇડ (carbon dioxide) અને પાણીમાંથી ગ્લુકોઝ (glucose) બનાવે છે.",
+     "પુસ્તક કહે છે: તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ (photosynthesis) કહે છે.",
+     "આ પ્રક્રિયામાં ઑક્સિજન (oxygen) વાયુ મુક્ત થાય છે."
+    ],
+    "source": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે. આ પ્રક્રિયામાં ઑક્સિજન વાયુ મુક્ત થાય છે.",
+    "content_terms_source": 15
+   }
+  },
+  {
+   "id": "N35",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "What is the unit of electric power?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે.",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 7.0,
+    "lines": [
+     "વિદ્યુતપાવરનો (electric power) એકમ વૉટ (watt) છે."
+    ],
+    "source": "વિદ્યુતપાવરનો એકમ વૉટ છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "N36",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "Where does respiration take place?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "શ્વસન દરેક સજીવ કોષમાં થાય છે.",
+   "intent": "place",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 11.0,
+    "lines": [
+     "શ્વસન (respiration) દરેક સજીવ [રોજિંદો શબ્દ: જીવંત] કોષમાં (cell) થાય છે."
+    ],
+    "source": "શ્વસન દરેક સજીવ કોષમાં થાય છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "N37",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "Why is antacid taken?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 13.0,
+    "avg_words_simplified_line": 16.0,
+    "lines": [
+     "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું (acid) તટસ્થીકરણ (neutralization) કરવા માટે ઍન્ટાસિડ (antacid) લેવામાં આવે છે."
+    ],
+    "source": "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+    "content_terms_source": 7
+   }
+  },
+  {
+   "id": "N38",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "What is the unit of focal length?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N39",
+   "cat": "misspelling",
+   "lang": "gu",
+   "group": null,
+   "q": "વિધુતપ્રવાહનો એકમ કયો છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે.",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "વિધુતપ્રવાહનો",
+     "book_word": "વિદ્યુતપ્રવાહ",
+     "kind": "fuzzy",
+     "kind_gu": "જોડણી ધારી",
+     "confidence": 0.82,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 7.0,
+    "lines": [
+     "વિદ્યુતપ્રવાહનો (electric current) એકમ ઍમ્પિયર (ampere) છે."
+    ],
+    "source": "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "N40",
+   "cat": "misspelling",
+   "lang": "gu",
+   "group": null,
+   "q": "પરણરંધ્ર એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણની સપાટી પર આવેલાં સૂક્ષ્મ છિદ્રોને પર્ણરંધ્ર કહે છે.",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [
+    {
+     "asked": "પરણરંધ્ર",
+     "book_word": "પર્ણરંધ્ર",
+     "kind": "spelling",
+     "kind_gu": "જોડણી સુધારી",
+     "confidence": 1.0,
+     "normalisation": true
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 17.0,
+    "lines": [
+     "‘પર્ણરંધ્ર’ (stomata) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘પર્ણરંધ્ર’ કહે છે? — પર્ણની (leaf) [રોજિંદો શબ્દ: પાંદડું] સપાટી [રોજિંદો શબ્દ: ઉપરનો ભાગ] પર આવેલાં સૂક્ષ્મ [રોજિંદો શબ્દ: ખૂબ ઝીણું] છિદ્રોને [રોજિંદો શબ્દ: કાણું]."
+    ],
+    "source": "પર્ણની સપાટી પર આવેલાં સૂક્ષ્મ છિદ્રોને પર્ણરંધ્ર કહે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "N41",
+   "cat": "misspelling",
+   "lang": "gu",
+   "group": null,
+   "q": "તટસ્થિકરણમાં શું મુક્ત થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 10.0,
+    "lines": [
+     "તટસ્થીકરણની (neutralization) પ્રક્રિયામાં ઉષ્મા [રોજિંદો શબ્દ: ગરમી] મુક્ત થાય છે."
+    ],
+    "source": "તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "N42",
+   "cat": "misspelling",
+   "lang": "gu",
+   "group": null,
+   "q": "બાષ્પોત્સરજન એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણરંધ્ર દ્વારા પાણી બાષ્પ સ્વરૂપે બહાર નીકળે છે તે ક્રિયાને બાષ્પોત્સર્જન કહે છે.",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [
+    {
+     "asked": "બાષ્પોત્સરજન",
+     "book_word": "બાષ્પોત્સર્જન",
+     "kind": "spelling",
+     "kind_gu": "જોડણી સુધારી",
+     "confidence": 1.0,
+     "normalisation": true
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 13.0,
+    "avg_words_simplified_line": 11.5,
+    "lines": [
+     "પહેલાં આ વાત સમજો: પર્ણરંધ્ર (stomata) દ્વારા પાણી બાષ્પ (vapour) સ્વરૂપે બહાર નીકળે છે.",
+     "પુસ્તક કહે છે: તે ક્રિયાને બાષ્પોત્સર્જન (transpiration) કહે છે."
+    ],
+    "source": "પર્ણરંધ્ર દ્વારા પાણી બાષ્પ સ્વરૂપે બહાર નીકળે છે તે ક્રિયાને બાષ્પોત્સર્જન કહે છે.",
+    "content_terms_source": 8
+   }
+  },
+  {
+   "id": "N43",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "group": null,
+   "q": "વોલ્ટમીટર શેનો એકમ છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "reverse_unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N44",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "group": null,
+   "q": "ઍમિટરનો એકમ કયો છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N45",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "group": null,
+   "q": "પર્ણરંધ્રનો રંગ કેવો હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N46",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "group": null,
+   "q": "બહિર્ગોળ અરીસાની વક્રતાત્રિજ્યા કેટલી હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "quantity",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N47",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "group": null,
+   "q": "અજારક શ્વસનમાં કેટલી ઊર્જા મળે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે.",
+   "intent": "quantity",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 12.0,
+    "avg_words_simplified_line": 24.0,
+    "lines": [
+     "અજારક શ્વસનમાં (anaerobic respiration) ગ્લુકોઝનું (glucose) અપૂર્ણ [રોજિંદો શબ્દ: અધૂરું] દહન [રોજિંદો શબ્દ: બળવું] થાય છે અને ઓછી ઊર્જા [રોજિંદો શબ્દ: શક્તિ] મળે છે."
+    ],
+    "source": "અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે.",
+    "content_terms_source": 8
+   }
+  },
+  {
+   "id": "N48",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "group": null,
+   "q": "વોલ્ટમીટર કેવી રીતે જોડાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "જોડાય",
+     "book_word": "જોડાણમાં",
+     "kind": "root",
+     "kind_gu": "શબ્દનું બીજું રૂપ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "વોલ્ટમીટરને (voltmeter) પરિપથમાં (circuit) હંમેશાં સમાંતર જોડવામાં આવે છે."
+    ],
+    "source": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "N49",
+   "cat": "adversarial",
+   "lang": "gu",
+   "group": null,
+   "q": "ફેફસાંમાં પ્રકાશસંશ્લેષણ કેવી રીતે થાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N50",
+   "cat": "adversarial",
+   "lang": "gu",
+   "group": null,
+   "q": "દાંતના ડૉક્ટર બહિર્ગોળ અરીસો ક્યાં વાપરે છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "વાપરે",
+     "book_word": "વપરાય",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "દાંતના ડૉક્ટર અંતર્ગોળ અરીસાનો ઉપયોગ કરે છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "N51",
+   "cat": "adversarial",
+   "lang": "gu",
+   "group": null,
+   "q": "ઓહ્મના નિયમ મુજબ લિટમસપત્રનો રંગ કેવો થાય?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N52",
+   "cat": "adversarial",
+   "lang": "gu",
+   "group": null,
+   "q": "હળદર કયા શ્વસનમાં વપરાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N53",
+   "cat": "adversarial",
+   "lang": "gu",
+   "group": null,
+   "q": "સાબુનું દ્રાવણ ઍસિડિક છે કે તટસ્થ?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "choice",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N54",
+   "cat": "adversarial",
+   "lang": "gu",
+   "group": null,
+   "q": "વિદ્યુતપ્રવાહનું pH મૂલ્ય કેટલું હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "quantity",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "N55",
+   "cat": "adversarial",
+   "lang": "gu",
+   "group": null,
+   "q": "સૂર્યપ્રકાશનો એકમ ઍમ્પિયર કેમ છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "N56",
+   "cat": "unsupported",
+   "lang": "gu",
+   "group": null,
+   "q": "ન્યૂટનનો ગતિનો પહેલો નિયમ લખો.",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "ન્યૂટનનો",
+    "ગતિનો"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N57",
+   "cat": "unsupported",
+   "lang": "gu",
+   "group": null,
+   "q": "હૃદયનું કાર્ય શું છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "function",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "હૃદયનું"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N58",
+   "cat": "unsupported",
+   "lang": "gu",
+   "group": null,
+   "q": "ગુજરાતની રાજધાની કઈ છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "no_evidence",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "ગુજરાતની",
+    "રાજધાની"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N59",
+   "cat": "unsupported",
+   "lang": "gu",
+   "group": null,
+   "q": "પ્રકાશનું વક્રીભવન એટલે શું?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "વક્રીભવન"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N60",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "group": null,
+   "q": "ઍસિડ",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "ambiguous_question",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N61",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "group": null,
+   "q": "ગ્લુકોઝ",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "ambiguous_question",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N62",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલા વોલ્ટ છે?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "outcome": "conflict_detected",
+   "status": "edition_conflict",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [],
+   "answer": "2: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે. (p.8) || 3: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે. (p.2)",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "N63",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "વિદ્યુતપાવરનો એકમ કયો?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે.",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 7.0,
+    "lines": [
+     "વિદ્યુતપાવરનો (electric power) એકમ વૉટ (watt) છે."
+    ],
+    "source": "વિદ્યુતપાવરનો એકમ વૉટ છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "N64",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "હરિતદ્રવ્ય એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે.",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘હરિતદ્રવ્ય’ (chlorophyll) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘હરિતદ્રવ્ય’ કહે છે? — પર્ણના (leaf) [રોજિંદો શબ્દ: પાંદડું] કોષોમાં (cell) આવેલા લીલા રંગના દ્રવ્યને [રોજિંદો શબ્દ: પદાર્થ]."
+    ],
+    "source": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N65",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "ચેકડેમ શેની રીત છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "ખેત-તલાવડી, ચેકડેમ અને બોરીબંધ જળસંચયની રીતો છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "ખેત-તલાવડી, ચેકડેમ અને બોરીબંધ જળસંચયની (rainwater harvesting) રીતો છે."
+    ],
+    "source": "ખેત-તલાવડી, ચેકડેમ અને બોરીબંધ જળસંચયની રીતો છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N66",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "નૈઋત્ય ખૂણો કઈ બે દિશાઓ વચ્ચે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "કોષ્ટક 2.1: ખૂણાની દિશાઓ\n| ખૂણો | કઈ બે દિશાઓ વચ્ચે |\n| ઈશાન | ઉત્તર અને પૂર્વ |\n| અગ્નિ | દક્ષિણ અને પૂર્વ |\n| નૈઋત્ય | દક્ષિણ અને પશ્ચિમ |\n| વાયવ્ય | ઉત્તર અને પશ્ચિમ |",
+   "intent": "between",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": false,
+    "has_glossary_terms": true,
+    "has_english_terms": false,
+    "fallback_shown": true,
+    "every_line_has_evidence": null,
+    "no_new_content_words": null,
+    "numbers_and_formulas_kept": null,
+    "avg_words_source_sentence": null,
+    "avg_words_simplified_line": null,
+    "lines": [],
+    "source": "કોષ્ટક 2.1: ખૂણાની દિશાઓ\n| ખૂણો | કઈ બે દિશાઓ વચ્ચે |\n| ઈશાન | ઉત્તર અને પૂર્વ |\n| અગ્નિ | દક્ષિણ અને પૂર્વ |\n| નૈઋત્ય | દક્ષિણ અને પશ્ચિમ |\n| વાયવ્ય | ઉત્તર અને પશ્ચિમ |",
+    "content_terms_source": 11
+   }
+  },
+  {
+   "id": "N67",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "મુખ્ય દિશાઓ કેટલી છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "મુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ.",
+   "intent": "quantity",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 10.0,
+    "lines": [
+     "મુખ્ય દિશાઓ (direction) ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ."
+    ],
+    "source": "મુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "N68",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": null,
+   "q": "વાદળ કેવી રીતે બને છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વરાળ ઠંડી પડીને વાદળ બને છે અને વરસાદ રૂપે જમીન પર પાછી આવે છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 14.0,
+    "avg_words_simplified_line": 15.0,
+    "lines": [
+     "વરાળ (steam) ઠંડી પડીને વાદળ બને છે અને વરસાદ રૂપે જમીન પર પાછી આવે છે."
+    ],
+    "source": "વરાળ ઠંડી પડીને વાદળ બને છે અને વરસાદ રૂપે જમીન પર પાછી આવે છે.",
+    "content_terms_source": 9
+   }
+  },
+  {
+   "id": "N69",
+   "cat": "direct",
+   "lang": "gu",
+   "group": null,
+   "q": "નકશાનાં મુખ્ય અંગો કયાં છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "નકશાના ત્રણ મુખ્ય અંગો છે: દિશા, પ્રમાણમાપ અને રૂઢ સંજ્ઞાઓ.",
+   "intent": "organ",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 15.0,
+    "lines": [
+     "નકશાના (map) ત્રણ મુખ્ય અંગો (organ) છે: દિશા (direction), પ્રમાણમાપ (map scale) અને રૂઢ સંજ્ઞાઓ."
+    ],
+    "source": "નકશાના ત્રણ મુખ્ય અંગો છે: દિશા, પ્રમાણમાપ અને રૂઢ સંજ્ઞાઓ.",
+    "content_terms_source": 8
+   }
+  },
+  {
+   "id": "N70",
+   "cat": "unsupported",
+   "lang": "gu",
+   "group": null,
+   "q": "ભારતનો નકશો કોણે બનાવ્યો?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "ભારતનો",
+    "કોણે",
+    "બનાવ્યો"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  }
+ ]
+}

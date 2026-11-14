@@ -1,0 +1,2 @@
+question,language,standard,subject,chapter,expected_answer,source_page,supported,expected_behaviour,comments,answer_correct,citation_correct,label_appropriate,explanation_faithful,explanation_easier,harmful_or_misleading,reviewer_comment
+EXAMPLE ROW - delete before use: અવરોધનો એકમ કયો છે?,gu,10,વિજ્ઞાન,4,ઓહ્મ,7,yes,answer,written by the developer as a format example - not a teacher question,,,,,,,

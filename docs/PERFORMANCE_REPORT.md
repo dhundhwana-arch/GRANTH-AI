@@ -38,3 +38,35 @@ Repeated text is not a real book: vocabulary does not grow, so this understates 
 ## Dependencies
 
 No model and no paid service is used. A local embedding model was not added: it could not be downloaded here, so neither its benefit nor its cost was demonstrated.
+
+## Phase 5 measurements (engine 1.4, 2026-11-14)
+
+All figures are from the development sandbox, a Linux container. **None is an Android measurement.** Device performance is not tested.
+
+| Measure | Result |
+|---|---|
+| Question latency, no cache (59 questions) | median 2.7 ms, 95th percentile 7.4 ms, slowest 56 ms |
+| Question latency, cached | median 1.4 ms |
+| Retrieval only (90 frozen questions) | median 0.19 ms, 95th percentile 1.7 ms |
+| Python import | 0.08 s |
+| Index build, demo corpus | 0.02 s |
+| Server start to first health response | 0.11 s |
+| Peak memory, benchmark process | 29 MB |
+| Server memory after the load run | 50 MB |
+| Database file | 9.3 MB after the development runs (history rows included) |
+| Large synthetic corpus, 9,797 chunks | index 1.8 s, question median 20.5 ms, slowest 34 ms, peak memory 158 MB |
+| HTTP, 1 client, 8 requests | median 5.7 ms |
+| HTTP, 8 parallel clients, 64 requests | all succeeded, median 15 ms, 95th percentile 120 ms |
+| HTTP, 32 parallel clients, 256 requests | 167 succeeded, 89 got 429 from the per-address rate limit; successful ones median 15 ms, 95th percentile 342 ms |
+
+The Phase 5 validation stages (polarity, premise, term confidence) added well under 1 ms to the median compared with Phase 4 (2.1 ms).
+
+Scripts: `benchmarks/run_performance.py`, `benchmarks/phase5/run_concurrency.py`. Output: `benchmarks/results/phase5/phase5_performance.json`. The Phase 4 result file is unchanged.
+
+| | |
+|---|---|
+| Implemented | measurement scripts |
+| Automatically tested | server-side latency, memory, start-up, synthetic large corpus, concurrency from one machine |
+| Manually tested | none |
+| Not tested | Android phone or tablet, slow networks, real textbooks of real size, many clients from different addresses, OCR time on a device |
+| Blocked | device measurements (no device available) |

@@ -1,0 +1,2977 @@
+{
+ "suite": "GRANTH-AI phase 5 DEVELOPMENT set",
+ "engine_version": "extractive-1.4",
+ "questions": 76,
+ "overall": {
+  "n": 76,
+  "pass": 75,
+  "correct_answer": 43,
+  "wrong_answer": 0,
+  "correct_refusal": 27,
+  "incorrect_refusal": 1,
+  "conflict_detected": 5,
+  "conflict_missed": 0
+ },
+ "counts": {
+  "total": 76,
+  "answerable": 42,
+  "unanswerable": 20,
+  "either": 8,
+  "edition_conflict": 6
+ },
+ "metrics": {
+  "correct_answers": {
+   "count": 42,
+   "of": 42
+  },
+  "wrong_answers": {
+   "count": 0,
+   "of": 76
+  },
+  "correct_refusals": {
+   "count": 20,
+   "of": 20
+  },
+  "incorrect_refusals": {
+   "count": 1,
+   "of": 48
+  },
+  "false_verified": {
+   "count": 0,
+   "of": 23
+  },
+  "citation_accuracy": {
+   "count": 43,
+   "of": 43
+  },
+  "edition_conflict": {
+   "count": 5,
+   "of": 6
+  }
+ },
+ "confusion_matrix": {
+  "rows": "expected behaviour",
+  "columns": "actual behaviour",
+  "matrix": {
+   "answered": {
+    "answered_correctly": 42
+   },
+   "abstained": {
+    "refused": 20
+   },
+   "either": {
+    "refused": 7,
+    "answered_correctly": 1
+   },
+   "edition_conflict": {
+    "showed_both_editions": 5,
+    "refused": 1
+   }
+  }
+ },
+ "by_category": {
+  "negation": {
+   "n": 16,
+   "pass": 16,
+   "correct_answer": 11,
+   "wrong_answer": 0,
+   "correct_refusal": 5,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "unknown_term": {
+   "n": 13,
+   "pass": 13,
+   "correct_answer": 4,
+   "wrong_answer": 0,
+   "correct_refusal": 9,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "false_premise": {
+   "n": 10,
+   "pass": 10,
+   "correct_answer": 1,
+   "wrong_answer": 0,
+   "correct_refusal": 9,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "paraphrase": {
+   "n": 22,
+   "pass": 22,
+   "correct_answer": 19,
+   "wrong_answer": 0,
+   "correct_refusal": 3,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "english": {
+   "n": 8,
+   "pass": 8,
+   "correct_answer": 7,
+   "wrong_answer": 0,
+   "correct_refusal": 1,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "edition_conflict": {
+   "n": 7,
+   "pass": 6,
+   "correct_answer": 1,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 1,
+   "conflict_detected": 5,
+   "conflict_missed": 0
+  }
+ },
+ "by_language": {
+  "gu": {
+   "n": 53,
+   "pass": 52,
+   "correct_answer": 28,
+   "wrong_answer": 0,
+   "correct_refusal": 21,
+   "incorrect_refusal": 1,
+   "conflict_detected": 3,
+   "conflict_missed": 0
+  },
+  "en": {
+   "n": 18,
+   "pass": 18,
+   "correct_answer": 11,
+   "wrong_answer": 0,
+   "correct_refusal": 6,
+   "incorrect_refusal": 0,
+   "conflict_detected": 1,
+   "conflict_missed": 0
+  },
+  "mixed": {
+   "n": 5,
+   "pass": 5,
+   "correct_answer": 4,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 1,
+   "conflict_missed": 0
+  }
+ },
+ "paraphrase_groups": {
+  "groups": 11,
+  "all_phrasings_handled": 11,
+  "detail": {
+   "neg-anaerobic": "8/8",
+   "pos-aerobic": "3/3",
+   "o2": "2/2",
+   "water": "4/4",
+   "chl": "2/2",
+   "pain": "2/2",
+   "vm": "2/2",
+   "curd": "2/2",
+   "neut": "3/3",
+   "phph": "2/2",
+   "resp": "2/2"
+  }
+ },
+ "explanations_automatic": {
+  "answers_checked": 43,
+  "with_simplified_lines": 43,
+  "fallback_shown": 0,
+  "with_glossary_terms": 39,
+  "with_english_terms": 40,
+  "lines_without_new_content_words": {
+   "count": 43,
+   "of": 43
+  },
+  "lines_with_evidence_link": {
+   "count": 43,
+   "of": 43
+  },
+  "numbers_and_formulas_kept": {
+   "count": 43,
+   "of": 43
+  },
+  "note": "automatic checks only; meaning preservation and readability are NOT judged by this script"
+ },
+ "failures": [
+  {
+   "id": "D105",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "ઘરમાં વપરાતી વીજળી કેટલા વોલ્ટની હોય છે?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "ઘરમાં",
+     "book_word": "ઘરવપરાશ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    },
+    {
+     "asked": "વીજળી",
+     "book_word": "વિદ્યુત",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [
+    "વપરાતી"
+   ],
+   "did_you_mean": [
+    {
+     "asked": "વપરાતી",
+     "book_word": "વપરાય"
+    }
+   ],
+   "book_says": [
+    "આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે."
+   ],
+   "explanation": null
+  }
+ ],
+ "rows": [
+  {
+   "id": "D001",
+   "cat": "negation",
+   "lang": "gu",
+   "group": "neg-anaerobic",
+   "q": "ઑક્સિજન ન હોય ત્યારે થતા શ્વસનને શું કહે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [
+    "ઓક્સિજન"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘અજારક શ્વસન’ (anaerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘અજારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) ગેરહાજરીમાં [રોજિંદો શબ્દ: ન હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D002",
+   "cat": "negation",
+   "lang": "gu",
+   "group": "neg-anaerobic",
+   "q": "ઑક્સિજન વગર થતા શ્વસનને શું કહે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [
+    "ઓક્સિજન"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘અજારક શ્વસન’ (anaerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘અજારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) ગેરહાજરીમાં [રોજિંદો શબ્દ: ન હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D003",
+   "cat": "negation",
+   "lang": "gu",
+   "group": "neg-anaerobic",
+   "q": "જે શ્વસનમાં ઑક્સિજન હાજર નથી તેને શું કહેવાય?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [
+    "ઓક્સિજન"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘અજારક શ્વસન’ (anaerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘અજારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) ગેરહાજરીમાં [રોજિંદો શબ્દ: ન હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D004",
+   "cat": "negation",
+   "lang": "gu",
+   "group": "neg-anaerobic",
+   "q": "ઑક્સિજન વિના થતું શ્વસન કયું છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+   "intent": "fact",
+   "negated_terms": [
+    "ઓક્સિજન"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘અજારક શ્વસન’ (anaerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘અજારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) ગેરહાજરીમાં [રોજિંદો શબ્દ: ન હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D005",
+   "cat": "negation",
+   "lang": "gu",
+   "group": "pos-aerobic",
+   "q": "ઑક્સિજન હોય ત્યારે થતા શ્વસનને શું કહે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની હાજરીમાં થતા શ્વસનને જારક શ્વસન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "‘જારક શ્વસન’ (aerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘જારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) હાજરીમાં [રોજિંદો શબ્દ: હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની હાજરીમાં થતા શ્વસનને જારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D006",
+   "cat": "negation",
+   "lang": "gu",
+   "group": "pos-aerobic",
+   "q": "ઑક્સિજનની હાજરીમાં થતું શ્વસન કયું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની હાજરીમાં થતા શ્વસનને જારક શ્વસન કહે છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "‘જારક શ્વસન’ (aerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘જારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) હાજરીમાં [રોજિંદો શબ્દ: હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની હાજરીમાં થતા શ્વસનને જારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D007",
+   "cat": "negation",
+   "lang": "en",
+   "group": "neg-anaerobic",
+   "q": "What is respiration without oxygen called?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [
+    "ઓક્સિજન"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘અજારક શ્વસન’ (anaerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘અજારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) ગેરહાજરીમાં [રોજિંદો શબ્દ: ન હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D008",
+   "cat": "negation",
+   "lang": "en",
+   "group": "neg-anaerobic",
+   "q": "Which respiration takes place in the absence of oxygen?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+   "intent": "fact",
+   "negated_terms": [
+    "ઓક્સિજન"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘અજારક શ્વસન’ (anaerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘અજારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) ગેરહાજરીમાં [રોજિંદો શબ્દ: ન હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D009",
+   "cat": "negation",
+   "lang": "en",
+   "group": "neg-anaerobic",
+   "q": "What is the respiration called when oxygen is not present?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [
+    "ઓક્સિજન"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘અજારક શ્વસન’ (anaerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘અજારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) ગેરહાજરીમાં [રોજિંદો શબ્દ: ન હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D010",
+   "cat": "negation",
+   "lang": "en",
+   "group": "pos-aerobic",
+   "q": "What is respiration in the presence of oxygen called?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની હાજરીમાં થતા શ્વસનને જારક શ્વસન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "‘જારક શ્વસન’ (aerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘જારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) હાજરીમાં [રોજિંદો શબ્દ: હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની હાજરીમાં થતા શ્વસનને જારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D011",
+   "cat": "negation",
+   "lang": "gu",
+   "group": null,
+   "q": "સૂર્યપ્રકાશ વગર પ્રકાશસંશ્લેષણ કેવી રીતે થાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "process",
+   "negated_terms": [
+    "સુર્યપ્રકાશ"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D012",
+   "cat": "negation",
+   "lang": "gu",
+   "group": null,
+   "q": "હરિતદ્રવ્ય ન હોય તો પર્ણનો રંગ કેવો દેખાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [
+    "હરિતદ્રવ્ય"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D013",
+   "cat": "negation",
+   "lang": "gu",
+   "group": null,
+   "q": "કયો સૂચક કુદરતી નથી?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [
+    "કુદરત"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D014",
+   "cat": "negation",
+   "lang": "en",
+   "group": null,
+   "q": "Which mirror is not used in vehicles?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "use",
+   "negated_terms": [
+    "અરિસ"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D015",
+   "cat": "negation",
+   "lang": "mixed",
+   "group": "neg-anaerobic",
+   "q": "oxygen ન હોય ત્યારે થતા respiration ને શું કહે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+   "intent": "naming",
+   "negated_terms": [
+    "ઓક્સિજન"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘અજારક શ્વસન’ (anaerobic respiration) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘અજારક શ્વસન’ કહે છે? — ઑક્સિજનની (oxygen) ગેરહાજરીમાં [રોજિંદો શબ્દ: ન હોવું તે] થતા શ્વસનને (respiration)."
+    ],
+    "source": "ઑક્સિજનની ગેરહાજરીમાં થતા શ્વસનને અજારક શ્વસન કહે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D016",
+   "cat": "negation",
+   "lang": "gu",
+   "group": null,
+   "q": "પાણી વગર તટસ્થીકરણ કેવી રીતે થાય?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "process",
+   "negated_terms": [
+    "પાણ"
+   ],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D020",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "વૉટમીટર કેવી રીતે જોડાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "જોડાય",
+     "book_word": "જોડાણમાં",
+     "kind": "root",
+     "kind_gu": "શબ્દનું બીજું રૂપ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [
+    "વૉટમીટર"
+   ],
+   "did_you_mean": [
+    {
+     "asked": "વૉટમીટર",
+     "book_word": "વોલ્ટમીટર"
+    }
+   ],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D021",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "ફોટોમીટર શું માપે છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "no_evidence",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "ફોટોમીટર",
+    "માપે"
+   ],
+   "did_you_mean": [
+    {
+     "asked": "માપે",
+     "book_word": "માપવા"
+    }
+   ],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D022",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "ઝાયલેમનું કાર્ય શું છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "function",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "ઝાયલેમનું"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D023",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "અવરોઘનો એકમ કયો છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "અવરોધનો એકમ ઓહ્મ છે.",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "અવરોઘનો",
+     "book_word": "અવરોધ",
+     "kind": "fuzzy",
+     "kind_gu": "જોડણી ધારી",
+     "confidence": 0.8,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 6.0,
+    "lines": [
+     "અવરોધનો (resistance) એકમ ઓહ્મ (ohm) છે."
+    ],
+    "source": "અવરોધનો એકમ ઓહ્મ છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "D024",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "પ્રકાશસંસ્લેષણ એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "definition",
+   "pages": [
+    1
+   ],
+   "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે.",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [
+    {
+     "asked": "પ્રકાશસંસ્લેષણ",
+     "book_word": "પ્રકાશસંશ્લેષણ",
+     "kind": "fuzzy",
+     "kind_gu": "જોડણી ધારી",
+     "confidence": 0.91,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 18.0,
+    "avg_words_simplified_line": 19.0,
+    "lines": [
+     "પહેલાં આ વાત સમજો: લીલી વનસ્પતિ [રોજિંદો શબ્દ: છોડ-ઝાડ] સૂર્યપ્રકાશ (sunlight) અને હરિતદ્રવ્યની (chlorophyll) હાજરીમાં [રોજિંદો શબ્દ: હોવું તે] કાર્બન ડાયૉક્સાઇડ (carbon dioxide) અને પાણીમાંથી ગ્લુકોઝ (glucose) બનાવે છે.",
+     "પુસ્તક કહે છે: તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ (photosynthesis) કહે છે."
+    ],
+    "source": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે.",
+    "content_terms_source": 12
+   }
+  },
+  {
+   "id": "D025",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "ઍમીટર શેના માટે વપરાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વિદ્યુતપ્રવાહ માપવા માટે ઍમિટર વપરાય છે.",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "વિદ્યુતપ્રવાહ (electric current) માપવા માટે ઍમિટર (ammeter) વપરાય છે."
+    ],
+    "source": "વિદ્યુતપ્રવાહ માપવા માટે ઍમિટર વપરાય છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D026",
+   "cat": "unknown_term",
+   "lang": "en",
+   "group": null,
+   "q": "What is fotosynthesis?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "no_evidence",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "fotosynthesis"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D027",
+   "cat": "unknown_term",
+   "lang": "en",
+   "group": null,
+   "q": "What is a wattmeter?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "no_evidence",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "wattmeter"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D028",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "ઝાડ પોતાનો ખોરાક ક્યાં બનાવે છે?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "place",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "ઝાડ",
+     "book_word": "વનસ્પતિ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "જે સજીવો પોતાનો ખોરાક જાતે બનાવે છે તેમને સ્વયંપોષી કહે છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D029",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "સ્ટાર્ટ એટલે શું?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "no_evidence",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "સ્ટાર્ટ"
+   ],
+   "did_you_mean": [
+    {
+     "asked": "સ્ટાર્ટ",
+     "book_word": "સ્ટાર્ચના"
+    }
+   ],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D030",
+   "cat": "unknown_term",
+   "lang": "mixed",
+   "group": null,
+   "q": "volt meter ને કેવી રીતે જોડવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "વોલ્ટમીટરને (voltmeter) પરિપથમાં (circuit) હંમેશાં સમાંતર જોડવામાં આવે છે."
+    ],
+    "source": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D031",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "બ્લૂટૂથનો એકમ કયો છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "બ્લૂટૂથનો"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D032",
+   "cat": "unknown_term",
+   "lang": "gu",
+   "group": null,
+   "q": "પરાવર્તક કોણ એટલે શું?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "definition_not_found",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D040",
+   "cat": "false_premise",
+   "lang": "gu",
+   "group": null,
+   "q": "અંતર્ગોળ અરીસો વાહનોમાં શા માટે વપરાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે.",
+    "જે ગોળીય અરીસાની પરાવર્તક સપાટી અંદરની તરફ વળેલી હોય તેને અંતર્ગોળ અરીસો કહે છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D041",
+   "cat": "false_premise",
+   "lang": "gu",
+   "group": null,
+   "q": "અવરોધનો એકમ વોલ્ટ કેમ છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે.",
+    "અવરોધનો એકમ ઓહ્મ છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D042",
+   "cat": "false_premise",
+   "lang": "gu",
+   "group": null,
+   "q": "જારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન કેમ થાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે.",
+    "અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D043",
+   "cat": "false_premise",
+   "lang": "gu",
+   "group": null,
+   "q": "ઍમિટરને સમાંતર કેમ જોડવામાં આવે છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે.",
+    "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D044",
+   "cat": "false_premise",
+   "lang": "gu",
+   "group": null,
+   "q": "ચૂનાનું પાણી ઍસિડિક કેમ હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "જમીન વધુ ઍસિડિક હોય ત્યારે તેમાં ચૂનો ઉમેરવામાં આવે છે.",
+    "સાબુનું દ્રાવણ અને ચૂનાનું પાણી બેઇઝિક હોય છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D045",
+   "cat": "false_premise",
+   "lang": "en",
+   "group": null,
+   "q": "Why is a concave mirror used in vehicles?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D046",
+   "cat": "false_premise",
+   "lang": "en",
+   "group": null,
+   "q": "Why is the unit of resistance the volt?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે.",
+    "અવરોધનો એકમ ઓહ્મ છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D047",
+   "cat": "false_premise",
+   "lang": "gu",
+   "group": null,
+   "q": "ફિનોલ્ફ્થેલીન કુદરતી સૂચક કેમ કહેવાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [
+    "લિટમસ અને હળદર કુદરતી સૂચકો છે.",
+    "ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D048",
+   "cat": "false_premise",
+   "lang": "gu",
+   "group": null,
+   "q": "તટસ્થ દ્રાવણનું pH મૂલ્ય 9 કેમ હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "numbers_not_in_source",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "9"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D049",
+   "cat": "false_premise",
+   "lang": "gu",
+   "group": null,
+   "q": "દાંતના ડૉક્ટર અંતર્ગોળ અરીસાનો ઉપયોગ કરે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "દાંતના ડૉક્ટર અંતર્ગોળ અરીસાનો ઉપયોગ કરે છે.",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "દાંતના ડૉક્ટર અંતર્ગોળ અરીસાનો (concave mirror) ઉપયોગ કરે છે."
+    ],
+    "source": "દાંતના ડૉક્ટર અંતર્ગોળ અરીસાનો ઉપયોગ કરે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D060",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "o2",
+   "q": "પ્રકાશસંશ્લેષણમાં કયો વાયુ છૂટો પડે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે. આ પ્રક્રિયામાં ઑક્સિજન વાયુ મુક્ત થાય છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "છૂટો",
+     "book_word": "મુક્ત",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 12.5,
+    "avg_words_simplified_line": 15.3,
+    "lines": [
+     "પહેલાં આ વાત સમજો: લીલી વનસ્પતિ [રોજિંદો શબ્દ: છોડ-ઝાડ] સૂર્યપ્રકાશ (sunlight) અને હરિતદ્રવ્યની (chlorophyll) હાજરીમાં [રોજિંદો શબ્દ: હોવું તે] કાર્બન ડાયૉક્સાઇડ (carbon dioxide) અને પાણીમાંથી ગ્લુકોઝ (glucose) બનાવે છે.",
+     "પુસ્તક કહે છે: તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ (photosynthesis) કહે છે.",
+     "આ પ્રક્રિયામાં ઑક્સિજન (oxygen) વાયુ મુક્ત થાય છે."
+    ],
+    "source": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે. આ પ્રક્રિયામાં ઑક્સિજન વાયુ મુક્ત થાય છે.",
+    "content_terms_source": 15
+   }
+  },
+  {
+   "id": "D061",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "o2",
+   "q": "પ્રકાશસંશ્લેષણ દરમિયાન કયો વાયુ બહાર આવે છે?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D062",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "water",
+   "q": "વનસ્પતિ પાણી ક્યાંથી મેળવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વનસ્પતિ મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ કરે છે.",
+   "intent": "source",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "મેળવે"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": false,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 15.0,
+    "lines": [
+     "વનસ્પતિ [રોજિંદો શબ્દ: છોડ-ઝાડ] મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ [રોજિંદો શબ્દ: ચૂસી લેવું] કરે છે."
+    ],
+    "source": "વનસ્પતિ મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ કરે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D063",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "water",
+   "q": "વનસ્પતિ પાણી શેના વડે શોષે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વનસ્પતિ મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ કરે છે.",
+   "intent": "means",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "શોષે"
+   ],
+   "did_you_mean": [
+    {
+     "asked": "શોષે",
+     "book_word": "શોષણ"
+    }
+   ],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": false,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 15.0,
+    "lines": [
+     "વનસ્પતિ [રોજિંદો શબ્દ: છોડ-ઝાડ] મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ [રોજિંદો શબ્દ: ચૂસી લેવું] કરે છે."
+    ],
+    "source": "વનસ્પતિ મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ કરે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D064",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "water",
+   "q": "વનસ્પતિ કયા અંગથી પાણી શોષે છે?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "organ",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "શોષે"
+   ],
+   "did_you_mean": [
+    {
+     "asked": "શોષે",
+     "book_word": "શોષણ"
+    }
+   ],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D065",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "chl",
+   "q": "હરિતદ્રવ્ય ક્યાં મળે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે.",
+   "intent": "place",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘હરિતદ્રવ્ય’ (chlorophyll) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘હરિતદ્રવ્ય’ કહે છે? — પર્ણના (leaf) [રોજિંદો શબ્દ: પાંદડું] કોષોમાં (cell) આવેલા લીલા રંગના દ્રવ્યને [રોજિંદો શબ્દ: પદાર્થ]."
+    ],
+    "source": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "D066",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "chl",
+   "q": "હરિતદ્રવ્ય શું કામ કરે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "હરિતદ્રવ્ય સૂર્યપ્રકાશની ઊર્જાનું શોષણ કરે છે.",
+   "intent": "function",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "કામ",
+     "book_word": "કાર્ય",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 15.0,
+    "lines": [
+     "હરિતદ્રવ્ય (chlorophyll) સૂર્યપ્રકાશની (sunlight) ઊર્જાનું [રોજિંદો શબ્દ: શક્તિ] શોષણ [રોજિંદો શબ્દ: ચૂસી લેવું] કરે છે."
+    ],
+    "source": "હરિતદ્રવ્ય સૂર્યપ્રકાશની ઊર્જાનું શોષણ કરે છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D067",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "pain",
+   "q": "સ્નાયુઓમાં દુખાવો શેના કારણે થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "લૅક્ટિક ઍસિડના ભરાવાથી સ્નાયુઓમાં દુખાવો થાય છે.",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "લૅક્ટિક ઍસિડના (lactic acid) ભરાવાથી સ્નાયુઓમાં દુખાવો થાય છે."
+    ],
+    "source": "લૅક્ટિક ઍસિડના ભરાવાથી સ્નાયુઓમાં દુખાવો થાય છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D068",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "pain",
+   "q": "સ્નાયુઓમાં દુખાવો શાથી થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "લૅક્ટિક ઍસિડના ભરાવાથી સ્નાયુઓમાં દુખાવો થાય છે.",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "લૅક્ટિક ઍસિડના (lactic acid) ભરાવાથી સ્નાયુઓમાં દુખાવો થાય છે."
+    ],
+    "source": "લૅક્ટિક ઍસિડના ભરાવાથી સ્નાયુઓમાં દુખાવો થાય છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D069",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "vm",
+   "q": "વોલ્ટમીટર પરિપથમાં કઈ રીતે જોડાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "જોડાય",
+     "book_word": "જોડાણમાં",
+     "kind": "root",
+     "kind_gu": "શબ્દનું બીજું રૂપ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "વોલ્ટમીટરને (voltmeter) પરિપથમાં (circuit) હંમેશાં સમાંતર જોડવામાં આવે છે."
+    ],
+    "source": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D070",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "vm",
+   "q": "વોલ્ટમીટરને પરિપથમાં કેવી રીતે જોડીએ?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "જોડીએ",
+     "book_word": "જોડાણમાં",
+     "kind": "prefix",
+     "kind_gu": "શબ્દનો ભાગ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "વોલ્ટમીટરને (voltmeter) પરિપથમાં (circuit) હંમેશાં સમાંતર જોડવામાં આવે છે."
+    ],
+    "source": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D071",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "curd",
+   "q": "દહીંમાં કયો ઍસિડ રહેલો હોય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "લીંબુના રસમાં સાઇટ્રિક ઍસિડ (acid) અને દહીંમાં લૅક્ટિક ઍસિડ (lactic acid) હોય છે."
+    ],
+    "source": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "D072",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "curd",
+   "q": "દહીંમાં કયો ઍસિડ જોવા મળે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "લીંબુના રસમાં સાઇટ્રિક ઍસિડ (acid) અને દહીંમાં લૅક્ટિક ઍસિડ (lactic acid) હોય છે."
+    ],
+    "source": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "D073",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "neut",
+   "q": "તટસ્થીકરણ વર્ણવો.",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 11.7,
+    "avg_words_simplified_line": 14.3,
+    "lines": [
+     "ઍસિડ (acid) અને બેઇઝ (base) વચ્ચે પ્રક્રિયા થઈને ક્ષાર (salt) અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ (neutralization) કહે છે.",
+     "તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા [રોજિંદો શબ્દ: ગરમી] મુક્ત થાય છે.",
+     "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ (antacid) લેવામાં આવે છે."
+    ],
+    "source": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+    "content_terms_source": 15
+   }
+  },
+  {
+   "id": "D074",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "neut",
+   "q": "તટસ્થીકરણની વ્યાખ્યા આપો.",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    10
+   ],
+   "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે.",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 16.0,
+    "avg_words_simplified_line": 20.0,
+    "lines": [
+     "ઍસિડ (acid) અને બેઇઝ (base) વચ્ચે પ્રક્રિયા થઈને ક્ષાર (salt) અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ (neutralization) કહે છે."
+    ],
+    "source": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે.",
+    "content_terms_source": 8
+   }
+  },
+  {
+   "id": "D075",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "neut",
+   "q": "તટસ્થીકરણ સમજાવો.",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 11.7,
+    "avg_words_simplified_line": 14.3,
+    "lines": [
+     "ઍસિડ (acid) અને બેઇઝ (base) વચ્ચે પ્રક્રિયા થઈને ક્ષાર (salt) અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ (neutralization) કહે છે.",
+     "તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા [રોજિંદો શબ્દ: ગરમી] મુક્ત થાય છે.",
+     "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ (antacid) લેવામાં આવે છે."
+    ],
+    "source": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+    "content_terms_source": 15
+   }
+  },
+  {
+   "id": "D076",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "phph",
+   "q": "ફિનોલ્ફ્થેલીન કયા પ્રકારનો સૂચક છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 5.0,
+    "lines": [
+     "ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક (indicator) છે."
+    ],
+    "source": "ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "D077",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "phph",
+   "q": "ફિનોલ્ફ્થેલીન કેવો સૂચક ગણાય?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "ગણાય"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 5.0,
+    "lines": [
+     "ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક (indicator) છે."
+    ],
+    "source": "ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "D078",
+   "cat": "paraphrase",
+   "lang": "mixed",
+   "group": "water",
+   "q": "plants પાણી ક્યાંથી મેળવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વનસ્પતિ મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ કરે છે.",
+   "intent": "source",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "મેળવે"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": false,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 8.0,
+    "avg_words_simplified_line": 15.0,
+    "lines": [
+     "વનસ્પતિ [રોજિંદો શબ્દ: છોડ-ઝાડ] મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ [રોજિંદો શબ્દ: ચૂસી લેવું] કરે છે."
+    ],
+    "source": "વનસ્પતિ મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ કરે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D079",
+   "cat": "paraphrase",
+   "lang": "mixed",
+   "group": null,
+   "q": "lactic acid ક્યારે બને છે?",
+   "expect": "either",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની અછત સર્જાય છે. આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન થાય છે અને લૅક્ટિક ઍસિડ બને છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 14.5,
+    "lines": [
+     "સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની (oxygen) અછત [રોજિંદો શબ્દ: ઓછું હોવું] સર્જાય છે.",
+     "આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન (anaerobic respiration) થાય છે અને લૅક્ટિક ઍસિડ (lactic acid) બને છે."
+    ],
+    "source": "સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની અછત સર્જાય છે. આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન થાય છે અને લૅક્ટિક ઍસિડ બને છે.",
+    "content_terms_source": 11
+   }
+  },
+  {
+   "id": "D080",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "resp",
+   "q": "શ્વસનની ક્રિયા ક્યાં થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "શ્વસન દરેક સજીવ કોષમાં થાય છે.",
+   "intent": "place",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 11.0,
+    "lines": [
+     "શ્વસન (respiration) દરેક સજીવ [રોજિંદો શબ્દ: જીવંત] કોષમાં (cell) થાય છે."
+    ],
+    "source": "શ્વસન દરેક સજીવ કોષમાં થાય છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D081",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "group": "resp",
+   "q": "શ્વસન શરીરના કયા ભાગમાં થાય છે?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "evidence_not_specific",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "place",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D090",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "Which mirror is used in vehicles?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે.",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 11.0,
+    "lines": [
+     "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો (convex mirror) વપરાય છે."
+    ],
+    "source": "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "D091",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "Where is chlorophyll found?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે.",
+   "intent": "place",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 9.0,
+    "avg_words_simplified_line": 13.5,
+    "lines": [
+     "‘હરિતદ્રવ્ય’ (chlorophyll) એ એક નામ (પારિભાષિક શબ્દ) છે.",
+     "કોને ‘હરિતદ્રવ્ય’ કહે છે? — પર્ણના (leaf) [રોજિંદો શબ્દ: પાંદડું] કોષોમાં (cell) આવેલા લીલા રંગના દ્રવ્યને [રોજિંદો શબ્દ: પદાર્થ]."
+    ],
+    "source": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "D092",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "In which unit is potential difference measured?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે.",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": false,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 5.0,
+    "avg_words_simplified_line": 8.0,
+    "lines": [
+     "વિદ્યુતસ્થિતિમાનના તફાવતનો (potential difference) એકમ વોલ્ટ (volt) છે."
+    ],
+    "source": "વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે.",
+    "content_terms_source": 4
+   }
+  },
+  {
+   "id": "D093",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "Which acid is present in curd?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 10.0,
+    "avg_words_simplified_line": 13.0,
+    "lines": [
+     "લીંબુના રસમાં સાઇટ્રિક ઍસિડ (acid) અને દહીંમાં લૅક્ટિક ઍસિડ (lactic acid) હોય છે."
+    ],
+    "source": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે.",
+    "content_terms_source": 6
+   }
+  },
+  {
+   "id": "D094",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "How is a voltmeter connected in a circuit?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+   "intent": "process",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 7.0,
+    "avg_words_simplified_line": 9.0,
+    "lines": [
+     "વોલ્ટમીટરને (voltmeter) પરિપથમાં (circuit) હંમેશાં સમાંતર જોડવામાં આવે છે."
+    ],
+    "source": "વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે.",
+    "content_terms_source": 5
+   }
+  },
+  {
+   "id": "D095",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "What is the function of stomata?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણરંધ્ર દ્વારા વાયુઓની આપ-લે થાય છે.",
+   "intent": "function",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 6.0,
+    "avg_words_simplified_line": 7.0,
+    "lines": [
+     "પર્ણરંધ્ર (stomata) દ્વારા વાયુઓની આપ-લે થાય છે."
+    ],
+    "source": "પર્ણરંધ્ર દ્વારા વાયુઓની આપ-લે થાય છે.",
+    "content_terms_source": 3
+   }
+  },
+  {
+   "id": "D096",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "Why do muscles pain after exercise?",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "reason",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [
+    "after"
+   ],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D097",
+   "cat": "english",
+   "lang": "en",
+   "group": null,
+   "q": "Explain neutralisation.",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+   "intent": "fact",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 11.7,
+    "avg_words_simplified_line": 14.3,
+    "lines": [
+     "ઍસિડ (acid) અને બેઇઝ (base) વચ્ચે પ્રક્રિયા થઈને ક્ષાર (salt) અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ (neutralization) કહે છે.",
+     "તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા [રોજિંદો શબ્દ: ગરમી] મુક્ત થાય છે.",
+     "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ (antacid) લેવામાં આવે છે."
+    ],
+    "source": "ઍસિડ અને બેઇઝ વચ્ચે પ્રક્રિયા થઈને ક્ષાર અને પાણી બને છે તે પ્રક્રિયાને તટસ્થીકરણ કહે છે. તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે.",
+    "content_terms_source": 15
+   }
+  },
+  {
+   "id": "D100",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલું ગણવામાં આવ્યું છે?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "outcome": "conflict_detected",
+   "status": "edition_conflict",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [],
+   "answer": "2: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે. (p.8) || 3: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે. (p.2)",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D101",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "ઘરે આવતા વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલું હોય છે?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "outcome": "conflict_detected",
+   "status": "edition_conflict",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [],
+   "answer": "2: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે. (p.8) || 3: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે. (p.2)",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [
+    {
+     "asked": "ઘરે",
+     "book_word": "ઘરવપરાશ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D102",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "કેટલા વોલ્ટનું વોલ્ટેજ ઘરવપરાશના વિદ્યુતપુરવઠામાં ગણ્યું છે?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "outcome": "conflict_detected",
+   "status": "edition_conflict",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [],
+   "answer": "2: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે. (p.8) || 3: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે. (p.2)",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [
+    "ગણ્યું"
+   ],
+   "did_you_mean": [
+    {
+     "asked": "ગણ્યું",
+     "book_word": "ગણવામાં"
+    }
+   ],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D103",
+   "cat": "edition_conflict",
+   "lang": "en",
+   "group": null,
+   "q": "How much is the voltage of the household electric supply?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "outcome": "conflict_detected",
+   "status": "edition_conflict",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [],
+   "answer": "2: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે. (p.8) || 3: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે. (p.2)",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D104",
+   "cat": "edition_conflict",
+   "lang": "mixed",
+   "group": null,
+   "q": "household supply નું voltage કેટલું છે?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "outcome": "conflict_detected",
+   "status": "edition_conflict",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [],
+   "answer": "2: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે. (p.8) || 3: વિદ્યુતપાવરનો એકમ વૉટ છે. આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 230 વોલ્ટ ગણવામાં આવ્યું છે. (p.2)",
+   "intent": null,
+   "negated_terms": null,
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": null
+  },
+  {
+   "id": "D105",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "ઘરમાં વપરાતી વીજળી કેટલા વોલ્ટની હોય છે?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": "",
+   "intent": "use",
+   "negated_terms": [],
+   "term_matches": [
+    {
+     "asked": "ઘરમાં",
+     "book_word": "ઘરવપરાશ",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    },
+    {
+     "asked": "વીજળી",
+     "book_word": "વિદ્યુત",
+     "kind": "synonym",
+     "kind_gu": "સમાન અર્થનો શબ્દ",
+     "confidence": null,
+     "normalisation": false
+    }
+   ],
+   "unknown_terms": [
+    "વપરાતી"
+   ],
+   "did_you_mean": [
+    {
+     "asked": "વપરાતી",
+     "book_word": "વપરાય"
+    }
+   ],
+   "book_says": [
+    "આ પાઠમાળાના ઉદાહરણોમાં ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ 220 વોલ્ટ ગણવામાં આવ્યું છે."
+   ],
+   "explanation": null
+  },
+  {
+   "id": "D106",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "group": null,
+   "q": "વિદ્યુતપ્રવાહનો એકમ કયો છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે.",
+   "intent": "unit",
+   "negated_terms": [],
+   "term_matches": [],
+   "unknown_terms": [],
+   "did_you_mean": [],
+   "book_says": [],
+   "explanation": {
+    "has_simplified_lines": true,
+    "has_glossary_terms": true,
+    "has_english_terms": true,
+    "fallback_shown": false,
+    "every_line_has_evidence": true,
+    "no_new_content_words": true,
+    "numbers_and_formulas_kept": true,
+    "avg_words_source_sentence": 4.0,
+    "avg_words_simplified_line": 7.0,
+    "lines": [
+     "વિદ્યુતપ્રવાહનો (electric current) એકમ ઍમ્પિયર (ampere) છે."
+    ],
+    "source": "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે.",
+    "content_terms_source": 3
+   }
+  }
+ ]
+}

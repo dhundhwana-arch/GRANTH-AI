@@ -1,6 +1,6 @@
 # Progress log
 
-Last updated: 2026-11-13 (UTC). **IDEA CONTRIBUTOR: BHAVESHBHAI SOLANKI** · **FOUNDER & PROJECT DEVELOPER: DIVYESH BAMBHANIYA**
+Last updated: 2026-11-14 (UTC). **IDEA CONTRIBUTOR: BHAVESHBHAI SOLANKI** · **FOUNDER & PROJECT DEVELOPER: DIVYESH BAMBHANIYA**
 
 ## Completed phases
 
@@ -107,3 +107,17 @@ Test on real phones (`docs/MOBILE_TEST_REPORT.md`) and send the permission reque
 | 5 | final Phase 4 commit | Admin token expiry, "how the question was understood" line in the UI, performance measurements, Phase 4 documents |
 
 Not done: real-device test, embedding evaluation, source permissions (sites unreachable), fixes for the frozen-test failures.
+
+## Phase 5 (2026-11-14)
+
+| Checkpoint | Commit | What |
+|---|---|---|
+| 1 | `3831b65` | Phase 4 baseline preserved and reproduced (55/70 identical) |
+| 2 | `2c3f130` | Negation and polarity validation, conservative unknown-term matching, false-premise stage |
+| 3 | `4cee29c` | Gujarati question forms, Phase 5 runner, development set (76) |
+| 4 | `d4f81cf` | Explanations with English terms, 43 new tests, engine frozen as 1.4 |
+| 5 | `50c9f98`, `c3ee08c` | Frozen set of 102 questions committed before its run |
+| 6 | `fe309c2` | Frozen run: 83/102, 0 wrong, 19 incorrect refusals, 0 false Verified |
+| 7 | final Phase 5 commit | 15 documents, teacher and student templates, permission request template, performance and regression results |
+
+Not done: real-device test, teacher review, student trial, publisher permission, embedding evaluation, fixes for the 19 frozen refusals.

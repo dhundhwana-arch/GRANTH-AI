@@ -36,4 +36,7 @@ for q in qs[:15]:
     t=time.perf_counter(); answer.ask(con,q,{"edition_id":e},use_cache=False); big.append((time.perf_counter()-t)*1000)
 res["large_synthetic"]={"chunks_before":n0,"chunks_after":n1,"index_build_s":round(big_idx,2),"ask_median_ms":round(statistics.median(big),1),"ask_max_ms":round(max(big),1),"peak_rss_mb":round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024,1)}
 print(json.dumps(res,indent=1))
-json.dump(res,open("benchmarks/results/phase4_performance.json","w"),indent=1)
+import sys
+OUT = sys.argv[1] if len(sys.argv) > 1 else "benchmarks/results/phase5/phase5_performance.json"   # phase 4 result file is kept unchanged
+res["engine_version"] = __import__("granth").ENGINE_VERSION
+json.dump(res,open(OUT,"w"),indent=1)

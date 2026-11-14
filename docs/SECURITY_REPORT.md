@@ -83,3 +83,45 @@ Still open:
 | Public deployment | The live preview runs **without** an admin token, so the admin API is disabled there. No HTTPS termination in the app itself – put it behind a reverse proxy. | – |
 
 Not done: user accounts, automatic token rotation, database encryption, penetration test, review by a second person.
+
+## Phase 5 review (2026-11-14)
+
+No new vulnerability was found in the application code. No penetration test and no second-person review has been done, so this is a self-review.
+
+Phase 5 changed only the answer engine, word lists, the result page and tests. It added no route, no stored field and no dependency.
+
+| Area | State | Evidence |
+|---|---|---|
+| Token expiry | `GRANTH_ADMIN_TOKEN_EXPIRES` date; expired or unreadable date refuses admin access | pytest (Phase 4 tests, still passing) |
+| Token rotation | Manual: set a new token and date, restart. No automatic rotation, no per-user tokens. | not automated |
+| Authentication | Students have no accounts. Admin uses one shared token; weak or well-known values refused; 10 wrong tokens in 5 minutes gives 429. | pytest |
+| Session isolation | Notes and history are tied to a random session id. The id is not a login: anyone who obtains it can read that history. | pytest |
+| Data deletion | `DELETE /api/session-data` removes history, saved answers, saved words and notes for the session | pytest and browser test |
+| Uploads | Photos are read by OCR in the browser and are not uploaded. Request bodies are limited to 64 KB, questions to 500 characters. | pytest |
+| File validation | PDF ingestion is a command-line step for the operator, with a permission status required per edition. There is no public upload route for books. | code review |
+| Logging | Request log drops query strings. Questions are stored in the local database for history until the session is erased. | pytest |
+| Error handling | Clients get a short message; stack traces are not sent | pytest |
+| Secrets | `scripts/secret_scan.py` on the working tree and on all 35 commits: CLEAN | run 2026-11-14 |
+| Rate limiting | 240 requests per minute per IP. In the Phase 5 load run, 89 of 256 requests at 32 parallel clients from one address got 429, as designed. | `benchmarks/results/phase5/phase5_performance.json` |
+| External AI | Off by default (`GRANTH_GENERATIVE=off`). Every benchmark answer in Phase 5 records 0 external calls. No student question or note leaves the server. | benchmark output |
+| New Phase 5 fields | `term_matches`, `did_you_mean`, `premise` contain only words from the question and quoted book text; all are HTML-escaped in the page | code review, browser test passes |
+
+Dependency audit, first run in this project:
+
+| Tool | Result |
+|---|---|
+| `npm audit` (all packages, including test-only ones) | 0 vulnerabilities |
+| `pip-audit` on the virtual environment | 21 advisories, all in `pip 23.0.1` and `setuptools 66.1.1`, the packaging tools that come with the system Python. None in PyMuPDF, pytest, fonttools or brotli. |
+
+Action from the audit: upgrade `pip` and `setuptools` in any deployment environment. They are not imported by the running app.
+
+Open risks, unchanged: no HTTPS in the built-in server, one shared admin token, unauthenticated session ids, unencrypted SQLite file, in-memory rate limiter that trusts the socket address, browser speech recognition may send audio to the browser vendor.
+
+| | |
+|---|---|
+| Implemented | controls in the table |
+| Automatically tested | token, session isolation, deletion, limits, error handling, secret scan, dependency audits |
+| Manually tested | none in Phase 5 |
+| Not tested | penetration test, deployment behind a proxy, multi-user abuse |
+| Blocked | none |
+| Requires human review | second-person security review before any real student use |

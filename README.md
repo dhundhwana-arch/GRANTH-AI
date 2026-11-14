@@ -14,6 +14,8 @@ source does not support an answer, GRANTH-AI says so:
 
 > આ પસંદ કરેલા પાઠ્યપુસ્તકમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી.
 
+> **Phase 5 status (2026-11-14).** Engine 1.4 adds negation checking, conservative handling of unknown and look-alike words, a false-premise check, more Gujarati question forms and English terms in the simple explanation. On a frozen set of 102 new developer-written questions, run once: 83 handled as expected, **0 wrong answers**, **19 incorrect refusals**, 0 false "Verified", lead citation correct in 43 of 43 answers. The engine is now cautious rather than wrong: it refuses about one in four answerable questions, mostly because of words missing from its word lists. No teacher review, no real-device test and no publisher permission exists. **GRANTH-AI is a demo and is not production-ready.** See the [Phase 5 report](docs/PHASE5_REPORT.md).
+
 > **Phase 4 status (2026-11-13).** Engine 1.3 checks each answer sentence against the concept *and* the thing asked for (unit, place, cause, …) and no longer pads answers. On a frozen set of 70 new questions run once: 55 handled correctly, 4 wrong answers, 1 wrong answer labelled Verified (previous engine: 43 / 17 / 8). Tested only on a 14-page self-written demo book; no real textbook, no real-device test, no teacher review. **Not production ready.** See `docs/PHASE4_REPORT.md` and `docs/FROZEN_BENCHMARK_REPORT.md`.
 
 ## What is and is not supported today (2026-11-13)
@@ -35,7 +37,7 @@ The engine, registry and UI are board-, standard- and language-agnostic: a new a
 
 | Area | State |
 |---|---|
-| Answer engine `extractive-1.3`: Gujarati, English and mixed questions; definitions, short/detailed/points, marks-based, differences, formulas, worked examples step by step; refusal when unsupported or ambiguous | Working, tested |
+| Answer engine `extractive-1.4`: Gujarati, English and mixed questions; definitions, short/detailed/points, marks-based, differences, formulas, worked examples step by step; refusal when unsupported or ambiguous | Working, tested |
 | Structured answer with reliability status (Verified against source / Partially supported / Insufficient source evidence), no percentages | Working, tested |
 | Opt-in supplementary source, shown in a separate labelled block | Working, tested |
 | Private personal notes (rights confirmation, per-student, never cached or published, deletable) | Working, tested |
@@ -70,16 +72,19 @@ Students can erase everything stored for their browser session from the history 
 ## Test it
 
 ```bash
-.venv/bin/python -m pytest tests -q                    # 173 engine / API / ingestion / security tests
+.venv/bin/python -m pytest tests -q                    # 216 engine / API / ingestion / security tests
 npm test                                               # 18 browser-module tests
 npm run test:e2e                                       # 33 browser steps (headless Chromium, phone-size viewport)
 .venv/bin/python benchmarks/run_benchmarks.py --ocr    # 48-question in-house set + acceptance + OCR
 .venv/bin/python benchmarks/run_independent.py         # 92-check independent set (91 pass, 1 fail — listed in the report)
 .venv/bin/python benchmarks/run_phase3.py              # Phase 3 set, 186 questions (179 pass); --questions for the held-out sets
 .venv/bin/python scripts/secret_scan.py --history      # secret scan of tracked files and all commits
+PYTHONPATH=. .venv/bin/python benchmarks/run_phase5.py --questions benchmarks/phase5/frozen_test.json --out /tmp/p5.json   # Phase 5 frozen set (83/102)
 ```
 
 ## Documentation
+
+Phase 5: [Report](docs/PHASE5_REPORT.md) · [Frozen benchmark](docs/PHASE5_FROZEN_BENCHMARK.md) · [Negation](docs/NEGATION_VALIDATION_REPORT.md) · [Unknown terms](docs/UNKNOWN_TERM_REPORT.md) · [False premise](docs/FALSE_PREMISE_REPORT.md) · [Gujarati language](docs/GUJARATI_LANGUAGE_REPORT.md) · [Edition conflict](docs/EDITION_CONFLICT_REPORT.md) · [Explanation quality](docs/EXPLANATION_QUALITY_REPORT.md) · [Teacher review template](docs/TEACHER_REVIEW_TEMPLATE.md) · [Student feedback form](docs/STUDENT_FEEDBACK_TEMPLATE.md) · [Real-device test](docs/REAL_DEVICE_TEST_REPORT.md) · [Permission register](docs/SOURCE_PERMISSION_REGISTER.md) · [Performance](docs/PERFORMANCE_REPORT.md)
 
 [Phase 3 report](docs/PHASE3_REPORT.md) · [Architecture](docs/ARCHITECTURE.md) · [Answer engine](docs/ANSWER_ENGINE_REPORT.md) ·
 [Source registry](docs/TEXTBOOK_SOURCE_REGISTRY.md) · [Copyright register](docs/COPYRIGHT_AND_PERMISSION_REGISTER.md) ·

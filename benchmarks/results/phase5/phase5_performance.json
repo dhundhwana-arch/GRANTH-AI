@@ -1,0 +1,66 @@
+{
+ "python_import_s": 0.082,
+ "seed_4_books_s": 0.03,
+ "index_build_s": 0.017,
+ "questions": 59,
+ "ask_no_cache_ms": {
+  "median": 2.7,
+  "p95": 7.4,
+  "max": 56.3
+ },
+ "ask_cached_ms": {
+  "median": 1.4,
+  "p95": 6.0
+ },
+ "cache_hits_on_repeat": "38/59",
+ "peak_rss_mb": 29.1,
+ "large_synthetic": {
+  "chunks_before": 97,
+  "chunks_after": 9797,
+  "index_build_s": 1.79,
+  "ask_median_ms": 20.5,
+  "ask_max_ms": 33.9,
+  "peak_rss_mb": 157.5
+ },
+ "engine_version": "extractive-1.4",
+ "phase5_extra": {
+  "retrieval_only_ms": {
+   "median": 0.19,
+   "p95": 1.7,
+   "n": 90
+  },
+  "db_size_bytes": 9302016,
+  "server_start_s": 0.11,
+  "http_concurrency_1": {
+   "requests": 8,
+   "ok": 8,
+   "errors": 0,
+   "first_error": [],
+   "median_ms": 5.7,
+   "p95_ms": 32.6,
+   "wall_s": 0.12
+  },
+  "http_concurrency_8": {
+   "requests": 64,
+   "ok": 64,
+   "errors": 0,
+   "first_error": [],
+   "median_ms": 15.2,
+   "p95_ms": 119.8,
+   "wall_s": 0.3
+  },
+  "http_concurrency_32": {
+   "requests": 256,
+   "ok": 167,
+   "errors": 89,
+   "first_error": [
+    "<HTTPError 429: 'Too Many Requests'>"
+   ],
+   "median_ms": 15.3,
+   "p95_ms": 342.3,
+   "wall_s": 1.23
+  },
+  "server_rss_after_load_mb": 49.9
+ },
+ "environment": "development sandbox (Linux container), NOT an Android device"
+}

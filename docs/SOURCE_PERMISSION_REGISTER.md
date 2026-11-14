@@ -23,3 +23,27 @@ Checked 2026-11-13. Rule used: "free to read" or "for education" is **not** perm
 ## What is needed
 
 Written permission from GSSTB (or the relevant board) naming: which books, storage on a server, display of extracts, offline copies on student devices, and whether the app may be public. A letter is needed; reading the website is not enough.
+
+## Phase 5 review (2026-11-14)
+
+**No status changed. No permission was requested or received in Phase 5.** The build environment could reach only GitHub, npm and PyPI, so no publisher site was read.
+
+| Source | Status | Changed in Phase 5? |
+|---|---|---|
+| GRANTH-AI demo books and supplementary notes | APPROVED (own work, CC BY 4.0) | no |
+| GSSTB textbooks | UNKNOWN | no |
+| DIKSHA | UNKNOWN | no |
+| NCERT textbooks | DENIED | no |
+
+GRANTH-AI stays labelled a demo. No real board, standard or subject is supported. No copyrighted textbook was ingested.
+
+The request letter to send to a publisher is in `docs/templates/PUBLISHER_PERMISSION_REQUEST.md`. It has not been sent to anyone.
+
+| | |
+|---|---|
+| Implemented | register, ingestion gate by status, request template |
+| Automatically tested | unapproved editions are hidden from students (pytest, browser test) |
+| Manually tested | none |
+| Not tested | none of the publisher terms were re-read in Phase 5 |
+| Blocked | publisher sites unreachable from the build environment |
+| Requires external permission | written permission from GSSTB (or another rights holder) before any real textbook is added |
