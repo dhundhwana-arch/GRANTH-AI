@@ -29,7 +29,7 @@ granth/discovery.py  metadata-only catalogue discovery with robots.txt and per-s
 
 ## The rule that everything else serves
 
-Every sentence of an answer is a **verbatim substring of a stored chunk** of an edition that is AUTHORIZED,
+Every sentence of an answer is a **verbatim substring of a stored chunk** of an edition that is APPROVED,
 admin-approved and inside the student's selection. `verify_extractive` re-checks this against the database before
 an answer leaves the engine. If the check fails, or evidence is thin, the engine abstains with the fixed refusal
 sentence and no citation.
@@ -63,3 +63,27 @@ and the tested configuration.
 | BM25 + character trigrams instead of neural embeddings | Works offline, no model download, handles Gujarati inflection; a neural leg can be added behind `retrieval.search` |
 | Extractive answers | Cannot hallucinate; a generative layer is optional and gated by verification |
 | OCR in the browser for student photos | Photos never leave the device |
+
+## Changes in version 0.2 (engine `extractive-1.1`)
+
+```
+question → language detection (lang.py) → scope: board/medium/standard/subject/book/chapter
+        → normalisation (English→Gujarati term list, stemming) → retrieval over APPROVED textbook editions
+        → evidence check (coverage, false premise, ambiguity) → answer building by question type
+        → sentence-level validation against the database → citations → shared verified cache → UI
+                                                   └→ optional, only if the student selects it:
+                                                      same engine run on ONE supplementary edition → separate block
+```
+
+- **Edition roles** (`textbook_editions.role`): `textbook`, `supplementary`, `personal`. Scope resolution returns
+  textbooks only; a supplementary edition is reachable only through the explicit `supplementary_edition_id`
+  parameter; a personal edition only by its owner selecting it. This is what keeps the three kinds of text apart.
+- **Permission vocabulary** APPROVED / RESTRICTED / UNKNOWN / DENIED (migration `002`, upgrades old databases).
+- **Extending to another board, standard or language** = registering a source (`book.json`) and ingesting it. The
+  core has no board- or standard-specific code. A new language needs its own stop-words/stemmer and term list;
+  today only Gujarati text processing exists, so Hindi- and English-medium books are not yet usable.
+- **New endpoints**: `/api/personal-notes` (GET/POST/DELETE), `/api/saved-answers` (GET/POST/DELETE);
+  `/api/ask` accepts `supplementary_edition_id` and returns `structured`, `language`, `query_translation`,
+  `supplementary`.
+- Voice, camera, keyboard, exam mode and suggestions all post to the same `/api/ask`; the dictionary reads the
+  vocabulary built from the same ingested text.

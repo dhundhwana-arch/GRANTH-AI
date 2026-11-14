@@ -4,7 +4,7 @@
 
 1. **Integrity** – file opens, has pages, is not encrypted.
 2. **Hash + duplicate check** – SHA-256 of the file; a file already registered is reported as duplicate.
-3. **Permission gate** – edition must be AUTHORIZED.
+3. **Permission gate** – edition must be APPROVED.
 4. **Text layer** – extracted per page with PyMuPDF.
 5. **Gujarati validation** – share of Gujarati letters, broken-cluster and replacement-character checks. A page that
    fails is not trusted.

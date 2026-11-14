@@ -1,5 +1,27 @@
 # Test report
 
+## Run of 2026-11-13, engine `extractive-1.1` (supersedes the numbers further down)
+
+| Suite | Command | Result |
+|---|---|---|
+| Engine, API, ingestion, migration | `pytest tests -q` | **101 passed**, 0 failed |
+| Browser modules | `npm test` | **18 passed**, 0 failed |
+| Browser end-to-end, headless Chromium, 390×800 | `npm run test:e2e` | **31 of 31 steps passed** |
+| In-house benchmark + acceptance | `benchmarks/run_benchmarks.py --ocr` | 48 / 48; acceptance pass; OCR mean character error 6.5% |
+| Independent test set | `benchmarks/run_independent.py` | **83 of 92; 9 failures**, listed in `BENCHMARK_REPORT.md` |
+
+New tests in this version: language detection; English, mixed and Hindi questions; structured answer and
+reliability status; no percentage in the answer; ambiguity refusal; worked-example steps; formula lookup;
+supplementary separation; personal-notes privacy and deletion; saved answers; registry fields; upgrade of a
+first-version database.
+
+Failures met while building this version and fixed: saved-answer list test counted nested elements (test bug);
+a JavaScript error when leaving the notes screen before its list loaded (app bug, fixed); the formula lookup first
+returned the wrong statement for `m = -v/u` (engine bug, fixed before commit).
+
+Not tested: any physical phone; real Gujarati speech recognition; photos of real or handwritten pages; real
+textbooks; an external AI provider with a real key; load; HTTPS deployment. There is still no CI.
+
 All suites executed 2026-11-13 on Python 3.11, Node 22, headless Chromium 153.
 
 | Suite | Command | Result |

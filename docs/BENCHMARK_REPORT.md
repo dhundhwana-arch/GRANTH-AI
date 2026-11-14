@@ -1,5 +1,57 @@
 # Benchmark report
 
+**Updated 2026-11-13 for engine `extractive-1.1`.** Two sets are reported. Raw output: `benchmarks/results/`.
+
+## A. Independent test set — 83 of 92 checks pass, 9 fail
+
+`benchmarks/independent/questions.json` + `benchmarks/run_independent.py`. The 62 questions were written the way a
+student would ask about general syllabus topics, without reusing the demo books' wording; 30 further checks cover
+editions, missing pages, unsupported scope, supplementary mode, cache, personal notes and offline packages.
+Limit: the questions were written by the developer, not by a teacher, and the corpus is the small demo material.
+
+| Category | Passed |
+|---|---|
+| Gujarati questions | 11 / 14 |
+| English questions | 9 / 11 |
+| Mixed Gujarati–English | 5 / 6 |
+| Maths and formulas | 10 / 10 |
+| Out-of-textbook (must refuse) | 8 / 8 |
+| Incorrect or ambiguous (must refuse) | 7 / 7 |
+| OCR / spelling errors in the question | 4 / 6 |
+| Conflicting editions | 3 / 4 |
+| Missing pages | 3 / 3 |
+| Unsupported subject / board / standard / language | 5 / 5 |
+| Supplementary mode separation | 5 / 5 |
+| Cache correctness | 6 / 6 |
+| Personal notes privacy | 5 / 5 |
+| Offline packages | 2 / 2 |
+
+Wrong answers given where a refusal was required: **0**. The 9 failures:
+
+| Id | Question | What happened |
+|---|---|---|
+| GU03 | પાંદડાં લીલાં કેમ દેખાય છે? | Refused; the book explains it with other words |
+| GU04 | માણસ શ્વાસ કયા અંગથી લે છે? | Refused (paraphrase) |
+| GU11 | વરસાદનું પાણી કેવી રીતે સાચવી શકાય? | Refused (paraphrase) |
+| EN08 | How do plants make their food? | Refused; words not in the term list |
+| EN09 | Why do we need lungs? | Refused |
+| MX04 | concave mirror નું focal length એટલે શું? | **Answered with the wrong definition** (concave mirror instead of focal length), marked Verified |
+| OC05 | ઓમનો નિયમ લખો. | Refused; misspelling not matched |
+| OC06 | પરાવતન એટલે શું? | Refused; misspelling not matched |
+| CE01b | Paraphrased voltage question over two editions | Refused instead of showing the edition conflict (editions were not merged) |
+
+One engine change was made because of this set: instruction words ("સ્પષ્ટ કરો", "ગણી બતાવો") were being treated as
+topic words; after the fix two more questions pass. The other failures are left as they are.
+
+## B. In-house 48-question set — 48 of 48 (was 46 of 48)
+
+H1 and H2 now pass because of real engine changes (term list; formula lookup). **The gold answer of H4 was changed**:
+"photosynthesis એટલે શું?" used to be expected to be refused; English terms are now supported, so it is expected to
+be answered. Retrieval P@1 fell from 0.971 to 0.943 and R@3 from 1.0 to 0.971, MRR 0.957; citation correctness 1.0,
+faithfulness 1.0, refusal accuracy 1.0, false refusals 0, median latency 1.6 ms, external API calls 0. This set
+was written from the demo books, so it says little about real textbooks. The sections below are the original
+report for engine 1.0.
+
 Run 2026-11-13 with `python benchmarks/run_benchmarks.py --ocr`. Raw output: `benchmarks/results/`.
 Corpus: the three demo books (14 pages). Questions and gold answers: `benchmarks/questions.json`, written by hand
 by the developer of the engine — not an independent test set.

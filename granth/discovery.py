@@ -33,7 +33,7 @@ SOURCES = [
      "permission_basis": "No explicit open licence or reuse grant for software/AI use was found. Textbooks are "
                          "copyright of the Board. Written permission must be obtained before any ingestion."},
     {"id": "ncert", "name": "NCERT", "catalogue_urls": ["https://ncert.nic.in/textbook.php"],
-     "permission_status": "RESTRICTED",
+     "permission_status": "DENIED",
      "permission_basis": "NCERT copyright notice on the textbook page: use of the online books 'as a part of digital "
                          "content packages or software is also strictly prohibited'; no hosting or redistribution. "
                          "Not ingested. Only written permission from NCERT could change this."},

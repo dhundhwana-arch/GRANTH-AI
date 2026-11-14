@@ -24,7 +24,7 @@ Audit performed 2026-11-13 (UTC) before any change was made.
    to the branch `arena/b93bc898-granth-ai`; creating or pushing another branch is not permitted here. All work is
    committed to that branch (never to `main`). It can be renamed/merged by the owner afterwards.
 2. **No official textbook could be fetched or ingested.** The portals are unreachable from the sandbox, and independent
-   of that their reuse permission is not established (GSSTB: UNKNOWN, NCERT: PROHIBITED for software use). The vertical
+   of that their reuse permission is not established (GSSTB: UNKNOWN, NCERT: DENIED for software use). The vertical
    slice therefore runs on **original sample material written for this project** (CC BY 4.0), clearly labelled as
    *not* a GSEB/NCERT textbook.
 3. **No provider API key exists**, so every external-provider integration is implemented but recorded as NOT TESTED

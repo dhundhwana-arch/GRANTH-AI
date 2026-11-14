@@ -28,3 +28,18 @@
 - Browser speech recognition may send audio to the browser vendor's service. The UI says so; there is no offline
   alternative yet.
 - No dependency audit or penetration test has been done.
+
+## Added in version 0.2
+
+- **Personal notes.** Stored per session id (a random UUID kept in the browser). Not listed in the catalogue, not
+  served to other sessions (404), excluded from the shared cache and from offline packages, deleted completely on
+  request. Rights confirmation is enforced on the server. Limits: 60,000 characters, 5 note sets per session.
+  **Risk:** the session id is the only key. There are no accounts; anyone who obtains a student's session id can
+  read that student's notes, history and saved answers. Notes are stored unencrypted in the server database.
+  Clearing browser data loses access to them (they remain on the server until deleted by an operator).
+- **Saved answers.** A session can save only answers it asked itself (404 otherwise).
+- **Supplementary source** cannot be reached through normal scope parameters, only by explicit selection, and a
+  textbook edition id passed as supplementary is ignored.
+- **Term list** (`data/glossary/en_gu_terms.json`) is static project data; no translation service is called.
+- No new external network calls, no new secrets. `.env`, private registry files and PDFs remain ignored by git.
+- Still open from before: no HTTPS termination, rate limit by direct IP only, single admin token, no audit log.

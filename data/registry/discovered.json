@@ -21,7 +21,7 @@
     {
       "source_id": "ncert",
       "name": "NCERT",
-      "permission_status": "RESTRICTED",
+      "permission_status": "DENIED",
       "permission_basis": "NCERT copyright notice on the textbook page: use of the online books 'as a part of digital content packages or software is also strictly prohibited'; no hosting or redistribution. Not ingested. Only written permission from NCERT could change this.",
       "checked_at": "2026-11-13T20:54:31.326172Z",
       "catalogues": [

@@ -33,6 +33,6 @@ edition label, chapter number/title, section title, page number, source id, perm
 
 ## Rules enforced in code
 
-- Only editions with `permission_status = 'AUTHORIZED'` **and** `review_status = 'approved'` are indexed or served.
+- Only editions with `permission_status = 'APPROVED'` **and** `review_status = 'approved'` are indexed or served.
 - Re-ingesting an edition increments `corpus_version`, which invalidates its cache entries.
 - A PDF whose SHA-256 is already registered is reported as a duplicate and not ingested again.
