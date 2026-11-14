@@ -1,5 +1,5 @@
 {
-  "executed_at": "2026-11-14T03:44:46Z",
+  "executed_at": "2026-11-14T03:50:44Z",
   "engine_version": "extractive-1.3",
   "corpus": "bundled CC BY 4.0 sample books (data/sample)",
   "student_A": {
@@ -13,7 +13,7 @@
     "verified": true,
     "cache_hit": false,
     "external_api_calls": 0,
-    "ms": 22.21,
+    "ms": 16.57,
     "pass": true
   },
   "student_B": {
@@ -22,7 +22,7 @@
     "cache_hit": true,
     "same_answer": true,
     "external_api_calls": 0,
-    "ms": 0.74,
+    "ms": 0.85,
     "pass": true
   },
   "student_C": {

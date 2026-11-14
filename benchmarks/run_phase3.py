@@ -32,6 +32,9 @@ def judge(q: dict, r: dict, ed: dict) -> dict:
     cites = [c["page_number"] for c in r.get("citations", [])]
     content_ok = (status == "answered" and all(m in txt for m in q.get("must", []))
                   and not any(m in txt for m in q.get("must_not", [])))
+    if content_ok and q.get("max_sentences"):
+        # Phase 4: a right sentence padded with unrelated ones is a WRONG answer
+        content_ok = len(r["answer"]["parts"]) <= q["max_sentences"]
     lead_ok = bool(cites) and cites[0] in q.get("pages", [])
     all_ok = bool(cites) and all(p in q.get("pages", []) for p in cites)
     out = {"lead_citation_ok": None, "all_citations_ok": None}

@@ -1,0 +1,942 @@
+{
+ "suite": "GRANTH-AI phase 4 VALIDATION set",
+ "written": "2026-11-13",
+ "about": "Written after engine 1.3 was committed at bcbc78d and before it was ever run on these questions. The FIRST run is recorded in benchmarks/results/phase4_validation_first_run.json. The engine was then tuned on this set, so later runs on it are NOT independent. The frozen final test is benchmarks/phase4/frozen_test.json.",
+ "limitations": "Written by the developer from the 14-page self-authored demo corpus; not by a teacher or student. Many questions probe the same few facts.",
+ "books": {
+  "sci": "granth_vigyan_10_2026",
+  "sci27": "granth_vigyan_10_2027",
+  "soc": "granth_samajik_10_2026",
+  "both": [
+   "granth_vigyan_10_2026",
+   "granth_vigyan_10_2027"
+  ]
+ },
+ "expect_values": {
+  "answered": "must answer; lead citation page in 'pages'; every 'must' string in the answer; no 'must_not' string; at most 'max_sentences' sentences when given",
+  "abstained": "must refuse",
+  "edition_conflict": "must show both editions separately (220 in 2026 only, 230 in 2027 only)",
+  "either": "refusal OK; if answered it must satisfy pages/must/must_not"
+ },
+ "gold_corrections": [],
+ "questions": [
+  {
+   "id": "N01",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપાવરનો એકમ જણાવો.",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વૉટ"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N02",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વૉટ શેનો એકમ છે?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વિદ્યુતપાવરનો એકમ વૉટ છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N03",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વોલ્ટ કઈ રાશિનો એકમ છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "વિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્ટ છે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N04",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમિટરને પરિપથમાં કઈ રીતે જોડવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "શ્રેણીમાં"
+   ],
+   "must_not": [
+    "સમાંતર"
+   ]
+  },
+  {
+   "id": "N05",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કાર્બન ડાયૉક્સાઇડ પર્ણમાં ક્યાંથી પ્રવેશે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર દ્વારા પર્ણમાં પ્રવેશે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N06",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ગ્લુકોઝ વનસ્પતિમાં કયા રૂપમાં સંગ્રહ પામે છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "સ્ટાર્ચ"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N07",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "યીસ્ટમાં અજારક શ્વસનથી શું બને છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "આલ્કોહૉલ"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N08",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હવા શરીરમાં શેના દ્વારા પ્રવેશે છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "નાક"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N09",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વાયુકોષ્ઠ ક્યાં આવેલા છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "ફેફસાંમાં"
+   ]
+  },
+  {
+   "id": "N10",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરાવર્તનનો પહેલો નિયમ કયો છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "આપાતકોણ અને પરાવર્તનકોણ"
+   ]
+  },
+  {
+   "id": "N11",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વાહનોમાં કયો અરીસો વપરાય છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "બહિર્ગોળ અરીસો વપરાય છે"
+   ],
+   "must_not": [
+    "દાંતના"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N12",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "મોટવણી એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    6
+   ],
+   "must": [
+    "ગુણોત્તરને મોટવણી"
+   ]
+  },
+  {
+   "id": "N13",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "લીંબુના રસમાં કયો ઍસિડ હોય છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "સાઇટ્રિક"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N14",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કુદરતી સૂચકો કયા છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "લિટમસ અને હળદર"
+   ],
+   "must_not": [
+    "ફિનોલ્ફ્થેલીન"
+   ]
+  },
+  {
+   "id": "N15",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "pH માપક્રમ ક્યાંથી ક્યાં સુધીનો હોય છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "0 થી 14"
+   ]
+  },
+  {
+   "id": "N16",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍન્ટાસિડ શા માટે લેવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "તટસ્થીકરણ કરવા માટે"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N17",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "sci",
+   "q": "જમીન વધુ બેઇઝિક હોય ત્યારે તેમાં શું ઉમેરવામાં આવે છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "સેન્દ્રિય ખાતર"
+   ],
+   "must_not": [
+    "ચૂનો ઉમેર"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N18",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સામાન્ય મીઠાનું રાસાયણિક નામ શું છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "સોડિયમ ક્લોરાઇડ"
+   ]
+  },
+  {
+   "id": "N19",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પાંદડાં લીલાં શાને કારણે દેખાય છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "હરિતદ્રવ્યને કારણે"
+   ]
+  },
+  {
+   "id": "N20",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફૂગ પોતાનો ખોરાક જાતે બનાવે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ફૂગ પરપોષી છે"
+   ]
+  },
+  {
+   "id": "N21",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્વસનથી મળતી શક્તિ શેમાં વપરાય છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "સજીવની બધી ક્રિયાઓ માટે"
+   ]
+  },
+  {
+   "id": "N22",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વધારે ઊર્જા કયા શ્વસનમાં મળે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "જારક શ્વસનમાં",
+    "વધુ ઊર્જા"
+   ]
+  },
+  {
+   "id": "N23",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કસરત વખતે સ્નાયુમાં કયો ઍસિડ બને છે?",
+   "expect": "answered",
+   "pages": [
+    4
+   ],
+   "must": [
+    "લૅક્ટિક ઍસિડ બને છે"
+   ]
+  },
+  {
+   "id": "N24",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ચળકતી સપાટી પરથી પ્રકાશ પાછો ફરે તેને શું કહેવાય?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "પ્રકાશનું પરાવર્તન કહે છે"
+   ]
+  },
+  {
+   "id": "N25",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વીજળીનો પ્રવાહ માપવાનું સાધન કયું?",
+   "expect": "answered",
+   "pages": [
+    7,
+    8
+   ],
+   "must": [
+    "ઍમિટર"
+   ]
+  },
+  {
+   "id": "N26",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "શ્રેણી જોડાણમાં કુલ અવરોધ કેવી રીતે શોધાય?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "સરવાળા"
+   ]
+  },
+  {
+   "id": "N27",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ખાટા સ્વાદવાળા પદાર્થોને શું કહે છે?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "ઍસિડ કહે છે"
+   ]
+  },
+  {
+   "id": "N28",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "sci",
+   "q": "કીડી કરડે ત્યારે કયો ઍસિડ શરીરમાં જાય છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ફૉર્મિક ઍસિડ"
+   ]
+  },
+  {
+   "id": "N29",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "photosynthesis ક્યાં થાય છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "પર્ણોમાં"
+   ],
+   "max_sentences": 1
+  },
+  {
+   "id": "N30",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "ammeter ને circuit માં કેવી રીતે જોડાય?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "શ્રેણીમાં"
+   ],
+   "must_not": [
+    "સમાંતર"
+   ]
+  },
+  {
+   "id": "N31",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "neutral solution નું pH કેટલું?",
+   "expect": "answered",
+   "pages": [
+    9
+   ],
+   "must": [
+    "7 હોય છે"
+   ]
+  },
+  {
+   "id": "N32",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "convex mirror નો use શું છે?",
+   "expect": "answered",
+   "pages": [
+    5
+   ],
+   "must": [
+    "વાહનોમાં"
+   ],
+   "must_not": [
+    "દાંતના"
+   ]
+  },
+  {
+   "id": "N33",
+   "cat": "mixed",
+   "lang": "mixed",
+   "book": "sci",
+   "q": "aerobic respiration માં glucose નું શું થાય છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "સંપૂર્ણ દહન"
+   ],
+   "must_not": [
+    "અપૂર્ણ"
+   ]
+  },
+  {
+   "id": "N34",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Which gas is released during photosynthesis?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "ઑક્સિજન"
+   ]
+  },
+  {
+   "id": "N35",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is the unit of electric power?",
+   "expect": "answered",
+   "pages": [
+    8
+   ],
+   "must": [
+    "વૉટ"
+   ]
+  },
+  {
+   "id": "N36",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Where does respiration take place?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "કોષમાં"
+   ]
+  },
+  {
+   "id": "N37",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "Why is antacid taken?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "તટસ્થીકરણ"
+   ]
+  },
+  {
+   "id": "N38",
+   "cat": "english",
+   "lang": "en",
+   "book": "sci",
+   "q": "What is the unit of focal length?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N39",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિધુતપ્રવાહનો એકમ કયો છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "ઍમ્પિયર"
+   ]
+  },
+  {
+   "id": "N40",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પરણરંધ્ર એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "પર્ણરંધ્ર કહે છે"
+   ]
+  },
+  {
+   "id": "N41",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "તટસ્થિકરણમાં શું મુક્ત થાય છે?",
+   "expect": "answered",
+   "pages": [
+    10
+   ],
+   "must": [
+    "ઉષ્મા"
+   ]
+  },
+  {
+   "id": "N42",
+   "cat": "misspelling",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બાષ્પોત્સરજન એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "બાષ્પોત્સર્જન કહે છે"
+   ]
+  },
+  {
+   "id": "N43",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વોલ્ટમીટર શેનો એકમ છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N44",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍમિટરનો એકમ કયો છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N45",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પર્ણરંધ્રનો રંગ કેવો હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N46",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "બહિર્ગોળ અરીસાની વક્રતાત્રિજ્યા કેટલી હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N47",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "અજારક શ્વસનમાં કેટલી ઊર્જા મળે છે?",
+   "expect": "answered",
+   "pages": [
+    3
+   ],
+   "must": [
+    "ઓછી ઊર્જા"
+   ],
+   "must_not": [
+    "વધુ ઊર્જા"
+   ]
+  },
+  {
+   "id": "N48",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વોલ્ટમીટર કેવી રીતે જોડાય છે?",
+   "expect": "answered",
+   "pages": [
+    7
+   ],
+   "must": [
+    "સમાંતર"
+   ],
+   "must_not": [
+    "શ્રેણીમાં"
+   ]
+  },
+  {
+   "id": "N49",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ફેફસાંમાં પ્રકાશસંશ્લેષણ કેવી રીતે થાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N50",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "દાંતના ડૉક્ટર બહિર્ગોળ અરીસો ક્યાં વાપરે છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N51",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઓહ્મના નિયમ મુજબ લિટમસપત્રનો રંગ કેવો થાય?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N52",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હળદર કયા શ્વસનમાં વપરાય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N53",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સાબુનું દ્રાવણ ઍસિડિક છે કે તટસ્થ?",
+   "expect": "either",
+   "pages": [
+    9
+   ],
+   "must": [
+    "બેઇઝિક હોય છે"
+   ]
+  },
+  {
+   "id": "N54",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "વિદ્યુતપ્રવાહનું pH મૂલ્ય કેટલું હોય છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N55",
+   "cat": "adversarial",
+   "lang": "gu",
+   "book": "sci",
+   "q": "સૂર્યપ્રકાશનો એકમ ઍમ્પિયર કેમ છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N56",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ન્યૂટનનો ગતિનો પહેલો નિયમ લખો.",
+   "expect": "abstained"
+  },
+  {
+   "id": "N57",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "હૃદયનું કાર્ય શું છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N58",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ગુજરાતની રાજધાની કઈ છે?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N59",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "sci",
+   "q": "પ્રકાશનું વક્રીભવન એટલે શું?",
+   "expect": "abstained"
+  },
+  {
+   "id": "N60",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ઍસિડ",
+   "expect": "either",
+   "pages": [
+    9
+   ],
+   "must": [
+    "ઍસિડ કહે છે"
+   ]
+  },
+  {
+   "id": "N61",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "book": "sci",
+   "q": "ગ્લુકોઝ",
+   "expect": "abstained"
+  },
+  {
+   "id": "N62",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલા વોલ્ટ છે?",
+   "expect": "edition_conflict"
+  },
+  {
+   "id": "N63",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "વિદ્યુતપાવરનો એકમ કયો?",
+   "expect": "answered",
+   "pages": [
+    8,
+    2
+   ],
+   "must": [
+    "વૉટ"
+   ],
+   "same_in_editions": true
+  },
+  {
+   "id": "N64",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "book": "both",
+   "q": "હરિતદ્રવ્ય એટલે શું?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "હરિતદ્રવ્ય કહે છે"
+   ],
+   "missing_in": [
+    "granth_vigyan_10_2027"
+   ]
+  },
+  {
+   "id": "N65",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ચેકડેમ શેની રીત છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "જળસંચયની રીતો"
+   ]
+  },
+  {
+   "id": "N66",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "નૈઋત્ય ખૂણો કઈ બે દિશાઓ વચ્ચે છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "દક્ષિણ અને પશ્ચિમ"
+   ]
+  },
+  {
+   "id": "N67",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "મુખ્ય દિશાઓ કેટલી છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "ચાર"
+   ]
+  },
+  {
+   "id": "N68",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "book": "soc",
+   "q": "વાદળ કેવી રીતે બને છે?",
+   "expect": "answered",
+   "pages": [
+    1
+   ],
+   "must": [
+    "વરાળ ઠંડી પડીને"
+   ]
+  },
+  {
+   "id": "N69",
+   "cat": "direct",
+   "lang": "gu",
+   "book": "soc",
+   "q": "નકશાનાં મુખ્ય અંગો કયાં છે?",
+   "expect": "answered",
+   "pages": [
+    2
+   ],
+   "must": [
+    "દિશા, પ્રમાણમાપ"
+   ]
+  },
+  {
+   "id": "N70",
+   "cat": "unsupported",
+   "lang": "gu",
+   "book": "soc",
+   "q": "ભારતનો નકશો કોણે બનાવ્યો?",
+   "expect": "abstained"
+  }
+ ]
+}

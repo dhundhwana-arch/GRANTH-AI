@@ -26,7 +26,7 @@ _NOT_PLACE = frozenset(g.fold(x) for x in ("હાજરીમાં", "ગે�
 MAX_WINDOW = 3
 
 
-def _attribute(an: dict, text: str, q_stems: set) -> str | None:
+def _attribute(an: dict, text: str, q_stems: set, need: frozenset = frozenset(), wh: bool = False) -> str | None:
     """'explicit' if `text` carries the mark of the requested attribute, 'implied' for a weaker mark, None if not."""
     it = an["intent"]
     st = set(g.content_terms(text))
@@ -37,14 +37,20 @@ def _attribute(an: dict, text: str, q_stems: set) -> str | None:
         return "explicit" if "અંગ" in st else None
     if it == "instrument":
         return "explicit" if ("સાધન" in st or any(t.startswith(("માપ", "મપા")) for t in st)) else None
+    if it == "range":
+        return "explicit" if ("સુધી" in text and _NUMBER.search(text)) else None
     if it in ("place", "source"):
         ends = _ABL if it == "source" else _LOC
+        if it == "place" and any(t.endswith(_LOC[0]) and g.stem(t) in need for t in toks):
+            return None                                 # "વાયુકોષ્ઠમાં ..." tells what is IN the thing, not where the thing is
         for t in toks:
             if t in _NOT_PLACE or g.stem(t) in q_stems or t in q_stems:
                 continue
             if t.endswith(ends) and len(t) > 3 and not (it == "place" and t.endswith(_ABL[0])):
                 return "explicit"
-        return "explicit" if it == "source" and "સ્રોત" in st else None
+        if it == "source" and "સ્રોત" in st:
+            return "explicit"
+        return "implied" if it == "source" and ("દ્વારા" in text or "વડે" in text) else None
     if it == "reason":
         return "explicit" if any(c in text for c in _CAUSE) else None
     if it == "quantity":
@@ -66,6 +72,13 @@ def _attribute(an: dict, text: str, q_stems: set) -> str | None:
         if first and first[0] in q_stems and first[0] == w0[0] and not study.find_definitions(text) and not text.rstrip(" .।").endswith(("કહે છે", "કહેવાય છે")):
             return "implied"
         return None
+    if it == "relation":
+        return "implied"                                # no wording marks "the relation between A and B"; never Verified
+    if it == "fact" and wh:
+        # "કયા ...?" / "કેવું ...?" asked of a term is not really answered by the sentence that only DEFINES that term
+        for term in study.find_definitions(text):
+            if set(g.content_terms(term)) & need:
+                return "implied"
     return "explicit"                                   # fact / process / example: no attribute mark exists
 
 
@@ -97,7 +110,7 @@ def plan(an: dict, terms: list[dict], vocab: set) -> dict:
             continue
         if an["intent"] == "choice" and term in an["options"]:
             continue
-        if (q in an["soft"] and t["match"] != "synonym") or (term is None and q in an["soft_unknown"]) \
+        if (q in an["soft"] and t["match"] != "synonym") \
                 or (term in concepts._generic() and term not in concepts.all_facet_stems() and t["match"] == "exact"):
             soft.append({"word": q, "root": intent_mod.verb_root(q)})
             continue
@@ -135,7 +148,7 @@ def _check(an: dict, pl: dict, text: str, q_stems: set, claims: list) -> dict | 
             if len(pl["need"]) < 2 or len(seq) > len(pl["need"]) + 1:
                 return None
             short_fact = True
-    attr = _attribute(an, text, q_stems)
+    attr = _attribute(an, text, q_stems, frozenset(pl["need"]), an.get("wh", False))
     if not attr:
         return None
     return {"related": related, "attr": attr, "missing_soft": missing_soft, "neither": short_fact}
@@ -228,11 +241,25 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
             if len(body) < 2:
                 continue
             head = lines[0] + " " + body[0]
+            hcells = [c.strip() for c in body[0].strip().strip("|").split("|")]
+            attr_cols = [k for k, c in enumerate(hcells) if k > 0 and _attribute(an, c, q_stems)] if an["intent"] not in ("fact", "quantity") else []
+            if an["intent"] in ("reason", "function", "process", "example", "choice", "naming", "place", "use"):
+                continue
+            if an["intent"] not in ("fact", "quantity") and not attr_cols:
+                continue                                # no column of this table holds the kind of information asked for
             for ln in body[1:]:
-                if not (set(pl["need"]) & set(g.content_terms(ln))):
+                cells = [c.strip() for c in ln.strip().strip("|").split("|")]
+                if an["intent"] == "reverse_unit":
+                    # "X શેનો એકમ છે?": X must stand in the unit column, not just anywhere in the row
+                    where = " ".join(cells[k] for k in attr_cols if k < len(cells))
+                else:
+                    where = cells[0] if cells else ""           # the row is ABOUT its first cell
+                wt = set(g.content_terms(where))
+                if not all(_present(t, wt) == "exact" for t in pl["need"] if t not in set(g.content_terms(body[0]))) \
+                        or not (set(pl["need"]) & wt):
                     continue
-                ok = _check(an, pl, head + " " + ln, q_stems, claims)
-                if ok and an["intent"] not in ("fact", "process", "example", "reason", "function"):
+                ok = _check({**an, "intent": "fact"}, pl, lines[0] + " " + body[0] + " " + ln, q_stems, claims)
+                if ok:
                     found.append(((False, True, True, False, 0, 9, rank, 0), [{"text": row["text"], "row": row, "pos": 0, "kind": "table"}], ok, True))
                     break
     window = False
@@ -322,7 +349,7 @@ def select(con, question: str, res: dict, edition_ids, chapter_id, target: int, 
     if any(f[2]["neither"] for f in found):
         gaps.append("પ્રશ્નમાં આપેલા બેમાંથી એક પણ વિકલ્પ પુસ્તકના વાક્યમાં નથી; તે જ બાબત વિશે પુસ્તક જે કહે છે તે બતાવ્યું છે.")
     if any(f[2]["attr"] == "implied" for f in found):
-        gaps.append("પુસ્તક ‘" + an["label"] + "’ શબ્દ વાપરતું નથી; તે વસ્તુ શું કરે છે તે જણાવતું વાક્ય બતાવ્યું છે.")
+        gaps.append("પૂછેલી બાબત (" + an["label"] + ") પુસ્તકમાં આ શબ્દોમાં નથી; તેને સૌથી નજીકનું સીધું વાક્ય બતાવ્યું છે.")
     if window:
         gaps.append("ઉત્તર કોઈ એક વાક્યમાં નથી; એક જ ફકરાનાં સળંગ વાક્યો બતાવ્યાં છે. કારણ તેમાંથી જાતે તારવવું પડશે.")
     if any(f[2].get("example") for f in found):

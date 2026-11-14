@@ -1,0 +1,1865 @@
+{
+ "suite": "GRANTH-AI phase 4 VALIDATION set",
+ "engine_version": "extractive-1.2",
+ "questions": 70,
+ "overall": {
+  "n": 70,
+  "pass": 45,
+  "correct_answer": 32,
+  "wrong_answer": 17,
+  "correct_refusal": 12,
+  "incorrect_refusal": 8,
+  "conflict_detected": 1,
+  "conflict_missed": 0
+ },
+ "metrics": {
+  "correct_answer_rate": {
+   "value": 0.62,
+   "of": 50,
+   "meaning": "questions the book can answer that got the right passage + right page"
+  },
+  "wrong_answer_rate": {
+   "value": 0.2429,
+   "of": 70,
+   "count": 17,
+   "meaning": "any shown answer that is wrong: wrong passage, wrong page, or an answer where refusal was required"
+  },
+  "correct_refusal_rate": {
+   "value": 0.6471,
+   "of": 17,
+   "meaning": "questions the book cannot answer that were refused"
+  },
+  "incorrect_refusal_rate": {
+   "value": 0.1569,
+   "of": 51,
+   "meaning": "answerable questions that were refused"
+  },
+  "citation_correctness": {
+   "lead_citation": 0.9535,
+   "all_citations_within_gold_pages": 0.814,
+   "of": 43,
+   "meaning": "over answers shown for answerable questions"
+  },
+  "false_verified_rate": {
+   "value": 0.3871,
+   "of": 31,
+   "count": 12,
+   "meaning": "answers labelled 'Verified against source' that were wrong"
+  },
+  "edition_conflict_detection": {
+   "value": 1.0,
+   "of": 1
+  },
+  "trust_labels_on_answers": {
+   "verified": 31,
+   "partial": 18
+  }
+ },
+ "by_category": {
+  "direct": {
+   "n": 21,
+   "pass": 13,
+   "correct_answer": 13,
+   "wrong_answer": 7,
+   "correct_refusal": 0,
+   "incorrect_refusal": 1,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "paraphrase": {
+   "n": 12,
+   "pass": 8,
+   "correct_answer": 8,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 4,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "mixed": {
+   "n": 5,
+   "pass": 3,
+   "correct_answer": 3,
+   "wrong_answer": 2,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "english": {
+   "n": 5,
+   "pass": 2,
+   "correct_answer": 1,
+   "wrong_answer": 0,
+   "correct_refusal": 1,
+   "incorrect_refusal": 3,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "misspelling": {
+   "n": 4,
+   "pass": 4,
+   "correct_answer": 4,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "concept_distinction": {
+   "n": 6,
+   "pass": 1,
+   "correct_answer": 0,
+   "wrong_answer": 5,
+   "correct_refusal": 1,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "adversarial": {
+   "n": 7,
+   "pass": 5,
+   "correct_answer": 1,
+   "wrong_answer": 2,
+   "correct_refusal": 4,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "unsupported": {
+   "n": 5,
+   "pass": 5,
+   "correct_answer": 0,
+   "wrong_answer": 0,
+   "correct_refusal": 5,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "ambiguous": {
+   "n": 2,
+   "pass": 1,
+   "correct_answer": 0,
+   "wrong_answer": 1,
+   "correct_refusal": 1,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "edition_conflict": {
+   "n": 3,
+   "pass": 3,
+   "correct_answer": 2,
+   "wrong_answer": 0,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 1,
+   "conflict_missed": 0
+  }
+ },
+ "by_language": {
+  "gu": {
+   "n": 60,
+   "pass": 40,
+   "correct_answer": 28,
+   "wrong_answer": 15,
+   "correct_refusal": 11,
+   "incorrect_refusal": 5,
+   "conflict_detected": 1,
+   "conflict_missed": 0
+  },
+  "mixed": {
+   "n": 5,
+   "pass": 3,
+   "correct_answer": 3,
+   "wrong_answer": 2,
+   "correct_refusal": 0,
+   "incorrect_refusal": 0,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  },
+  "en": {
+   "n": 5,
+   "pass": 2,
+   "correct_answer": 1,
+   "wrong_answer": 0,
+   "correct_refusal": 1,
+   "incorrect_refusal": 3,
+   "conflict_detected": 0,
+   "conflict_missed": 0
+  }
+ },
+ "failures": [
+  {
+   "id": "N02",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વૉટ શેનો એકમ છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N03",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વોલ્ટ કઈ રાશિનો એકમ છે?",
+   "expect": "answered",
+   "lead_citation_ok": false,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "કોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |"
+  },
+  {
+   "id": "N04",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "ઍમિટરને પરિપથમાં કઈ રીતે જોડવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વિદ્યુતપ્રવાહ માપવા માટે ઍમિટર વપરાય છે. ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે. વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે."
+  },
+  {
+   "id": "N05",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "કાર્બન ડાયૉક્સાઇડ પર્ણમાં ક્યાંથી પ્રવેશે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2,
+    1
+   ],
+   "answer": "પર્ણની સપાટી પર આવેલાં સૂક્ષ્મ છિદ્રોને પર્ણરંધ્ર કહે છે. કાર્બન ડાયૉક્સાઇડ પર્ણરંધ્ર દ્વારા પર્ણમાં પ્રવેશે છે.\nકોષ્ટક 1.1: પ્રકાશસંશ્લેષણ માટે જરૂરી ઘટકો\n| ઘટક | સ્રોત |\n| સૂર્યપ્રકાશ | સૂર્ય |\n| કાર્બન ડાયૉક્સાઇડ | હવ"
+  },
+  {
+   "id": "N06",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "ગ્લુકોઝ વનસ્પતિમાં કયા રૂપમાં સંગ્રહ પામે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વનસ્પતિ મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ કરે છે. બનેલો ગ્લુકોઝ સ્ટાર્ચના રૂપમાં વનસ્પતિમાં સંગ્રહ પામે છે."
+  },
+  {
+   "id": "N07",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "યીસ્ટમાં અજારક શ્વસનથી શું બને છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3,
+    4
+   ],
+   "answer": "અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે. યીસ્ટમાં અજારક શ્વસનથી આલ્કોહૉલ અને કાર્બન ડાયૉક્સાઇડ બને છે. સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની અછત સર્જાય છે. આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન થાય"
+  },
+  {
+   "id": "N14",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "કુદરતી સૂચકો કયા છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "લિટમસ અને હળદર કુદરતી સૂચકો છે. ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક છે."
+  },
+  {
+   "id": "N17",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "જમીન વધુ બેઇઝિક હોય ત્યારે તેમાં શું ઉમેરવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "જમીન વધુ ઍસિડિક હોય ત્યારે તેમાં ચૂનો ઉમેરવામાં આવે છે. જમીન વધુ બેઇઝિક હોય ત્યારે તેમાં સેન્દ્રિય ખાતર ઉમેરવામાં આવે છે."
+  },
+  {
+   "id": "N18",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "સામાન્ય મીઠાનું રાસાયણિક નામ શું છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N19",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "પાંદડાં લીલાં શાને કારણે દેખાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N21",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "શ્વસનથી મળતી શક્તિ શેમાં વપરાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N28",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "કીડી કરડે ત્યારે કયો ઍસિડ શરીરમાં જાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N29",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "photosynthesis ક્યાં થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે. પ્રકાશસંશ્લેષણ મુખ્યત્વે વનસ્પતિનાં પર્ણોમાં થાય છે.\nકોષ્ટક 1.1: પ્રકાશસંશ્લેષણ મા"
+  },
+  {
+   "id": "N33",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "aerobic respiration માં glucose નું શું થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે. અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે.\nકોષ્ટક 2.1: જારક શ્વસન અને અજારક શ્વસન વચ્ચેનો તફાવત\n| મુદ્દ"
+  },
+  {
+   "id": "N34",
+   "cat": "english",
+   "lang": "en",
+   "q": "Which gas is released during photosynthesis?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N36",
+   "cat": "english",
+   "lang": "en",
+   "q": "Where does respiration take place?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N37",
+   "cat": "english",
+   "lang": "en",
+   "q": "Why is antacid taken?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N44",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "ઍમિટરનો એકમ કયો છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "કોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |"
+  },
+  {
+   "id": "N45",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "પર્ણરંધ્રનો રંગ કેવો હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2,
+    9
+   ],
+   "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે. હરિતદ્રવ્યને કારણે પર્ણનો રંગ લીલો દેખાય છે. જે પદાર્થ ઍસિડ અને બેઇઝમાં જુદો જુદો રંગ બતાવે તેને સૂચક કહે છે."
+  },
+  {
+   "id": "N46",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "બહિર્ગોળ અરીસાની વક્રતાત્રિજ્યા કેટલી હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "જે અરીસાની પરાવર્તક સપાટી ગોળાનો ભાગ હોય તેને ગોળીય અરીસો કહે છે. જે ગોળીય અરીસાની પરાવર્તક સપાટી અંદરની તરફ વળેલી હોય તેને અંતર્ગોળ અરીસો કહે છે. વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે."
+  },
+  {
+   "id": "N47",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "અજારક શ્વસનમાં કેટલી ઊર્જા મળે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે. અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે. યીસ્ટમાં અજારક શ્વસનથી આલ્કોહૉલ અને કાર્બન ડાયૉક્સાઇડ બને છે"
+  },
+  {
+   "id": "N48",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "વોલ્ટમીટર કેવી રીતે જોડાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": false,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    8,
+    7
+   ],
+   "answer": "કોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |\nવિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્"
+  },
+  {
+   "id": "N50",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "દાંતના ડૉક્ટર બહિર્ગોળ અરીસો ક્યાં વાપરે છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "જે અરીસાની પરાવર્તક સપાટી ગોળાનો ભાગ હોય તેને ગોળીય અરીસો કહે છે. વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે. દાંતના ડૉક્ટર અંતર્ગોળ અરીસાનો ઉપયોગ કરે છે."
+  },
+  {
+   "id": "N54",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "વિદ્યુતપ્રવાહનું pH મૂલ્ય કેટલું હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.\nકોષ્ટક 5.1: pH મૂલ્ય અને દ્રાવણનો પ્રકાર\n| pH મૂલ્ય | દ્રાવણનો પ્રકાર |\n| 7 કરતાં ઓછું | ઍસિડિક |\n| 7 | તટસ્થ "
+  },
+  {
+   "id": "N61",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "q": "ગ્લુકોઝ",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3,
+    1
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે. અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે. બનેલો ગ્લુકોઝ સ્ટાર્ચના રૂપમાં વનસ્પતિમાં સંગ્રહ પામે છે."
+  }
+ ],
+ "limitations": "Written by the developer from the 14-page self-authored demo corpus; not by a teacher or student. Many questions probe the same few facts.",
+ "gold_corrections": [],
+ "results": [
+  {
+   "id": "N01",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વિદ્યુતપાવરનો એકમ જણાવો.",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે."
+  },
+  {
+   "id": "N02",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વૉટ શેનો એકમ છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N03",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વોલ્ટ કઈ રાશિનો એકમ છે?",
+   "expect": "answered",
+   "lead_citation_ok": false,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "કોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |"
+  },
+  {
+   "id": "N04",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "ઍમિટરને પરિપથમાં કઈ રીતે જોડવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    7
+   ],
+   "answer": "વિદ્યુતપ્રવાહ માપવા માટે ઍમિટર વપરાય છે. ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે. વોલ્ટમીટરને પરિપથમાં હંમેશાં સમાંતર જોડવામાં આવે છે."
+  },
+  {
+   "id": "N05",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "કાર્બન ડાયૉક્સાઇડ પર્ણમાં ક્યાંથી પ્રવેશે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2,
+    1
+   ],
+   "answer": "પર્ણની સપાટી પર આવેલાં સૂક્ષ્મ છિદ્રોને પર્ણરંધ્ર કહે છે. કાર્બન ડાયૉક્સાઇડ પર્ણરંધ્ર દ્વારા પર્ણમાં પ્રવેશે છે.\nકોષ્ટક 1.1: પ્રકાશસંશ્લેષણ માટે જરૂરી ઘટકો\n| ઘટક | સ્રોત |\n| સૂર્યપ્રકાશ | સૂર્ય |\n| કાર્બન ડાયૉક્સાઇડ | હવ"
+  },
+  {
+   "id": "N06",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "ગ્લુકોઝ વનસ્પતિમાં કયા રૂપમાં સંગ્રહ પામે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વનસ્પતિ મૂળ દ્વારા જમીનમાંથી પાણીનું શોષણ કરે છે. બનેલો ગ્લુકોઝ સ્ટાર્ચના રૂપમાં વનસ્પતિમાં સંગ્રહ પામે છે."
+  },
+  {
+   "id": "N07",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "યીસ્ટમાં અજારક શ્વસનથી શું બને છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3,
+    4
+   ],
+   "answer": "અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે. યીસ્ટમાં અજારક શ્વસનથી આલ્કોહૉલ અને કાર્બન ડાયૉક્સાઇડ બને છે. સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની અછત સર્જાય છે. આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન થાય"
+  },
+  {
+   "id": "N08",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "હવા શરીરમાં શેના દ્વારા પ્રવેશે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "હવા નાક દ્વારા શરીરમાં પ્રવેશે છે અને શ્વાસનળી દ્વારા ફેફસાં સુધી પહોંચે છે."
+  },
+  {
+   "id": "N09",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વાયુકોષ્ઠ ક્યાં આવેલા છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "ફેફસાંમાં આવેલી ફુગ્ગા જેવી સૂક્ષ્મ રચનાઓને વાયુકોષ્ઠ કહે છે. વાયુકોષ્ઠમાં ઑક્સિજન રુધિરમાં ભળે છે અને કાર્બન ડાયૉક્સાઇડ રુધિરમાંથી બહાર નીકળે છે."
+  },
+  {
+   "id": "N10",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "પરાવર્તનનો પહેલો નિયમ કયો છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "પરાવર્તનના બે નિયમો છે. પહેલો નિયમ: આપાતકોણ અને પરાવર્તનકોણ હંમેશાં સમાન હોય છે. બીજો નિયમ: આપાતકિરણ, પરાવર્તિત કિરણ અને આપાતબિંદુએ દોરેલો લંબ એક જ સમતલમાં હોય છે."
+  },
+  {
+   "id": "N11",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "વાહનોમાં કયો અરીસો વપરાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે."
+  },
+  {
+   "id": "N12",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "મોટવણી એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    6
+   ],
+   "answer": "પ્રતિબિંબની ઊંચાઈ અને વસ્તુની ઊંચાઈના ગુણોત્તરને મોટવણી કહે છે."
+  },
+  {
+   "id": "N13",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "લીંબુના રસમાં કયો ઍસિડ હોય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "લીંબુના રસમાં સાઇટ્રિક ઍસિડ અને દહીંમાં લૅક્ટિક ઍસિડ હોય છે."
+  },
+  {
+   "id": "N14",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "કુદરતી સૂચકો કયા છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "લિટમસ અને હળદર કુદરતી સૂચકો છે. ફિનોલ્ફ્થેલીન કૃત્રિમ સૂચક છે."
+  },
+  {
+   "id": "N15",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "pH માપક્રમ ક્યાંથી ક્યાં સુધીનો હોય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "pH માપક્રમ 0 થી 14 સુધીનો હોય છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.\nકોષ્ટક 5.1: pH મૂલ્ય અને દ્રાવણનો પ્રકાર\n| pH મૂલ્ય | દ્રાવણનો પ્રકાર |\n| 7 કરતાં ઓછું | ઍસિડિક |\n| 7 | તટસ્થ |\n| 7 કરતાં વધુ | બેઇઝિક |"
+  },
+  {
+   "id": "N16",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "ઍન્ટાસિડ શા માટે લેવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "ઍસિડિટી થાય ત્યારે જઠરમાં વધારાના ઍસિડનું તટસ્થીકરણ કરવા માટે ઍન્ટાસિડ લેવામાં આવે છે."
+  },
+  {
+   "id": "N17",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "જમીન વધુ બેઇઝિક હોય ત્યારે તેમાં શું ઉમેરવામાં આવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10
+   ],
+   "answer": "જમીન વધુ ઍસિડિક હોય ત્યારે તેમાં ચૂનો ઉમેરવામાં આવે છે. જમીન વધુ બેઇઝિક હોય ત્યારે તેમાં સેન્દ્રિય ખાતર ઉમેરવામાં આવે છે."
+  },
+  {
+   "id": "N18",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "સામાન્ય મીઠાનું રાસાયણિક નામ શું છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N19",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "પાંદડાં લીલાં શાને કારણે દેખાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "premise_not_supported",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N20",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "ફૂગ પોતાનો ખોરાક જાતે બનાવે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2,
+    1
+   ],
+   "answer": "જે સજીવો પોતાનો ખોરાક જાતે બનાવે છે તેમને સ્વયંપોષી કહે છે. પ્રાણીઓ અને ફૂગ પરપોષી છે. લીલી વનસ્પતિ પોતાનો ખોરાક જાતે બનાવે છે."
+  },
+  {
+   "id": "N21",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "શ્વસનથી મળતી શક્તિ શેમાં વપરાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N22",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "વધારે ઊર્જા કયા શ્વસનમાં મળે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "ઑક્સિજનની હાજરીમાં થતા શ્વસનને જારક શ્વસન કહે છે. જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે. અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે."
+  },
+  {
+   "id": "N23",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "કસરત વખતે સ્નાયુમાં કયો ઍસિડ બને છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    4
+   ],
+   "answer": "સખત કસરત દરમિયાન સ્નાયુકોષોમાં ઑક્સિજનની અછત સર્જાય છે. આ સમયે સ્નાયુકોષોમાં અજારક શ્વસન થાય છે અને લૅક્ટિક ઍસિડ બને છે. લૅક્ટિક ઍસિડના ભરાવાથી સ્નાયુઓમાં દુખાવો થાય છે."
+  },
+  {
+   "id": "N24",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "ચળકતી સપાટી પરથી પ્રકાશ પાછો ફરે તેને શું કહેવાય?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "પ્રકાશનું કિરણ કોઈ ચળકતી સપાટી પર અથડાઈને તે જ માધ્યમમાં પાછું ફરે છે તે ઘટનાને પ્રકાશનું પરાવર્તન કહે છે. સપાટી પર પડતા કિરણને આપાતકિરણ અને પાછા ફરતા કિરણને પરાવર્તિત કિરણ કહે છે."
+  },
+  {
+   "id": "N25",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "વીજળીનો પ્રવાહ માપવાનું સાધન કયું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "કોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |"
+  },
+  {
+   "id": "N26",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "શ્રેણી જોડાણમાં કુલ અવરોધ કેવી રીતે શોધાય?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "શ્રેણી જોડાણમાં કુલ અવરોધ બધા અવરોધોના સરવાળા જેટલો હોય છે. સમાંતર જોડાણમાં કુલ અવરોધ સૌથી નાના અવરોધ કરતાં પણ ઓછો હોય છે."
+  },
+  {
+   "id": "N27",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "ખાટા સ્વાદવાળા પદાર્થોને શું કહે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "જે પદાર્થો સ્વાદે ખાટા હોય અને ભૂરા લિટમસપત્રને લાલ બનાવે તેમને ઍસિડ કહે છે. જે પદાર્થો સ્વાદે તૂરા હોય અને લાલ લિટમસપત્રને ભૂરું બનાવે તેમને બેઇઝ કહે છે."
+  },
+  {
+   "id": "N28",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "કીડી કરડે ત્યારે કયો ઍસિડ શરીરમાં જાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N29",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "photosynthesis ક્યાં થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "લીલી વનસ્પતિ સૂર્યપ્રકાશ અને હરિતદ્રવ્યની હાજરીમાં કાર્બન ડાયૉક્સાઇડ અને પાણીમાંથી ગ્લુકોઝ બનાવે છે તે પ્રક્રિયાને પ્રકાશસંશ્લેષણ કહે છે. પ્રકાશસંશ્લેષણ મુખ્યત્વે વનસ્પતિનાં પર્ણોમાં થાય છે.\nકોષ્ટક 1.1: પ્રકાશસંશ્લેષણ મા"
+  },
+  {
+   "id": "N30",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "ammeter ને circuit માં કેવી રીતે જોડાય?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7,
+    8
+   ],
+   "answer": "વિદ્યુતપ્રવાહ માપવા માટે ઍમિટર વપરાય છે. ઍમિટરને પરિપથમાં હંમેશાં શ્રેણીમાં જોડવામાં આવે છે.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનન"
+  },
+  {
+   "id": "N31",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "neutral solution નું pH કેટલું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.\nકોષ્ટક 5.1: pH મૂલ્ય અને દ્રાવણનો પ્રકાર\n| pH મૂલ્ય | દ્રાવણનો પ્રકાર |\n| 7 કરતાં ઓછું | ઍસિડિક |\n| 7 | તટસ્થ "
+  },
+  {
+   "id": "N32",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "convex mirror નો use શું છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે."
+  },
+  {
+   "id": "N33",
+   "cat": "mixed",
+   "lang": "mixed",
+   "q": "aerobic respiration માં glucose નું શું થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે. અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે.\nકોષ્ટક 2.1: જારક શ્વસન અને અજારક શ્વસન વચ્ચેનો તફાવત\n| મુદ્દ"
+  },
+  {
+   "id": "N34",
+   "cat": "english",
+   "lang": "en",
+   "q": "Which gas is released during photosynthesis?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N35",
+   "cat": "english",
+   "lang": "en",
+   "q": "What is the unit of electric power?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે."
+  },
+  {
+   "id": "N36",
+   "cat": "english",
+   "lang": "en",
+   "q": "Where does respiration take place?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N37",
+   "cat": "english",
+   "lang": "en",
+   "q": "Why is antacid taken?",
+   "expect": "answered",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "incorrect_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N38",
+   "cat": "english",
+   "lang": "en",
+   "q": "What is the unit of focal length?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N39",
+   "cat": "misspelling",
+   "lang": "gu",
+   "q": "વિધુતપ્રવાહનો એકમ કયો છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    7,
+    8
+   ],
+   "answer": "વિદ્યુતપ્રવાહનો એકમ ઍમ્પિયર છે.\nકોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |"
+  },
+  {
+   "id": "N40",
+   "cat": "misspelling",
+   "lang": "gu",
+   "q": "પરણરંધ્ર એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણની સપાટી પર આવેલાં સૂક્ષ્મ છિદ્રોને પર્ણરંધ્ર કહે છે."
+  },
+  {
+   "id": "N41",
+   "cat": "misspelling",
+   "lang": "gu",
+   "q": "તટસ્થિકરણમાં શું મુક્ત થાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": false,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    10,
+    3
+   ],
+   "answer": "તટસ્થીકરણની પ્રક્રિયામાં ઉષ્મા મુક્ત થાય છે. ખોરાકનું દહન થઈને ઊર્જા મુક્ત થવાની પ્રક્રિયાને શ્વસન કહે છે. શ્વસનમાં મુક્ત થતી ઊર્જા સજીવની બધી ક્રિયાઓ માટે વપરાય છે."
+  },
+  {
+   "id": "N42",
+   "cat": "misspelling",
+   "lang": "gu",
+   "q": "બાષ્પોત્સરજન એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણરંધ્ર દ્વારા પાણી બાષ્પ સ્વરૂપે બહાર નીકળે છે તે ક્રિયાને બાષ્પોત્સર્જન કહે છે."
+  },
+  {
+   "id": "N43",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "વોલ્ટમીટર શેનો એકમ છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N44",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "ઍમિટરનો એકમ કયો છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    8
+   ],
+   "answer": "કોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |"
+  },
+  {
+   "id": "N45",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "પર્ણરંધ્રનો રંગ કેવો હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    2,
+    9
+   ],
+   "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે. હરિતદ્રવ્યને કારણે પર્ણનો રંગ લીલો દેખાય છે. જે પદાર્થ ઍસિડ અને બેઇઝમાં જુદો જુદો રંગ બતાવે તેને સૂચક કહે છે."
+  },
+  {
+   "id": "N46",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "બહિર્ગોળ અરીસાની વક્રતાત્રિજ્યા કેટલી હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "જે અરીસાની પરાવર્તક સપાટી ગોળાનો ભાગ હોય તેને ગોળીય અરીસો કહે છે. જે ગોળીય અરીસાની પરાવર્તક સપાટી અંદરની તરફ વળેલી હોય તેને અંતર્ગોળ અરીસો કહે છે. વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે."
+  },
+  {
+   "id": "N47",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "અજારક શ્વસનમાં કેટલી ઊર્જા મળે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે. અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે. યીસ્ટમાં અજારક શ્વસનથી આલ્કોહૉલ અને કાર્બન ડાયૉક્સાઇડ બને છે"
+  },
+  {
+   "id": "N48",
+   "cat": "concept_distinction",
+   "lang": "gu",
+   "q": "વોલ્ટમીટર કેવી રીતે જોડાય છે?",
+   "expect": "answered",
+   "lead_citation_ok": false,
+   "all_citations_ok": false,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    8,
+    7
+   ],
+   "answer": "કોષ્ટક 4.1: વિદ્યુત રાશિઓ અને તેમના એકમો\n| રાશિ | એકમ | માપવાનું સાધન |\n| વિદ્યુતપ્રવાહ | ઍમ્પિયર | ઍમિટર |\n| વિદ્યુતસ્થિતિમાનનો તફાવત | વોલ્ટ | વોલ્ટમીટર |\n| અવરોધ | ઓહ્મ | ઓહ્મમીટર |\nવિદ્યુતસ્થિતિમાનના તફાવતનો એકમ વોલ્"
+  },
+  {
+   "id": "N49",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "ફેફસાંમાં પ્રકાશસંશ્લેષણ કેવી રીતે થાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N50",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "દાંતના ડૉક્ટર બહિર્ગોળ અરીસો ક્યાં વાપરે છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    5
+   ],
+   "answer": "જે અરીસાની પરાવર્તક સપાટી ગોળાનો ભાગ હોય તેને ગોળીય અરીસો કહે છે. વાહનોમાં પાછળનું દૃશ્ય જોવા માટે બહિર્ગોળ અરીસો વપરાય છે. દાંતના ડૉક્ટર અંતર્ગોળ અરીસાનો ઉપયોગ કરે છે."
+  },
+  {
+   "id": "N51",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "ઓહ્મના નિયમ મુજબ લિટમસપત્રનો રંગ કેવો થાય?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N52",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "હળદર કયા શ્વસનમાં વપરાય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N53",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "સાબુનું દ્રાવણ ઍસિડિક છે કે તટસ્થ?",
+   "expect": "either",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    9,
+    9
+   ],
+   "answer": "દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે.\nકોષ્ટક 5.1: pH મૂલ્ય અને દ્રાવણનો પ્રકાર\n| pH મૂલ્ય | દ્રાવણનો પ્રકાર |\n| 7 કરતાં ઓછું | ઍસિડિક |\n| 7 | તટસ્થ |\n| 7 કરતાં વધુ | બેઇઝિક |\nસાબુનું "
+  },
+  {
+   "id": "N54",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "વિદ્યુતપ્રવાહનું pH મૂલ્ય કેટલું હોય છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    9
+   ],
+   "answer": "દ્રાવણ કેટલું ઍસિડિક કે બેઇઝિક છે તે દર્શાવતા માપક્રમને pH માપક્રમ કહે છે. તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે.\nકોષ્ટક 5.1: pH મૂલ્ય અને દ્રાવણનો પ્રકાર\n| pH મૂલ્ય | દ્રાવણનો પ્રકાર |\n| 7 કરતાં ઓછું | ઍસિડિક |\n| 7 | તટસ્થ "
+  },
+  {
+   "id": "N55",
+   "cat": "adversarial",
+   "lang": "gu",
+   "q": "સૂર્યપ્રકાશનો એકમ ઍમ્પિયર કેમ છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "aspect_not_found",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N56",
+   "cat": "unsupported",
+   "lang": "gu",
+   "q": "ન્યૂટનનો ગતિનો પહેલો નિયમ લખો.",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N57",
+   "cat": "unsupported",
+   "lang": "gu",
+   "q": "હૃદયનું કાર્ય શું છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N58",
+   "cat": "unsupported",
+   "lang": "gu",
+   "q": "ગુજરાતની રાજધાની કઈ છે?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "no_evidence",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N59",
+   "cat": "unsupported",
+   "lang": "gu",
+   "q": "પ્રકાશનું વક્રીભવન એટલે શું?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "definition",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N60",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "q": "ઍસિડ",
+   "expect": "either",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "ambiguous_question",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N61",
+   "cat": "ambiguous",
+   "lang": "gu",
+   "q": "ગ્લુકોઝ",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "wrong_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    3,
+    1
+   ],
+   "answer": "જારક શ્વસનમાં ગ્લુકોઝનું સંપૂર્ણ દહન થાય છે અને કાર્બન ડાયૉક્સાઇડ, પાણી તથા વધુ ઊર્જા મળે છે. અજારક શ્વસનમાં ગ્લુકોઝનું અપૂર્ણ દહન થાય છે અને ઓછી ઊર્જા મળે છે. બનેલો ગ્લુકોઝ સ્ટાર્ચના રૂપમાં વનસ્પતિમાં સંગ્રહ પામે છે."
+  },
+  {
+   "id": "N62",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "q": "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલા વોલ્ટ છે?",
+   "expect": "edition_conflict",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "conflict_detected",
+   "status": "edition_conflict",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  },
+  {
+   "id": "N63",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "q": "વિદ્યુતપાવરનો એકમ કયો?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "વિદ્યુતપાવરનો એકમ વૉટ છે."
+  },
+  {
+   "id": "N64",
+   "cat": "edition_conflict",
+   "lang": "gu",
+   "q": "હરિતદ્રવ્ય એટલે શું?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "definition",
+   "pages": [
+    2
+   ],
+   "answer": "પર્ણના કોષોમાં આવેલા લીલા રંગના દ્રવ્યને હરિતદ્રવ્ય કહે છે."
+  },
+  {
+   "id": "N65",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "ચેકડેમ શેની રીત છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "partial",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "વરસાદના પાણીને વહી જતું અટકાવીને તેનો સંગ્રહ કરવાની રીતને જળસંચય કહે છે. ખેત-તલાવડી, ચેકડેમ અને બોરીબંધ જળસંચયની રીતો છે. ઘરની છત પરથી વરસાદનું પાણી ટાંકામાં ભેગું કરવાની રીતને છત-જળસંચય કહે છે."
+  },
+  {
+   "id": "N66",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "નૈઋત્ય ખૂણો કઈ બે દિશાઓ વચ્ચે છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "કોષ્ટક 2.1: ખૂણાની દિશાઓ\n| ખૂણો | કઈ બે દિશાઓ વચ્ચે |\n| ઈશાન | ઉત્તર અને પૂર્વ |\n| અગ્નિ | દક્ષિણ અને પૂર્વ |\n| નૈઋત્ય | દક્ષિણ અને પશ્ચિમ |\n| વાયવ્ય | ઉત્તર અને પશ્ચિમ |\nમુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચ"
+  },
+  {
+   "id": "N67",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "મુખ્ય દિશાઓ કેટલી છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "મુખ્ય દિશાઓ ચાર છે: ઉત્તર, દક્ષિણ, પૂર્વ અને પશ્ચિમ. નકશામાં સામાન્ય રીતે ઉપરની બાજુ ઉત્તર દિશા હોય છે. બે મુખ્ય દિશાઓની વચ્ચેની દિશાને ખૂણાની દિશા કહે છે."
+  },
+  {
+   "id": "N68",
+   "cat": "paraphrase",
+   "lang": "gu",
+   "q": "વાદળ કેવી રીતે બને છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    1
+   ],
+   "answer": "સૂર્યની ગરમીથી સમુદ્રનું પાણી વરાળ બને છે. વરાળ ઠંડી પડીને વાદળ બને છે અને વરસાદ રૂપે જમીન પર પાછી આવે છે."
+  },
+  {
+   "id": "N69",
+   "cat": "direct",
+   "lang": "gu",
+   "q": "નકશાનાં મુખ્ય અંગો કયાં છે?",
+   "expect": "answered",
+   "lead_citation_ok": true,
+   "all_citations_ok": true,
+   "outcome": "correct_answer",
+   "status": "answered",
+   "reason": null,
+   "trust": "verified",
+   "mode": "short",
+   "pages": [
+    2
+   ],
+   "answer": "નકશાના ત્રણ મુખ્ય અંગો છે: દિશા, પ્રમાણમાપ અને રૂઢ સંજ્ઞાઓ."
+  },
+  {
+   "id": "N70",
+   "cat": "unsupported",
+   "lang": "gu",
+   "q": "ભારતનો નકશો કોણે બનાવ્યો?",
+   "expect": "abstained",
+   "lead_citation_ok": null,
+   "all_citations_ok": null,
+   "outcome": "correct_refusal",
+   "status": "abstained",
+   "reason": "low_coverage",
+   "trust": "insufficient",
+   "mode": "short",
+   "pages": [],
+   "answer": ""
+  }
+ ]
+}

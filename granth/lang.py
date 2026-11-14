@@ -18,6 +18,7 @@ EN_STOP = frozenset("""a an the is are was were be been am do does did of in on 
 these those it its what which who whom whose when where why how me my we our you your i please tell give write state explain describe
 define definition meaning mean means called known between difference differentiate distinguish formula equation about
 there their they can could would should will shall has have had not no yes into out up down also any some each one two
+during take takes taken took place occur occurs happen happens made make makes get gets used use
 short long note answer question law?""".split())
 
 _INTENTS = [

@@ -98,15 +98,17 @@ class Index:
                 out.append({"query": t, "term": t, "match": "exact"})
             else:
                 f = self._fuzzy(t, sc)
-                if f:
-                    out.append({"query": t, "term": f, "match": "spelling" if _skel(f) == _skel(t) else "fuzzy"})
+                alt = next((a for a in concepts.synonyms(t) if g.content_terms(a) and all(x in vocab for x in g.content_terms(a))), None)
+                if f and _skel(f) == _skel(t):
+                    out.append({"query": t, "term": f, "match": "spelling"})
+                elif alt:
+                    # a listed everyday word ("વધારે" -> "વધુ") is a better guess than a merely similar-looking word
+                    for x in g.content_terms(alt):
+                        out.append({"query": t, "term": x, "match": "synonym", "via": alt})
+                elif f:
+                    out.append({"query": t, "term": f, "match": "fuzzy"})
                 else:
-                    alt = next((a for a in concepts.synonyms(t) if g.content_terms(a) and all(x in vocab for x in g.content_terms(a))), None)
-                    if alt:
-                        for x in g.content_terms(alt):
-                            out.append({"query": t, "term": x, "match": "synonym", "via": alt})
-                    else:
-                        out.append({"query": t, "term": None, "match": "none"})
+                    out.append({"query": t, "term": None, "match": "none"})
             i += 1
         # second pass: weak matches that need the context of the words already matched
         matched = {o["term"] for o in out if o["term"]}

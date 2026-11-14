@@ -602,7 +602,7 @@ def _ambiguity(res: dict, question: str = "") -> list | None:
         seen.add(key)
         out.append({"chapter_number": r["chapter_number"], "chapter_title": r["chapter_title"], "section_title": r["section_title"],
                     "page_number": r["page_number"], "chapter_id": r["chapter_id"], "edition_id": r["edition_id"]})
-    if len(out) >= 3 and len({(o["edition_id"], o["chapter_id"]) for o in out}) >= 2:
+    if len(out) >= 2 and len({(o["edition_id"], o["chapter_id"]) for o in out}) >= 2:
         return out
     return None
 

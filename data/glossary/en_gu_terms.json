@@ -150,6 +150,16 @@
   "rainwater": "વરસાદ પાણી",
   "steam": "વરાળ",
   "vapour": "બાષ્પ",
-  "vapor": "બાષ્પ"
+  "vapor": "બાષ્પ",
+  "released": "મુક્ત",
+  "release": "મુક્ત",
+  "store": "સંગ્રહ",
+  "stored": "સંગ્રહ",
+  "enter": "પ્રવેશે",
+  "enters": "પ્રવેશે",
+  "absorb": "શોષણ",
+  "absorbs": "શોષણ",
+  "connected": "જોડવામાં",
+  "source": "સ્રોત"
  }
 }
