@@ -1,5 +1,61 @@
 # Benchmark report
 
+## Phase 3 benchmark — engine `extractive-1.2` (2026-11-13)
+
+Gold files: `benchmarks/phase3/questions.json` (186), `heldout.json` (40), `heldout2.json` (35). Runner:
+`benchmarks/run_phase3.py`. The engine never reads these files. No expected result was edited after a run.
+Requested minimum was 150 questions; 261 were written. Many probe the same ~45 facts in different wording, because
+the demo corpus is 14 pages.
+
+| Metric | Dev set, engine 1.1 | Dev set, engine 1.2 first run | Dev set, engine 1.2 final | Held-out 1, first run | Held-out 2, first run |
+|---|---|---|---|---|---|
+| Questions | 186 | 186 | 186 | 40 | 35 |
+| Passed | 140 | 169 | 179 | 36 | 32 |
+| Correct answer rate (answerable questions) | 99 / 135 | 120 / 135 | 128 / 135 | 24 / 28 | 22 / 25 |
+| Wrong answers (all questions) | 19 | 2 | 1 | 2 | 1 |
+| Correct refusal rate | 40 / 45 | 44 / 45 | 45 / 45 | 10 / 10 | 9 / 9 |
+| Incorrect refusals (answerable + conflict questions) | 27 / 139 | 15 / 139 | 6 / 139 | 2 / 29 | 2 / 25 |
+| Lead citation on the right page | 95.6% | 99.2% | 99.2% | 100% | 95.7% |
+| All citations within the expected pages | 90.3% | 92.6% | 96.9% | 92.3% | 82.6% |
+| Wrong answers labelled Verified | 11 of 103 | 1 of 92 | 0 of 91 | 2 of 23 | 1 of 21 |
+| Edition conflict detected | 1 / 4 | 3 / 4 | 4 / 4 | 1 / 1 | none in set |
+
+"Either" questions (refusal or one stated answer both acceptable) are counted in "Passed" only.
+After the fixes that followed each held-out run: held-out 1 scores 38 of 40 with no wrong answer; held-out 2 scores
+32 of 35 with one wrong answer, now labelled Partial. Those re-runs are not held-out results.
+
+Development set, final run, by category:
+
+| Category | Passed | Wrong answer | Incorrect refusal |
+|---|---|---|---|
+| Direct | 29 / 29 | 0 | 0 |
+| Paraphrase | 19 / 24 | 1 | 4 |
+| English | 18 / 18 | 0 | 0 |
+| Mixed | 12 / 13 | 0 | 1 |
+| Misspelling | 18 / 18 | 0 | 0 |
+| Formula | 13 / 14 | 0 | 1 |
+| Concept distinction | 24 / 24 | 0 | 0 |
+| Edition conflict | 10 / 10 | 0 | 0 |
+| Unsupported | 16 / 16 | 0 | 0 |
+| Ambiguous | 6 / 6 | 0 | 0 |
+| Refusal | 14 / 14 | 0 | 0 |
+
+By language: Gujarati 141 / 147, English 24 / 24, mixed 13 / 14, Hindi 1 / 1 (refusal expected).
+
+Limits of this benchmark:
+
+- Development-set numbers are inflated by tuning on that set. Use the held-out first runs to judge.
+- Held-out sets are small (75 questions together); one question moves a rate by 1 to 4 points.
+- Questions were written by the developer, from the same demo text the engine indexes. No teacher or student wrote any.
+- Only one fact differs between the two editions.
+- Earlier 92-check independent set: 83 → 91. Still failing: `Why do we need lungs?` (refused).
+
+Full analysis: `docs/PHASE3_REPORT.md`. Result files: `benchmarks/results/phase3*.json`.
+
+---
+
+The sections below describe engine 1.1 and are kept for history.
+
 **Updated 2026-11-13 for engine `extractive-1.1`.** Two sets are reported. Raw output: `benchmarks/results/`.
 
 ## A. Independent test set — 83 of 92 checks pass, 9 fail

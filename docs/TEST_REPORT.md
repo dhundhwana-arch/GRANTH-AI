@@ -1,5 +1,23 @@
 # Test report
 
+## Run of 2026-11-13, engine `extractive-1.2` (Phase 3; supersedes the numbers further down)
+
+| Suite | Command | Result |
+|---|---|---|
+| Python unit and API tests | `.venv/bin/python -m pytest -q` | 141 passed |
+| JavaScript unit tests | `npm test` | 18 passed |
+| Browser suite (headless Chromium, 390 px, touch) | `npm run test:e2e` | 33 of 33 steps |
+| In-house benchmark, acceptance, OCR | `python benchmarks/run_benchmarks.py --ocr` | 48 of 48; acceptance pass; mean CER 0.0649 |
+| Independent set | `python benchmarks/run_independent.py` | 91 of 92 |
+| Phase 3 development set | `python benchmarks/run_phase3.py` | 179 of 186 |
+| Phase 3 held-out sets, first runs | `--questions benchmarks/phase3/heldout.json` / `heldout2.json` | 36 of 40 / 32 of 35 |
+| Secret scan | `python scripts/secret_scan.py --history` | clean |
+
+New test files: `tests/test_phase3.py` (33), `tests/test_security_phase3.py` (7). Two browser steps were added: the Phase 3 answer card,
+and erasing a session's data.
+
+Not tested: any physical phone, real speech recognition, camera photos of real pages, real textbooks.
+
 ## Run of 2026-11-13, engine `extractive-1.1` (supersedes the numbers further down)
 
 | Suite | Command | Result |

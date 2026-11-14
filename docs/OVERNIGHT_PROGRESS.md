@@ -33,6 +33,28 @@ Started from verified commit `571da29` (tree clean, `main` untouched). Delivered
 
 Blockers: no publisher permission, so no real textbook; GSSTB portal unreachable; no physical phone available.
 
+## Phase 3 — accuracy and understanding (2026-11-13)
+
+Started from verified commit `a52e409`. Existing code was inspected and extended, not rebuilt.
+
+| Priority | State | Evidence |
+|---|---|---|
+| 1 Wrong-answer bug (focal length of a concave mirror) | Fixed, with regression tests | `granth/concepts.py`, `tests/test_phase3.py`, `docs/PHASE3_REPORT.md` |
+| 2 Paraphrase, mixed language, spelling | Improved; paraphrase is still the weakest category | `data/glossary/`, `granth/retrieval.py` |
+| 3 Editions answered separately, conflict on paraphrase | Done on the one conflicting demo fact | `edition_results` in the API |
+| 4 Simple explanation without an API | Done, modest depth | `granth/explain.py` |
+| 5 Independent benchmark | 186 development + 40 + 35 held-out questions | `docs/BENCHMARK_REPORT.md` |
+| 6 Real-device testing | **Not done.** Procedure written | `docs/MOBILE_TEST_REPORT.md` |
+| 7 Source permissions | Re-checked; no status changed; no real textbook | `docs/TEXTBOOK_SOURCE_REGISTRY.md` |
+| 8 Security and release audit | Weak admin tokens refused, lockout, erase-my-data, secret scan | `docs/SECURITY_REPORT.md` |
+
+Verified pushed commits of this phase: `d530dde` (engine 1.2), `d54b0ea` (benchmark; engine frozen for held-out
+set 1), `b9b2075` (fixes after set 1; frozen for set 2), `c9e29ff` (stricter Verified rule, results), `cfd946a`
+(security), then the documentation commit that contains this file (`git log -1`).
+
+Not production-ready: wrong answers still occur on unseen questions (3 of 75 on first runs), no real textbook is
+loaded, and no physical phone has been used.
+
 ## Branch
 
 The work is on **`arena/b93bc898-granth-ai`**, not `feature/granth-ai-textbook-engine`: the build environment

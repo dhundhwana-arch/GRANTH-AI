@@ -43,3 +43,26 @@
 - **Term list** (`data/glossary/en_gu_terms.json`) is static project data; no translation service is called.
 - No new external network calls, no new secrets. `.env`, private registry files and PDFs remain ignored by git.
 - Still open from before: no HTTPS termination, rate limit by direct IP only, single admin token, no audit log.
+
+## Phase 3 release audit (2026-11-13)
+
+| Area | Finding | Action | Test |
+|---|---|---|---|
+| Admin token | Any non-empty value was accepted, including `dev-admin-token` used in development | Well-known or short tokens (under 24 characters, or fewer than 8 distinct characters) are refused unless `GRANTH_ALLOW_WEAK_ADMIN_TOKEN=1`; 10 wrong tokens from one address lock the admin API for 5 minutes | `test_admin_refuses_development_token_unless_explicitly_allowed`, `test_repeated_wrong_admin_tokens_are_throttled` |
+| Session isolation | History, saved items and notes are keyed by a session id held in the browser | Id is now always generated with a cryptographic random source; no change to the model | `test_delete_session_data_erases_one_session_only` |
+| Private notes | Owner-only, never cached, never in the catalogue or offline packages | No change; deletion verified at database level | `test_deleted_personal_text_is_gone_from_the_database` |
+| Cache separation | Key includes engine version, corpus versions, edition ids, chapter, mode, marks; personal sources bypass the cache | Engine version bumped to 1.2, so no 1.1 answer is served | existing cache tests |
+| API credentials | Read from environment only; `.env` ignored by Git; none configured | Secret scanner added | `test_no_secrets_in_tracked_files` |
+| Migrations | 001 and 002 apply on an empty database; no schema change in Phase 3 | None needed | existing migration tests |
+| User data deletion | Only personal notes could be deleted | `DELETE /api/session-data?session=…` erases questions, answers, evidence log, feedback, saved answers, saved words and notes of that session; button on the history page | API and browser tests |
+| Error logging | Request log omits query strings and bodies; 500 responses carry no internals | No change | `test_errors_do_not_leak_internals_and_logs_hide_queries` |
+| Secret scanning | No tool existed | `scripts/secret_scan.py --history`: 109 tracked files and all commits clean | same test |
+
+Still open:
+
+- There are no accounts. Anyone who obtains a session id can read and erase that session's data.
+- No HTTPS termination in the app itself (must come from the host). The general rate limit is per address, in memory.
+- The admin lockout is per address and in memory; it resets on restart and is weak behind a shared proxy.
+- Answers saved for offline use stay on the device until the user clears site data.
+- The preview server started in this work session uses a development token with `GRANTH_ALLOW_WEAK_ADMIN_TOKEN=1`. That setting must never be used in a public deployment.
+- The shared answer cache and usage counters hold no session id and are not touched by "erase my data".

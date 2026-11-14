@@ -1,5 +1,20 @@
 # Answer engine report — `extractive-1.1`
 
+## Engine `extractive-1.2` (Phase 3) — what changed
+
+- Concept matching: the head concept of the question must be the term a definition defines (`granth/concepts.py`).
+- Aspect questions (unit, use, types, function) need a passage naming the thing and the aspect.
+- Numbers in the question must be printed in the passage shown; the engine never calculates.
+- Spelling, synonym, word-form and topic-alias matching, limited to the selected editions. Any assumed word makes the
+  status "Partially supported".
+- "Verified against source" for a short answer needs one passage that carries every question word.
+- A bare topic found in several chapters ("કાર્બન ડાયૉક્સાઇડ") asks which topic is meant.
+- Every edition is answered separately; `edition_results` shows each edition's evidence or its absence.
+- `structured.explanation`: rule-based simple explanation, separate from the quotation (`granth/explain.py`).
+- New refusal reasons: `concept_not_supported`, `aspect_not_found`, `numbers_not_in_source`.
+
+Details, examples and remaining failures: `docs/PHASE3_REPORT.md`. The text below describes engine 1.1.
+
 Code: `granth/answer.py`, `granth/lang.py`, `granth/retrieval.py`. Measured results: `docs/BENCHMARK_REPORT.md`.
 
 ## Pipeline (one engine for keyboard, voice, camera, exam mode)

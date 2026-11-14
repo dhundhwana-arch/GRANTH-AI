@@ -30,3 +30,15 @@ letter (date, reference, scope) and set the source to APPROVED. All other work c
 - Personal notes: explicit rights confirmation, 60,000-character limit, 5 per student, never in the shared cache,
   full deletion on request (text and stored answers).
 - `.gitignore` blocks `*.pdf` and download folders so textbook files cannot be committed by accident.
+
+## Phase 3 status (2026-11-13)
+
+Unchanged: NCERT **DENIED**; GSSTB **UNKNOWN**; DIKSHA **UNKNOWN**; Gujarati Wikipedia candidate, not ingested;
+demo books and supplementary notes **APPROVED** (self-authored). `RESTRICTED` is still unused.
+
+DIKSHA finding added: the Terms of Use make reuse depend on the licence of each content item. Moving a DIKSHA item to
+APPROVED needs that item's licence text, its attribution line and a named reviewer recorded here. A platform-level
+statement is not enough.
+
+The word lists added in Phase 3 (`data/glossary/gu_synonyms.json`, additions to `en_gu_terms.json`) were written for
+this project and contain single words and short glosses only; they quote no textbook.

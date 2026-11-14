@@ -37,3 +37,14 @@ board, standard or subject is supported yet.** The supplementary notes have not 
    `permission_status: APPROVED`, `role`) and ingest the file. PDF ingests wait for admin review.
 3. Other boards, standards and languages need no code change; a non-Gujarati source also needs stop-words and a term
    list for that language.
+
+## Phase 3 re-check (2026-11-13)
+
+| Source | Checked | Result | Status |
+|---|---|---|---|
+| GSSTB portal `gsstb.gujarat.gov.in` | Fetch attempted again | Unreachable from this environment | UNKNOWN (unchanged) |
+| DIKSHA Terms of Use (last updated 07-07-2025) | First 3 of 12 parts read; the Content Policy part was not reached | For "learning and educational purposes"; users may access and share content; modifying or adapting is allowed only as "expressly permitted by the license applicable to such Content". The licence is therefore per item. No item licence for a Gujarat textbook was inspected | UNKNOWN (unchanged) |
+| NCERT | Not re-read | Earlier finding stands | DENIED (unchanged) |
+| Demo books and supplementary notes | — | Self-authored, CC BY 4.0, labelled demo | APPROVED (unchanged) |
+
+No status was changed in Phase 3 and no third-party content was added. No real board, standard or subject is supported.

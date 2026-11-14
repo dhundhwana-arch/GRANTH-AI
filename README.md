@@ -33,7 +33,7 @@ The engine, registry and UI are board-, standard- and language-agnostic: a new a
 
 | Area | State |
 |---|---|
-| Answer engine `extractive-1.1`: Gujarati, English and mixed questions; definitions, short/detailed/points, marks-based, differences, formulas, worked examples step by step; refusal when unsupported or ambiguous | Working, tested |
+| Answer engine `extractive-1.2`: Gujarati, English and mixed questions; definitions, short/detailed/points, marks-based, differences, formulas, worked examples step by step; refusal when unsupported or ambiguous | Working, tested |
 | Structured answer with reliability status (Verified against source / Partially supported / Insufficient source evidence), no percentages | Working, tested |
 | Opt-in supplementary source, shown in a separate labelled block | Working, tested |
 | Private personal notes (rights confirmation, per-student, never cached or published, deletable) | Working, tested |
@@ -43,8 +43,10 @@ The engine, registry and UI are board-, standard- and language-agnostic: a new a
 | PDF ingestion with Gujarati OCR + admin review | Working on a printed sample PDF (mean character error 6.5%) |
 
 Honest limits: answers are the source's own sentences, selected and arranged — the app does not paraphrase unless an
-optional AI provider is configured (none is, and none is required). Questions that use different words from the
-book are often refused (see [answer engine report](docs/ANSWER_ENGINE_REPORT.md)).
+optional AI provider is configured (none is, and none is required). Since engine 1.2 common spelling slips, everyday synonyms and English terms are
+matched, and answers that rest on an assumed word are labelled "Partially supported". Questions worded very differently from the book are
+still refused, and a small share of answers is still wrong: see the [Phase 3 report](docs/PHASE3_REPORT.md) and the
+[answer engine report](docs/ANSWER_ENGINE_REPORT.md).
 
 ## Run it
 
@@ -59,20 +61,25 @@ npm install                                  # OCR engine + test tools
 The server needs only the Python standard library; PyMuPDF and Node are needed for PDF ingestion and OCR.
 An existing database from the first version is upgraded automatically (migration 002).
 Copy `.env.example` to `.env` to change settings; set `GRANTH_ADMIN_TOKEN` to use the review page (`/#/admin`).
+The token must be at least 24 random characters; short or well-known values are refused.
+`GRANTH_ALLOW_WEAK_ADMIN_TOKEN=1` lifts that check for local development only — never set it on a public server.
+Students can erase everything stored for their browser session from the history page.
 
 ## Test it
 
 ```bash
-.venv/bin/python -m pytest tests -q                    # 101 engine / API / ingestion tests
+.venv/bin/python -m pytest tests -q                    # 142 engine / API / ingestion / security tests
 npm test                                               # 18 browser-module tests
-npm run test:e2e                                       # 31 browser steps (headless Chromium, phone-size viewport)
+npm run test:e2e                                       # 33 browser steps (headless Chromium, phone-size viewport)
 .venv/bin/python benchmarks/run_benchmarks.py --ocr    # 48-question in-house set + acceptance + OCR
-.venv/bin/python benchmarks/run_independent.py         # 92-check independent set (83 pass, 9 fail — listed in the report)
+.venv/bin/python benchmarks/run_independent.py         # 92-check independent set (91 pass, 1 fail — listed in the report)
+.venv/bin/python benchmarks/run_phase3.py              # Phase 3 set, 186 questions (179 pass); --questions for the held-out sets
+.venv/bin/python scripts/secret_scan.py --history      # secret scan of tracked files and all commits
 ```
 
 ## Documentation
 
-[Architecture](docs/ARCHITECTURE.md) · [Answer engine](docs/ANSWER_ENGINE_REPORT.md) ·
+[Phase 3 report](docs/PHASE3_REPORT.md) · [Architecture](docs/ARCHITECTURE.md) · [Answer engine](docs/ANSWER_ENGINE_REPORT.md) ·
 [Source registry](docs/TEXTBOOK_SOURCE_REGISTRY.md) · [Copyright register](docs/COPYRIGHT_AND_PERMISSION_REGISTER.md) ·
 [Benchmarks](docs/BENCHMARK_REPORT.md) · [Tests](docs/TEST_REPORT.md) · [Mobile test](docs/MOBILE_TEST_REPORT.md) ·
 [Security](docs/SECURITY_REPORT.md) · [Progress log](docs/OVERNIGHT_PROGRESS.md) · [Next steps](docs/NEXT_STEPS.md) ·

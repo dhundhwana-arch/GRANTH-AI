@@ -230,3 +230,11 @@ def test_named_formula_question_leads_with_the_sentence_that_names_it(con, ids):
 def test_bare_topic_in_several_chapters_asks_which_one(con, ids):
     r = ask(con, ids, "કાર્બન ડાયૉક્સાઇડ")
     assert r["status"] == "abstained" and r["reason"] == "ambiguous_question" and r["suggestions"]
+
+
+def test_known_wrong_lead_is_never_labelled_verified(con, ids):
+    """Held-out set 2, G11: the engine still opens with the wrong passage. Until that is fixed it must not be
+    labelled 'Verified against source'. If the lead becomes correct, tighten this test."""
+    r = ask(con, ids, "ચૂનાનું પાણી ઍસિડિક છે કે બેઇઝિક?")
+    if r["status"] == "answered":
+        assert trust(r) != "verified"
