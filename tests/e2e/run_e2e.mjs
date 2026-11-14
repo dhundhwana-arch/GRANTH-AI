@@ -369,6 +369,28 @@ try {
     await page.waitForFunction(() => document.querySelector('#view').dataset.ready);
   });
 
+  await step('PHASE 3: focal-length question shows the focal-length definition (not the mirror definition), marked partial, with a separate simple explanation', async () => {
+    await go('#/ask');
+    const r = await ask('concave mirror નું focal length એટલે શું?');
+    assert(r.status === 'answered', 'not answered: ' + r.text.slice(0, 200));
+    const quote = await text('#answer-text .simple');
+    assert(quote.includes('કેન્દ્રલંબાઈ કહે છે'), 'focal length definition missing: ' + quote);
+    assert(!quote.includes('અંતર્ગોળ અરીસો કહે છે'), 'WRONG ANSWER: concave mirror definition returned');
+    assert((await page.$eval('#answer .trust', (e) => e.dataset.trust)) === 'partial', 'must not be Verified');
+    assert((await text('#answer-note')).includes('સામાન્ય વ્યાખ્યા'), 'general-definition note missing');
+    const ex = await page.$eval('#explanation', (e) => ({ a: e.dataset.available, t: e.innerText }));
+    assert(ex.a === '1' && ex.t.includes('અવતરણ નથી') && ex.t.includes('કોને ‘કેન્દ્રલંબાઈ’ કહે છે?'), 'explanation block wrong: ' + ex.t.slice(0, 200));
+    assert(!quote.includes('કોને ‘'), 'explanation text leaked into the quotation');
+    const p = await ask('છોડ પોતાનો ખોરાક કેવી રીતે બનાવે છે?');
+    assert(p.status === 'answered' && p.text.includes('પ્રકાશસંશ્લેષણ'), 'paraphrase not answered');
+    assert((await page.$eval('#answer .trust', (e) => e.dataset.trust)) === 'partial', 'synonym match must not be Verified');
+    const m = await ask('ઓમનો નિયમ');
+    assert(m.status === 'answered' && m.text.includes('ઓહ્મનો નિયમ કહે છે'), 'misspelling not resolved');
+    const n = await ask('અરીસો એટલે શું?');
+    assert(n.status === 'abstained' && n.text.includes(REFUSAL), 'related-only evidence must be refused');
+    return { trust: 'partial', explanation_lines: ex.t.split('\n').length };
+  });
+
   await step('mobile responsiveness: no horizontal overflow at 360px and 390px; touch targets ≥ 40px', async () => {
     const out = {};
     for (const width of [360, 390]) {

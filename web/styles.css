@@ -75,3 +75,10 @@ label.check input{width:24px;height:24px;flex:0 0 auto;margin-top:4px}
 table.tb{display:block;overflow-x:auto}
 @media (max-width:520px){body{font-size:16px}.two{grid-template-columns:1fr}.brand small{display:none}main{padding:10px 8px 24px}}
 @media (prefers-reduced-motion:reduce){.spinner{animation:none}}
+
+/* Phase 3: simple explanation (kept visually apart from the quotation) and per-edition status */
+details.explain { margin: .8rem 0; padding: .6rem .8rem; border: 1px dashed #b98900; border-radius: 10px; background: #fffaf0; }
+details.explain summary { font-weight: 700; cursor: pointer; }
+details.explain h4 { margin: .7rem 0 .2rem; font-size: 1rem; }
+ol.exlines { margin: .4rem 0 .4rem 1.2rem; padding: 0; line-height: 1.8; }
+.edres ul li { margin: .25rem 0; }

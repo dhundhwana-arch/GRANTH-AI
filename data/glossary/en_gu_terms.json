@@ -138,6 +138,18 @@
   "household": "ઘરવપરાશ",
   "voltage": "વોલ્ટેજ",
   "gravity": "ગુરુત્વાકર્ષણ",
-  "evaporation": "બાષ્પીભવન"
+  "evaporation": "બાષ્પીભવન",
+  "aerobic": "જારક",
+  "anaerobic": "અજારક",
+  "breathing": "શ્વાસ લેવો",
+  "instrument": "સાધન",
+  "supply": "વિદ્યુતપુરવઠા",
+  "power supply": "વિદ્યુતપુરવઠા",
+  "value": "મૂલ્ય",
+  "need": "જરૂર",
+  "rainwater": "વરસાદ પાણી",
+  "steam": "વરાળ",
+  "vapour": "બાષ્પ",
+  "vapor": "બાષ્પ"
  }
 }

@@ -119,6 +119,10 @@ class Index:
                     pre = [v for v in sc["by_first"].get(o["query"][0], []) if v.startswith(o["query"]) and len(v) >= len(o["query"]) + 2]
                     if len(o["query"]) >= 2 and len(pre) == 1:
                         o.update(term=pre[0], match="prefix")
+                    else:
+                        r = self._same_root(o["query"], sc)
+                        if r:
+                            o.update(term=r, match="root")
         seen, uniq = set(), []
         for o in out:
             key = o["term"] or "?" + o["query"]
@@ -161,6 +165,18 @@ class Index:
             return None                              # two equally close words: not a clear spelling variant
         return found[0][1]
 
+    def _same_root(self, t: str, sc: dict):
+        """Another grammatical form of the same word ("ઉમેરાય" / "ઉમેરવામાં"): the two share a root of at least four
+        letters that covers most of the shorter word, and exactly one vocabulary word qualifies. A weak match."""
+        if t.isdigit() or len(t) < 4:
+            return None
+        found = []
+        for cand in sc["by_first"].get(t[0], []):
+            n = _root_len(t, cand)
+            if n >= 4 and n >= 0.7 * min(len(t), len(cand)) and abs(len(t) - len(cand)) <= 4:
+                found.append(cand)
+        return found[0] if len(found) == 1 else None
+
     def _fuzzy_context(self, t: str, sc: dict, matched: set):
         """A short word one edit away from exactly one vocabulary word that occurs together with another matched
         question word in the same passage. Without that support a 2-3 letter near-miss is too weak to accept."""
@@ -169,6 +185,15 @@ class Index:
         found = [c for d, c in self._candidates(t, sc, 1)]
         ok = [c for c in found if any(self.tf[i].get(c) and any(self.tf[i].get(m) for m in matched if m != c) for i in sc["rows"])]
         return ok[0] if len(ok) == 1 else None
+
+
+def _root_len(a: str, b: str) -> int:
+    n = 0
+    for x, y in zip(a, b):
+        if x != y:
+            break
+        n += 1
+    return n
 
 
 def _skel(term: str) -> str:

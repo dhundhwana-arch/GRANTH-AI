@@ -148,7 +148,32 @@ function answeredBody(r, idp = '') {
     </div>
     ${st.word_help && st.word_help.length ? `<div class="help"><h3>અઘરા શબ્દો <span class="muted">(${esc(st.word_help_label)})</span></h3><ul class="clean">${st.word_help.map((w) => `<li><strong>${esc(w.word)}</strong> — ${esc(w.meaning)}</li>`).join('')}</ul></div>` : ''}
     ${st.english_terms && st.english_terms.length ? `<p class="enterms"><span class="muted">${esc(st.english_terms_label)}:</span> ${st.english_terms.map((t) => `${esc(t.gu)} (${esc(t.en)})`).join(', ')}</p>` : ''}
-    ${(st.notes || []).map((n) => `<div class="note">${esc(n)}</div>`).join('')}`;
+    ${(st.notes || []).map((n) => `<div class="note">${esc(n)}</div>`).join('')}
+    ${explanationHtml(st.explanation, idp)}`;
+}
+
+// Rule-based simple explanation. Always shown apart from the quotation, with the page of every line.
+function explanationHtml(ex, idp = '') {
+  if (!ex) return '';
+  if (!ex.available) return `<p class="muted explain-none" id="${idp}explanation" data-available="0">${esc(ex.fallback_gu)}</p>`;
+  const pg = (x) => `<span class="muted">(પૃ. ${esc(x.page_number)})</span>`;
+  return `<details class="explain" id="${idp}explanation" data-available="1" open><summary>સરળ સમજૂતી <span class="badge warn">અવતરણ નથી</span></summary>
+    <p class="muted">${esc(ex.label_gu)}</p>
+    ${ex.lines.length ? `<ol class="exlines">${ex.lines.map((l) => `<li>${esc(l.text)} ${pg(l.evidence[0])}</li>`).join('')}</ol>` : ''}
+    ${ex.everyday_words.length ? `<p class="muted">${esc(ex.everyday_label_gu)}</p>` : ''}
+    ${ex.terms.length ? `<h4>${esc(ex.terms_label_gu)}</h4><ul class="clean exterms">${ex.terms.map((t) => `<li><strong>${esc(t.term)}</strong> — “${esc(t.meaning)}” ${pg(t)}</li>`).join('')}</ul>` : ''}
+    ${ex.examples.length ? `<h4>${esc(ex.examples_label_gu)}</h4>${ex.examples.map((e) => `<blockquote>${esc(e.text)} ${pg(e)}</blockquote>`).join('')}` : ''}
+  </details>`;
+}
+
+// Every selected edition is searched separately; show what each one had - or did not have.
+function editionResultsHtml(r) {
+  const per = r.edition_results;
+  if (!per || per.length < 2) return '';
+  return `<div class="edres" id="edition-results"><h3>દરેક આવૃત્તિની સ્થિતિ</h3><ul class="clean">${per.map((e) =>
+    `<li data-ed="${e.edition_id}" data-status="${esc(e.status)}"><strong>${esc(e.edition)}</strong>: ${e.status === 'answered'
+      ? `<span class="badge ok">આધાર મળ્યો</span> <span class="muted">પૃ. ${e.citations.map((c) => esc(c.page_number)).join(', ')}</span>`
+      : `<span class="badge bad">આધાર મળ્યો નથી</span> <span class="muted">${esc(e.message || '')}</span>`}</li>`).join('')}</ul></div>`;
 }
 
 function supplementaryHtml(sp) {
@@ -183,7 +208,7 @@ function resultHtml(r, opts = {}) {
       ${qline}${translationHtml(r)}
       ${answeredBody(r)}
       ${r.note ? `<div class="note" id="answer-note">${esc(r.note)}</div>` : ''}
-      ${r.edition_note ? `<div class="note">${esc(r.edition_note)}</div>` : ''}
+      ${r.edition_note ? `<div class="note">${esc(r.edition_note)}</div>` : ''}${editionResultsHtml(r)}
       <h3>પુસ્તકનો આધાર</h3>${r.citations.map(citationHtml).join('<hr>')}
       ${trustHtml(r.structured)}
       <div class="row"><button type="button" id="speak" class="small">🔊 ઉત્તર સાંભળો</button>${save}<span id="speak-msg" class="muted"></span></div>
@@ -193,7 +218,7 @@ function resultHtml(r, opts = {}) {
   if (r.status === 'edition_conflict') {
     return `${banner}<section class="card conflict" id="answer" data-status="edition_conflict"><h2>આવૃત્તિઓમાં તફાવત</h2>${qline}<p>${esc(r.message)}</p>
       ${r.editions.map((e) => `<div class="card"><h3>આવૃત્તિ: ${esc(e.edition)}</h3><div class="text">${renderText(e.answer.text)}</div>
-        ${e.citations.map(citationHtml).join('')}${evidenceHtml(e.evidence, e.answer.parts)}</div>`).join('')}${trustHtml(r.structured)}<div class="row">${save}</div>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
+        ${e.citations.map(citationHtml).join('')}${evidenceHtml(e.evidence, e.answer.parts)}</div>`).join('')}${editionResultsHtml(r)}${trustHtml(r.structured)}<div class="row">${save}</div>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
   }
   const sugg = r.suggestions && r.suggestions.length ? `<h3>કયો મુદ્દો?</h3><div class="chips">${r.suggestions.map((x) =>
     `<button type="button" class="chip sugg" data-ch="${x.chapter_id}" data-no="${esc(x.chapter_number)}" data-title="${esc(x.chapter_title)}" data-sec="${esc(x.section_title.replace(/^[\d.]+\s*/, ''))}">${esc(x.section_title)} <span class="muted">(પૃ. ${esc(x.page_number)})</span></button>`).join('')}</div>` : '';
@@ -202,6 +227,7 @@ function resultHtml(r, opts = {}) {
     <p id="abstain-msg"><strong>${esc(r.message || ABSTAIN)}</strong></p>
     ${r.reason_gu ? `<p class="muted">${esc(r.reason_gu)}</p>` : ''}
     ${r.unmatched_terms && r.unmatched_terms.length ? `<p class="muted">પુસ્તકમાં ન મળેલા શબ્દો: ${r.unmatched_terms.map(esc).join(', ')}</p>` : ''}
+    ${r.edition_note ? `<div class="note">${esc(r.edition_note)}</div>` : ''}${editionResultsHtml(r)}
     ${sugg}${trustHtml(r.structured)}
     <p class="muted">GRANTH-AI પાઠ્યપુસ્તક બહારની માહિતી પરથી ઉત્તર બનાવતું નથી. જોડણી તપાસો, બીજું પ્રકરણ કે પુસ્તક પસંદ કરો${r.supplementary ? '' : ', અથવા પ્રશ્ન નીચે “પૂરક સ્રોત” પસંદ કરીને ફરી પૂછો'}.</p>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
 }

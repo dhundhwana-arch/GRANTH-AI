@@ -265,6 +265,10 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
         idx = retrieval.get_index(con)
         a_l = [t["term"] or t["query"] for t in idx.resolve_terms(a_txt, edition_ids)]
         b_l = [t["term"] or t["query"] for t in idx.resolve_terms(b_txt, edition_ids)]
+        if b_l and a_l and b_l[-1] not in a_l and len(b_l) > len(a_l):
+            # shared head noun written once: "અંતર્ગોળ અને બહિર્ગોળ અરીસા" = "અંતર્ગોળ અરીસા" and "બહિર્ગોળ અરીસા"
+            a_txt = a_txt + " " + b_txt.split()[-1]
+            a_l = [t["term"] or t["query"] for t in idx.resolve_terms(a_txt, edition_ids)]
         a, b = set(a_l), set(b_l)
         if not a or not b or a == b:
             return {"abstain": "difference_not_supported"}
@@ -455,7 +459,7 @@ def verify_generated(text: str, evidence_texts: list[str]) -> dict:
 
 
 # ----------------------------------------------------------------------------- student-facing structure
-WEAK_MATCHES = ("synonym", "fuzzy", "fuzzy_context", "prefix")
+WEAK_MATCHES = ("synonym", "fuzzy", "fuzzy_context", "prefix", "root")
 TRUST_LABELS = {"verified": "સ્રોત સાથે ચકાસેલું", "partial": "આંશિક આધાર", "insufficient": "પૂરતો આધાર નથી"}
 TRUST_LABELS_EN = {"verified": "Verified against source", "partial": "Partially supported", "insufficient": "Insufficient source evidence"}
 SOURCE_TYPE_LABELS = {"quotation": "પાઠ્યપુસ્તકના શબ્દોમાં (સીધું અવતરણ)",
@@ -540,12 +544,20 @@ def _structure(con, payload: dict, question: str, res: dict | None, source_type:
             "basis": payload["citations"], "notes": notes, "trust": _trust(status, reasons)}
 
 
-def _ambiguity(res: dict) -> list | None:
-    """A one-word question whose word lives in several chapters cannot be answered responsibly: ask which topic."""
-    if len(res["terms"]) != 1 or not res["terms"][0]["term"]:
+def _ambiguity(res: dict, question: str = "") -> list | None:
+    """A bare topic ("પાણી", "કાર્બન ડાયૉક્સાઇડ") with no question in it, found in several chapters, cannot be
+    answered responsibly: ask which topic. A bare topic that the book itself defines is answered by that definition."""
+    words = [w.strip("?.,!;:") for w in question.split()]
+    bare = len(res["terms"]) == 1 or (len(words) <= 3 and all(g.content_terms(w) for w in words if w))
+    if not bare or not all(t["term"] for t in res["terms"]):
+        return None
+    asked = [t["term"] for t in res["terms"]]
+    if len(asked) > 1 and _find_definition(res["results"], asked):
         return None
     seen, out = set(), []
     for r in res["results"]:
+        if len(asked) > 1 and not set(asked) <= set(r["matched_terms"]):
+            continue
         key = (r["edition_id"], r["section_id"])
         if key in seen or not r["section_title"]:
             continue
@@ -636,7 +648,7 @@ def _attempt(con, question, mode, eff_mode, marks, edition_ids, chapter_id):
     if not ok:
         return {"abstain": reason}, res, eff_mode
     if eff_mode in ("short", "detailed", "points", "one_line") and not chapter_id:
-        options = _ambiguity(res)
+        options = _ambiguity(res, question)
         if options:
             return {"abstain": "ambiguous_question", "suggestions": options}, res, eff_mode
     comp = _compose(con, question, eff_mode, marks, res, edition_ids, chapter_id)
@@ -696,6 +708,16 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
         alt = _concept_fallback(con, question, res, edition_ids, chapter_id)
         if alt:
             comp, eff_mode = alt, "definition"
+    if comp.get("abstain") in ("definition_not_found", "concept_not_supported") and scope.get("_soft_definition"):
+        # English "What is ...?" may ask for a fact, not a definition ("What is the pH value of a neutral solution?").
+        # Accept a factual answer only when ONE source sentence carries every word of the question.
+        q2 = _DEF_TAIL.sub("", question).strip(" ?.:,") + " જણાવો"
+        c2, r2, m2 = _attempt(con, q2, "short", "short", marks, edition_ids, chapter_id)
+        if "parts" in c2 and len(r2["terms"]) >= 3 and all(t["term"] for t in r2["terms"]):
+            need = {t["term"] for t in r2["terms"]}
+            full = [p for p in c2["parts"] if p["kind"] == "sentence" and need <= set(g.content_terms(p["text"]))]
+            if full:
+                comp, res, eff_mode = {**c2, "parts": full[:1]}, r2, "short"
     if "abstain" in comp:
         out = {**_abstain(comp["abstain"], res), "mode": eff_mode}
         if comp.get("suggestions"):
@@ -774,6 +796,8 @@ def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks
     norm = g.search_key(question)
     if translation and mode == "auto" and translation["intent"] in ("definition", "difference", "formula", "steps"):
         mode = translation["intent"]
+        if mode == "definition":
+            scope["_soft_definition"] = True
     scope.setdefault("session", session_id)
     editions = resolve_scope(con, scope)
     if language["language"] == "hi":
@@ -845,6 +869,7 @@ def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks
     payload["question"] = original_question
     payload["normalized_question"] = norm
     scope.pop("session", None)
+    scope.pop("_soft_definition", None)
     payload["scope"] = {**{k: scope.get(k) for k in ("board", "medium", "standard", "subject", "textbook_id", "edition_id",
                                                      "chapter_id")}, "edition_ids": [e["id"] for e in editions]}
     payload["latency_ms"] = round((time.perf_counter() - t0) * 1000, 3)
