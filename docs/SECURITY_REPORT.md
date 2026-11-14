@@ -64,5 +64,5 @@ Still open:
 - No HTTPS termination in the app itself (must come from the host). The general rate limit is per address, in memory.
 - The admin lockout is per address and in memory; it resets on restart and is weak behind a shared proxy.
 - Answers saved for offline use stay on the device until the user clears site data.
-- The preview server started in this work session uses a development token with `GRANTH_ALLOW_WEAK_ADMIN_TOKEN=1`. That setting must never be used in a public deployment.
+- The preview server of this work session runs without an admin token, so its admin API is disabled. `GRANTH_ALLOW_WEAK_ADMIN_TOKEN=1` must never be set on a public deployment.
 - The shared answer cache and usage counters hold no session id and are not touched by "erase my data".
