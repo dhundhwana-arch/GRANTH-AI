@@ -82,3 +82,4 @@ details.explain summary { font-weight: 700; cursor: pointer; }
 details.explain h4 { margin: .7rem 0 .2rem; font-size: 1rem; }
 ol.exlines { margin: .4rem 0 .4rem 1.2rem; padding: 0; line-height: 1.8; }
 .edres ul li { margin: .25rem 0; }
+button.danger { border-color: #b3261e; color: #b3261e; background: #fff; }

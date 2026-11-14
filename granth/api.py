@@ -224,8 +224,21 @@ class Handler(BaseHTTPRequestHandler):
         token = config.get("GRANTH_ADMIN_TOKEN")
         if not token:
             raise ApiError(403, "admin interface is disabled (GRANTH_ADMIN_TOKEN not configured)")
+        if weak_admin_token(token) and config.get("GRANTH_ALLOW_WEAK_ADMIN_TOKEN") != "1":
+            # a development / guessable token must never open the admin interface of a public deployment
+            raise ApiError(403, "admin interface is disabled: GRANTH_ADMIN_TOKEN is a development or weak value "
+                                "(use at least 24 random characters)")
+        client = self.client_address[0] if self.client_address else "?"
+        now = time.time()
+        with _admin_lock:
+            fails = [t for t in _admin_failures.get(client, []) if now - t < 300]
+            _admin_failures[client] = fails
+            if len(fails) >= 10:
+                raise ApiError(429, "too many wrong admin tokens; try again in a few minutes")
         given = self.headers.get("X-Admin-Token", "")
         if not hmac.compare_digest(given.encode(), token.encode()):
+            with _admin_lock:
+                _admin_failures.setdefault(client, []).append(now)
             raise ApiError(401, "invalid admin token")
 
     def _static(self, path: str):
@@ -318,6 +331,23 @@ def r_ask(h, qs):
                       router=h.router,
                       supplementary_edition_id=_int(b["supplementary_edition_id"], "supplementary_edition_id")
                       if b.get("supplementary_edition_id") not in (None, "") else None)
+
+
+_WEAK_TOKENS = {"dev-admin-token", "e2e-admin", "admin", "changeme", "change-me", "password", "secret", "token", "test", "granth"}
+_admin_failures: dict = {}
+_admin_lock = threading.Lock()
+
+
+def weak_admin_token(token: str) -> bool:
+    t = (token or "").strip()
+    return t.lower() in _WEAK_TOKENS or len(t) < 24 or len(set(t)) < 8
+
+
+def r_session_delete(h, qs):
+    try:
+        return ingest.delete_session_data(h.con, str(_q(qs, "session") or ""))
+    except ingest.IngestionRefused as e:
+        raise ApiError(400, str(e))
 
 
 def _sess(v) -> str:
@@ -482,6 +512,7 @@ ROUTES = [
     ("GET", r"/api/personal-notes", lambda h, qs: {"notes": ingest.list_personal_notes(h.con, _sess(_q(qs, "session")))}),
     ("POST", r"/api/personal-notes", r_personal_add),
     ("DELETE", r"/api/personal-notes/(\d+)", r_personal_del),
+    ("DELETE", r"/api/session-data", r_session_delete),
     ("GET", r"/api/saved-answers", r_saved_answers),
     ("POST", r"/api/saved-answers", r_saved_answers_add),
     ("DELETE", r"/api/saved-answers/(\d+)", r_saved_answers_del),

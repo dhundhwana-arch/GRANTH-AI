@@ -23,7 +23,12 @@ let catalog = null;
 let offlineDb = null;
 function session() {
   let s = store.get('granth.session');
-  if (!s) { s = 's-' + (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)); store.set('granth.session', s); }
+  if (!s) {
+    // the session id is the only key to this student's history and private notes: it must be unguessable
+    s = 's-' + (crypto.randomUUID ? crypto.randomUUID()
+      : Array.from(crypto.getRandomValues(new Uint8Array(16)), (x) => x.toString(16).padStart(2, '0')).join(''));
+    store.set('granth.session', s);
+  }
   return s;
 }
 function saveSel() { store.set('granth.sel', sel); }
@@ -731,7 +736,19 @@ views.page = async (edition, pageNo) => {
 };
 
 views.history = async () => {
-  view.innerHTML = `<h1>પ્રશ્ન ઇતિહાસ</h1><p class="row"><a class="btn small" href="#/saved" id="to-saved">⭐ સાચવેલા ઉત્તરો</a></p><div id="hist">${loading()}</div>`;
+  view.innerHTML = `<h1>પ્રશ્ન ઇતિહાસ</h1><p class="row"><a class="btn small" href="#/saved" id="to-saved">⭐ સાચવેલા ઉત્તરો</a>
+    <button type="button" class="small danger" id="erase-all">🗑 મારો બધો ડેટા ભૂંસો</button></p>
+    <p class="muted" id="erase-msg" role="status">“મારો બધો ડેટા ભૂંસો” દબાવવાથી સર્વર પરથી તમારા પ્રશ્નો, ઉત્તરો, સાચવેલા ઉત્તરો/શબ્દો અને તમારી પોતાની નોંધો કાયમ માટે ભૂંસાશે.</p><div id="hist">${loading()}</div>`;
+  $('#erase-all').onclick = async () => {
+    if (!confirm('તમારો બધો ડેટા સર્વર પરથી કાયમ માટે ભૂંસવો છે? આ પાછું લાવી શકાશે નહીં.')) return;
+    try {
+      const d = await api(`/api/session-data?session=${encodeURIComponent(session())}`, { method: 'DELETE' });
+      localStorage.removeItem('granth.session');
+      $('#hist').innerHTML = '<p class="muted" id="no-history">હજી કોઈ પ્રશ્ન પૂછ્યો નથી.</p>';
+      $('#erase-msg').textContent = `ભૂંસાઈ ગયું: ${d.questions} પ્રશ્ન, ${d.personal_notes} નોંધ. આ ઉપકરણ માટે નવી ઓળખ બનશે.`;
+      $('#erase-msg').dataset.done = '1';
+    } catch (e) { $('#erase-msg').textContent = e.message; }
+  };
   try {
     const { history } = await api(`/api/history?session=${encodeURIComponent(session())}`);
     const label = { answered: ['ok', 'ઉત્તર મળ્યો'], abstained: ['warn', 'આધાર મળ્યો નથી'], edition_conflict: ['bad', 'આવૃત્તિ તફાવત'] };

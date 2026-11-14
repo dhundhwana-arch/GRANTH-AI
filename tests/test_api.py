@@ -12,6 +12,7 @@ from granth.__main__ import seed_samples
 @pytest.fixture()
 def server(tmp_path, monkeypatch):
     monkeypatch.setenv("GRANTH_ADMIN_TOKEN", "test-admin-token")
+    monkeypatch.setenv("GRANTH_ALLOW_WEAK_ADMIN_TOKEN", "1")       # tests only; a public deployment needs a strong token
     path = tmp_path / "api.sqlite3"
     c = db.connect(path)
     seed_samples(c)

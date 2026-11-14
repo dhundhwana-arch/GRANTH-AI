@@ -412,3 +412,36 @@ def delete_personal_notes(con, session_id: str, edition_id: int) -> bool:
     from . import retrieval
     retrieval.invalidate_index()
     return True
+
+
+def delete_session_data(con, session_id: str) -> dict:
+    """Erase everything stored on the server for one browser session: own notes, questions, answers shown,
+    feedback, saved answers and saved words. Shared, non-personal data (books, the verified-answer cache, anonymous
+    usage counters) holds no session id and is not touched."""
+    sid = str(session_id or "")[:64]
+    if len(sid) < 8 or sid == "anonymous":
+        raise IngestionRefused("a session id of at least 8 characters is required")
+    notes = [r[0] for r in con.execute("SELECT id FROM textbook_editions WHERE role='personal' AND owner_session=?", (sid,))]
+    for eid in notes:
+        delete_personal_notes(con, sid, eid)
+    with con:
+        qids = [r[0] for r in con.execute("SELECT id FROM questions WHERE session_id=?", (sid,))]
+        aids = []
+        for i in range(0, len(qids), 400):
+            part = qids[i:i + 400]
+            marks = ",".join("?" * len(part))
+            aids += [r[0] for r in con.execute(f"SELECT id FROM generated_answers WHERE question_id IN ({marks})", part)]
+            con.execute(f"DELETE FROM retrieved_evidence WHERE question_id IN ({marks})", part)
+            con.execute(f"DELETE FROM feedback WHERE question_id IN ({marks})", part)
+        for i in range(0, len(aids), 400):
+            part = aids[i:i + 400]
+            marks = ",".join("?" * len(part))
+            con.execute(f"DELETE FROM verification_results WHERE answer_id IN ({marks})", part)
+            con.execute(f"DELETE FROM saved_answers WHERE answer_id IN ({marks})", part)
+            con.execute(f"DELETE FROM feedback WHERE answer_id IN ({marks})", part)
+            con.execute(f"DELETE FROM generated_answers WHERE id IN ({marks})", part)
+        saved = con.execute("DELETE FROM saved_answers WHERE session_id=?", (sid,)).rowcount
+        words = con.execute("DELETE FROM saved_words WHERE session_id=?", (sid,)).rowcount
+        con.execute("DELETE FROM questions WHERE session_id=?", (sid,))
+    return {"deleted": True, "questions": len(qids), "answers": len(aids), "personal_notes": len(notes),
+            "saved_answers": saved, "saved_words": words}

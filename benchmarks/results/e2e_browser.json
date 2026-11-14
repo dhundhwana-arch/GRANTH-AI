@@ -1,20 +1,20 @@
 {
   "suite": "browser end-to-end (headless Chromium, 390x800 mobile viewport)",
-  "executed_at": "2026-11-14T03:11:26.258Z",
-  "passed": 32,
+  "executed_at": "2026-11-14T03:14:00.054Z",
+  "passed": 33,
   "failed": 0,
-  "total": 32,
+  "total": 33,
   "results": [
     {
       "name": "home page: Gujarati UI, permanent credits in footer, sample notice",
       "status": "passed",
-      "ms": 35,
+      "ms": 38,
       "detail": null
     },
     {
       "name": "selection flow: board → medium → standard → subject → textbook edition → chapter list",
       "status": "passed",
-      "ms": 356,
+      "ms": 390,
       "detail": {
         "chapter_chips": 6
       }
@@ -22,7 +22,7 @@
     {
       "name": "Student A: typed question is answered with chapter + page citation and evidence",
       "status": "passed",
-      "ms": 155,
+      "ms": 169,
       "detail": {
         "page": "પૃષ્ઠ 1 ખોલો →"
       }
@@ -30,7 +30,7 @@
     {
       "name": "Student B: identical question is served from the verified cache",
       "status": "passed",
-      "ms": 79,
+      "ms": 86,
       "detail": {
         "cache_hits": 1,
         "external_api_calls": 0
@@ -39,19 +39,19 @@
     {
       "name": "Student C: question absent from the textbook gets the exact refusal message",
       "status": "passed",
-      "ms": 70,
+      "ms": 1083,
       "detail": null
     },
     {
       "name": "source page viewer opens the cited page",
       "status": "passed",
-      "ms": 1231,
+      "ms": 118,
       "detail": null
     },
     {
       "name": "voice: transcript lands in the editable box and is NOT auto-submitted; edited text is what gets asked",
       "status": "passed",
-      "ms": 405,
+      "ms": 457,
       "detail": {
         "recogniser": "mock (no microphone in container)"
       }
@@ -59,23 +59,23 @@
     {
       "name": "voice: microphone permission denial shows a Gujarati message and leaves typing usable",
       "status": "passed",
-      "ms": 181,
+      "ms": 180,
       "detail": null
     },
     {
       "name": "camera/gallery: image upload → preview → rotate/crop controls → on-device Gujarati OCR → editable text → answer",
       "status": "passed",
-      "ms": 1547,
+      "ms": 1929,
       "detail": {
         "ocr_text": "હરિતદ્રવ્ય કોને કહે છે?",
-        "ocr_ms": 1114,
+        "ocr_ms": 1321,
         "engine": "tesseract.js in the browser (guj+eng), no upload"
       }
     },
     {
       "name": "OCR correction: a mis-read word abstains, the student-corrected text is answered",
       "status": "passed",
-      "ms": 118,
+      "ms": 102,
       "detail": {
         "misread_status": "answered",
         "corrected_status": "answered"
@@ -84,7 +84,7 @@
     {
       "name": "exam mode: marks-based answer is built from evidence and flags unsupported length",
       "status": "passed",
-      "ms": 225,
+      "ms": 233,
       "detail": {
         "shortfall_note": "5 ગુણના ઉત્તર માટે પાઠ્યપુસ્તકમાં પૂરતા મુદ્દા મળ્યા નથી. જેટલો આધાર મળ્યો તેટલો"
       }
@@ -92,13 +92,13 @@
     {
       "name": "exam mode: unsupported request (difference with no textbook basis) is rejected",
       "status": "passed",
-      "ms": 163,
+      "ms": 139,
       "detail": null
     },
     {
       "name": "exam mode: chapter revision and practice questions with page references and disclaimer",
       "status": "passed",
-      "ms": 188,
+      "ms": 168,
       "detail": {
         "practice_questions": 17
       }
@@ -106,7 +106,7 @@
     {
       "name": "dictionary: search shows labelled textbook meaning with chapter + page; unknown word is refused; save works",
       "status": "passed",
-      "ms": 265,
+      "ms": 279,
       "detail": {
         "first_word": "હરિતદ્રવ્ય પાઠ્યપુસ્તકની વ્યાખ્યા"
       }
@@ -114,7 +114,7 @@
     {
       "name": "history lists typed, voice and camera questions with their results",
       "status": "passed",
-      "ms": 38,
+      "ms": 54,
       "detail": {
         "entries": 13
       }
@@ -122,13 +122,13 @@
     {
       "name": "About page shows permanent credits, policy, sources and zero external API calls",
       "status": "passed",
-      "ms": 71,
+      "ms": 31,
       "detail": null
     },
     {
       "name": "answer format: પ્રશ્ન / સરળ જવાબ / પુસ્તકનો આધાર / વિશ્વસનીયતા સ્થિતિ, quotation label, no percentage",
       "status": "passed",
-      "ms": 143,
+      "ms": 133,
       "detail": {
         "trust": "verified"
       }
@@ -136,13 +136,13 @@
     {
       "name": "English question is answered from the Gujarati source with a visible mapping note",
       "status": "passed",
-      "ms": 147,
+      "ms": 112,
       "detail": null
     },
     {
       "name": "ambiguous one-word question is refused with topic suggestions",
       "status": "passed",
-      "ms": 52,
+      "ms": 54,
       "detail": {
         "suggestions": 3
       }
@@ -150,31 +150,31 @@
     {
       "name": "supplementary source: off by default; when selected it is shown in a separate, labelled block",
       "status": "passed",
-      "ms": 98,
+      "ms": 115,
       "detail": null
     },
     {
       "name": "worked example is shown step by step, copied from the book",
       "status": "passed",
-      "ms": 46,
+      "ms": 45,
       "detail": null
     },
     {
       "name": "saved answers: save from the answer card, listed under સાચવેલા ઉત્તરો, removable",
       "status": "passed",
-      "ms": 271,
+      "ms": 304,
       "detail": null
     },
     {
       "name": "personal notes: rights confirmation required, private answer labelled as own notes, delete works",
       "status": "passed",
-      "ms": 746,
+      "ms": 720,
       "detail": null
     },
     {
       "name": "PHASE 3: focal-length question shows the focal-length definition (not the mirror definition), marked partial, with a separate simple explanation",
       "status": "passed",
-      "ms": 314,
+      "ms": 359,
       "detail": {
         "trust": "partial",
         "explanation_lines": 9
@@ -183,7 +183,7 @@
     {
       "name": "mobile responsiveness: no horizontal overflow at 360px and 390px; touch targets ≥ 40px",
       "status": "passed",
-      "ms": 1861,
+      "ms": 1817,
       "detail": {
         "360": "ok",
         "390": "ok"
@@ -192,7 +192,7 @@
     {
       "name": "offline library: download an authorized book, verified and listed with storage usage",
       "status": "passed",
-      "ms": 96,
+      "ms": 97,
       "detail": {
         "stored": "78.0 KB",
         "service_worker": true
@@ -201,32 +201,40 @@
     {
       "name": "OFFLINE (network cut): app shell reloads, downloaded book opens, pages navigate, progress is kept",
       "status": "passed",
-      "ms": 302,
+      "ms": 304,
       "detail": null
     },
     {
       "name": "OFFLINE: search inside the downloaded book works; a not-downloaded book says so",
       "status": "passed",
-      "ms": 57,
+      "ms": 65,
       "detail": null
     },
     {
       "name": "OFFLINE: previously verified answer is reused from the device; a new question gets search results only, labelled as not an answer",
       "status": "passed",
-      "ms": 93,
+      "ms": 131,
       "detail": null
     },
     {
       "name": "back ONLINE: delete the downloaded book; storage is released",
       "status": "passed",
-      "ms": 40,
+      "ms": 62,
       "detail": null
     },
     {
       "name": "admin source review: wrong token refused; rejecting an edition removes it from students; approve restores",
       "status": "passed",
-      "ms": 1304,
+      "ms": 1292,
       "detail": null
+    },
+    {
+      "name": "PHASE 3: \"erase all my data\" removes the history of this session from the server and issues a new session id",
+      "status": "passed",
+      "ms": 157,
+      "detail": {
+        "erased_questions": 24
+      }
     },
     {
       "name": "no uncaught JavaScript errors during the whole run",

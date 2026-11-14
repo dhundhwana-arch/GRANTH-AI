@@ -14,7 +14,7 @@ const PORT = 8765;
 const BASE = `http://localhost:${PORT}`;
 const PY = existsSync(path.join(ROOT, '.venv/bin/python')) ? path.join(ROOT, '.venv/bin/python') : 'python3';
 const tmp = mkdtempSync(path.join(tmpdir(), 'granth-e2e-'));
-const env = { ...process.env, GRANTH_DB_PATH: path.join(tmp, 'e2e.sqlite3'), GRANTH_ADMIN_TOKEN: 'e2e-admin', GRANTH_GENERATIVE: 'off', GRANTH_PORT: String(PORT) };
+const env = { ...process.env, GRANTH_DB_PATH: path.join(tmp, 'e2e.sqlite3'), GRANTH_ADMIN_TOKEN: 'e2e-admin', GRANTH_ALLOW_WEAK_ADMIN_TOKEN: '1', GRANTH_GENERATIVE: 'off', GRANTH_PORT: String(PORT) };
 delete env.LD_LIBRARY_PATH;                                    // Chromium's bundled libs must not leak into Python
 execFileSync(PY, ['-m', 'granth', 'seed-samples'], { cwd: ROOT, env, stdio: 'ignore' });
 const server = spawn(PY, ['-m', 'granth', 'serve', '--host', '127.0.0.1', '--port', String(PORT)], { cwd: ROOT, env, stdio: 'ignore' });
@@ -488,6 +488,21 @@ try {
     await click('approved');
     const r2 = await (await fetch(`${BASE}/api/editions/${offlineEd}/pages/1`)).status;
     assert(r1 === 404 && r2 === 200, `expected 404 then 200, got ${r1} then ${r2}`);
+  });
+
+  await step('PHASE 3: "erase all my data" removes the history of this session from the server and issues a new session id', async () => {
+    await go('#/history');
+    const before = await page.evaluate(() => JSON.parse(localStorage.getItem('granth.session')));
+    const n = await page.$$eval('#hist > details', (els) => els.length);
+    assert(n > 0, 'expected some history before erasing');
+    await page.click('#erase-all');
+    await page.waitForSelector('#erase-msg[data-done="1"]', { timeout: 8000 });
+    const left = await (await fetch(`${BASE}/api/history?session=${encodeURIComponent(before)}`)).json();
+    assert(left.history.length === 0, 'history still on the server');
+    await go('#/history');
+    const after = await page.evaluate(() => JSON.parse(localStorage.getItem('granth.session')));
+    assert(after && after !== before, 'session id was not renewed');
+    return { erased_questions: n };
   });
 
   await step('no uncaught JavaScript errors during the whole run', async () => {
