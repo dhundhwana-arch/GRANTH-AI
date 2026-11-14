@@ -1,23 +1,24 @@
-"""GRANTH-AI — Gujarati textbook-grounded question answering.
+"""GRANTH-AI — textbook-grounded educational information system.
 
-Idea contributor: Bhaveshbhai Solanki
-Founder & developer: Divyesh Bambhaniya
+IDEA CONTRIBUTOR: BHAVESHBHAI SOLANKI
+FOUNDER & PROJECT DEVELOPER: DIVYESH BAMBHANIYA
 """
-__version__ = "0.1.0"
-ENGINE_VERSION = "extractive-1.0"
+__version__ = "0.2.0"
+ENGINE_VERSION = "extractive-1.1"
 
 CREDITS = {
     "project": "GRANTH-AI",
-    "idea_contributor": "Bhaveshbhai Solanki",
-    "founder_developer": "Divyesh Bambhaniya",
-    "statement_en": (
-        "An initiative conceptualized from an educational idea shared by Bhaveshbhai Solanki "
-        "and developed and engineered by Divyesh Bambhaniya. Our mission is to make verified "
-        "textbook-based knowledge accessible to Gujarati-medium students."
+    "idea_contributor": "BHAVESHBHAI SOLANKI",
+    "founder_project_developer": "DIVYESH BAMBHANIYA",
+    "description_en": (
+        "GRANTH-AI is an educational information platform designed to help students understand their curriculum "
+        "through clear, accessible and evidence-grounded answers. It aims to make verified educational knowledge "
+        "easier to access for students across languages, subjects and educational boards."
     ),
-    "statement_gu": (
-        "ભાવેશભાઈ સોલંકીએ આપેલા શૈક્ષણિક વિચાર પરથી પ્રેરિત અને દિવ્યેશ બાંભણિયા દ્વારા વિકસિત પહેલ. "
-        "અમારું ધ્યેય ગુજરાતી માધ્યમના વિદ્યાર્થીઓ સુધી પાઠ્યપુસ્તક-આધારિત ચકાસાયેલું જ્ઞાન પહોંચાડવાનું છે."
+    "description_gu": (
+        "GRANTH-AI એક શૈક્ષણિક માહિતી પ્લેટફોર્મ છે, જે વિદ્યાર્થીઓને સ્પષ્ટ, સરળ અને પુરાવા-આધારિત ઉત્તરો દ્વારા તેમનો "
+        "અભ્યાસક્રમ સમજવામાં મદદ કરે છે. તેનો હેતુ જુદી જુદી ભાષાઓ, વિષયો અને શૈક્ષણિક બોર્ડના વિદ્યાર્થીઓ માટે ચકાસાયેલું "
+        "શૈક્ષણિક જ્ઞાન સહેલાઈથી સુલભ બનાવવાનો છે."
     ),
     "motto": "TEXTBOOK FIRST. EVIDENCE ALWAYS. NO UNSUPPORTED ANSWERS.",
 }

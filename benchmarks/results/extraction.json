@@ -1,6 +1,6 @@
 {
-  "executed_at": "2026-11-13T21:17:38Z",
-  "engine_version": "extractive-1.0",
+  "executed_at": "2026-11-14T02:01:50Z",
+  "engine_version": "extractive-1.1",
   "corpus": "bundled CC BY 4.0 sample books (data/sample)",
   "editions": [
     {

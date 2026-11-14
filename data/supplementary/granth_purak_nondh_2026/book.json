@@ -1,0 +1,22 @@
+{
+  "slug": "granth_purak_nondh_2026",
+  "role": "supplementary",
+  "board": "GRANTH-AI પૂરક સ્રોત (ડેમો)",
+  "board_en": "GRANTH-AI Supplementary Source (demo - NOT a textbook, NOT GSEB/NCERT)",
+  "medium": "ગુજરાતી",
+  "standard": 10,
+  "subject": "પૂરક અભ્યાસ નોંધ",
+  "subject_en": "Supplementary study notes",
+  "title": "ગ્રંથ પૂરક અભ્યાસ નોંધ (નમૂનો)",
+  "edition_label": "2026",
+  "academic_year": "2026-27",
+  "language": "gu",
+  "source_name": "GRANTH-AI Original Supplementary Notes",
+  "source_kind": "project_supplementary",
+  "source_url": "https://github.com/dhundhwana-arch/GRANTH-AI/tree/main/data/supplementary/granth_purak_nondh_2026",
+  "license": "CC BY 4.0",
+  "attribution": "GRANTH-AI પ્રોજેક્ટ દ્વારા લખાયેલી પૂરક નોંધ (CC BY 4.0). આ કોઈ બોર્ડનું પાઠ્યપુસ્તક નથી અને શિક્ષક દ્વારા સમીક્ષા થયેલી નથી.",
+  "last_verified_at": "2026-11-13",
+  "permission_status": "APPROVED",
+  "permission_note": "Original short notes written for the GRANTH-AI project to demonstrate the opt-in supplementary-source mode. NOT a textbook, not copied from any textbook or website, and not yet reviewed by a subject teacher."
+}

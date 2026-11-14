@@ -100,8 +100,8 @@ class Index:
 
 
 def _signature(con) -> str:
-    rows = con.execute("SELECT id, corpus_version, review_status, permission_status FROM textbook_editions ORDER BY id").fetchall()
-    return "|".join(f"{r[0]}:{r[1]}:{r[2]}:{r[3]}" for r in rows)
+    rows = con.execute("SELECT id, corpus_version, review_status, permission_status, role FROM textbook_editions ORDER BY id").fetchall()
+    return "|".join(f"{r[0]}:{r[1]}:{r[2]}:{r[3]}:{r[4]}" for r in rows)
 
 
 def _db_key(con) -> str:
@@ -117,7 +117,8 @@ def get_index(con) -> Index:
             return hit[1]
     rows = con.execute(
         "SELECT c.* FROM text_chunks c JOIN textbook_editions e ON e.id=c.edition_id "
-        "WHERE e.permission_status='APPROVED' AND e.review_status='approved' AND c.kind IN (%s) ORDER BY c.id"
+        "WHERE ((e.permission_status='APPROVED' AND e.review_status='approved') OR e.role='personal') "
+        "AND c.kind IN (%s) ORDER BY c.id"
         % ",".join("?" * len(RETRIEVAL_KINDS)), RETRIEVAL_KINDS).fetchall()
     idx = Index(rows)
     with _lock:

@@ -125,7 +125,7 @@ def test_security_headers_traversal_limits(server):
 def test_about_carries_permanent_credits(server):
     call, _ = server
     a = call("GET", "/api/about")[1]
-    assert a["credits"]["idea_contributor"] == "Bhaveshbhai Solanki" and a["credits"]["founder_developer"] == "Divyesh Bambhaniya"
+    assert a["credit_lines"] == ["IDEA CONTRIBUTOR: BHAVESHBHAI SOLANKI", "FOUNDER & PROJECT DEVELOPER: DIVYESH BAMBHANIYA"]
     assert "NOT GSEB" in a["sample_notice"]["en"]
 
 

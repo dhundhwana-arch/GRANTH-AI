@@ -62,32 +62,40 @@ def _rate_ok(ip: str) -> bool:
 def catalog(con) -> dict:
     rows = con.execute(
         "SELECT e.id AS edition_id, e.slug, e.edition_label, e.academic_year, e.permission_status, e.review_status,"
-        " e.discovery_status, e.corpus_version, e.page_count, e.ingested_at, e.license, e.source_url, t.id AS textbook_id,"
+        " e.discovery_status, e.corpus_version, e.page_count, e.ingested_at, e.license, e.source_url, e.role, e.attribution,"
+        " e.last_verified_at, src.name AS owner, t.id AS textbook_id,"
         " t.title, t.board, t.medium, t.standard, s.name_gu AS subject, s.name_en AS subject_en,"
         " (SELECT COUNT(*) FROM chapters c WHERE c.edition_id=e.id) AS chapter_count"
         " FROM textbook_editions e JOIN textbooks t ON t.id=e.textbook_id JOIN subjects s ON s.id=t.subject_id"
+        " JOIN textbook_sources src ON src.id=t.source_id WHERE e.role <> 'personal'"
         " ORDER BY t.board, t.medium, t.standard, s.name_gu, t.title, e.id").fetchall()
     books: dict = {}
     for r in rows:
         d = dict(r)
         d["available"] = bool(d["permission_status"] == "APPROVED" and d["review_status"] == "approved" and d["ingested_at"])
+        d["ingestion_status"] = ("ingested" if d["ingested_at"] and d["review_status"] == "approved" else
+                                 "awaiting_review" if d["ingested_at"] else "not_ingested")
+        d["chapters"] = [c["title"] for c in con.execute("SELECT title FROM chapters WHERE edition_id=? ORDER BY number", (d["edition_id"],))] \
+            if d["available"] else []
         b = books.setdefault(d["textbook_id"], {k: d[k] for k in ("textbook_id", "title", "board", "medium", "standard",
-                                                                    "subject", "subject_en")} | {"editions": []})
+                                                                    "subject", "subject_en", "role", "owner")} | {"editions": []})
         b["editions"].append({k: d[k] for k in ("edition_id", "slug", "edition_label", "academic_year", "permission_status",
                                                  "review_status", "discovery_status", "corpus_version", "page_count",
-                                                 "chapter_count", "license", "source_url", "available")})
+                                                 "chapter_count", "license", "source_url", "available", "role", "attribution",
+                                                 "last_verified_at", "owner", "ingestion_status", "chapters")})
     out = list(books.values())
     for b in out:
         b["available"] = any(e["available"] for e in b["editions"])
     return {"textbooks": out, "unavailable_message": "પરવાનગી બાકી – આ પાઠ્યપુસ્તકનું લખાણ હજી ઉમેરાયું નથી."}
 
 
-def _approved_edition(con, edition_id: int):
+def _approved_edition(con, edition_id: int, session: str | None = None):
     row = con.execute(
         "SELECT e.*, t.title, t.board, t.medium, t.standard, s.name_gu AS subject FROM textbook_editions e"
         " JOIN textbooks t ON t.id=e.textbook_id JOIN subjects s ON s.id=t.subject_id WHERE e.id=?"
-        " AND e.permission_status='APPROVED' AND e.review_status='approved' AND e.ingested_at IS NOT NULL",
-        (edition_id,)).fetchone()
+        " AND e.ingested_at IS NOT NULL AND ((e.permission_status='APPROVED' AND e.review_status='approved' AND e.role<>'personal')"
+        " OR (e.role='personal' AND e.owner_session=?))",
+        (edition_id, str(session or "\x00none")[:64])).fetchone()
     if row is None:
         raise ApiError(404, "edition not available (unknown, not authorized or not approved)")
     return dict(row)
@@ -110,8 +118,8 @@ def _public_edition(ed: dict) -> dict:
                                "content_sha256", "page_count")}
 
 
-def page(con, edition_id: int, number: int) -> dict:
-    ed = _approved_edition(con, edition_id)
+def page(con, edition_id: int, number: int, session: str | None = None) -> dict:
+    ed = _approved_edition(con, edition_id, session)
     p = con.execute("SELECT page_number, text, extraction_method, confidence FROM pages WHERE edition_id=? AND page_number=?",
                     (edition_id, number)).fetchone()
     if p is None:
@@ -151,8 +159,11 @@ def sources(con) -> dict:
 
 def about() -> dict:
     return {"name": "GRANTH-AI", "version": __version__, "engine_version": ENGINE_VERSION, "credits": CREDITS,
-            "policy": {"gu": "ઉત્તર માત્ર પસંદ કરેલા, અધિકૃત પાઠ્યપુસ્તકના લખાણમાંથી જ આપવામાં આવે છે. આધાર ન મળે તો સિસ્ટમ ઉત્તર આપતી નથી.",
-                       "en": "Answers come only from the selected, authorized textbook text. Without evidence the system abstains."},
+            "credit_lines": ["IDEA CONTRIBUTOR: BHAVESHBHAI SOLANKI", "FOUNDER & PROJECT DEVELOPER: DIVYESH BAMBHANIYA"],
+            "policy": {"gu": "ઉત્તર માત્ર પસંદ કરેલા, અધિકૃત પાઠ્યપુસ્તકના લખાણમાંથી જ આપવામાં આવે છે. આધાર ન મળે તો સિસ્ટમ ઉત્તર આપતી નથી. "
+                             "પૂરક સ્રોત ફક્ત તમે પસંદ કરો ત્યારે જ, અલગ વિભાગમાં બતાવાય છે.",
+                       "en": "Answers come only from the selected, authorized textbook text. Without evidence the system abstains. "
+                             "A supplementary source is used only when you select it, and is shown in a separate block."},
             "sample_notice": {"gu": "હાલમાં ઉપલબ્ધ પુસ્તકો GRANTH-AI પ્રોજેક્ટ માટે લખાયેલી નમૂના પાઠમાળા છે. તે GSEB/GSSTB કે NCERT નાં પાઠ્યપુસ્તકો નથી. "
                                     "સત્તાવાર પાઠ્યપુસ્તકો લેખિત પરવાનગી મળ્યા પછી જ ઉમેરાશે.",
                               "en": "Books currently available are sample readers written for this project. They are NOT GSEB/GSSTB or NCERT "
@@ -304,7 +315,51 @@ def r_ask(h, qs):
     return answer.ask(h.con, str(b.get("question", "")), scope, str(b.get("mode") or "auto"),
                       _int(marks, "marks") if marks not in (None, "") else None,
                       session_id=str(b.get("session_id") or "anonymous"), input_method=str(b.get("input_method") or "typed"),
-                      router=h.router)
+                      router=h.router,
+                      supplementary_edition_id=_int(b["supplementary_edition_id"], "supplementary_edition_id")
+                      if b.get("supplementary_edition_id") not in (None, "") else None)
+
+
+def _sess(v) -> str:
+    return str(v or "anonymous")[:64]
+
+
+def r_personal_add(h, qs):
+    b = h._body()
+    try:
+        return ingest.add_personal_notes(h.con, _sess(b.get("session_id")), b.get("title"), b.get("text"), b.get("rights_confirmed"))
+    except ingest.IngestionRefused as e:
+        raise ApiError(400, str(e))
+
+
+def r_personal_del(h, qs, eid):
+    if not ingest.delete_personal_notes(h.con, _sess(_q(qs, "session")), _int(eid)):
+        raise ApiError(404, "not found")
+    return {"deleted": True}
+
+
+def r_saved_answers(h, qs):
+    rows = h.con.execute("SELECT a.id AS answer_id, a.answer_json, s.created_at FROM saved_answers s JOIN generated_answers a"
+                         " ON a.id=s.answer_id WHERE s.session_id=? ORDER BY s.id DESC LIMIT 100", (_sess(_q(qs, "session")),))
+    return {"saved": [{"answer_id": r["answer_id"], "saved_at": r["created_at"], "result": json.loads(r["answer_json"])} for r in rows]}
+
+
+def r_saved_answers_add(h, qs):
+    b = h._body()
+    sid, aid = _sess(b.get("session_id")), _int(b.get("answer_id"), "answer_id")
+    own = h.con.execute("SELECT 1 FROM generated_answers a JOIN questions q ON q.id=a.question_id WHERE a.id=? AND q.session_id=?",
+                        (aid, sid)).fetchone()
+    if own is None:
+        raise ApiError(404, "answer not found for this session")
+    h.con.execute("INSERT OR IGNORE INTO saved_answers(session_id, answer_id, created_at) VALUES (?,?,?)", (sid, aid, db.now()))
+    h.con.commit()
+    return {"saved": True, "answer_id": aid}
+
+
+def r_saved_answers_del(h, qs, aid):
+    h.con.execute("DELETE FROM saved_answers WHERE session_id=? AND answer_id=?", (_sess(_q(qs, "session")), _int(aid)))
+    h.con.commit()
+    return {"deleted": True}
 
 
 def r_feedback(h, qs):
@@ -419,11 +474,17 @@ ROUTES = [
     ("GET", r"/api/catalog", lambda h, qs: catalog(h.con)),
     ("GET", r"/api/sources", lambda h, qs: sources(h.con)),
     ("GET", r"/api/editions/(\d+)/chapters", lambda h, qs, e: chapters(h.con, int(e))),
-    ("GET", r"/api/editions/(\d+)/pages/(\d+)", lambda h, qs, e, p: page(h.con, int(e), int(p))),
+    ("GET", r"/api/editions/(\d+)/pages/(\d+)", lambda h, qs, e, p: page(h.con, int(e), int(p), _q(qs, "session"))),
     ("GET", r"/api/editions/(\d+)/package", lambda h, qs, e: offline_package(h.con, int(e))),
     ("POST", r"/api/ask", r_ask),
     ("GET", r"/api/history", lambda h, qs: {"history": answer.history(h.con, str(_q(qs, "session", "anonymous")))}),
     ("POST", r"/api/feedback", r_feedback),
+    ("GET", r"/api/personal-notes", lambda h, qs: {"notes": ingest.list_personal_notes(h.con, _sess(_q(qs, "session")))}),
+    ("POST", r"/api/personal-notes", r_personal_add),
+    ("DELETE", r"/api/personal-notes/(\d+)", r_personal_del),
+    ("GET", r"/api/saved-answers", r_saved_answers),
+    ("POST", r"/api/saved-answers", r_saved_answers_add),
+    ("DELETE", r"/api/saved-answers/(\d+)", r_saved_answers_del),
     ("GET", r"/api/chapters/(\d+)/revision", lambda h, qs, c: _or404(study.chapter_revision(h.con, int(c)))),
     ("GET", r"/api/chapters/(\d+)/practice", lambda h, qs, c: _or404(study.practice_questions(h.con, int(c)))),
     ("GET", r"/api/chapters/(\d+)/vocabulary", lambda h, qs, c: {"words": study.chapter_vocabulary(h.con, int(c))}),

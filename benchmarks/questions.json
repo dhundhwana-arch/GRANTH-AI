@@ -39,7 +39,7 @@
     {"id": "H1", "cat": "H", "book": "sci", "q": "pH scale એટલે શું?", "expect": "answered", "pages": [9], "must": ["pH માપક્રમ કહે છે"]},
     {"id": "H2", "cat": "H", "book": "sci", "q": "V = I × R કયો નિયમ છે?", "expect": "answered", "pages": [7], "must": ["ઓહ્મ"]},
     {"id": "H3", "cat": "H", "book": "sci", "q": "HCl અને NaOH ની પ્રક્રિયાથી શું બને છે?", "expect": "answered", "pages": [10], "must": ["NaCl"]},
-    {"id": "H4", "cat": "H", "book": "sci", "q": "photosynthesis એટલે શું?", "expect": "abstained", "why": "the English word does not occur in the Gujarati textbook; the engine has no translation layer and must not guess"},
+    {"id": "H4", "cat": "H", "book": "sci", "q": "photosynthesis એટલે શું?", "expect": "answered", "pages": [1], "must": ["પ્રકાશસંશ્લેષણ કહે છે"], "why": "gold changed with engine extractive-1.1: English terms are now mapped to Gujarati through the curated term list (previously the expected result was a refusal because no mapping existed)"},
     {"id": "I1", "cat": "I", "book": "sci", "q": "જ્વાળામુખી કેવી રીતે ફાટે છે?", "expect": "abstained"},
     {"id": "I2", "cat": "I", "book": "sci", "q": "ન્યૂટનનો ગતિનો બીજો નિયમ લખો.", "expect": "abstained"},
     {"id": "I3", "cat": "I", "book": "sci", "q": "ભારતના પ્રથમ વડાપ્રધાન કોણ હતા?", "expect": "abstained"},

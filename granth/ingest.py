@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import json
 import tempfile
 from pathlib import Path
@@ -60,9 +61,10 @@ def register_edition(con, meta: dict, discovery_status: str = "VERIFIED") -> int
     else:
         edition_id = con.execute(
             "INSERT INTO textbook_editions(textbook_id, slug, edition_label, academic_year, source_url, permission_status,"
-            " license, discovery_status) VALUES (?,?,?,?,?,?,?,?)",
+            " license, discovery_status, role, owner_session, attribution, last_verified_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
             (textbook_id, meta["slug"], meta["edition_label"], meta.get("academic_year"), meta["source_url"], status,
-             meta.get("license"), discovery_status)).lastrowid
+             meta.get("license"), discovery_status, meta.get("role", "textbook"), meta.get("owner_session"),
+             meta.get("attribution"), meta.get("last_verified_at") or db.now()[:10])).lastrowid
     con.commit()
     return edition_id
 
@@ -78,6 +80,8 @@ def _require_authorized(con, edition_id):
     ed = _edition_row(con, edition_id)
     if ed is None:
         raise IngestionRefused("unknown edition")
+    if ed["role"] == "personal" and ed["permission_status"] == "PERSONAL" and ed["owner_session"]:
+        return ed                              # a student's own notes: private to that session, never public
     if ed["permission_status"] != "APPROVED":
         raise IngestionRefused(
             f"permission status is {ed['permission_status']} - content is not ingested until reuse permission is APPROVED")
@@ -322,3 +326,89 @@ def ingest_pdf(con, pdf_path: Path, meta: dict, ocr: OcrAdapter | None = None, f
     except Exception as e:
         _finish_job(con, jid, "failed", error=repr(e))
         raise
+
+
+# ----------------------------------------------------------------------------- personal study material
+PERSONAL_MAX_CHARS = 60000
+PERSONAL_MAX_PER_SESSION = 5
+PERSONAL_PAGE_CHARS = 1800
+
+
+def add_personal_notes(con, session_id: str, title: str, text: str, rights_confirmed: bool) -> dict:
+    """Store a student's own notes as a private source.
+
+    Safeguards: the student must confirm they have the right to use the material; it is visible only to the session
+    that added it; it never enters the public catalogue, the shared answer cache or offline packages; it can be
+    deleted at any time. Text is taken exactly as typed or pasted - nothing is fetched from anywhere."""
+    session_id = str(session_id or "")[:64]
+    if len(session_id) < 8 or session_id == "anonymous":
+        raise IngestionRefused("a private session id is required for personal notes")
+    if rights_confirmed is not True:
+        raise IngestionRefused("you must confirm that these are your own notes or that you have the right to use them")
+    text = gujarati.normalize_text(str(text or "")).strip()
+    title = " ".join(str(title or "").split())[:80] or "મારી નોંધ"
+    if len(text) < 40:
+        raise IngestionRefused("the notes are too short (at least 40 characters)")
+    if len(text) > PERSONAL_MAX_CHARS:
+        raise IngestionRefused(f"the notes are too long (limit {PERSONAL_MAX_CHARS} characters)")
+    n = con.execute("SELECT COUNT(*) FROM textbook_editions WHERE role='personal' AND owner_session=?", (session_id,)).fetchone()[0]
+    if n >= PERSONAL_MAX_PER_SESSION:
+        raise IngestionRefused(f"limit of {PERSONAL_MAX_PER_SESSION} personal notes reached - delete one first")
+    pages, buf, size = [], [], 0
+    for para in [p for p in re.split(r"\n\s*\n", text) if p.strip()]:
+        if buf and size + len(para) > PERSONAL_PAGE_CHARS:
+            pages.append("\n\n".join(buf))
+            buf, size = [], 0
+        buf.append(para.strip())
+        size += len(para)
+    if buf:
+        pages.append("\n\n".join(buf))
+    slug = "personal-" + hashlib.sha256((session_id + db.now() + title + str(n)).encode()).hexdigest()[:16]
+    meta = {"slug": slug, "role": "personal", "owner_session": session_id, "board": "મારી નોંધ (ખાનગી)", "medium": "—",
+            "standard": 0, "subject": "મારી નોંધ", "subject_en": "My notes", "title": f"{title} [{slug[-6:]}]",
+            "edition_label": slug, "language": "gu", "source_name": "User-provided personal study material",
+            "source_kind": "personal", "source_url": "personal://" + slug, "license": "user-provided; private; not redistributed",
+            "permission_status": "PERSONAL",
+            "permission_note": "Private notes supplied by students for their own study. Never published, never shared."}
+    edition_id = register_edition(con, meta)
+    numbered = [(i + 1, p) for i, p in enumerate(pages)]
+    stats = store_pages(con, edition_id, numbered, {n_: "user-text" for n_, _ in numbered}, {n_: 1.0 for n_, _ in numbered})
+    con.commit()
+    return {"edition_id": edition_id, "title": title, "status": "stored", **{k: stats[k] for k in ("pages", "chunks")}}
+
+
+def list_personal_notes(con, session_id: str) -> list[dict]:
+    rows = con.execute("SELECT e.id AS edition_id, t.title, e.page_count, e.ingested_at FROM textbook_editions e JOIN textbooks t"
+                       " ON t.id=e.textbook_id WHERE e.role='personal' AND e.owner_session=? ORDER BY e.id", (str(session_id)[:64],))
+    return [dict(r) for r in rows]
+
+
+def delete_personal_notes(con, session_id: str, edition_id: int) -> bool:
+    """Erase a personal source completely: text, chunks, structure and the edition row itself."""
+    row = con.execute("SELECT id, textbook_id FROM textbook_editions WHERE id=? AND role='personal' AND owner_session=?",
+                      (edition_id, str(session_id)[:64])).fetchone()
+    if row is None:
+        return False
+    with con:
+        # stored answers that quoted the notes are erased too
+        aids = [r[0] for r in con.execute("SELECT id FROM generated_answers WHERE answer_json LIKE ?", (f'%"edition_id": {int(edition_id)},%',))]
+        for aid in aids:
+            for tbl in ("saved_answers", "verification_results", "citations", "feedback"):
+                try:
+                    con.execute(f"DELETE FROM {tbl} WHERE answer_id=?", (aid,))
+                except Exception:
+                    pass
+            con.execute("DELETE FROM generated_answers WHERE id=?", (aid,))
+        con.execute("DELETE FROM saved_words WHERE vocabulary_id IN (SELECT id FROM vocabulary WHERE edition_id=?)", (edition_id,))
+        con.execute("DELETE FROM vocabulary WHERE edition_id=?", (edition_id,))
+        con.execute("DELETE FROM text_chunks WHERE edition_id=?", (edition_id,))
+        con.execute("DELETE FROM sections WHERE chapter_id IN (SELECT id FROM chapters WHERE edition_id=?)", (edition_id,))
+        con.execute("DELETE FROM chapters WHERE edition_id=?", (edition_id,))
+        con.execute("DELETE FROM pages WHERE edition_id=?", (edition_id,))
+        con.execute("UPDATE ingestion_jobs SET edition_id=NULL WHERE edition_id=?", (edition_id,))
+        con.execute("UPDATE extraction_quality SET edition_id=NULL WHERE edition_id=?", (edition_id,))
+        con.execute("DELETE FROM textbook_editions WHERE id=?", (edition_id,))
+        con.execute("DELETE FROM textbooks WHERE id=?", (row["textbook_id"],))
+    from . import retrieval
+    retrieval.invalidate_index()
+    return True

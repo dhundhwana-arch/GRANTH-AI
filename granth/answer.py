@@ -14,12 +14,12 @@ import json
 import re
 import time
 
-from . import ENGINE_VERSION, cache, db, gujarati as g, retrieval, study
+from . import ENGINE_VERSION, cache, db, gujarati as g, lang, retrieval, study
 
 ABSTAIN_MESSAGE = "આ પસંદ કરેલા પાઠ્યપુસ્તકમાં આ પ્રશ્નનો પૂરતો આધાર મળ્યો નથી."
-MODES = ("auto", "one_line", "definition", "short", "detailed", "points", "difference", "formula")
+MODES = ("auto", "one_line", "definition", "short", "detailed", "points", "difference", "formula", "steps")
 MODE_LABELS = {"one_line": "એક વાક્યમાં ઉત્તર", "definition": "વ્યાખ્યા", "short": "ટૂંકો ઉત્તર", "detailed": "વિગતવાર ઉત્તર",
-               "points": "મુદ્દાસર ઉત્તર", "difference": "તફાવત", "formula": "સૂત્ર આધારિત ઉત્તર"}
+               "points": "મુદ્દાસર ઉત્તર", "difference": "તફાવત", "formula": "સૂત્ર આધારિત ઉત્તર", "steps": "પગલાંવાર ઉદાહરણ"}
 MARKS_TARGET = {1: 1, 2: 2, 3: 3, 4: 5, 5: 6}
 MODE_TARGET = {"one_line": 1, "definition": 1, "short": 3, "detailed": 6, "points": 5}
 MAX_QUESTION_CHARS = 500
@@ -34,12 +34,16 @@ REASONS = {
     "definition_not_found": "પસંદ કરેલા પાઠ્યપુસ્તકમાં આ શબ્દની વ્યાખ્યા મળી નથી.",
     "difference_not_supported": "પસંદ કરેલા પાઠ્યપુસ્તકમાં આ બે બાબતોની સરખામણી માટે પૂરતો આધાર મળ્યો નથી.",
     "formula_not_found": "પસંદ કરેલા પાઠ્યપુસ્તકમાં આ મુદ્દા માટે કોઈ સૂત્ર મળ્યું નથી.",
+    "example_not_found": "પસંદ કરેલા પાઠ્યપુસ્તકમાં આ મુદ્દાનું ઉકેલેલું ઉદાહરણ મળ્યું નથી. GRANTH-AI નવા દાખલાની ગણતરી જાતે કરતું નથી.",
+    "ambiguous_question": "પ્રશ્ન અસ્પષ્ટ છે: આ શબ્દ પાઠ્યપુસ્તકમાં એક કરતાં વધુ પ્રકરણમાં જુદા જુદા અર્થમાં આવે છે. નીચેમાંથી મુદ્દો પસંદ કરીને પ્રશ્ન ફરી પૂછો.",
+    "language_not_supported": "આ પ્રશ્નની ભાષા (હિન્દી/અન્ય) માટે હજી કોઈ સ્રોત ઉમેરાયો નથી. હાલમાં ગુજરાતી અને અંગ્રેજી પ્રશ્નો ગુજરાતી પુસ્તકમાંથી શોધાય છે.",
     "verification_failed": "ઉત્તર પાઠ્યપુસ્તકના પુરાવા સાથે ચકાસી શકાયો નથી, તેથી બતાવ્યો નથી.",
 }
 _DEF_INTENT = re.compile(r"(એટલે\s+શુ|કોને\s+કહે|વ્યાખ્યા|શું?\s+છે\s*\??$)")
 # "difference" intent needs a compare cue; a bare "તફાવત" is also part of the term "વિદ્યુતસ્થિતિમાનનો તફાવત"
 _DIFF_INTENT = re.compile(r"(વચ્ચે\S*\s+(?:\S+\s+)?(?:તફાવત|ભેદ)|(?:તફાવત|ભેદ)\s+(?:લખો|આપો|જણાવો|સમજાવો|દર્શાવો|સ્પષ્ટ|કયો|શો|શું))")
 _FORMULA_INTENT = re.compile(r"(સૂત્ર|સમીકરણ)")
+_STEPS_INTENT = re.compile(r"(પગલાંવાર|પગલાવાર|પગલાં\s*વાર|પગથિયાં|ઉદાહરણ|દાખલો|દાખલા)")
 _DIFF_PARSE = re.compile(r"^(.*?)\s+અને\s+(.*?)\s+(?:વચ્ચે\S*|ન[ોા]\s+(?:તફાવત|ભેદ)|તફાવત|ભેદ)")
 _EV_FIELDS = ("id", "edition_id", "chapter_id", "section_id", "page_number", "chunk_index", "kind", "text", "text_sha256",
               "extraction_confidence", "board", "medium", "standard", "subject", "book_title", "edition",
@@ -51,13 +55,18 @@ class QuestionError(ValueError):
 
 
 # ----------------------------------------------------------------------------- scope
-def resolve_scope(con, scope: dict) -> list[dict]:
-    """Editions the question may be answered from. Never includes unauthorized or unapproved editions."""
-    sql = ("SELECT e.id, e.textbook_id, e.edition_label, e.corpus_version, e.academic_year, t.title, t.board, t.medium,"
+def resolve_scope(con, scope: dict, roles: tuple = ("textbook",)) -> list[dict]:
+    """Editions the question may be answered from. Never includes unauthorized or unapproved editions.
+
+    Supplementary sources are only returned when asked for by role. A student's personal notes are returned only
+    when that edition is selected explicitly by the session that owns it."""
+    sql = ("SELECT e.id, e.textbook_id, e.edition_label, e.corpus_version, e.academic_year, e.role, e.license, e.attribution,"
+           " e.source_url, t.title, t.board, t.medium,"
            " t.standard, s.name_gu AS subject FROM textbook_editions e JOIN textbooks t ON t.id=e.textbook_id"
-           " JOIN subjects s ON s.id=t.subject_id WHERE e.permission_status='APPROVED' AND e.review_status='approved'"
-           " AND e.ingested_at IS NOT NULL")
-    args: list = []
+           " JOIN subjects s ON s.id=t.subject_id WHERE e.ingested_at IS NOT NULL AND ("
+           "(e.permission_status='APPROVED' AND e.review_status='approved' AND e.role IN (%s))"
+           " OR (e.role='personal' AND e.owner_session=? AND e.id=?))" % ",".join("?" * len(roles)))
+    args: list = [*roles, str(scope.get("session") or "\x00none"), int(scope.get("edition_id") or 0)]
     if scope.get("chapter_id"):
         row = con.execute("SELECT edition_id FROM chapters WHERE id=?", (int(scope["chapter_id"]),)).fetchone()
         if row is None:
@@ -181,6 +190,8 @@ def _target_terms(res: dict) -> set:
 def detect_mode(question: str) -> str:
     if _DIFF_INTENT.search(question):
         return "difference"
+    if _STEPS_INTENT.search(question):
+        return "steps"
     if _FORMULA_INTENT.search(question):
         return "formula"
     if _DEF_INTENT.search(question):
@@ -232,6 +243,25 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
             return {"abstain": "difference_not_supported"}
         return {"parts": parts, "length_supported": None,
                 "note": "પાઠ્યપુસ્તકમાં આ બે બાબતોના તફાવતનું કોષ્ટક મળ્યું નથી; તેથી પાઠ્યપુસ્તકમાં આપેલી બંનેની વ્યાખ્યા અલગ-અલગ બતાવી છે."}
+
+    if mode == "steps":
+        # A worked example printed in the book, shown step by step. The engine never computes a new sum itself.
+        cands = [r for r in results if r["kind"] == "example"]
+        if not cands:
+            secs = [r["section_id"] for r in relevant if r["section_id"]]
+            if secs:
+                q = "SELECT * FROM text_chunks WHERE kind='example' AND section_id IN (%s) ORDER BY chunk_index" % ",".join("?" * len(secs))
+                cands = [{**dict(x), "scores": None} for x in con.execute(q, secs)]
+        if not cands:
+            return {"abstain": "example_not_found"}
+        ex = cands[0]
+        parts = [{"text": st, "kind": "sentence", "chunk_id": ex["id"], "page_number": ex["page_number"]}
+                 for st in g.split_sentences(ex["text"])]
+        for f in con.execute("SELECT * FROM text_chunks WHERE kind='formula' AND edition_id=? AND section_id IS ? AND chunk_index IN (?,?)"
+                             " ORDER BY chunk_index", (ex["edition_id"], ex["section_id"], ex["chunk_index"] - 1, ex["chunk_index"] + 1)):
+            parts.append({"text": f["text"], "kind": "formula", "chunk_id": f["id"], "page_number": f["page_number"]})
+        return {"parts": parts, "length_supported": None,
+                "note": "આ પાઠ્યપુસ્તકમાં આપેલું ઉકેલેલું ઉદાહરણ છે. GRANTH-AI નવા દાખલાની ગણતરી જાતે કરતું નથી."}
 
     if mode == "formula":
         for r in relevant:
@@ -294,12 +324,21 @@ def _compose(con, question: str, mode: str, marks, res: dict, edition_ids, chapt
         if not supported:
             note = (f"{marks} ગુણના ઉત્તર માટે પાઠ્યપુસ્તકમાં પૂરતા મુદ્દા મળ્યા નથી. "
                     f"જેટલો આધાર મળ્યો તેટલો જ ઉત્તર આપ્યો છે ({n_points} મુદ્દા); વધારાના મુદ્દા ઉમેર્યા નથી.")
-    return {"parts": [_part(u) for u in chosen], "note": note, "length_supported": supported}
+    return {"parts": [{**_part(u), "lead": u is lead} for u in chosen], "note": note, "length_supported": supported}
 
 
 def _format(parts: list[dict], mode: str) -> str:
     if mode == "points" and len(parts) > 1:
         return "\n".join(f"{i}. {p['text']}" for i, p in enumerate(parts, 1))
+    if mode == "steps":
+        n, out = 0, []
+        for p in parts:
+            if p["kind"] == "sentence":
+                n += 1
+                out.append(f"પગલું {n}: {p['text']}")
+            else:
+                out.append(p["text"])
+        return "\n".join(out)
     prose, out = [], []
     for p in parts:
         if p["kind"] == "sentence":
@@ -320,11 +359,11 @@ def verify_extractive(con, parts: list[dict], citations: list[dict], edition_ids
     eds = {int(e) for e in edition_ids}
     checks, ok_parts = [], 0
     for p in parts:
-        row = con.execute("SELECT c.*, e.permission_status AS ep, e.review_status AS er FROM text_chunks c"
+        row = con.execute("SELECT c.*, e.permission_status AS ep, e.review_status AS er, e.role AS erole FROM text_chunks c"
                           " JOIN textbook_editions e ON e.id=c.edition_id WHERE c.id=?", (p["chunk_id"],)).fetchone()
         ok = bool(row) and " ".join(p["text"].split()) in " ".join(row["text"].split()) \
             and row["page_number"] == p["page_number"] and row["edition_id"] in eds \
-            and row["ep"] == "APPROVED" and row["er"] == "approved"
+            and ((row["ep"] == "APPROVED" and row["er"] == "approved") or row["erole"] == "personal")
         ok_parts += ok
         checks.append({"chunk_id": p["chunk_id"], "verbatim_and_in_scope": bool(ok)})
     cit_ok = True
@@ -355,12 +394,146 @@ def verify_generated(text: str, evidence_texts: list[str]) -> dict:
             "method": "term + number containment against evidence", "unsupported": bad}
 
 
+# ----------------------------------------------------------------------------- student-facing structure
+TRUST_LABELS = {"verified": "સ્રોત સાથે ચકાસેલું", "partial": "આંશિક આધાર", "insufficient": "પૂરતો આધાર નથી"}
+TRUST_LABELS_EN = {"verified": "Verified against source", "partial": "Partially supported", "insufficient": "Insufficient source evidence"}
+SOURCE_TYPE_LABELS = {"quotation": "પાઠ્યપુસ્તકના શબ્દોમાં (સીધું અવતરણ)",
+                      "simplified": "સરળ સમજૂતી (પુરાવા પરથી બનાવેલી, અવતરણ નથી)",
+                      "supplementary": "પૂરક સ્રોતમાંથી (પાઠ્યપુસ્તકનો ભાગ નથી)",
+                      "personal": "તમારી પોતાની નોંધમાંથી"}
+_GENERIC_EN = {"law", "laws", "unit", "definition", "example", "direction", "directions", "water", "plants", "plant", "light", "energy"}
+_ANAPHORA_START = ("આ ", "તે ", "તેથી", "આમ ", "આથી")
+
+
+def _trust(status: str, reasons: list | None = None) -> dict:
+    return {"status": status, "label_gu": TRUST_LABELS[status], "label_en": TRUST_LABELS_EN[status], "reasons": reasons or []}
+
+
+def _structure(con, payload: dict, question: str, res: dict | None, source_type: str = "quotation") -> dict:
+    """પ્રશ્ન / સરળ જવાબ / મુખ્ય મુદ્દા / પુસ્તકનો આધાર / વિશ્વસનીયતા સ્થિતિ. No percentages, no invented text."""
+    parts = payload["answer"]["parts"]
+    mode = payload["mode"]
+    for p in parts:
+        p["source_type"] = source_type
+    if mode in ("definition", "one_line") or len(parts) == 1:
+        lead_idx = set(range(len(parts)))
+    elif mode in ("formula", "difference"):
+        lead_idx = {i for i, p in enumerate(parts) if p["kind"] in ("sentence", "table")} or {0}
+        if mode == "difference" and not any(p["kind"] == "table" for p in parts):
+            lead_idx = set(range(len(parts)))
+    else:
+        li = next((i for i, p in enumerate(parts) if p.get("lead")), 0)
+        lead_idx = {li}
+        if li > 0 and parts[li]["text"].startswith(_ANAPHORA_START) and parts[li - 1]["chunk_id"] == parts[li]["chunk_id"]:
+            lead_idx.add(li - 1)                      # keep the sentence that "આ ..." refers back to
+        if li + 1 < len(parts) and parts[li + 1]["text"].startswith(_ANAPHORA_START) and parts[li + 1]["chunk_id"] == parts[li]["chunk_id"]:
+            lead_idx.add(li + 1)
+    simple = [parts[i] for i in sorted(lead_idx)]
+    points = [p for i, p in enumerate(parts) if i not in lead_idx]
+
+    reasons, notes = [], []
+    if res is not None:
+        ev_terms = set()
+        for e in payload["evidence"]:
+            ev_terms.update(g.content_terms(e["text"] + " " + (e.get("section_title") or "")))
+        missing = [t["query"] for t in res["terms"] if not t["term"] or t["term"] not in ev_terms]
+        if missing:
+            reasons.append("પ્રશ્નના આ શબ્દો બતાવેલા આધારમાં નથી: " + ", ".join(missing))
+        fuzzy = [f"{t['query']} → {t['term']}" for t in res["terms"] if t["match"] == "fuzzy"]
+        if fuzzy:
+            notes.append("જોડણી નજીકના શબ્દથી શોધ્યું: " + ", ".join(fuzzy))
+    if payload.get("length_supported") is False:
+        reasons.append("માગેલા ગુણ જેટલા મુદ્દા પાઠ્યપુસ્તકમાં મળ્યા નથી.")
+    if mode == "difference" and payload.get("note"):
+        reasons.append("પાઠ્યપુસ્તકમાં સીધો તફાવત આપેલો નથી; બંનેની વ્યાખ્યા અલગ બતાવી છે.")
+    status = "verified" if payload["verification"]["verified"] and not reasons else "partial"
+
+    answer_text = payload["answer"]["text"]
+    ed_ids = sorted({e["edition_id"] for e in payload["evidence"]})
+    word_help = []
+    if ed_ids:
+        q = ("SELECT word, explanation, page_number FROM vocabulary WHERE kind='textbook_glossary' AND edition_id IN (%s) ORDER BY id"
+             % ",".join("?" * len(ed_ids)))
+        for w in con.execute(q, ed_ids):
+            if w["word"] in answer_text and w["explanation"] and w["explanation"] not in answer_text:
+                word_help.append({"word": w["word"], "meaning": w["explanation"], "page_number": w["page_number"],
+                                  "source_type": "textbook_glossary"})
+            if len(word_help) >= 4:
+                break
+    rev = lang.reverse_glossary()
+    found = [gu for gu, en in rev.items() if en not in _GENERIC_EN and (gu in question or gu in answer_text)]
+    found = [gu for gu in found if not any(gu != o and gu in o for o in found)]          # keep the fullest term only
+    english_terms = [{"gu": gu, "en": rev[gu]} for gu in sorted(found, key=lambda t: (t not in question, -len(t)))][:5]
+    return {"question": question,
+            "simple_answer": simple, "key_points": points,
+            "answer_source_type": "simplified" if payload["answer"].get("generated") else source_type,
+            "answer_source_label": SOURCE_TYPE_LABELS["simplified" if payload["answer"].get("generated") else source_type],
+            "word_help": word_help, "word_help_label": "પાઠ્યપુસ્તકના શબ્દાર્થમાંથી",
+            "english_terms": english_terms, "english_terms_label": "અંગ્રેજી પારિભાષિક શબ્દ (શોધ-સહાય સૂચિમાંથી; પાઠ્યપુસ્તકનું લખાણ નથી)",
+            "basis": payload["citations"], "notes": notes, "trust": _trust(status, reasons)}
+
+
+def _ambiguity(res: dict) -> list | None:
+    """A one-word question whose word lives in several chapters cannot be answered responsibly: ask which topic."""
+    if len(res["terms"]) != 1 or not res["terms"][0]["term"]:
+        return None
+    seen, out = set(), []
+    for r in res["results"]:
+        key = (r["edition_id"], r["section_id"])
+        if key in seen or not r["section_title"]:
+            continue
+        seen.add(key)
+        out.append({"chapter_number": r["chapter_number"], "chapter_title": r["chapter_title"], "section_title": r["section_title"],
+                    "page_number": r["page_number"], "chapter_id": r["chapter_id"], "edition_id": r["edition_id"]})
+    if len(out) >= 3 and len({(o["edition_id"], o["chapter_id"]) for o in out}) >= 2:
+        return out
+    return None
+
+
+_EXPR = re.compile(r"[A-Za-z0-9(][A-Za-z0-9 ()/+\-−×*^²³.]*=[A-Za-z0-9 ()/+\-−×*^²³.=]*[A-Za-z0-9)²³]")
+
+
+def _expr_key(text: str) -> str:
+    return re.sub(r"\s+", "", text).replace("*", "×").replace("-", "−")
+
+
+def _formula_lookup(con, question: str, res: dict, edition_ids, chapter_id) -> dict | None:
+    """'V = I × R કયો નિયમ છે?' - find the formula exactly as printed and return the statement it belongs to."""
+    m = _EXPR.search(question)
+    if not m:
+        return None
+    key = _expr_key(m.group(0))
+    q = "SELECT * FROM text_chunks WHERE kind='formula' AND edition_id IN (%s)" % ",".join("?" * len(edition_ids))
+    args = list(edition_ids)
+    if chapter_id:
+        q += " AND chapter_id=?"
+        args.append(chapter_id)
+    hit = next((r for r in con.execute(q + " ORDER BY id", args) if key in _expr_key(r["text"])), None)
+    if hit is None:
+        return None
+    # the statement a formula belongs to is the text printed directly before it
+    prev_chunk = con.execute("SELECT * FROM text_chunks WHERE edition_id=? AND section_id IS ? AND chunk_index<? AND kind IN"
+                             " ('paragraph','example') ORDER BY chunk_index DESC LIMIT 1",
+                             (hit["edition_id"], hit["section_id"], hit["chunk_index"])).fetchone()
+    parts = []
+    if prev_chunk:
+        ss = g.split_sentences(prev_chunk["text"])
+        idx = max((i for i, x in enumerate(ss) if study.find_definitions(x)), default=len(ss) - 1)
+        if idx > 0 and ss[idx].startswith(_ANAPHORA_START):
+            parts.append({"text": ss[idx - 1], "kind": "sentence", "chunk_id": prev_chunk["id"], "page_number": prev_chunk["page_number"]})
+        parts.append({"text": ss[idx], "kind": "sentence", "chunk_id": prev_chunk["id"], "page_number": prev_chunk["page_number"]})
+    parts.append({"text": hit["text"], "kind": "formula", "chunk_id": hit["id"], "page_number": hit["page_number"]})
+    return {"parts": parts, "length_supported": None, "note": "પ્રશ્નમાં આપેલું સૂત્ર પાઠ્યપુસ્તકમાં મળ્યું છે; તેની બરાબર પહેલાં છપાયેલું લખાણ બતાવ્યું છે."}
+
+
 # ----------------------------------------------------------------------------- pipeline
 def _abstain(reason: str, res: dict | None = None) -> dict:
     out = {"status": "abstained", "message": ABSTAIN_MESSAGE, "reason": reason, "reason_gu": REASONS[reason],
            "answer": None, "evidence": [], "citations": [], "engine": "extractive", "engine_version": ENGINE_VERSION,
            "external_api_calls": 0, "cache": {"hit": False},
-           "verification": {"verified": False, "support_ratio": 0.0, "citations_valid": False}}
+           "verification": {"verified": False, "support_ratio": 0.0, "citations_valid": False},
+           "structured": {"simple_answer": [], "key_points": [], "basis": [], "word_help": [], "english_terms": [], "notes": [],
+                          "trust": _trust("insufficient", [REASONS[reason]])}}
     if res is not None:
         out["unmatched_terms"] = [t["query"] for t in res["terms"] if not t["term"]]
         out["retrieved"] = [{"chunk_id": r["id"], **r["scores"]} for r in res["results"]]
@@ -376,6 +549,8 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
                  "subject": scope.get("subject"), "edition_ids": edition_ids, "chapter_id": chapter_id,
                  "mode": eff_mode, "marks": marks}
     key = cache.make_key(norm, key_scope, versions)
+    if any(e.get("role") == "personal" for e in editions):
+        use_cache = False                      # a student's own notes never enter the shared cache
     if use_cache:
         hit = cache.get(con, key)
         if hit:
@@ -385,12 +560,24 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
         con.execute("INSERT INTO usage_events(ts, kind) VALUES (?,?)", (db.now(), "cache_miss"))
     con.execute("INSERT INTO usage_events(ts, kind) VALUES (?,?)", (db.now(), "local_retrieval"))
 
-    q_for_search = _FORMULA_INTENT.sub(" ", question) if eff_mode == "formula" else question
+    q_for_search = question
+    if eff_mode == "formula":
+        q_for_search = _FORMULA_INTENT.sub(" ", question)
+    elif eff_mode == "steps":
+        q_for_search = _STEPS_INTENT.sub(" ", question)
     res = retrieval.search(con, q_for_search, edition_ids, chapter_id, k=8)
-    ok, reason = check_sufficiency(res)
-    if not ok:
-        return {**_abstain(reason, res), "mode": eff_mode}
-    comp = _compose(con, question, eff_mode, marks, res, edition_ids, chapter_id)
+    comp = _formula_lookup(con, question, res, edition_ids, chapter_id) if mode == "auto" else None
+    if comp:
+        eff_mode = "formula"
+    else:
+        ok, reason = check_sufficiency(res)
+        if not ok:
+            return {**_abstain(reason, res), "mode": eff_mode}
+        if eff_mode in ("short", "detailed", "points", "one_line") and not chapter_id:
+            options = _ambiguity(res)
+            if options:
+                return {**_abstain("ambiguous_question", res), "mode": eff_mode, "suggestions": options}
+        comp = _compose(con, question, eff_mode, marks, res, edition_ids, chapter_id)
     if "abstain" in comp:
         return {**_abstain(comp["abstain"], res), "mode": eff_mode}
 
@@ -433,13 +620,17 @@ def _answer_variant(con, question, norm, editions, scope, mode, marks, use_cache
                     payload["answer"] = {"text": gen["text"], "parts": parts, "generated": True}
                     payload["engine"] = f"generative:{gen['provider']}+verified"
                     payload["verification"]["generated_text_check"] = gv
+    role = editions[0].get("role", "textbook")
+    payload["structured"] = _structure(con, payload, question, res,
+                                       {"supplementary": "supplementary", "personal": "personal"}.get(role, "quotation"))
     if use_cache:
         cache.put(con, key, norm, key_scope, versions, payload)
     return payload
 
 
 def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks: int | None = None,
-        session_id: str = "anonymous", input_method: str = "typed", use_cache: bool = True, router=None) -> dict:
+        session_id: str = "anonymous", input_method: str = "typed", use_cache: bool = True, router=None,
+        supplementary_edition_id: int | None = None) -> dict:
     t0 = time.perf_counter()
     scope = dict(scope or {})
     question = g.normalize_text(question or "")
@@ -453,9 +644,19 @@ def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks
         raise QuestionError("marks must be 1-5")
     if input_method not in ("typed", "voice", "camera"):
         raise QuestionError("unknown input method")
+    original_question = question
+    language = lang.detect_language(question)
+    translation = lang.to_gujarati_query(question)
+    if translation:
+        question = g.normalize_text(translation["query"])      # Gujarati working form; the original is kept for display
     norm = g.search_key(question)
+    if translation and mode == "auto" and translation["intent"] in ("definition", "difference", "formula", "steps"):
+        mode = translation["intent"]
+    scope.setdefault("session", session_id)
     editions = resolve_scope(con, scope)
-    if not editions:
+    if language["language"] == "hi":
+        payload = {**_abstain("language_not_supported"), "mode": mode}
+    elif not editions:
         payload = {**_abstain("no_authorized_textbook_in_scope"), "mode": mode}
     else:
         by_book: dict = {}
@@ -485,8 +686,32 @@ def ask(con, question: str, scope: dict | None = None, mode: str = "auto", marks
                            "engine_version": ENGINE_VERSION, "cache": {"hit": False},
                            "external_api_calls": sum(o.get("external_api_calls", 0) for _, o in answered),
                            "verification": {"verified": all(o["verification"]["verified"] for _, o in answered)}}
-    payload["question"] = question
+    payload = dict(payload)
+    if payload["status"] == "edition_conflict":
+        payload["structured"] = {"simple_answer": [], "key_points": [], "basis": [], "word_help": [], "english_terms": [], "notes": [],
+                                 "trust": _trust("partial", ["પાઠ્યપુસ્તકની આવૃત્તિઓમાં ઉત્તર જુદો છે; દરેક આવૃત્તિ અલગ બતાવી છે."])}
+    if payload.get("structured"):
+        payload["structured"] = {**payload["structured"], "question": original_question}
+    payload["supplementary"] = None
+    if supplementary_edition_id:
+        sup = resolve_scope(con, {"edition_id": int(supplementary_edition_id)}, roles=("supplementary",))
+        if sup:
+            sp = _answer_variant(con, question, norm, sup, {"edition_id": sup[0]["id"]}, mode, marks, use_cache, None)
+            payload["supplementary"] = {
+                "label_gu": SOURCE_TYPE_LABELS["supplementary"],
+                "notice_gu": "નીચેની માહિતી તમે પસંદ કરેલા પૂરક સ્રોતમાંથી છે. તે તમારા પાઠ્યપુસ્તકનો ભાગ નથી અને પરીક્ષા માટે પાઠ્યપુસ્તકને જ આધાર માનવો.",
+                "source": {"edition_id": sup[0]["id"], "title": sup[0]["title"], "license": sup[0]["license"],
+                           "attribution": sup[0]["attribution"], "source_url": sup[0]["source_url"]},
+                **{k: sp.get(k) for k in ("status", "answer", "structured", "citations", "evidence", "verification", "reason",
+                                          "reason_gu", "message", "note", "mode", "mode_label", "unmatched_terms")}}
+    payload["language"] = language["language"]
+    payload["query_translation"] = ({"working_question": question, "terms": translation["mapped"], "unmapped": translation["unmapped"],
+                                     "note_gu": "અંગ્રેજી શબ્દોને શોધ માટે ગુજરાતી પારિભાષિક શબ્દોમાં ફેરવ્યા છે. ઉત્તર ગુજરાતી પાઠ્યપુસ્તકના લખાણમાંથી છે.",
+                                     "note_en": "English terms were mapped to Gujarati terms for searching. The answer is the text of the Gujarati-medium source."}
+                                    if translation else None)
+    payload["question"] = original_question
     payload["normalized_question"] = norm
+    scope.pop("session", None)
     payload["scope"] = {**{k: scope.get(k) for k in ("board", "medium", "standard", "subject", "textbook_id", "edition_id",
                                                      "chapter_id")}, "edition_ids": [e["id"] for e in editions]}
     payload["latency_ms"] = round((time.perf_counter() - t0) * 1000, 3)

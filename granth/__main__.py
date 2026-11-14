@@ -19,6 +19,10 @@ def seed_samples(con, force=False) -> list[dict]:
     for d in sorted((ROOT / "data" / "sample").iterdir()):
         if (d / "book.json").exists():
             out.append({"book": d.name, **ingest.ingest_text_source(con, d, force=force, auto_approve=True)})
+    sup = ROOT / "data" / "supplementary"                 # opt-in supplementary sources (role = supplementary)
+    for d in sorted(sup.iterdir()) if sup.exists() else []:
+        if (d / "book.json").exists():
+            out.append({"book": d.name, **ingest.ingest_text_source(con, d, force=force, auto_approve=True)})
     return out
 
 
