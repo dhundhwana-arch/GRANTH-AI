@@ -30,12 +30,13 @@ it says so instead of guessing.
 
 It is **not** a chatbot that knows Science. It is a small, auditable engine that finds the right sentence in
 the right book and proves where it came from. Everything below — results, screenshots, limitations — was
-produced by this repository, and you can reproduce it in about two minutes.
+produced by this repository, and you can reproduce it on your own machine in a few minutes.
 
 > **The project exists to answer one question honestly:** *can a computer help a Gujarati-medium student
 > understand their own textbook without ever telling them something the textbook does not say?*
-> On the demo material it can, for 42 of 59 answerable questions, with **zero wrong answers**. It refuses
-> 17 questions it could have answered. That trade-off is deliberate.
+> On the demo material it can: 42 of 59 answerable questions were answered correctly, with **zero wrong
+> answers** — and 19 questions that could have been answered were refused instead. That trade-off is
+> deliberate, and closing it is the next engine's job.
 
 <div align="center">
 <img src="docs/assets/screenshots/04-answer-verified-detail.png" width="420" alt="A real answer card from the running demo: the question, the quotation label, the answer sentence, harder words, English terms in brackets, and a separate simple explanation with the page number">
@@ -102,7 +103,7 @@ Students in Gujarati-medium schools study from printed textbooks. Three things a
 |---|---|
 | **Status** | 🟡 **DEMO / RESEARCH PROTOTYPE — not production-ready** |
 | **Engine** | `extractive-1.4`, frozen (changing it requires a new version and a new frozen set) |
-| **Last verified** | Phase 5, commit `b147637` on branch `arena/b93bc898-granth-ai` |
+| **Last verified** | Engine and measurements: Phase 5 commit `b147637`. This presentation: branch `release/granth-ai-public-showcase`. |
 | **Corpus** | **14 pages of self-written demo text.** Not a real board textbook. |
 | **Real publishers supported** | **None.** GSSTB: UNKNOWN · NCERT: DENIED · DIKSHA: UNKNOWN |
 | **Validated by** | The developer only. No teacher review, no student study, no physical-device test |
@@ -117,8 +118,9 @@ records the status of each publisher, and the request letter is written and wait
 It has **not** been sent.
 
 So the engine is demonstrated on three small books written for this project
-("GRANTH-AI Sample Board (demo – NOT GSEB)") under CC BY 4.0. They contain ~45 real curriculum facts
-(photosynthesis, Ohm's law, pH, reflection, the Preamble, …) so the engine has something true to reason about.
+("GRANTH-AI Sample Board (demo – NOT GSEB)") under CC BY 4.0. They contain real curriculum facts
+(photosynthesis, Ohm's law, pH, reflection, the Preamble, …) so that the engine has something true to
+reason about.
 The software does not depend on the demo: a new book is added by writing a `book.json` and ingesting it.
 
 </details>
@@ -375,12 +377,12 @@ GRANTH-AI/
 ├── scripts/
 │   ├── setup_vendor.py              # copy OCR assets from node_modules into web/vendor
 │   ├── build_sample_pdf.py          # generate the demo PDFs used by the OCR test
-│   ├── build_visual_assets.py       # generate the SVG diagrams (--check in CI)
+│   ├── build_visual_assets.py       # generate the SVG diagrams (--check verifies they are current)
 │   ├── compress_screenshots.py      # re-encode documentation screenshots
 │   ├── ocr_cli.mjs                  # command-line OCR
 │   └── secret_scan.py               # scan tracked files and history for secrets
 │
-├── docs/                            # 38 reports + templates + assets  → see docs/README.md
+├── docs/                            # 37 reports + templates + assets  → see docs/README.md
 │   └── assets/                      # logo, architecture, workflow, social preview, screenshots
 │
 ├── .env.example · .gitignore · LICENSE · README.md · package.json · package-lock.json
