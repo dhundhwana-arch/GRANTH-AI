@@ -32,6 +32,15 @@ semantic instead of exact-string (see `PHASE3_REPORT.md`). No test was deleted o
 The offline-library step was also made deterministic: it now waits for the delete confirmation *and* the empty
 list instead of a fixed 5-second timeout.
 
+### Re-verified from a fresh clone of the published branch
+
+The release branch was cloned from GitHub into an empty directory and set up by following `README.md` step by
+step, to check that the published branch is usable by someone who has never seen this machine. Result:
+**220 passed, 4 skipped, 0 failed**. The four skips are the OCR tests; they skip with the printed reason
+"tesseract.js OCR not installed" until the Node half of the setup (`npm install` and
+`scripts/setup_vendor.py`) is installed, after which the same suite reports 224 passed. This is the guard
+against publishing a branch that only passes on the machine that wrote it.
+
 ## Run of 2026-11-13, engine `extractive-1.2` (Phase 3; supersedes the numbers further down)
 
 | Suite | Command | Result |

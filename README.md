@@ -529,8 +529,13 @@ PYTHONPATH=. .venv/bin/python benchmarks/phase5/run_concurrency.py
 | Headless browser (390×800, phones-size viewport) | `npm run test:e2e` | ✅ **34 of 34 steps** |
 | Secret scan (working tree + all history) | `python scripts/secret_scan.py --history` | ✅ CLEAN |
 | Dependency audit | `npm audit` | ✅ 0 vulnerabilities |
-| Python dependency audit | `pip-audit` | ⚠️ advisories only in `pip` and `setuptools` inside `.venv` (not application packages, not shipped) |
+| Python dependency audit | `pip-audit` | ✅ **no known vulnerabilities**. The only advisories found were in the virtual environment's bundled `setuptools`, which is not an application dependency; upgrading it cleared them |
 | Diagram freshness | `python scripts/build_visual_assets.py --check` | ✅ up to date |
+
+The 224 Python tests are the number on a fully set-up working copy. On a **fresh clone** without
+`npm install` and `scripts/setup_vendor.py`, the four OCR tests skip themselves with an explicit reason
+("tesseract.js OCR not installed") instead of failing: a clone checked during this release reported
+**220 passed, 4 skipped** before the Node half of the setup was installed. No test is skipped silently.
 
 ### Frozen evaluation — the honest headline
 
