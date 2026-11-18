@@ -210,6 +210,71 @@ def test_explanation_adds_only_brackets_and_keeps_numbers(con, ids, q):
         assert "પુસ્તકનું લખાણ નથી" in ex["english_label_gu"]
 
 
+# ---------------------------------------------------------------- 7. citation accuracy and refusal integrity
+@pytest.mark.parametrize("q", ["પ્રકાશસંશ્લેષણ એટલે શું?", "હરિતદ્રવ્ય ક્યાં હોય છે?", "ઓહ્મનો નિયમ લખો",
+                               "What is photosynthesis?", "photosynthesis એટલે શું?"])
+def test_lead_citation_points_at_the_sentence_that_answers(con, ids, q):
+    """The first citation must belong to the page of the leading answer sentence, and every answer
+    sentence must be findable, word for word, in the evidence that is shown with it."""
+    r = ask(con, ids, q)
+    assert r["status"] == "answered", (q, r.get("reason"))
+    lead, cit = r["answer"]["parts"][0], r["citations"][0]
+    assert cit["page_number"] == lead["page_number"], (q, cit["page_number"], lead["page_number"])
+    assert cit["edition_id"] == ids["sci"] and cit["chapter_number"] and cit["chapter_title"]
+    quotes = [e["text"] for e in r["evidence"]]
+    for part in r["answer"]["parts"]:
+        assert any(part["text"] in quote for quote in quotes), (q, part["text"])   # nothing is paraphrased
+    # and the quoted text really is the text stored for that page
+    for ev in r["evidence"]:
+        row = con.execute("SELECT text, page_number FROM text_chunks WHERE id=?", (ev["chunk_id"],)).fetchone()
+        assert ev["text"] == row["text"] and ev["page_number"] == row["page_number"]
+
+
+def test_refusal_is_one_fixed_sentence_with_no_citation_and_no_trust_upgrade(con, ids):
+    """A refusal must never look like an answer: no answer text, no page citation, and it can never be
+    labelled Verified."""
+    for q, reason in [("જ્વાળામુખી કેવી રીતે ફાટે છે?", "no_evidence"),
+                      ("કોષનો પાવરહાઉસ કયો છે?", "low_coverage")]:   # second one: no word of it is in the demo book
+        r = ask(con, ids, q)
+        assert r["status"] == "abstained", (q, r["status"])
+        assert r["message"] == REFUSAL, (q, r["message"])
+        assert r["answer"] is None and r["citations"] == [] and r["evidence"] == []
+        assert trust(r) == "insufficient", (q, trust(r))
+        if reason:
+            assert r["reason"] == reason, (q, r["reason"])
+
+
+def test_a_refusal_never_returns_text_from_outside_the_selected_edition(con, ids):
+    """The one demo fact that exists only in the 2027 edition must not be answered from the 2026 edition."""
+    q = "ઘરવપરાશના વિદ્યુતપુરવઠાનું વોલ્ટેજ કેટલું છે?"
+    # engine 1.4 refuses this question when only the 2026 edition is in scope (reason: low_coverage).
+    # Whatever it does, it must never quote the 2027 edition's 230 V while answering from 2026.
+    r = answer.ask(con, q, {"edition_id": ids["sci"]}, use_cache=False)
+    assert "230" not in (r["answer"] or {}).get("text", "")
+    assert all(c["edition_id"] == ids["sci"] for c in r["citations"])
+    if r["status"] == "abstained":
+        assert r["answer"] is None and r["message"] == REFUSAL
+
+
+def test_english_and_mixed_questions_cite_the_gujarati_source(con, ids):
+    """English and mixed-language questions are answered from the Gujarati page, and the mapping is shown."""
+    for q in ["What is the unit of electric current?", "વિદ્યુતપ્રવાહનો unit કયો છે?", "વિદ્યુતપ્રવાહનો એકમ કયો છે?"]:
+        r = ask(con, ids, q)
+        assert r["status"] == "answered", (q, r.get("reason"))
+        assert all(c["edition_id"] == ids["sci"] for c in r["citations"])
+        assert any("ઍમ્પિયર" in p["text"] for p in r["answer"]["parts"]), r["answer"]["text"]
+        for c in r["citations"]:
+            assert c["book_title"] and c["edition"] and c["page_number"]   # always a full, printed citation
+    # an English question answered from Gujarati wording always reports how its words were mapped,
+    # so the student can see that the answer is the Gujarati source's own sentence
+    en = ask(con, ids, "What is the unit of electric current?")
+    tr = en["query_translation"]
+    assert tr and tr["terms"], tr
+    mapped = {t["en"]: t["gu"] for t in tr["terms"]}
+    assert mapped.get("unit") == "એકમ" and mapped.get("electric current") == "વિદ્યુતપ્રવાહ", tr
+    assert tr["unmapped"] == [] and tr["note_gu"]
+
+
 def test_explanation_verify_rejects_a_changed_number_or_added_fact():
     src = "તટસ્થ દ્રાવણનું pH મૂલ્ય 7 હોય છે."
     same = [{"kind": "same", "text": "તટસ્થ (neutral) દ્રાવણનું (solution) pH મૂલ્ય 7 હોય છે.", "pieces": [src]}]
