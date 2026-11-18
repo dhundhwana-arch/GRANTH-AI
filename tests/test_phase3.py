@@ -1,5 +1,6 @@
 """Phase 3 regression tests: the question must be matched to evidence for the concept actually asked about."""
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -185,9 +186,29 @@ def test_explanation_is_separate_traceable_and_adds_no_fact(con, ids):
 
 
 def test_explanation_definition_question_form_and_fallback(con, ids):
-    ex = ask(con, ids, "અંતર્ગોળ અરીસો એટલે શું?")["structured"]["explanation"]
-    # Phase 5 adds the English term in round brackets; without the brackets the line is unchanged
+    r = ask(con, ids, "અંતર્ગોળ અરીસો એટલે શું?")
+    ex = r["structured"]["explanation"]
+    # Phase 5 adds the English term after the Gujarati term, in round brackets. The assertion below is
+    # deliberately semantic rather than an exact-string comparison: the Gujarati term must still be in the
+    # line, the expected English term must appear in brackets, and removing the brackets must give back the
+    # exact Phase 3 sentence, so no wording and no meaning may have changed.
+    line0, line1 = ex["lines"][0]["text"], ex["lines"][1]["text"]
+    assert "અંતર્ગોળ અરીસો" in line0, line0                     # Gujarati term kept
+    assert "(concave mirror)" in line0, line0                   # expected English term in brackets
+    assert "ગોળીય અરીસાની" in line1 and "(spherical mirror)" in line1, line1   # inflected form, as the source prints it
+    with_parens = re.compile(r"\s*\((?:[a-z][a-z' -]*)\)(?=[\s.,;:?]|$)")
+    assert with_parens.sub("", line0) == "‘અંતર્ગોળ અરીસો’ એ એક નામ (પારિભાષિક શબ્દ) છે."
     assert explain._GLOSS.sub("", ex["lines"][0]["text"]) == "‘અંતર્ગોળ અરીસો’ એ એક નામ (પારિભાષિક શબ્દ) છે."
+    # the brackets are the app's own word list, never the textbook: they are labelled as such
+    assert ex["english_terms"] and all(t["source_type"] == "word_list" for t in ex["english_terms"])
+    assert "પુસ્તકનું લખાણ નથી" in ex["english_label_gu"]
+    # no unsupported factual content: every line still traces back to the quoted sentence, digit for digit
+    quote = " ".join(p["text"] for p in r["answer"]["parts"])
+    for ln in ex["lines"]:
+        assert all(piece in quote for piece in ln["pieces"])
+        assert explain._digits(explain._GLOSS.sub("", ln["text"])) == explain._digits(quote) or \
+            explain._digits(explain._GLOSS.sub("", ln["text"])) == []
+    assert explain.verify(ex["lines"], quote)
     assert ex["lines"][1]["text"].startswith("કોને ‘અંતર્ગોળ અરીસો’ કહે છે? — જે ગોળીય અરીસાની")
     # tampering is detected: an added fact or a dropped word fails verification
     src = CONCAVE_DEF
