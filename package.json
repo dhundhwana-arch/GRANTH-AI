@@ -2,7 +2,7 @@
   "name": "granth-ai",
   "version": "0.1.0",
   "private": true,
-  "description": "GRANTH-AI - Gujarati textbook-grounded question answering. Browser/OCR tooling and JS tests.",
+  "description": "GRANTH-AI - textbook-grounded AI learning assistant for Gujarati-medium students. Browser/OCR tooling and JavaScript tests; the answer engine itself is Python standard library.",
   "license": "MIT",
   "scripts": {
     "test": "node --test tests/js/*.test.mjs",
@@ -19,5 +19,23 @@
     "@sparticuz/chromium": "^153.0.0",
     "fake-indexeddb": "6.2.8",
     "puppeteer-core": "^25.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhundhwana-arch/GRANTH-AI.git"
+  },
+  "homepage": "https://github.com/dhundhwana-arch/GRANTH-AI#readme",
+  "bugs": {
+    "url": "https://github.com/dhundhwana-arch/GRANTH-AI/issues"
+  },
+  "author": "Divyesh Bambhaniya (Founder & Project Developer)",
+  "contributors": [
+    {
+      "name": "Bhaveshbhai Solanki",
+      "role": "Idea contributor"
+    }
+  ],
+  "engines": {
+    "node": ">=20"
   }
 }
