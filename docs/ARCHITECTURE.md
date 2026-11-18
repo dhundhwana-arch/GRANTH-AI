@@ -64,6 +64,19 @@ and the tested configuration.
 | Extractive answers | Cannot hallucinate; a generative layer is optional and gated by verification |
 | OCR in the browser for student photos | Photos never leave the device |
 
+> **Note on version numbers in this file.** This document describes the pipeline as it was written for
+> version 0.2, when the engine was `extractive-1.1`. The **design is unchanged**, but the engine has since
+> advanced to `extractive-1.4` (Phase 5), and two details below are older than the code:
+>
+> * step 6 of the pipeline says a shortfall in the number of points is *stated* — in the current engine a
+>   shortfall is **disclosed** in the answer card ("the book does not contain enough points for the marks
+>   asked") rather than being worded as part of the answer sentence;
+> * the edition-conflict behaviour (step 2) is now also reachable from the interface, not only from the API.
+>
+> The current, authoritative numbers are in [`PHASE5_REPORT.md`](PHASE5_REPORT.md) and
+> [`PHASE5_FROZEN_BENCHMARK.md`](PHASE5_FROZEN_BENCHMARK.md). This file is kept as the design record rather
+> than rewritten, so that the earlier reports it is linked from stay accurate.
+
 ## Changes in version 0.2 (engine `extractive-1.1`)
 
 ```
