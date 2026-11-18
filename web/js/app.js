@@ -107,7 +107,8 @@ function highlight(text, parts) {
 function selectionSummary() {
   const cur = currentEdition();
   if (!cur) return `<div class="note">હજી કોઈ પાઠ્યપુસ્તક પસંદ થયું નથી. <a href="#/select">પુસ્તક પસંદ કરો</a></div>`;
-  const ch = sel.chapter_id && sel.chapter_title ? ` · પ્રકરણ ${esc(sel.chapter_number)}: ${esc(sel.chapter_title)}` : ' · આખું પુસ્તક';
+  const ch = sel.compare ? ' · <strong>બંને આવૃત્તિઓની તુલના</strong>'
+    : sel.chapter_id && sel.chapter_title ? ` · પ્રકરણ ${esc(sel.chapter_number)}: ${esc(sel.chapter_title)}` : ' · આખું પુસ્તક';
   return `<div class="note" id="sel-summary"><strong>પસંદ કરેલું પુસ્તક:</strong> ${esc(cur.book.title)} — ધોરણ ${esc(cur.book.standard)}, ${esc(cur.book.subject)}, ${esc(cur.book.medium)} માધ્યમ, આવૃત્તિ ${esc(cur.edition.edition_label)}${ch}
     <br><span class="muted">${esc(cur.book.board)}</span> · <a href="#/select">બદલો</a></div>`;
 }
@@ -232,7 +233,8 @@ function resultHtml(r, opts = {}) {
   const save = r.answer_id && !opts.noSave ? `<button type="button" class="small savea" data-a="${r.answer_id}">⭐ ઉત્તર સાચવો</button>` : '';
   if (r.status === 'answered') {
     const cacheBadge = r.cache && r.cache.hit ? '<span class="badge ok">સંગ્રહિત ચકાસાયેલો ઉત્તર (cache)</span>' : '';
-    return `${banner}<section class="card answer" id="answer" data-status="answered">
+    const trust = (r.structured && r.structured.trust && r.structured.trust.status) || 'verified';
+    return `${banner}<section class="card answer" id="answer" data-status="answered" data-trust="${esc(trust)}">
       <h2>ઉત્તર <span class="muted">(${esc(r.mode_label || '')}${r.marks ? `, ${r.marks} ગુણ` : ''})</span> ${cacheBadge}</h2>
       ${qline}${translationHtml(r)}
       ${answeredBody(r)}
@@ -241,17 +243,17 @@ function resultHtml(r, opts = {}) {
       <h3>પુસ્તકનો આધાર</h3>${r.citations.map(citationHtml).join('<hr>')}
       ${termsHtml(r)}${trustHtml(r.structured, r.validation)}
       <div class="row"><button type="button" id="speak" class="small">🔊 ઉત્તર સાંભળો</button>${save}<span id="speak-msg" class="muted"></span></div>
-      <details class="ev" open><summary>પુરાવો: પાઠ્યપુસ્તકનું મૂળ લખાણ</summary><div id="evidence">${evidenceHtml(r.evidence, r.answer.parts)}</div></details>
+      <details class="ev" open><summary>પુરાવો: પાઠ્યપુસ્તકનું મૂળ લખાણ <span class="badge ok">સીધું અવતરણ</span></summary><div id="evidence">${evidenceHtml(r.evidence, r.answer.parts)}</div></details>
       ${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
   }
   if (r.status === 'edition_conflict') {
-    return `${banner}<section class="card conflict" id="answer" data-status="edition_conflict"><h2>આવૃત્તિઓમાં તફાવત</h2>${qline}<p>${esc(r.message)}</p>
+    return `${banner}<section class="card conflict" id="answer" data-status="edition_conflict"><h2>આવૃત્તિઓમાં તફાવત <span class="badge warn">એક ઉત્તર પસંદ કરાયો નથી</span></h2>${qline}<p>${esc(r.message)}</p>
       ${r.editions.map((e) => `<div class="card"><h3>આવૃત્તિ: ${esc(e.edition)}</h3><div class="text">${renderText(e.answer.text)}</div>
         ${e.citations.map(citationHtml).join('')}${evidenceHtml(e.evidence, e.answer.parts)}</div>`).join('')}${editionResultsHtml(r)}${trustHtml(r.structured, r.validation)}<div class="row">${save}</div>${feedbackHtml(r)}</section>${supplementaryHtml(r.supplementary)}`;
   }
   const sugg = r.suggestions && r.suggestions.length ? `<h3>કયો મુદ્દો?</h3><div class="chips">${r.suggestions.map((x) =>
     `<button type="button" class="chip sugg" data-ch="${x.chapter_id}" data-no="${esc(x.chapter_number)}" data-title="${esc(x.chapter_title)}" data-sec="${esc(x.section_title.replace(/^[\d.]+\s*/, ''))}">${esc(x.section_title)} <span class="muted">(પૃ. ${esc(x.page_number)})</span></button>`).join('')}</div>` : '';
-  return `${banner}<section class="card abstain" id="answer" data-status="abstained" role="status"><h2>ઉત્તર આપી શકાતો નથી</h2>
+  return `${banner}<section class="card abstain" id="answer" data-status="abstained" role="status"><h2>ઉત્તર આપી શકાતો નથી <span class="badge warn">પુરાવો અપૂરતો</span></h2>
     ${qline}${translationHtml(r)}
     <p id="abstain-msg"><strong>${esc(r.message || ABSTAIN)}</strong></p>
     ${r.reason_gu ? `<p class="muted">${esc(r.reason_gu)}</p>` : ''}
@@ -296,10 +298,12 @@ function bindResult(root, r) {
 
 // ---------------------------------------------------------------- ask pipeline (typed / voice / camera all end here)
 async function askQuestion(question, extra, out) {
-  const scope = { edition_id: sel.edition_id, chapter_id: sel.chapter_id || null, mode: extra.mode || 'auto', marks: extra.marks || null };
-  out.innerHTML = loading('પાઠ્યપુસ્તકમાં શોધી રહ્યું છે…');
+  const scope = sel.compare && sel.textbook_id
+    ? { textbook_id: sel.textbook_id, chapter_id: null, mode: extra.mode || 'auto', marks: extra.marks || null }
+    : { edition_id: sel.edition_id, chapter_id: sel.chapter_id || null, mode: extra.mode || 'auto', marks: extra.marks || null };
+  out.innerHTML = loading(sel.compare ? 'બંને આવૃત્તિમાં શોધી રહ્યું છે…' : 'પાઠ્યપુસ્તકમાં શોધી રહ્યું છે…');
   try {
-    const r = await api('/api/ask', { method: 'POST', body: { question, edition_id: scope.edition_id, chapter_id: scope.chapter_id,
+    const r = await api('/api/ask', { method: 'POST', body: { question, edition_id: scope.edition_id || null, textbook_id: scope.textbook_id || null, chapter_id: scope.chapter_id,
       mode: scope.mode, marks: scope.marks, session_id: session(), input_method: extra.input_method || 'typed',
       supplementary_edition_id: extra.supplementary || null } });
     out.innerHTML = resultHtml(r);
@@ -382,7 +386,9 @@ views.select = async () => {
       html += `<div class="card"><strong>${esc(b.title)}</strong><div class="chips">` + b.editions.map((e) => e.available
         ? `<button type="button" class="chip ed ${sel.edition_id === e.edition_id ? 'on' : ''}" data-ed="${e.edition_id}" data-book="${b.textbook_id}">આવૃત્તિ ${esc(e.edition_label)} · ${e.chapter_count} પ્રકરણ <span class="badge ${sel.edition_id === e.edition_id ? '' : 'ok'}">અધિકૃત</span></button>`
         : `<button type="button" class="chip" disabled title="${esc(catalog.unavailable_message)}">🔒 ${esc(e.edition_label)} — પરવાનગી: ${esc(e.permission_status)}</button>`).join('') + `</div>
-        <p class="muted">જુદી જુદી આવૃત્તિઓનું લખાણ ક્યારેય ભેળવવામાં આવતું નથી. એક આવૃત્તિ પસંદ કરો.</p></div>`;
+        <p class="muted">જુદી જુદી આવૃત્તિઓનું લખાણ ક્યારેય ભેળવવામાં આવતું નથી. એક આવૃત્તિ પસંદ કરો.</p>
+        ${b.editions.filter((e) => e.available).length > 1 ? `<label class="check"><input type="checkbox" class="cmp" data-book="${b.textbook_id}" ${sel.compare ? 'checked' : ''}>
+          <span><strong>બંને આવૃત્તિઓ સાથે તપાસો</strong><br><span class="muted">એક જ પ્રશ્ન બંને આવૃત્તિને અલગ રીતે પૂછવામાં આવશે. બંનેમાં જવાબ મળે અને તે અલગ હોય તો બંને એકસાથે, પોતપોતાના પૃષ્ઠ સંદર્ભ સાથે દેખાશે — એન્જિન એક પણ ઉત્તર પસંદ કરશે નહીં.</span></span></label>` : ''}</div>`;
     }
     if (!f4.length) html += `<p class="muted">${esc(catalog.unavailable_message)}</p>`;
   }
@@ -402,10 +408,18 @@ views.select = async () => {
     delete sel.chapter_id; delete sel.chapter_title; delete sel.chapter_number;
     saveSel(); views.select();
   };
+  // Edition comparison is opt-in and explicit: it is never on by default.
+  for (const c of $$('.cmp')) c.onchange = () => {
+    if (c.checked) sel.compare = true; else delete sel.compare;
+    delete sel.chapter_id; delete sel.chapter_title; delete sel.chapter_number;
+    saveSel(); views.select();
+  };
   if (sel.edition_id) {
     try {
       const data = await api(`/api/editions/${sel.edition_id}/chapters`);
-      $('#chapters').innerHTML = `<div class="chips"><button type="button" class="chip ch ${!sel.chapter_id ? 'on' : ''}" data-ch="">આખું પુસ્તક</button>` +
+      $('#chapters').innerHTML = sel.compare
+        ? `<div class="note">તુલના માટે પ્રકરણ પસંદગી લાગુ પડતી નથી: પ્રશ્ન બંને આવૃત્તિના આખા પુસ્તકમાં શોધાશે.</div><div class="row"><a class="btn primary" id="go-ask" href="#/ask">પ્રશ્ન પૂછો →</a></div>`
+        : `<div class="chips"><button type="button" class="chip ch ${!sel.chapter_id ? 'on' : ''}" data-ch="">આખું પુસ્તક</button>` +
         data.chapters.map((c) => `<button type="button" class="chip ch ${sel.chapter_id === c.id ? 'on' : ''}" data-ch="${c.id}" data-no="${c.number}" data-title="${esc(c.title)}">${c.number}. ${esc(c.title)} <span class="muted">(પૃ. ${c.page_start}–${c.page_end})</span></button>`).join('') +
         `</div><div class="row"><a class="btn primary" id="go-ask" href="#/ask">પ્રશ્ન પૂછો →</a><a class="btn" href="#/chapters">પ્રકરણો જુઓ</a></div>`;
       for (const b of $$('.chip.ch')) b.onclick = () => {
@@ -812,7 +826,7 @@ views.notes = async () => {
         <div class="row"><button type="button" class="small primary usenote" data-ed="${n.edition_id}" data-title="${esc(n.title)}">આ નોંધમાંથી પ્રશ્ન પૂછો</button><button type="button" class="small delnote" data-ed="${n.edition_id}">કાયમ માટે કાઢી નાખો</button></div></div>`).join('')
         : '<p class="muted" id="no-notes">હજી કોઈ નોંધ ઉમેરી નથી.</p>';
       for (const b of $$('.usenote')) b.onclick = () => {
-        sel = { edition_id: +b.dataset.ed, personal: b.dataset.title }; saveSel(); location.hash = '#/ask';
+        sel = { edition_id: +b.dataset.ed, personal: b.dataset.title }; saveSel(); location.hash = '#/ask';   // personal notes are single-source
       };
       for (const b of $$('.delnote')) b.onclick = async () => {
         await api(`/api/personal-notes/${b.dataset.ed}?session=${encodeURIComponent(session())}`, { method: 'DELETE' });
@@ -877,13 +891,25 @@ views.admin = async () => {
 };
 
 // ---------------------------------------------------------------- router
+// Routing is serialised: if two hash changes arrive while a screen is still loading (for example a
+// citation link clicked twice), the older screen must not paint over the newer one. Each route takes
+// a ticket; only the newest ticket is allowed to report itself ready.
+let routeTicket = 0;
 async function route() {
+  const mine = ++routeTicket;
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   const name = parts[0] || 'home';
   const fn = views[name] || views.home;
   for (const a of $$('.tabs a')) a.classList.toggle('on', a.dataset.tab === name);
-  try { await fn(...parts.slice(1)); } catch (e) { view.innerHTML = errorCard(e.message || String(e)); }
+  // A new screen starts at the top. Done BEFORE the screen is built, so the scroll position never
+  // moves underneath a tap or click that is already in progress (and so the student does not stay
+  // scrolled down from the previous screen - found by the browser test, where the microphone button
+  // ended up above the viewport at y = -25 px).
+  window.scrollTo(0, 0);
+  try { await fn(...parts.slice(1)); } catch (e) { if (mine === routeTicket) view.innerHTML = errorCard(e.message || String(e)); }
+  if (mine !== routeTicket) return;                    // a newer route took over while this one loaded
   view.dataset.view = name;
+  document.title = (name === 'home' ? 'GRANTH-AI · ગ્રંથ-એઆઈ' : `${name} · GRANTH-AI`);
   view.dataset.ready = String(Date.now());
 }
 function net() {
