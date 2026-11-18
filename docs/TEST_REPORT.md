@@ -15,7 +15,7 @@ sets and the recorded results were **not** touched; this run records the test co
 | Secret scan, working tree and all history | `python scripts/secret_scan.py --history` | CLEAN |
 | Dependency audit (npm) | `npm audit` | 0 vulnerabilities |
 | Diagram freshness | `python scripts/build_visual_assets.py --check` | up to date |
-| Documentation links, anchors, images | `python scripts/check_docs.py` | 90 relative links, 0 problems |
+| Documentation links, anchors, images | `python scripts/check_docs.py` | 93 relative links and images across 40 files, 0 problems |
 
 Eight tests were added (`tests/test_phase5.py`: lead-citation integrity across five questions, refusal integrity,
 no cross-edition leakage, English/mixed citation and word mapping) and one Phase 3 assertion was made
