@@ -41,9 +41,14 @@ Partly fixed means: defects 1, 4, 5 and 6 still fail on some frozen questions. D
 
 | Suite | Result |
 |---|---|
-| pytest | 216 passed, 0 failed (173 earlier tests and 43 new in `tests/test_phase5.py`) |
+| pytest | **216** passed, 0 failed at the Phase 5 commit (173 earlier tests and 43 new in `tests/test_phase5.py`) |
 | Browser-module tests (`npm test`) | 18 passed, 0 failed |
-| Headless browser run | 33 of 33 steps |
+| Headless browser run | 33 of 33 steps at the Phase 5 commit |
+
+> **Later, on the public-showcase branch** the same engine reports **224** Python tests and **34** browser
+> steps: eight tests were added (citation integrity, refusal integrity, no cross-edition leakage, English word
+> mapping) and one browser step for the edition-comparison screen. No existing test was deleted or weakened and
+> no engine behaviour changed. See [`TEST_REPORT.md`](TEST_REPORT.md).
 | Secret scan, tree and history | CLEAN |
 | `npm audit` | 0 vulnerabilities |
 | `pip-audit` | 21 advisories in `pip` and `setuptools` only |

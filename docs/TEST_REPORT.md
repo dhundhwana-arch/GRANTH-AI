@@ -1,5 +1,37 @@
 # Test report
 
+## Run of 2026-11-13, engine `extractive-1.4` — public showcase release (newest)
+
+Branch `release/granth-ai-public-showcase`, forked from the Phase 5 commit `b147637`. The engine, the frozen
+sets and the recorded results were **not** touched; this run records the test counts after the release work
+(documentation, diagrams, front-end polish, one new browser step and eight new Python tests).
+
+| Suite | Command | Result |
+|---|---|---|
+| Python unit, API, ingestion, security | `.venv/bin/python -m pytest tests -q` | **224 passed**, 0 failed |
+| JavaScript unit tests | `npm test` | **18 passed**, 0 failed |
+| Browser suite (headless Chromium, 390×800, touch) | `npm run test:e2e` | **34 of 34 steps**, run 5 times consecutively with no failure |
+| Frozen Phase 5 set, re-run for integrity | `benchmarks/run_phase5.py --questions benchmarks/phase5/frozen_test.json --out /tmp/…` | identical to the recorded 83/102, 0 wrong |
+| Secret scan, working tree and all history | `python scripts/secret_scan.py --history` | CLEAN |
+| Dependency audit (npm) | `npm audit` | 0 vulnerabilities |
+| Diagram freshness | `python scripts/build_visual_assets.py --check` | up to date |
+| Documentation links, anchors, images | `python scripts/check_docs.py` | 90 relative links, 0 problems |
+
+Eight tests were added (`tests/test_phase5.py`: lead-citation integrity across five questions, refusal integrity,
+no cross-edition leakage, English/mixed citation and word mapping) and one Phase 3 assertion was made
+semantic instead of exact-string (see `PHASE3_REPORT.md`). No test was deleted or weakened.
+
+### Three user-interface defects found by the browser suite during this work, and fixed
+
+| Defect | Cause | Fix |
+|---|---|---|
+| A new screen opened scrolled to the previous screen's position, so its first controls were above the viewport (the microphone button sat at y = −25 px) | the router never reset the scroll position | `route()` scrolls to the top *before* building the screen |
+| Two fast navigations could paint the older screen over the newer one | `route()` was not serialised | each route takes a ticket; only the newest one commits |
+| A badge inside a selected chip was white on white | the badge background came from the light theme | badges inside dark chips/buttons keep a readable contrast |
+
+The offline-library step was also made deterministic: it now waits for the delete confirmation *and* the empty
+list instead of a fixed 5-second timeout.
+
 ## Run of 2026-11-13, engine `extractive-1.2` (Phase 3; supersedes the numbers further down)
 
 | Suite | Command | Result |

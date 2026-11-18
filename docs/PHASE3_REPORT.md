@@ -126,6 +126,13 @@ new examples. Simplification depth is therefore modest.
 | Held-out 1 / 2, first runs | 36 of 40 / 32 of 35 |
 | Secret scan, tracked files and all commits | clean |
 
+> **Note added later (public-showcase branch).** `tests/test_phase3.py` used to compare one explanation line
+> character for character. Engine 1.4 puts an English term in round brackets after the Gujarati term, so the
+> assertion was made semantic instead: the Gujarati term must still be present, the expected English term must
+> appear in brackets, removing the brackets must give back the exact original sentence, and every line must
+> still trace to the quoted source with identical digits. The test is stricter than before, not looser. That
+> file now has 34 tests.
+
 ## 7. What still fails
 
 - **Wrong answers still occur and can carry the Verified label.** First runs on unseen questions: 3 wrong answers in

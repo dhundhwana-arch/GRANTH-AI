@@ -6,7 +6,7 @@
 
 | Kind | What it is | Status |
 |---|---|---|
-| Automated browser | Headless Chromium on a Linux server runs 33 scripted steps (`tests/e2e/run_e2e.mjs`) | 33 of 33 pass on 2026-11-14 |
+| Automated browser | Headless Chromium on a Linux server runs 34 scripted steps (`tests/e2e/run_e2e.mjs`) | 34 of 34 pass (33 at the Phase 5 commit; one edition-comparison step added later) |
 | Simulated viewport | The same run sets a 390 × 800 touch viewport and checks other widths for sideways scrolling | passes; this is a desktop browser engine pretending to be a phone |
 | Physical device | A person using a real Android phone or tablet | **NOT TESTED** |
 
