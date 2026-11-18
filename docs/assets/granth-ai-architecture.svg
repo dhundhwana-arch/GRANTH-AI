@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1672" width="1240" height="1672" role="img" aria-labelledby="t d">
+  <title id="t">GRANTH-AI architecture</title>
+  <desc id="d">One question from the browser to a cited answer: language and intent, edition scope, hybrid retrieval, evidence validation, then either an answer taken word for word from the textbook or an explicit refusal.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c9792b"/></marker><marker id="arrow-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1d6b3a"/></marker><marker id="arrow-bad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9b1c1c"/></marker><marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b5a50"/></marker><linearGradient id="brand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8d3a13"/><stop offset="1" stop-color="#67240b"/></linearGradient><linearGradient id="amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9a457"/><stop offset="1" stop-color="#c9792b"/></linearGradient></defs>
+  <rect x="0" y="0" width="1240" height="1672" rx="0" fill="#fff8ef" stroke="#fff8ef" stroke-width="0" />
+  <rect x="0" y="0" width="1240" height="8" rx="0" fill="#7a2e0e" stroke="#7a2e0e" stroke-width="0" />
+  <text x="56" y="76" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="34" fill="#7a2e0e" font-weight="700">GRANTH-AI · Evidence Pipeline</text>
+  <text x="56" y="110" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" fill="#6b5a50" font-weight="400">One question, end to end · engine extractive-1.4 · deterministic, no language model, no external API call</text>
+  <rect x="56" y="128" width="234" height="27" rx="13.5" fill="#8a5a00" stroke="#8a5a00" stroke-width="1" />
+  <text x="173.0" y="145.82" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#ffffff" font-weight="600" text-anchor="middle">DEMO / RESEARCH PROTOTYPE</text>
+  <rect x="298" y="128" width="160" height="27" rx="13.5" fill="#1d6b3a" stroke="#1d6b3a" stroke-width="1" />
+  <text x="378.0" y="145.82" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#ffffff" font-weight="600" text-anchor="middle">0 external calls</text>
+  <rect x="466" y="128" width="185" height="27" rx="13.5" fill="#6b5a50" stroke="#6b5a50" stroke-width="1" />
+  <text x="558.5" y="145.82" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#ffffff" font-weight="600" text-anchor="middle">cit. 43/43 (frozen)</text>
+  <rect x="150" y="178" width="934" height="150" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="150" y="178" width="7" height="150" rx="3.5" fill="#7a2e0e"/>
+  <circle cx="104" cy="253.0" r="24" fill="#7a2e0e"/>
+  <text x="104" y="260.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+  <text x="182" y="218" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="21" fill="#7a2e0e" font-weight="700">Student asks</text>
+  <text x="182" y="246" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Typed question, voice transcript, or a photo of a printed line.</text>
+  <text x="182" y="269" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Language may be Gujarati, English, or a mixture of both.</text>
+  <text x="1052" y="306" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#6b5a50" font-weight="400" text-anchor="end">web/js/app.js · voice.mjs · imageprep.mjs</text>
+  <line x1="104" y1="330" x2="104" y2="345" stroke="#7a2e0e" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="150" y="348" width="934" height="150" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="150" y="348" width="7" height="150" rx="3.5" fill="#c9792b"/>
+  <circle cx="104" cy="423.0" r="24" fill="#c9792b"/>
+  <text x="104" y="430.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+  <text x="182" y="388" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="21" fill="#7a2e0e" font-weight="700">Language and intent</text>
+  <text x="182" y="416" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Words are resolved to the book's own vocabulary (synonym, spelling, transliteration).</text>
+  <text x="182" y="439" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Question form is read: definition, unit, place, cause, difference, formula, steps.</text>
+  <text x="182" y="462" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Negation and the assumed premise are checked before anything is searched.</text>
+  <text x="1052" y="458" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#6b5a50" font-weight="400" text-anchor="end">granth/lang.py · intent.py · gujarati.py</text>
+  <text x="1052" y="476" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#6b5a50" font-weight="400" text-anchor="end">polarity.py · premise.py</text>
+  <line x1="104" y1="500" x2="104" y2="515" stroke="#7a2e0e" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="150" y="518" width="934" height="150" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="150" y="518" width="7" height="150" rx="3.5" fill="#7a2e0e"/>
+  <circle cx="104" cy="593.0" r="24" fill="#7a2e0e"/>
+  <text x="104" y="600.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+  <text x="182" y="558" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="21" fill="#7a2e0e" font-weight="700">Edition scope</text>
+  <text x="182" y="586" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Only sources that are APPROVED and admin-approved are searchable.</text>
+  <text x="182" y="609" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Editions are searched separately and are never merged into one answer.</text>
+  <text x="1052" y="646" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#6b5a50" font-weight="400" text-anchor="end">granth/answer.py (resolve_scope) · db.py</text>
+  <line x1="104" y1="670" x2="104" y2="685" stroke="#7a2e0e" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="150" y="688" width="934" height="150" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="150" y="688" width="7" height="150" rx="3.5" fill="#c9792b"/>
+  <circle cx="104" cy="763.0" r="24" fill="#c9792b"/>
+  <text x="104" y="770.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+  <text x="182" y="728" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="21" fill="#7a2e0e" font-weight="700">Hybrid retrieval</text>
+  <text x="182" y="756" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">BM25 keyword score + character-trigram TF-IDF cosine + term coverage,</text>
+  <text x="182" y="779" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">restricted to the chosen edition and chapter.</text>
+  <text x="1052" y="816" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#6b5a50" font-weight="400" text-anchor="end">granth/retrieval.py</text>
+  <line x1="104" y1="840" x2="104" y2="855" stroke="#7a2e0e" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="150" y="858" width="934" height="150" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="150" y="858" width="7" height="150" rx="3.5" fill="#7a2e0e"/>
+  <circle cx="104" cy="933.0" r="24" fill="#7a2e0e"/>
+  <text x="104" y="940.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#ffffff" font-weight="700" text-anchor="middle">5</text>
+  <text x="182" y="898" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="21" fill="#7a2e0e" font-weight="700">Evidence validation</text>
+  <text x="182" y="926" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Each sentence must contain the asked concept AND the asked aspect.</text>
+  <text x="182" y="949" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Any number in the answer must exist in the source; polarity must agree.</text>
+  <text x="182" y="972" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">A look-alike or unknown technical word is never silently substituted.</text>
+  <text x="1052" y="986" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#6b5a50" font-weight="400" text-anchor="end">granth/validate.py · concepts.py</text>
+  <line x1="104" y1="1010" x2="104" y2="1025" stroke="#7a2e0e" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="150" y="1028" width="934" height="150" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="150" y="1028" width="7" height="150" rx="3.5" fill="#c9792b"/>
+  <circle cx="104" cy="1103.0" r="24" fill="#c9792b"/>
+  <text x="104" y="1110.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#ffffff" font-weight="700" text-anchor="middle">6</text>
+  <text x="182" y="1068" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="21" fill="#7a2e0e" font-weight="700">Answer or refusal</text>
+  <text x="182" y="1096" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Answer: source sentences, word for word, with chapter and page and a trust label.</text>
+  <text x="182" y="1119" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Refusal: one fixed Gujarati sentence when the evidence is not sufficient.</text>
+  <text x="1052" y="1156" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#6b5a50" font-weight="400" text-anchor="end">granth/answer.py (ask)</text>
+  <line x1="104" y1="1180" x2="104" y2="1195" stroke="#7a2e0e" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="150" y="1198" width="934" height="150" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="150" y="1198" width="7" height="150" rx="3.5" fill="#7a2e0e"/>
+  <circle cx="104" cy="1273.0" r="24" fill="#7a2e0e"/>
+  <text x="104" y="1280.0" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="#ffffff" font-weight="700" text-anchor="middle">7</text>
+  <text x="182" y="1238" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="21" fill="#7a2e0e" font-weight="700">Citation and display</text>
+  <text x="182" y="1266" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">Citation card, page viewer, the quoted evidence, and a rule-based explanation</text>
+  <text x="182" y="1289" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#6b5a50" font-weight="400">in a separate block labelled as NOT a quotation.</text>
+  <text x="1052" y="1326" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#6b5a50" font-weight="400" text-anchor="end">web/js/app.js · granth/explain.py</text>
+  <text x="56" y="1378" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" fill="#7a2e0e" font-weight="700">Parallel paths that reuse the same stages</text>
+  <rect x="56" y="1396" width="366" height="128" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="56" y="1396" width="7" height="128" rx="3.5" fill="#c9792b"/>
+  <text x="82" y="1430" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#7a2e0e" font-weight="700">Edition comparison</text>
+  <text x="82" y="1456" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">The same question is put to each selected</text>
+  <text x="82" y="1475" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">edition separately. When the values differ,</text>
+  <text x="82" y="1494" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">both are shown with their own page citations.</text>
+  <rect x="437" y="1396" width="366" height="128" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="437" y="1396" width="7" height="128" rx="3.5" fill="#1d6b3a"/>
+  <text x="463" y="1430" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#7a2e0e" font-weight="700">Shared answer cache</text>
+  <text x="463" y="1456" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">An identical question to the same edition</text>
+  <text x="463" y="1475" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">reuses the stored verified answer.</text>
+  <text x="463" y="1494" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">A new answer is never invented from it.</text>
+  <rect x="818" y="1396" width="366" height="128" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="818" y="1396" width="7" height="128" rx="3.5" fill="#5b4bb5"/>
+  <text x="844" y="1430" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#7a2e0e" font-weight="700">Supplementary source</text>
+  <text x="844" y="1456" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">Optional self-written notes, shown in their</text>
+  <text x="844" y="1475" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">own labelled block. Never mixed into the</text>
+  <text x="844" y="1494" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">textbook answer.</text>
+  <rect x="56" y="1550" width="1128" height="104" rx="14" fill="#f6e7d5" stroke="#ead9c6" stroke-width="1.5" />
+  <text x="84" y="1584" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#7a2e0e" font-weight="700">Data</text>
+  <text x="148" y="1584" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#2a1a12" font-weight="400">SQLite · text_chunks, vocabulary, textbook_editions, answer_cache, usage_events</text>
+  <text x="84" y="1612" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#7a2e0e" font-weight="700">Runtime</text>
+  <text x="168" y="1612" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#2a1a12" font-weight="400">one Python process, standard library only (http.server) · browser is a plain PWA shell</text>
+  <text x="84" y="1638" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#7a2e0e" font-weight="700">Boundary</text>
+  <text x="176" y="1638" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#2a1a12" font-weight="400">the textbook text is read-only at answer time; nothing is generated from outside it</text>
+</svg>

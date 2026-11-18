@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1104" width="1240" height="1104" role="img" aria-labelledby="t d">
+  <title id="t">GRANTH-AI question lifecycle and outcomes</title>
+  <desc id="d">How one question flows through validation and which of four visible outcomes the student gets: a verified answer, a partially supported answer, a refusal, or an edition conflict.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c9792b"/></marker><marker id="arrow-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1d6b3a"/></marker><marker id="arrow-bad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9b1c1c"/></marker><marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b5a50"/></marker><linearGradient id="brand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8d3a13"/><stop offset="1" stop-color="#67240b"/></linearGradient><linearGradient id="amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9a457"/><stop offset="1" stop-color="#c9792b"/></linearGradient></defs>
+  <rect x="0" y="0" width="1240" height="1104" rx="0" fill="#fff8ef" stroke="#fff8ef" stroke-width="0" />
+  <rect x="0" y="0" width="1240" height="8" rx="0" fill="#7a2e0e" stroke="#7a2e0e" stroke-width="0" />
+  <text x="56" y="76" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="34" fill="#7a2e0e" font-weight="700">GRANTH-AI · One Question, Four Honest Outcomes</text>
+  <text x="56" y="110" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="17" fill="#6b5a50" font-weight="400">The same pipeline can only end in one of these states — a guess is not one of them.</text>
+  <rect x="56" y="172" width="250" height="112" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="56" y="172" width="7" height="112" rx="3.5" fill="#7a2e0e"/>
+  <text x="78" y="210" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#7a2e0e" font-weight="700">1  Question</text>
+  <text x="78" y="238" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">typed · voice · photo</text>
+  <line x1="312" y1="228" x2="338" y2="228" stroke="#c9792b" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="346" y="172" width="250" height="112" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="346" y="172" width="7" height="112" rx="3.5" fill="#c9792b"/>
+  <text x="368" y="210" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#7a2e0e" font-weight="700">2  Understand</text>
+  <text x="368" y="238" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">language, words, question form</text>
+  <text x="368" y="257" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">negation, assumed premise</text>
+  <line x1="602" y1="228" x2="628" y2="228" stroke="#c9792b" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="636" y="172" width="250" height="112" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="636" y="172" width="7" height="112" rx="3.5" fill="#7a2e0e"/>
+  <text x="658" y="210" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#7a2e0e" font-weight="700">3  Retrieve</text>
+  <text x="658" y="238" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">BM25 + trigram + coverage</text>
+  <text x="658" y="257" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">inside the chosen edition</text>
+  <line x1="892" y1="228" x2="918" y2="228" stroke="#c9792b" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="926" y="172" width="250" height="112" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="926" y="172" width="7" height="112" rx="3.5" fill="#c9792b"/>
+  <text x="948" y="210" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#7a2e0e" font-weight="700">4  Validate</text>
+  <text x="948" y="238" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">concept + aspect + numbers</text>
+  <text x="948" y="257" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#6b5a50" font-weight="400">polarity must agree</text>
+  <line x1="616" y1="288" x2="616" y2="312" stroke="#7a2e0e" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="56" y="316" width="1128" height="74" rx="14" fill="#fff7e6" stroke="#c9792b" stroke-width="2" />
+  <text x="84" y="362" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="18" fill="#7a2e0e" font-weight="700">Decision</text>
+  <text x="200" y="362" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#2a1a12" font-weight="400">Is there a sentence in this edition that answers exactly what was asked, and is it safe to show it?</text>
+  <line x1="620" y1="392" x2="620" y2="412" stroke="#7a2e0e" stroke-width="2.5" marker-end="url(#arrow)" stroke-linecap="round"/>
+  <rect x="452" y="414" width="336" height="30" rx="15" fill="#7a2e0e" stroke="#7a2e0e" stroke-width="1.5" />
+  <text x="620" y="434" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" letter-spacing="0.6">FOUR POSSIBLE OUTCOMES · status field</text>
+  <rect x="56" y="462" width="552" height="168" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="56" y="462" width="7" height="168" rx="3.5" fill="#1d6b3a"/>
+  <text x="82" y="502" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#1d6b3a" font-weight="700">Verified against source</text>
+  <text x="82" y="532" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">The sentence contains the asked concept and the asked aspect.</text>
+  <text x="82" y="554" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">Numbers and units match the printed page. The student sees the</text>
+  <text x="82" y="576" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">quotation itself with the chapter, the page and a link to it.</text>
+  <rect x="82" y="582" width="214" height="30" rx="9" fill="#ffffff" stroke="#1d6b3a" stroke-width="1.2" />
+  <text x="96" y="603" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#1d6b3a" font-weight="400">status = "answer"</text>
+  <rect x="632" y="462" width="552" height="168" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="632" y="462" width="7" height="168" rx="3.5" fill="#8a5a00"/>
+  <text x="658" y="502" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#8a5a00" font-weight="700">Partially supported</text>
+  <text x="658" y="532" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">The answer rests on a word that had to be matched loosely — a</text>
+  <text x="658" y="554" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">synonym, a spelling variant or a transliteration. The card names</text>
+  <text x="658" y="576" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">the book word that was used instead of the student's word.</text>
+  <rect x="658" y="582" width="214" height="30" rx="9" fill="#ffffff" stroke="#8a5a00" stroke-width="1.2" />
+  <text x="672" y="603" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8a5a00" font-weight="400">status = "answer"</text>
+  <rect x="56" y="652" width="552" height="168" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="56" y="652" width="7" height="168" rx="3.5" fill="#9b1c1c"/>
+  <text x="82" y="692" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#9b1c1c" font-weight="700">Insufficient evidence</text>
+  <text x="82" y="722" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">One fixed Gujarati refusal sentence, no invented content and no</text>
+  <text x="82" y="744" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">page citation. The app reports which words were not found and</text>
+  <text x="82" y="766" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">suggests checking the spelling, chapter or textbook.</text>
+  <rect x="82" y="772" width="214" height="30" rx="9" fill="#ffffff" stroke="#9b1c1c" stroke-width="1.2" />
+  <text x="96" y="793" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#9b1c1c" font-weight="400">status = "refusal"</text>
+  <rect x="632" y="652" width="552" height="168" rx="16" fill="#ffffff" stroke="#ead9c6" stroke-width="1.5" />
+  <rect x="632" y="652" width="7" height="168" rx="3.5" fill="#5b4bb5"/>
+  <text x="658" y="692" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="19" fill="#5b4bb5" font-weight="700">Edition conflict</text>
+  <text x="658" y="722" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">Two selected editions disagree (for example 220 V and 230 V).</text>
+  <text x="658" y="744" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">Both values are shown side by side, each with its own page</text>
+  <text x="658" y="766" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#6b5a50" font-weight="400">citation. The app does not decide which edition is right.</text>
+  <rect x="658" y="772" width="214" height="30" rx="9" fill="#ffffff" stroke="#5b4bb5" stroke-width="1.2" />
+  <text x="672" y="793" font-family="'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#5b4bb5" font-weight="400">status = "conflict"</text>
+  <rect x="56" y="850" width="1128" height="162" rx="14" fill="#fdf3f3" stroke="#e7c6c6" stroke-width="1.5" />
+  <text x="84" y="890" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="18" fill="#9b1c1c" font-weight="700">What is deliberately not produced</text>
+  <text x="84" y="920" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#2a1a12" font-weight="400">No answer assembled from world knowledge. No percentage "confidence" score.</text>
+  <text x="84" y="944" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#2a1a12" font-weight="400">No paraphrase presented as textbook wording. No silent replacement of an unknown technical word.</text>
+  <text x="84" y="968" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#2a1a12" font-weight="400">An answer that cannot be traced to one sentence of the selected edition is refused, not guessed —</text>
+  <text x="84" y="992" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#2a1a12" font-weight="400">0 wrong answers and 0 false "Verified" labels on the frozen evaluation set.</text>
+</svg>

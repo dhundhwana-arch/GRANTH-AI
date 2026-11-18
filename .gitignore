@@ -32,3 +32,9 @@ web/vendor/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# --- documentation / tooling artefacts ---
+# generated diagram previews (scripts/render or a browser) and test failure captures
+docs/assets/*.preview.png
+var/
+*.mmd
